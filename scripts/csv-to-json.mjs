@@ -12,7 +12,8 @@ if (!file) { console.error('Cách dùng: npm run data:import -- <file.csv> [--ou
 
 const rows = parseCsv(readFileSync(file, 'utf8'))
 const header = rows[0].map((h) => h.trim())
-const missing = COLUMNS.filter((c) => !header.includes(c))
+const OPTIONAL = ['video_url', 'video_title']
+const missing = COLUMNS.filter((c) => !OPTIONAL.includes(c) && !header.includes(c))
 if (missing.length) { console.error('Thiếu cột: ' + missing.join(', ')); process.exit(1) }
 
 const byStage = Object.fromEntries(Object.keys(STAGE_FILES).map((s) => [s, []]))

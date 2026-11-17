@@ -32,6 +32,7 @@ for (const m of all) {
       if (k !== 'trade_offs' && !['direct', 'inverse'].includes(r.impact)) err(id, `${k}.${r.metric_id}: impact phải là direct|inverse`)
     }
   }
+  if (m.media?.video_url && !/^https:\/\//.test(m.media.video_url)) err(id, 'media.video_url phải là link https')
   if (m.simulator) {
     const s = m.simulator
     const vals = {}

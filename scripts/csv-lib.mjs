@@ -5,6 +5,7 @@ export const COLUMNS = [
   'bench_tiktok_vn', 'bench_meta_vn', 'bench_d2c_us', 'bench_tham_khao',
   'upstream_drivers', 'downstream_impacts', 'trade_offs',
   'simulator_json', 'homework_json',
+  'video_url', 'video_title',
 ]
 export const STAGE_FILES = {
   '01_product_rd': '01_product.json',
@@ -62,6 +63,7 @@ export function metricToRow(m) {
     relToCell(m.relationships?.trade_offs, false),
     m.simulator ? JSON.stringify(m.simulator) : '',
     m.diagnostic_homework ? JSON.stringify(m.diagnostic_homework) : '',
+    m.media?.video_url || '', m.media?.video_title || '',
   ]
 }
 
@@ -85,5 +87,6 @@ export function rowToMetric(obj, line) {
   }
   const sim = parseJson('simulator_json'); if (sim) m.simulator = sim
   const hw = parseJson('homework_json'); if (hw) m.diagnostic_homework = hw
+  if (obj.video_url?.trim()) m.media = { video_url: obj.video_url.trim(), ...(obj.video_title?.trim() ? { video_title: obj.video_title.trim() } : {}) }
   return m
 }

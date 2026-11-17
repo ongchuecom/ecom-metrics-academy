@@ -1,0 +1,29 @@
+{
+  "_huong_dan": "Sửa file này để cập nhật mục Tài liệu và phần Sách & khóa học, không cần đụng vào code. Ảnh: dán link ảnh công khai (https://...). Để trống image thì app tự dựng bìa theo màu thương hiệu.",
+  "drive_folder": {
+    "title": "Thư mục tài liệu Ecom Metrics",
+    "url": ""
+  },
+  "resources": [
+    {
+      "title": "Bảng dữ liệu 63 chỉ số (CSV, mở bằng Google Sheets)",
+      "type": "sheet",
+      "url": "https://raw.githubusercontent.com/ongchuecom/ecom-metrics-academy/main/templates/metrics_master.csv",
+      "metric_ids": []
+    },
+    {
+      "title": "Mẫu nhập liệu chỉ số mới (CSV)",
+      "type": "sheet",
+      "url": "https://raw.githubusercontent.com/ongchuecom/ecom-metrics-academy/main/templates/metrics_master_template.csv",
+      "metric_ids": []
+    }
+  ],
+  "promos": {
+    "title": "Học sâu hơn cùng Ông chú Ecom",
+    "items": [
+      { "title": "Sách Ecom Truyền Kỳ", "kind": "Sách", "image": "", "url": "https://ongchuecom.com" },
+      { "title": "Khóa đào tạo Ecom Truyền Kỳ", "kind": "Khóa học", "image": "", "url": "https://ongchuecom.com" },
+      { "title": "The Ecom Founder OS", "kind": "Chương trình", "image": "", "url": "https://ongchuecom.com" }
+    ]
+  }
+}

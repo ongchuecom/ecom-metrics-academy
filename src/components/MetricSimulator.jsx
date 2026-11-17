@@ -9,10 +9,10 @@ export function MissingNotice({ what, field, onSelect }) {
   const list = metricsMaster.filter((m) => m[field])
   return (
     <Card>
-      <p className="text-sm text-stone-600">Chỉ số này chưa có {what}. Chọn một chỉ số đã có:</p>
+      <p className="text-sm text-charcoal">Chỉ số này chưa có {what}. Chọn một chỉ số đã có:</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {list.map((m) => (
-          <button key={m.metric_id} onClick={() => onSelect(m.metric_id)} className="rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-800 hover:bg-brand-100">
+          <button key={m.metric_id} onClick={() => onSelect(m.metric_id)} className="rounded-full bg-brand-100 px-3 py-1.5 font-display text-sm font-bold text-brand-800 hover:bg-lime">
             {m.code}
           </button>
         ))}
@@ -31,7 +31,7 @@ export default function MetricSimulator({ metric, onSelect }) {
     <div className="grid gap-4 xl:grid-cols-[minmax(0,380px)_1fr]">
       <Card className="space-y-4">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-bold">{sim.title}</h3>
+          <h3 className="text-lg font-extrabold leading-snug">{sim.title}</h3>
           <button onClick={() => setVals(defaultsOf(sim))} className="shrink-0 text-sm text-brand-700 hover:underline">Đặt lại</button>
         </div>
         {sim.controls.map((c) => (
@@ -46,21 +46,21 @@ export default function MetricSimulator({ metric, onSelect }) {
             const warn = isWarning(v, o.warning_threshold)
             return (
               <div key={o.key} aria-live="polite"
-                className={`rounded-2xl border p-4 shadow-sm transition ${warn ? 'border-red-300 bg-red-50' : 'border-stone-200 bg-white'}`}>
-                <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">{o.label}</p>
-                <p className={`mt-1 font-mono text-2xl font-bold tabular-nums ${warn ? 'text-red-600' : 'text-stone-900'}`}>{formatUnit(v, o.unit)}</p>
+                className={`rounded-2xl border p-4 transition ${warn ? 'border-coral/40 bg-peach' : 'border-stone-200/80 bg-white'}`}>
+                <p className="eyebrow text-charcoal">{o.label}</p>
+                <p className={`num mt-1 text-3xl font-black ${warn ? 'text-coral' : 'text-brand-700'}`}>{formatUnit(v, o.unit)}</p>
                 {o.warning_threshold && (
-                  <p className={`mt-1 text-xs ${warn ? 'font-semibold text-red-700' : 'text-stone-500'}`}>
-                    {warn ? '⚠ Vượt ngưỡng cảnh báo ' : 'Ngưỡng cảnh báo: '}{o.warning_threshold}{o.unit && o.unit !== '%' ? ` ${o.unit}` : ''}
+                  <p className={`mt-1 text-xs ${warn ? 'font-bold text-coral' : 'text-muted'}`}>
+                    {warn ? 'Vượt ngưỡng cảnh báo ' : 'Ngưỡng cảnh báo: '}{o.warning_threshold}{o.unit && o.unit !== '%' ? ` ${o.unit}` : ''}
                   </p>
                 )}
-                <p className="mt-2 font-mono text-[11px] text-stone-400">= {o.formula_eval}</p>
+                <p className="mt-2 break-words font-mono text-[11px] text-muted">= {o.formula_eval}</p>
               </div>
             )
           })}
         </div>
-        <div className="rounded-2xl bg-stone-900 p-4 text-sm leading-relaxed text-stone-100">
-          <span className="font-semibold text-brand-500">Thử ngay: </span>
+        <div className="rounded-2xl bg-lemon p-4 text-sm leading-relaxed text-navy-ink">
+          <span className="font-display font-extrabold">Thử ngay: </span>
           kéo từng thanh một và để ý ô nào chuyển đỏ trước. Chỉ số nào làm ô đỏ nhanh nhất chính là đòn bẩy nhạy nhất của bạn.
         </div>
       </div>

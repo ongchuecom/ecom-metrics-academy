@@ -16,11 +16,11 @@ const SLIDERS = [
 ]
 
 function Stat({ ids, selected, label, value, sub, tone = 'neutral' }) {
-  const toneCls = { good: 'text-brand-700', bad: 'text-red-600', warn: 'text-amber-600', neutral: 'text-stone-900' }[tone]
+  const toneCls = { good: 'text-brand-700', bad: 'text-coral', warn: 'text-accent-600', neutral: 'text-ink' }[tone]
   return (
     <Card highlight={ids.includes(selected)} className="p-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">{label}</p>
-      <p className={`mt-1 font-mono text-xl font-bold tabular-nums ${toneCls}`}>{value}</p>
+      <p className={`num mt-1 text-xl font-black ${toneCls}`}>{value}</p>
       {sub && <p className="mt-0.5 text-xs text-stone-500">{sub}</p>}
     </Card>
   )
@@ -79,20 +79,20 @@ export default function PnLSimulator({ selected }) {
                     style={{ width: `${(Math.abs(x.v) / maxAbs) * 100}%` }}
                   />
                 </div>
-                <span className={`text-right font-mono tabular-nums ${x.v < 0 ? 'text-red-600' : ''}`}>{vnd(x.v, true)}</span>
+                <span className={`text-right num ${x.v < 0 ? 'text-coral' : ''}`}>{vnd(x.v, true)}</span>
               </div>
             ))}
           </div>
           <p className="mt-3 text-sm text-stone-600">
             Lãi trên mỗi đơn của khách mới (đơn đầu tiên):{' '}
-            <span className={`font-mono font-semibold ${r.profitPerNewOrder >= 0 ? 'text-brand-700' : 'text-red-600'}`}>{vnd(r.profitPerNewOrder)}</span>
+            <span className={`num font-semibold ${r.profitPerNewOrder >= 0 ? 'text-brand-700' : 'text-coral'}`}>{vnd(r.profitPerNewOrder)}</span>
             {r.profitPerNewOrder < 0 && r.ltvCac >= 1 && ' — lỗ đơn đầu nhưng có thể gỡ lại nếu khách mua lại đủ vòng đời.'}
           </p>
         </Card>
 
-        <div className="rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-sm">
+        <div className="rounded-2xl bg-lemon p-4 text-navy-ink">
           <p className="text-sm leading-relaxed">
-            <span className="font-semibold text-brand-500">Thử ngay: </span>
+            <span className="font-display font-extrabold">Thử ngay: </span>
             kéo <b>giá vốn</b> lên vài điểm và xem ROAS hòa vốn nhảy lên thế nào; tăng <b>số đơn vòng đời</b> để thấy CLV/CAC đổi màu;
             tăng <b>ngân sách quảng cáo</b> khi ROAS đang dưới hòa vốn để thấy lỗ phình ra.
           </p>

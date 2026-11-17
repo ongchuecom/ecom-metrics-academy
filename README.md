@@ -5,6 +5,19 @@ Web app dạy 63 chỉ số Startup/E-commerce, chia theo 7 khâu vận hành: s
 **Bản chạy thử:** https://ongchuecom.github.io/ecom-metrics-academy/
 
 ## Tính năng
+- **Giao diện** theo bộ nhận diện Ông chú Ecom / A1demy:
+  - font Montserrat và Be Vietnam Pro;
+  - màu vàng chanh, xanh lá, cam đỏ, mỗi màu một ý nghĩa cố định;
+  - ưu tiên mobile: thanh trên cùng có ngăn kéo chọn chỉ số, tab dạng pill vuốt ngang.
+- **Video motion cho mọi chỉ số**, dựng từ dữ liệu, không cần file MP4:
+  - các cảnh Mở đầu → Nói gọn → Công thức → Ví dụ → Mạng lưới → Chốt;
+  - tự phát khi cuộn tới;
+  - có giọng đọc tiếng Việt nếu trình duyệt hỗ trợ.
+- **Video bài giảng quay thật:** điền `media.video_url` (link Google Drive hoặc YouTube) cho chỉ số, hoặc dùng cột `video_url` trong CSV.
+- **Mục Tài liệu và Sách & khóa học:** sửa trong `src/data/site.json`:
+  - link thư mục Drive;
+  - danh sách file;
+  - tiêu đề, ảnh, link sang ongchuecom.com.
 - **Thanh bên:** tìm theo mã hoặc tên tiếng Việt (gõ không dấu vẫn ra) và lọc theo 7 khâu.
 - **Bài học:**
   - định nghĩa;

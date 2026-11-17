@@ -110,9 +110,9 @@ function Sheet({ t }) {
                     {isInput ? (
                       <input type="number" inputMode="decimal" step={r.fmt === 'pct' ? 0.01 : 'any'} value={inputs[r.k]}
                         onChange={(e) => setInputs((s) => ({ ...s, [r.k]: e.target.value === '' ? 0 : Number(e.target.value) }))}
-                        className="w-full bg-transparent px-1 py-0.5 text-right font-mono outline-none" aria-label={r.label} />
+                        className="w-full bg-transparent px-1 py-0.5 text-right num outline-none" aria-label={r.label} />
                     ) : (
-                      <span className={`font-mono tabular-nums ${bad ? 'text-red-600' : ''}`}>{fmtValue(r.fmt, v[r.k])}</span>
+                      <span className={`num ${bad ? 'text-coral' : ''}`}>{fmtValue(r.fmt, v[r.k])}</span>
                     )}
                   </td>
                   <td className="border border-stone-200 px-2 py-1 font-mono text-xs text-stone-500">{isInput ? (r.fmt === 'pct' ? 'nhập dạng 0,4 = 40%' : 'ô nhập') : r.excel}</td>

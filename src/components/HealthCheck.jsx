@@ -36,13 +36,13 @@ export default function HealthCheck() {
             <Card>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h4 className="font-bold">Bệnh án tài chính</h4>
-                <span className="text-sm text-stone-500">Điểm sức khỏe: <b className="text-stone-900">{Math.round(res.score * 100)}/100</b></span>
+                <span className="text-sm text-stone-500">Điểm sức khỏe: <b className="text-ink">{Math.round(res.score * 100)}/100</b></span>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
                 {[['AOV', vnd(res.metrics.aov)], ['CAC', vnd(res.metrics.cac)], ['ROAS / hòa vốn', `${num(res.metrics.roas)} / ${num(res.metrics.beRoas)}`],
                   ['CLV / CAC', num(res.metrics.ltvCac)], ['Biên đóng góp', pct(res.metrics.margin)], ['Lãi ròng', vnd(res.metrics.net, true)],
                   ['Cố định / DT', pct(res.metrics.fixedPct)], ['Khách cũ / đơn', pct(res.metrics.returningShare)]].map(([k, v]) => (
-                  <div key={k} className="rounded-lg bg-stone-50 p-2"><p className="text-xs text-stone-500">{k}</p><p className="font-mono font-semibold tabular-nums">{v}</p></div>
+                  <div key={k} className="rounded-lg bg-stone-50 p-2"><p className="text-xs text-stone-500">{k}</p><p className="num font-semibold tabular-nums">{v}</p></div>
                 ))}
               </div>
             </Card>
