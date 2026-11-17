@@ -1,5 +1,7 @@
 # Ecom Metrics Academy
 
+**Dùng thử:** https://ongchuecom.github.io/ecom-metrics-academy/
+
 Web app dạy các chỉ số Startup / E-commerce: **AOV, CAC, ROAS, CLV, P&L**.
 
 ## Tính năng
