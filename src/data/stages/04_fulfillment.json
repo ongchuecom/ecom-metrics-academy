@@ -1,0 +1,483 @@
+[
+  {
+    "metric_id": "ops_inventory_turnover",
+    "code": "Inventory Turnover",
+    "name": "Inventory Turnover",
+    "vi_name": "Vòng quay hàng tồn kho",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Inventory Health",
+    "definition": "Số lần hàng tồn kho được bán hết và nhập lại trong một kỳ. Vòng quay càng nhanh, tiền càng ít bị giam trong kho.",
+    "formula": {
+      "readable": "Vòng quay = Giá vốn hàng bán trong kỳ / Tồn kho bình quân",
+      "latex": "\\text{Turnover} = \\frac{\\text{COGS}}{\\text{Average inventory}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "ops_sell_through",
+          "impact": "direct",
+          "note": "Bán hết lô nhanh hơn thì vòng quay nhanh hơn"
+        },
+        {
+          "metric_id": "ops_dead_stock",
+          "impact": "inverse",
+          "note": "Hàng chết nằm kho kéo vòng quay chậm lại"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "ops_dio",
+          "impact": "inverse",
+          "note": "Vòng quay nhanh thì số ngày tồn kho ít"
+        },
+        {
+          "metric_id": "fin_cash_runway",
+          "impact": "direct",
+          "note": "Tiền ít bị giam trong kho thì dòng tiền dư dả hơn"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "ops_stockout_rate",
+          "note": "Giữ tồn kho quá mỏng để quay nhanh dễ dẫn đến hết hàng"
+        }
+      ]
+    },
+    "simulator": {
+      "title": "Tiền đang nằm trong kho bao lâu?",
+      "controls": [
+        {
+          "key": "annual_cogs",
+          "label": "Giá vốn hàng bán / năm",
+          "min": 500000000,
+          "max": 30000000000,
+          "step": 100000000,
+          "default": 6000000000,
+          "unit": "VND"
+        },
+        {
+          "key": "avg_inventory",
+          "label": "Tồn kho bình quân",
+          "min": 100000000,
+          "max": 10000000000,
+          "step": 50000000,
+          "default": 1500000000,
+          "unit": "VND"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "turnover",
+          "label": "Vòng quay / năm",
+          "formula_eval": "annual_cogs / avg_inventory",
+          "unit": "lần",
+          "warning_threshold": "< 4"
+        },
+        {
+          "key": "dio",
+          "label": "Số ngày tồn kho (DIO)",
+          "formula_eval": "365 / (annual_cogs / avg_inventory)",
+          "unit": "ngày",
+          "warning_threshold": "> 90"
+        }
+      ]
+    },
+    "diagnostic_homework": {
+      "title": "Bệnh án: Lãi trên giấy nhưng tiền nằm cả trong kho",
+      "scenario": "Doanh nghiệp có giá vốn hàng bán cả năm 6 tỷ đồng, tồn kho bình quân 1,5 tỷ đồng. Nhà cung cấp đang chào giá giảm 8% nếu nhập lô gấp đôi.",
+      "tasks": [
+        {
+          "task_id": "inv_t1",
+          "type": "numeric_input",
+          "question": "Số ngày tồn kho (DIO) hiện tại là bao nhiêu ngày?",
+          "correct_value": 91.25,
+          "tolerance": 1,
+          "unit": "ngày",
+          "hint": "Vòng quay = 6 tỷ / 1,5 tỷ. DIO = 365 / vòng quay.",
+          "explanation": "Vòng quay = 4 lần/năm → DIO = 365 / 4 ≈ 91 ngày: mỗi đồng nhập hàng mất khoảng 3 tháng mới quay về."
+        },
+        {
+          "task_id": "inv_t2",
+          "type": "strategic_decision",
+          "question": "Có nên nhận đề nghị nhập lô gấp đôi để được giảm 8%?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Có, vì giá vốn giảm 8% là lãi thêm chắc chắn.",
+              "is_correct": false,
+              "reason": "Nhập gấp đôi làm tồn kho bình quân tăng, DIO kéo dài và giam thêm tiền; rủi ro thành hàng chết nếu SKU bán chậm."
+            },
+            {
+              "id": "b",
+              "text": "Chỉ nhập lô lớn cho SKU bán nhanh, ổn định; SKU chậm thì nhập lô nhỏ và xả bớt hàng tồn trước.",
+              "is_correct": true,
+              "reason": "Phần giảm giá chỉ đáng khi hàng bán hết trong thời gian ngắn; tiền giam trong kho có chi phí cơ hội và rủi ro."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "ops_dio",
+    "code": "DIO",
+    "name": "Days Inventory Outstanding",
+    "vi_name": "Số ngày tồn kho",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Inventory Health",
+    "definition": "Số ngày trung bình hàng hóa nằm trong kho trước khi được bán.",
+    "formula": {
+      "readable": "DIO = Tồn kho bình quân / Giá vốn hàng bán × Số ngày trong kỳ",
+      "latex": "\\text{DIO} = \\frac{\\text{Average inventory}}{\\text{COGS}} \\times \\text{Days}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "ops_inventory_turnover",
+          "impact": "inverse",
+          "note": "Vòng quay nhanh thì DIO ngắn"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "fin_cash_runway",
+          "impact": "inverse",
+          "note": "DIO dài giam tiền mặt, rút ngắn đường băng"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "ops_sell_through",
+    "code": "Sell-Through Rate",
+    "name": "Sell-Through Rate",
+    "vi_name": "Tỷ lệ bán hết lô hàng",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Inventory Health",
+    "definition": "Tỷ lệ số lượng đã bán trên số lượng nhập trong một kỳ. Đo một lô hàng có bán tốt không.",
+    "formula": {
+      "readable": "Sell-Through (%) = Số lượng đã bán / Số lượng nhập × 100",
+      "latex": "\\text{STR} = \\frac{\\text{Units sold}}{\\text{Units received}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ops_inventory_turnover",
+          "impact": "direct",
+          "note": "Bán hết lô nhanh làm vòng quay tăng"
+        },
+        {
+          "metric_id": "ops_dead_stock",
+          "impact": "inverse",
+          "note": "Sell-through thấp kéo dài thành hàng tồn chết"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "ops_stockout_rate",
+    "code": "Stockout Rate",
+    "name": "Stockout Rate",
+    "vi_name": "Tỷ lệ hết hàng",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Inventory Health",
+    "definition": "Tỷ lệ thời gian (hoặc tỷ lệ SKU) không có hàng để bán khi khách có nhu cầu.",
+    "formula": {
+      "readable": "Stockout Rate (%) = Số SKU-ngày hết hàng / Tổng số SKU-ngày × 100",
+      "latex": "\\text{Stockout} = \\frac{\\text{SKU-days out of stock}}{\\text{Total SKU-days}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "sales_cr",
+          "impact": "inverse",
+          "note": "Hết hàng làm mất đơn ngay tại trang bán"
+        },
+        {
+          "metric_id": "mkt_cpa",
+          "impact": "direct",
+          "note": "Quảng cáo vẫn chạy khi hết hàng là đốt tiền, CPA tăng"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "ops_inventory_turnover",
+          "note": "Tăng tồn kho an toàn để tránh hết hàng làm vòng quay chậm lại"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "ops_dead_stock",
+    "code": "Dead Stock %",
+    "name": "Dead Stock Ratio",
+    "vi_name": "Tỷ lệ hàng tồn chết",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Inventory Health",
+    "definition": "Tỷ trọng giá trị hàng không bán được trong một khoảng thời gian dài (ví dụ quá 90–180 ngày) trên tổng giá trị tồn kho.",
+    "formula": {
+      "readable": "Dead Stock (%) = Giá trị hàng không bán được trong N ngày / Tổng giá trị tồn kho × 100",
+      "latex": "\\text{Dead stock} = \\frac{\\text{Value of stock unsold for N days}}{\\text{Total inventory value}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "ops_sell_through",
+          "impact": "inverse",
+          "note": "Lô bán chậm dần thành hàng chết"
+        },
+        {
+          "metric_id": "prod_sku_concentration",
+          "impact": "direct",
+          "note": "Danh mục nhiều SKU đuôi dài dễ sinh hàng chết"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "ops_inventory_turnover",
+          "impact": "inverse",
+          "note": "Hàng chết làm vòng quay chậm"
+        },
+        {
+          "metric_id": "fin_cash_runway",
+          "impact": "inverse",
+          "note": "Hàng chết giam tiền mặt"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "ops_order_cycle_time",
+    "code": "Order Cycle Time",
+    "name": "Order Cycle Time",
+    "vi_name": "Thời gian xử lý đơn",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Delivery Performance",
+    "definition": "Thời gian trung bình từ lúc khách đặt hàng đến lúc khách nhận được hàng.",
+    "formula": {
+      "readable": "Order Cycle Time = Tổng (Thời điểm giao thành công − Thời điểm đặt) / Số đơn",
+      "latex": "\\text{OCT} = \\frac{\\sum (\\text{Delivered at} - \\text{Ordered at})}{\\text{Orders}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "team_packing_speed",
+          "impact": "inverse",
+          "note": "Đóng gói nhanh rút ngắn thời gian xử lý"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "ops_rto_rate",
+          "impact": "direct",
+          "note": "Giao chậm làm khách COD đổi ý, tăng hoàn hàng"
+        },
+        {
+          "metric_id": "ret_csat",
+          "impact": "inverse",
+          "note": "Chờ lâu làm hài lòng giảm"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "ops_otd",
+    "code": "OTD",
+    "name": "On-Time Delivery",
+    "vi_name": "Tỷ lệ giao đúng hẹn",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Delivery Performance",
+    "definition": "Tỷ lệ đơn được giao đến khách trong thời gian đã cam kết.",
+    "formula": {
+      "readable": "OTD (%) = Số đơn giao đúng hẹn / Tổng số đơn giao × 100",
+      "latex": "\\text{OTD} = \\frac{\\text{On-time deliveries}}{\\text{Deliveries}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ret_csat",
+          "impact": "direct",
+          "note": "Giao đúng hẹn tăng hài lòng"
+        },
+        {
+          "metric_id": "ops_rto_rate",
+          "impact": "inverse",
+          "note": "Giao đúng hẹn giúp giảm hoàn hàng"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "ops_rto_rate",
+    "code": "RTO Rate",
+    "name": "Return To Origin Rate",
+    "vi_name": "Tỷ lệ hoàn hàng / quay đầu",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Delivery Performance",
+    "definition": "Tỷ lệ đơn đã gửi đi nhưng bị trả về người bán (khách không nhận, không liên lạc được, từ chối COD…).",
+    "formula": {
+      "readable": "RTO Rate (%) = Số đơn hoàn về / Tổng số đơn đã gửi × 100",
+      "latex": "\\text{RTO} = \\frac{\\text{Returned-to-origin orders}}{\\text{Shipped orders}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "ops_order_cycle_time",
+          "impact": "direct",
+          "note": "Giao chậm làm khách đổi ý"
+        },
+        {
+          "metric_id": "prod_defect_rate",
+          "impact": "direct",
+          "note": "Hàng lỗi bị khách từ chối nhận"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "fin_cm1",
+          "impact": "inverse",
+          "note": "Mỗi đơn hoàn mất phí ship hai chiều và hao hụt hàng"
+        },
+        {
+          "metric_id": "fin_breakeven_roas",
+          "impact": "direct",
+          "note": "Chi phí hoàn làm mỏng biên, ROAS hòa vốn tăng"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "sales_cr",
+          "note": "Bắt chuyển khoản trước giảm hoàn hàng nhưng có thể làm giảm tỷ lệ chốt đơn"
+        }
+      ]
+    },
+    "simulator": {
+      "title": "Hoàn hàng đang ăn mất bao nhiêu tiền?",
+      "controls": [
+        {
+          "key": "orders",
+          "label": "Số đơn gửi / tháng",
+          "min": 500,
+          "max": 30000,
+          "step": 100,
+          "default": 3000,
+          "unit": "đơn"
+        },
+        {
+          "key": "rto",
+          "label": "Tỷ lệ hoàn",
+          "min": 1,
+          "max": 40,
+          "step": 0.5,
+          "default": 15,
+          "unit": "%"
+        },
+        {
+          "key": "cost_per_rto",
+          "label": "Chi phí mỗi đơn hoàn (ship 2 chiều, đóng gói, hư hỏng)",
+          "min": 10000,
+          "max": 150000,
+          "step": 5000,
+          "default": 60000,
+          "unit": "VND"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "rto_orders",
+          "label": "Số đơn hoàn / tháng",
+          "formula_eval": "orders * rto / 100",
+          "unit": "đơn"
+        },
+        {
+          "key": "rto_cost",
+          "label": "Tiền mất do hoàn / tháng",
+          "formula_eval": "orders * rto / 100 * cost_per_rto",
+          "unit": "VND",
+          "warning_threshold": "> 20000000"
+        }
+      ]
+    },
+    "diagnostic_homework": {
+      "title": "Bệnh án: Đơn COD về nhiều nhưng tiền về ít",
+      "scenario": "Shop gửi 3.000 đơn COD/tháng, tỷ lệ hoàn 15%. Mỗi đơn hoàn mất 45.000đ phí ship hai chiều và 15.000đ đóng gói, hư hỏng.",
+      "tasks": [
+        {
+          "task_id": "rto_t1",
+          "type": "numeric_input",
+          "question": "Mỗi tháng shop mất bao nhiêu tiền vì đơn hoàn (VND)?",
+          "correct_value": 27000000,
+          "tolerance": 100000,
+          "unit": "VND",
+          "hint": "Số đơn hoàn = 3.000 × 15%. Chi phí mỗi đơn hoàn = 45.000 + 15.000.",
+          "explanation": "450 đơn hoàn × 60.000đ = 27.000.000đ/tháng, chưa tính tiền quảng cáo đã chi cho 450 đơn này."
+        },
+        {
+          "task_id": "rto_t2",
+          "type": "strategic_decision",
+          "question": "Cách giảm hoàn hàng nào hợp lý nhất?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Tắt COD hoàn toàn, chỉ nhận chuyển khoản trước.",
+              "is_correct": false,
+              "reason": "Giảm hoàn ngay nhưng mất một phần lớn khách quen trả tiền khi nhận; doanh thu có thể giảm nhiều hơn khoản tiết kiệm."
+            },
+            {
+              "id": "b",
+              "text": "Gọi hoặc nhắn xác nhận đơn trước khi gửi, ưu đãi nhỏ cho khách chuyển khoản trước, chặn số điện thoại có lịch sử bom hàng.",
+              "is_correct": true,
+              "reason": "Lọc đơn rủi ro mà vẫn giữ COD cho khách thật; cắt phần lớn chi phí hoàn với chi phí thấp."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "ops_shrinkage",
+    "code": "Shrinkage Rate",
+    "name": "Shrinkage Rate",
+    "vi_name": "Tỷ lệ hao hụt hàng hóa",
+    "stage": "04_fulfillment_supply",
+    "sub_group": "Inventory Health",
+    "definition": "Tỷ lệ giá trị hàng hóa bị mất mát, hư hỏng, sai lệch giữa sổ sách và thực tế.",
+    "formula": {
+      "readable": "Shrinkage (%) = (Tồn kho sổ sách − Tồn kho thực tế) / Tồn kho sổ sách × 100",
+      "latex": "\\text{Shrinkage} = \\frac{\\text{Book inventory} - \\text{Actual inventory}}{\\text{Book inventory}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "prod_cogs",
+          "impact": "direct",
+          "note": "Hao hụt làm giá vốn thực tế tăng"
+        },
+        {
+          "metric_id": "fin_net_margin",
+          "impact": "inverse",
+          "note": "Hao hụt trừ thẳng vào lợi nhuận"
+        }
+      ],
+      "trade_offs": []
+    }
+  }
+]

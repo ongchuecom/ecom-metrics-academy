@@ -16,3 +16,13 @@ html, body, #root { height: 100%; }
 body { @apply bg-stone-50 text-stone-800 antialiased; }
 
 input[type="range"] { accent-color: var(--color-brand-600); }
+
+/* Mũi tên chuyển động trong sơ đồ phụ thuộc */
+@keyframes flow-dash { to { stroke-dashoffset: -16; } }
+.flow-line { stroke-dasharray: 6 10; animation: flow-dash 0.9s linear infinite; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fade-up 0.35s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .flow-line, .fade-up { animation: none; }
+}
+.katex-display { margin: 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }

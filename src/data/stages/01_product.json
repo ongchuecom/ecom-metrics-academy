@@ -1,0 +1,276 @@
+[
+  {
+    "metric_id": "prod_pmf_score",
+    "code": "PMF Score",
+    "name": "Product-Market Fit Score",
+    "vi_name": "Điểm phù hợp sản phẩm – thị trường",
+    "stage": "01_product_rd",
+    "sub_group": "Product Validation",
+    "definition": "Tỷ lệ khách hàng trả lời sẽ “rất thất vọng” nếu không còn được dùng sản phẩm (khảo sát kiểu Sean Ellis). Đo mức độ sản phẩm thực sự cần thiết với tệp khách mục tiêu.",
+    "formula": {
+      "readable": "PMF Score (%) = Số người trả lời “rất thất vọng” / Tổng số người trả lời × 100",
+      "latex": "\\text{PMF} = \\frac{\\text{Very disappointed}}{\\text{Respondents}} \\times 100\\%"
+    },
+    "benchmarks": {
+      "tham_khao": "Mốc thường được trích dẫn: ≥ 40% (Sean Ellis)"
+    },
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ret_rpr",
+          "impact": "direct",
+          "note": "Sản phẩm thật sự cần thiết thì khách quay lại mua nhiều hơn"
+        },
+        {
+          "metric_id": "ret_nps",
+          "impact": "direct",
+          "note": "Khách “không thể thiếu” sản phẩm thường sẵn lòng giới thiệu"
+        },
+        {
+          "metric_id": "sales_cr",
+          "impact": "direct",
+          "note": "Thông điệp đúng nhu cầu thật giúp chốt đơn dễ hơn"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "mkt_cpa",
+          "note": "Mở rộng sang tệp khách rộng hơn để scale thường kéo PMF Score xuống"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "prod_cogs",
+    "code": "COGS",
+    "name": "Cost of Goods Sold",
+    "vi_name": "Giá vốn hàng bán",
+    "stage": "01_product_rd",
+    "sub_group": "Cost Structure",
+    "definition": "Toàn bộ chi phí trực tiếp để có được hàng hóa đã bán: giá nhập hoặc giá sản xuất, cộng chi phí đưa hàng về kho. Thường được theo dõi dưới dạng % doanh thu.",
+    "formula": {
+      "readable": "COGS (%) = Giá vốn hàng đã bán / Doanh thu × 100",
+      "latex": "\\text{COGS\\%} = \\frac{\\text{COGS}}{\\text{Revenue}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "prod_landed_cost",
+          "impact": "direct",
+          "note": "Giá vốn về kho (landed cost) là thành phần chính của COGS"
+        },
+        {
+          "metric_id": "prod_defect_rate",
+          "impact": "direct",
+          "note": "Hàng lỗi phải bỏ hoặc đổi trả đẩy giá vốn thực tế lên"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "prod_gross_margin",
+          "impact": "inverse",
+          "note": "COGS càng cao, biên lãi gộp càng mỏng"
+        },
+        {
+          "metric_id": "fin_breakeven_roas",
+          "impact": "direct",
+          "note": "COGS cao làm ROAS hòa vốn tăng"
+        },
+        {
+          "metric_id": "fin_cm1",
+          "impact": "inverse",
+          "note": "COGS ăn trực tiếp vào lợi nhuận đóng góp"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "prod_defect_rate",
+          "note": "Ép giá nhà cung cấp quá sâu dễ đổi lấy chất lượng kém, tăng tỷ lệ lỗi"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "prod_landed_cost",
+    "code": "Landed Cost",
+    "name": "Landed Cost",
+    "vi_name": "Giá vốn về kho",
+    "stage": "01_product_rd",
+    "sub_group": "Cost Structure",
+    "definition": "Tổng chi phí để một đơn vị hàng nằm trong kho sẵn sàng bán: giá mua, vận chuyển quốc tế và nội địa, thuế nhập khẩu, phí thông quan, bảo hiểm.",
+    "formula": {
+      "readable": "Landed Cost / đơn vị = (Giá mua + Vận chuyển + Thuế, phí nhập khẩu + Bảo hiểm) / Số lượng",
+      "latex": "\\text{Landed} = \\frac{\\text{Purchase} + \\text{Freight} + \\text{Duties} + \\text{Insurance}}{\\text{Units}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "prod_cogs",
+          "impact": "direct",
+          "note": "Landed cost tăng kéo COGS tăng theo"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "ops_inventory_turnover",
+          "note": "Nhập lô lớn để giảm landed cost mỗi đơn vị lại làm hàng nằm kho lâu hơn"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "prod_gross_margin",
+    "code": "Gross Margin",
+    "name": "Gross Margin",
+    "vi_name": "Biên lãi gộp",
+    "stage": "01_product_rd",
+    "sub_group": "Cost Structure",
+    "definition": "Phần trăm doanh thu còn lại sau khi trừ giá vốn hàng bán. Là “dư địa” để trả phí sàn, vận chuyển, quảng cáo và chi phí cố định.",
+    "formula": {
+      "readable": "Gross Margin (%) = (Doanh thu − COGS) / Doanh thu × 100",
+      "latex": "\\text{GM} = \\frac{\\text{Revenue} - \\text{COGS}}{\\text{Revenue}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "prod_cogs",
+          "impact": "inverse",
+          "note": "Giá vốn giảm thì biên gộp tăng"
+        },
+        {
+          "metric_id": "sales_discount_rate",
+          "impact": "inverse",
+          "note": "Giảm giá sâu làm biên gộp trên đơn mỏng đi"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "fin_cm1",
+          "impact": "direct",
+          "note": "Biên gộp là tầng đầu tiên của lợi nhuận đóng góp"
+        },
+        {
+          "metric_id": "fin_breakeven_roas",
+          "impact": "inverse",
+          "note": "Biên càng dày, ROAS hòa vốn càng thấp"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "sales_cr",
+          "note": "Tăng giá để nới biên có thể làm giảm tỷ lệ chuyển đổi"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "prod_sku_concentration",
+    "code": "SKU Concentration",
+    "name": "SKU Concentration",
+    "vi_name": "Mức độ tập trung doanh thu theo SKU",
+    "stage": "01_product_rd",
+    "sub_group": "Assortment",
+    "definition": "Tỷ trọng doanh thu đến từ nhóm SKU bán chạy nhất (thường là top 20% SKU). Cho biết doanh nghiệp đang phụ thuộc vào ít mã hàng đến mức nào.",
+    "formula": {
+      "readable": "SKU Concentration (%) = Doanh thu từ top 20% SKU / Tổng doanh thu × 100",
+      "latex": "\\text{Conc} = \\frac{\\text{Revenue}_{\\text{top 20\\% SKU}}}{\\text{Revenue}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ops_dead_stock",
+          "impact": "direct",
+          "note": "Nhiều SKU đuôi dài bán chậm dễ thành hàng tồn chết"
+        },
+        {
+          "metric_id": "ops_stockout_rate",
+          "impact": "direct",
+          "note": "Phụ thuộc vài SKU thì hết hàng một mã là hụt doanh thu lớn"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "sales_aov",
+          "note": "Thu gọn danh mục giúp vận hành nhẹ nhưng giảm cơ hội bán kèm, nâng AOV"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "prod_hero_ratio",
+    "code": "Hero Product Ratio",
+    "name": "Hero Product Ratio",
+    "vi_name": "Tỷ trọng sản phẩm chủ lực",
+    "stage": "01_product_rd",
+    "sub_group": "Assortment",
+    "definition": "Tỷ trọng doanh thu của các sản phẩm chủ lực (hero) – sản phẩm kéo khách mới và định vị thương hiệu.",
+    "formula": {
+      "readable": "Hero Ratio (%) = Doanh thu sản phẩm hero / Tổng doanh thu × 100",
+      "latex": "\\text{Hero} = \\frac{\\text{Revenue}_{\\text{hero}}}{\\text{Revenue}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "mkt_cpa",
+          "impact": "inverse",
+          "note": "Sản phẩm hero đã được kiểm chứng thường có CPA thấp hơn khi chạy quảng cáo"
+        },
+        {
+          "metric_id": "sales_bundle_attach",
+          "impact": "direct",
+          "note": "Hero là “đầu kéo” để bán kèm sản phẩm khác"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "prod_sku_concentration",
+          "note": "Dồn lực vào hero làm tăng rủi ro phụ thuộc một vài mã hàng"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "prod_defect_rate",
+    "code": "Defect Rate",
+    "name": "Defect Rate",
+    "vi_name": "Tỷ lệ hàng lỗi",
+    "stage": "01_product_rd",
+    "sub_group": "Quality",
+    "definition": "Tỷ lệ sản phẩm lỗi (do sản xuất, đóng gói hoặc vận chuyển) trên tổng số sản phẩm giao đi.",
+    "formula": {
+      "readable": "Defect Rate (%) = Số sản phẩm lỗi / Tổng số sản phẩm giao × 100",
+      "latex": "\\text{Defect} = \\frac{\\text{Defective units}}{\\text{Units shipped}} \\times 100\\%"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "prod_cogs",
+          "impact": "direct",
+          "note": "Hàng lỗi phải đổi trả, tiêu hủy làm giá vốn thực tế tăng"
+        },
+        {
+          "metric_id": "ret_csat",
+          "impact": "inverse",
+          "note": "Nhận hàng lỗi làm điểm hài lòng giảm mạnh"
+        },
+        {
+          "metric_id": "ops_rto_rate",
+          "impact": "direct",
+          "note": "Hàng lỗi tăng tỷ lệ hoàn trả"
+        }
+      ],
+      "trade_offs": []
+    }
+  }
+]

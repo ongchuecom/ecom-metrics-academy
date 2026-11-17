@@ -1,0 +1,183 @@
+[
+  {
+    "metric_id": "team_revenue_per_employee",
+    "code": "Revenue/Employee",
+    "name": "Revenue per Employee",
+    "vi_name": "Doanh thu trên mỗi nhân sự",
+    "stage": "07_team_operations",
+    "sub_group": "Team Productivity",
+    "definition": "Doanh thu bình quân mỗi nhân sự toàn thời gian (FTE) trong kỳ.",
+    "formula": {
+      "readable": "Revenue/Employee = Doanh thu / Số nhân sự quy đổi toàn thời gian",
+      "latex": "\\text{Rev/FTE} = \\frac{\\text{Revenue}}{\\text{FTE}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "fin_ebitda",
+          "impact": "direct",
+          "note": "Mỗi người tạo ra nhiều doanh thu hơn thì chi phí cố định nhẹ hơn"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "ret_csat",
+          "note": "Cắt người quá tay để tăng chỉ số có thể làm chất lượng phục vụ giảm"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "team_gp_per_employee",
+    "code": "Gross Profit/Employee",
+    "name": "Gross Profit per Employee",
+    "vi_name": "Lợi nhuận gộp trên mỗi nhân sự",
+    "stage": "07_team_operations",
+    "sub_group": "Team Productivity",
+    "definition": "Lợi nhuận gộp bình quân mỗi nhân sự. Phản ánh năng suất tốt hơn doanh thu/nhân sự khi biên lãi khác nhau.",
+    "formula": {
+      "readable": "GP/Employee = Lợi nhuận gộp / Số nhân sự quy đổi toàn thời gian",
+      "latex": "\\text{GP/FTE} = \\frac{\\text{Gross profit}}{\\text{FTE}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "prod_gross_margin",
+          "impact": "direct",
+          "note": "Biên gộp dày làm chỉ số tăng"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "fin_ebitda",
+          "impact": "direct",
+          "note": "Năng suất lợi nhuận cao giúp EBITDA tốt hơn"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "team_spend_per_marketer",
+    "code": "Spend/Marketer",
+    "name": "Marketing Spend per Marketer",
+    "vi_name": "Ngân sách quản lý trên mỗi người làm marketing",
+    "stage": "07_team_operations",
+    "sub_group": "Team Productivity",
+    "definition": "Ngân sách quảng cáo trung bình mỗi người làm marketing quản lý. Quá thấp là thừa người, quá cao dễ quản lý không xuể.",
+    "formula": {
+      "readable": "Spend/Marketer = Tổng ngân sách marketing / Số người làm marketing",
+      "latex": "\\text{Spend/Marketer} = \\frac{\\text{Marketing spend}}{\\text{Marketers}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "fin_cac",
+          "impact": "direct",
+          "note": "Chi phí nhân sự marketing là một phần của CAC tổng"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "mkt_creative_fatigue",
+          "note": "Một người ôm quá nhiều ngân sách thì ít thời gian làm creative mới, creative mỏi nhanh"
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "team_cs_resolution_time",
+    "code": "CS Resolution Time",
+    "name": "Customer Service Resolution Time",
+    "vi_name": "Thời gian xử lý xong yêu cầu khách",
+    "stage": "07_team_operations",
+    "sub_group": "Customer Service",
+    "definition": "Thời gian trung bình từ khi khách gửi yêu cầu đến khi vấn đề được giải quyết xong.",
+    "formula": {
+      "readable": "Resolution Time = Tổng thời gian xử lý các yêu cầu / Số yêu cầu đã giải quyết",
+      "latex": "\\text{Resolution} = \\frac{\\sum \\text{time to resolve}}{\\text{Tickets resolved}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ret_csat",
+          "impact": "inverse",
+          "note": "Xử lý lâu làm hài lòng giảm"
+        },
+        {
+          "metric_id": "ret_customer_churn",
+          "impact": "direct",
+          "note": "Vấn đề kéo dài khiến khách rời bỏ"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "team_frt",
+    "code": "FRT",
+    "name": "First Response Time",
+    "vi_name": "Thời gian phản hồi đầu tiên",
+    "stage": "07_team_operations",
+    "sub_group": "Customer Service",
+    "definition": "Thời gian trung bình từ khi khách nhắn đến khi nhận được câu trả lời đầu tiên.",
+    "formula": {
+      "readable": "FRT = Tổng thời gian đến phản hồi đầu tiên / Số cuộc hội thoại",
+      "latex": "\\text{FRT} = \\frac{\\sum \\text{time to first reply}}{\\text{Conversations}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ret_csat",
+          "impact": "inverse",
+          "note": "Phản hồi chậm làm hài lòng giảm"
+        },
+        {
+          "metric_id": "sales_cr",
+          "impact": "inverse",
+          "note": "Trả lời tin nhắn chậm làm mất đơn khi khách đang hỏi mua"
+        }
+      ],
+      "trade_offs": []
+    }
+  },
+  {
+    "metric_id": "team_packing_speed",
+    "code": "Packing Speed",
+    "name": "Packing Speed per Staff",
+    "vi_name": "Tốc độ đóng gói mỗi nhân sự",
+    "stage": "07_team_operations",
+    "sub_group": "Warehouse Productivity",
+    "definition": "Số đơn trung bình một nhân sự kho đóng gói được mỗi giờ (hoặc mỗi ca).",
+    "formula": {
+      "readable": "Packing Speed = Số đơn đóng gói / (Số nhân sự × Số giờ làm)",
+      "latex": "\\text{Packing speed} = \\frac{\\text{Orders packed}}{\\text{Staff} \\times \\text{Hours}}"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "ops_order_cycle_time",
+          "impact": "inverse",
+          "note": "Đóng gói nhanh rút ngắn thời gian xử lý đơn"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "prod_defect_rate",
+          "note": "Ép tốc độ quá cao dễ sinh sai sót, đóng nhầm, hư hỏng"
+        }
+      ]
+    }
+  }
+]

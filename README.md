@@ -1,34 +1,66 @@
 # Ecom Metrics Academy
 
-**Dùng thử:** https://ongchuecom.github.io/ecom-metrics-academy/
+Web app dạy 63 chỉ số Startup/E-commerce, chia theo 7 khâu vận hành: sản phẩm, traffic, chuyển đổi, kho vận, giữ chân, tài chính và đội ngũ.
 
-Web app dạy các chỉ số Startup / E-commerce: **AOV, CAC, ROAS, CLV, P&L**.
+**Bản chạy thử:** https://ongchuecom.github.io/ecom-metrics-academy/
 
 ## Tính năng
-- **Danh sách chỉ số** (bên trái): mỗi chỉ số có định nghĩa, công thức, ví dụ tính tay, ngưỡng tham khảo và đòn bẩy cải thiện.
-- **Giả lập (Simulator):** kéo thanh trượt (AOV, giá vốn, phí sàn, ngân sách quảng cáo, CPC, tỉ lệ chuyển đổi, khách quay lại, vòng đời, chi phí cố định) và xem AOV, CAC, ROAS so với ROAS hòa vốn, CLV, CLV/CAC, P&L tháng đổi ngay lập tức.
-- **Bài tập thực chiến:**
-  - 3 tình huống có đáp án (chấm điểm, sai lệch cho phép 2%, kèm lời giải).
-  - Chẩn đoán "bệnh án tài chính": nhập số liệu một tháng, nhận danh sách triệu chứng, chẩn đoán và đơn thuốc theo mức độ Nặng / Cảnh báo / Tốt.
-- **Bảng tính mẫu:** P&L tháng và Unit economics một đơn, sửa ô nhập để tính lại; tải CSV giữ nguyên công thức (mở bằng Google Sheets / Excel) hoặc chép thẳng sang bảng tính.
+- **Thanh bên:** tìm theo mã hoặc tên tiếng Việt (gõ không dấu vẫn ra) và lọc theo 7 khâu.
+- **Bài học:**
+  - định nghĩa;
+  - công thức hiển thị bằng KaTeX, kèm bản đọc được;
+  - số tham khảo TikTok VN / Meta VN / D2C Mỹ (chỉ khi có số đáng tin).
+- **Sơ đồ phụ thuộc** đặt dưới công thức:
+  - cột Đầu vào → chỉ số đang học → Đầu ra và Đánh đổi;
+  - xanh là thuận chiều, cam là nghịch chiều, tím là đánh đổi;
+  - bấm vào một thẻ để chuyển sang chỉ số đó.
+- **Giả lập chỉ số:** thanh trượt sinh từ JSON; ô kết quả chuyển đỏ khi vượt `warning_threshold`.
+- **Bài tập chẩn đoán:**
+  - hồ sơ bệnh án, bước 1 là tính toán (có gợi ý công thức, chấm theo dung sai);
+  - bước 2 là quyết định chiến lược, chỉ mở khi bước 1 đúng.
+- **Khám sức khỏe shop:** nhập số liệu thật của shop, nhận chẩn đoán.
+- **Mô phỏng tổng thể:** P&L một tháng.
+- **Bảng tính mẫu:** tải CSV giữ nguyên công thức.
+- **Link chia sẻ** đúng bài, ví dụ `#fin_roas/homework`.
 
-## Công thức chính
-| Chỉ số | Công thức |
-|---|---|
-| AOV | Doanh thu ÷ Số đơn |
-| CAC | Chi phí marketing ÷ Số khách mới |
-| ROAS | Doanh thu từ quảng cáo ÷ Chi phí quảng cáo |
-| ROAS hòa vốn | 1 ÷ Biên đóng góp trước quảng cáo |
-| CLV | AOV × Số đơn trong vòng đời × Biên đóng góp |
-| Lãi ròng | Doanh thu − Giá vốn − Chi phí biến đổi − Quảng cáo − Chi phí cố định |
+## Cấu trúc dữ liệu
+```
+src/data/stages/01_product.json … 07_team.json   # mỗi khâu một file, schema metricsMaster (SPEC V2)
+src/data/index.js                                # gộp thành metricsMaster, metricById, STAGES
+src/lib/formula.js                               # bộ tính formula_eval an toàn (không dùng eval)
+```
+Mỗi chỉ số có các trường:
+- bắt buộc: `metric_id, code, name, vi_name, stage, sub_group, definition, formula{readable, latex}, benchmarks, relationships`;
+- tùy chọn: `simulator` và `diagnostic_homework`.
 
-## Chạy trên máy
+`formula_eval` hỗ trợ:
+- số, tên control và tên output đứng trước;
+- các phép `+ - * / %` và dấu ngoặc;
+- các hàm `min max abs round pow sqrt`.
+
+## Thêm hoặc sửa chỉ số bằng Google Sheets
+1. `npm run data:export` xuất toàn bộ dữ liệu ra `templates/metrics_master.csv`.
+   - Mẫu rút gọn có ví dụ: `templates/metrics_master_template.csv`.
+2. Mở file bằng Google Sheets (File → Import) và sửa. Cách ghi từng loại cột:
+   - **upstream_drivers, downstream_impacts:** mỗi quan hệ một dòng trong ô (Ctrl+Enter), dạng `metric_id | direct | ghi chú` (hoặc `inverse` thay cho `direct`).
+   - **trade_offs:** mỗi dòng dạng `metric_id | ghi chú`.
+   - **simulator_json, homework_json:** JSON đúng schema; để trống nếu chưa có.
+   - **Dòng ghi chú hoặc nháp:** bắt đầu `metric_id` bằng `#` thì dòng đó bị bỏ qua.
+3. Tải về CSV (File → Download → CSV), rồi chạy `npm run data:import -- duong-dan/file.csv`.
+4. Chạy `npm run validate` để kiểm tra:
+   - id trùng;
+   - quan hệ trỏ tới id không tồn tại;
+   - output không tính được;
+   - câu hỏi quyết định không có đúng 1 đáp án.
+
+   Lệnh `npm run build` cũng tự chạy bước kiểm tra này.
+
+## Chạy
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # xuất bản tĩnh ra thư mục dist/
+npm run dev       # http://localhost:5173
+npm run build     # kiểm tra dữ liệu + build ra dist/
 ```
+Mỗi lần push lên `main`, GitHub Actions tự build và deploy lên nhánh `gh-pages`.
 
-Công nghệ: Vite 6, React 18, Tailwind CSS 4.
-
-> Số liệu trong ví dụ là minh họa. Ngưỡng "tham khảo" chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.
+> Số liệu trong ví dụ và bài tập là minh họa. Quy ước CM1/CM2/CM3 trong app: CM1 trước quảng cáo, CM2 sau quảng cáo, CM3 sau mọi chi phí marketing; các tài liệu khác có thể chia khác.

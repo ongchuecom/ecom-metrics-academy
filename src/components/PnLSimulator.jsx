@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { SIM_DEFAULTS } from '../data/metrics.js'
+import { SIM_DEFAULTS } from '../data/simDefaults.js'
 import { simulate, vnd, pct, num } from '../lib/calc.js'
 import { Card, Slider } from './ui.jsx'
 
@@ -26,7 +26,7 @@ function Stat({ ids, selected, label, value, sub, tone = 'neutral' }) {
   )
 }
 
-export default function Simulator({ selected }) {
+export default function PnLSimulator({ selected }) {
   const [p, setP] = useState(SIM_DEFAULTS)
   const r = useMemo(() => simulate(p), [p])
   const set = (k) => (v) => setP((s) => ({ ...s, [k]: v }))
@@ -58,16 +58,16 @@ export default function Simulator({ selected }) {
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          <Stat ids={['aov']} selected={selected} label="AOV" value={vnd(r.aov)} sub={`${num(r.totalOrders, 0)} đơn / tháng`} />
-          <Stat ids={['cac']} selected={selected} label="CAC" value={vnd(r.cac)} sub={`${num(r.newCustomers, 0)} khách mới từ ${num(r.clicks, 0)} lượt nhấp`} />
-          <Stat ids={['roas']} selected={selected} label="ROAS" value={num(r.roas)} tone={roasTone}
+          <Stat ids={['sales_aov']} selected={selected} label="AOV" value={vnd(r.aov)} sub={`${num(r.totalOrders, 0)} đơn / tháng`} />
+          <Stat ids={['fin_cac', 'fin_paid_cac']} selected={selected} label="CAC" value={vnd(r.cac)} sub={`${num(r.newCustomers, 0)} khách mới từ ${num(r.clicks, 0)} lượt nhấp`} />
+          <Stat ids={['fin_roas', 'fin_breakeven_roas']} selected={selected} label="ROAS" value={num(r.roas)} tone={roasTone}
             sub={`Hòa vốn: ${Number.isFinite(r.breakevenRoas) ? num(r.breakevenRoas) : 'không thể (biên ≤ 0)'}`} />
-          <Stat ids={['clv']} selected={selected} label="CLV" value={vnd(r.clv)} sub={`Biên đóng góp ${pct(r.marginPct)}`} />
-          <Stat ids={['clv', 'cac']} selected={selected} label="CLV / CAC" value={num(r.ltvCac)} tone={ltvTone} sub="Mốc tham khảo: ≥ 3" />
-          <Stat ids={['pnl']} selected={selected} label="Lãi ròng / tháng" value={vnd(r.netProfit, true)} tone={r.netProfit >= 0 ? 'good' : 'bad'} sub={`Biên ròng ${pct(r.netMarginPct)}`} />
+          <Stat ids={['ret_clv']} selected={selected} label="CLV" value={vnd(r.clv)} sub={`Biên đóng góp ${pct(r.marginPct)}`} />
+          <Stat ids={['fin_ltv_cac']} selected={selected} label="CLV / CAC" value={num(r.ltvCac)} tone={ltvTone} sub="Mốc tham khảo: ≥ 3" />
+          <Stat ids={['fin_net_margin', 'fin_ebitda']} selected={selected} label="Lãi ròng / tháng" value={vnd(r.netProfit, true)} tone={r.netProfit >= 0 ? 'good' : 'bad'} sub={`Biên ròng ${pct(r.netMarginPct)}`} />
         </div>
 
-        <Card highlight={selected === 'pnl'}>
+        <Card highlight={['fin_net_margin', 'fin_ebitda', 'fin_cm1', 'fin_cm2', 'fin_cm3'].includes(selected)}>
           <h3 className="font-bold">P&L tháng (giả lập)</h3>
           <div className="mt-3 space-y-2">
             {pnl.map((x) => (
