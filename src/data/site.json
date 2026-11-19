@@ -44,5 +44,11 @@
   "lead": {
     "_huong_dan": "Dán URL ứng dụng web của Apps Script (integrations/sheet-receiver.gs) vào endpoint để bật form Zalo và chấm sao, góp ý. Để trống thì hai phần này ẩn (nút chia sẻ vẫn hiện).",
     "endpoint": ""
+  },
+  "contact": {
+    "_huong_dan": "Kênh liên hệ hiện ở trang chủ, mục Ai giải đáp. Để trống kênh nào thì kênh đó không hiện. Khi đã có lead.endpoint, form Zalo hiện ngay dưới.",
+    "website": "https://ongchuecom.com",
+    "facebook": "",
+    "zalo": ""
   }
 }

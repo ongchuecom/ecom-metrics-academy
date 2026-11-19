@@ -32,8 +32,9 @@ function page(path, title, desc, body) {
 
 const urls = []
 // Trang chủ: giữ index.html gốc nhưng thêm nội dung chữ và link tới mọi bài
-const homeBody = `<h1>Ecom Metrics Academy: ${stages.length} chỉ số E-commerce và 10 Playbook tình huống</h1>
-<p>Học các chỉ số vận hành Ecom theo văn phong sách Ecom Truyền Kỳ của Ông chú Ecom: Net Sales, CM1, CM2, CM3, ROAS hòa vốn, CPA, AOV, dòng tiền, tồn kho, hoàn hàng…</p>
+const homeBody = `<h1>Ecom Metrics Academy: học đọc số để shop có lãi thật</h1>
+<p>Nơi học miễn phí ${stages.length} chỉ số vận hành Ecom và ${playbooks.length} Playbook tình huống cho chủ shop TikTok Shop, Shopee, Lazada và website: Net Sales, CM1, CM2, CM3, ROAS hòa vốn, CPA, AOV, dòng tiền, tồn kho, hoàn hàng… Mỗi bài có công thức, ví dụ số, video bảng giảng và sơ đồ liên kết, viết theo văn phong sách Ecom Truyền Kỳ.</p>
+<h2>Ai giải đáp</h2><p>Ông chú Ecom, tác giả sách Ecom Truyền Kỳ, cùng đội A1demy trực tiếp trả lời qua Zalo. Người đọc cũng có thể góp ý ẩn danh dưới mỗi bài.</p>
 <h2>Playbook tình huống</h2><ul>${playbooks.map((p) => `<li><a href="${SITE + pUrl(p)}">${esc(p.title)}</a></li>`).join('')}</ul>
 <h2>Chỉ số</h2><ul>${stages.map((m) => `<li><a href="${SITE + mUrl(m)}">${esc(m.code)}: ${esc(m.vi_name)}</a></li>`).join('')}</ul>`
 writeFileSync(join(DIST, 'index.html'), tpl.replace('<div id="root"></div>', `<div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif">${homeBody}</main></div>`).replace('</title>', `</title>
