@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { metricsMaster, playbooks, STAGES, metricById, playbookById } from '../data/index.js'
+import { metricsMaster, playbooks, STAGES, metricById, playbookById, TYPES, topicById } from '../data/index.js'
 import cases from '../data/cases.json'
 import site from '../data/site.json'
 import { useAuth, authEnabled } from '../lib/auth.jsx'
@@ -323,32 +323,48 @@ function Feedback({ fb, token, setToken, reload }) {
 
 function Content() {
   const [filter, setFilter] = useState('all')
-  const list = metricsMaster.filter((m) => filter === 'all' || (filter === 'draft' ? m.review === 'draft' : filter === 'added' ? m.hasSources : !m.hasLesson))
+  const [dom, setDom] = useState('')
+  const [typ, setTyp] = useState('')
+  const [q, setQ] = useState('')
+  const [page, setPage] = useState(0)
+  const PER = 100
+  const fq = q.trim().toLowerCase()
+  const list = metricsMaster.filter((m) => (filter === 'all' || (filter === 'draft' ? m.review === 'draft' : filter === 'high' ? m.risk === 'high' && m.review === 'draft' : filter === 'added' ? m.hasSources : !m.hasLesson))
+    && (!dom || m.stage === dom) && (!typ || (m.type || 'metric') === typ) && (!fq || `${m.code} ${m.vi_name} ${m.metric_id}`.toLowerCase().includes(fq)))
+  const pages = Math.max(1, Math.ceil(list.length / PER))
+  const shown = list.slice(page * PER, page * PER + PER)
+  useEffect(() => setPage(0), [filter, dom, typ, q])
   const stageNo = (id) => STAGES.findIndex((s) => s.id === id) + 1
-  const counts = { all: metricsMaster.length, draft: metricsMaster.filter((m) => m.review === 'draft').length, added: metricsMaster.filter((m) => m.hasSources).length, missing: metricsMaster.filter((m) => !m.hasLesson).length }
+  const counts = { all: metricsMaster.length, draft: metricsMaster.filter((m) => m.review === 'draft').length, high: metricsMaster.filter((m) => m.risk === 'high' && m.review === 'draft').length, added: metricsMaster.filter((m) => m.hasSources).length, missing: metricsMaster.filter((m) => !m.hasLesson).length }
   return (
     <div className="space-y-8">
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Card label="Chỉ số" value={metricsMaster.length} note={`${counts.added} sinh thêm từ bài viết`} />
-        <Card label="Chờ duyệt" value={counts.draft} warn={counts.draft > 0} note="nhãn Mới · đang duyệt" />
+        <Card label="Khái niệm" value={metricsMaster.length} note={Object.entries(TYPES).map(([k, t]) => `${metricsMaster.filter((m) => (m.type || 'metric') === k).length} ${t.label.toLowerCase()}`).join(' · ')} />
+        <Card label="Chờ duyệt" value={counts.draft} warn={counts.draft > 0} note={`${counts.high} bài số liệu, thuế, pháp lý cần duyệt từng bài`} />
         <Card label="Playbook" value={playbooks.length} note={`${playbooks.reduce((a, p) => a + (p.quiz?.length || 0), 0)} câu trắc nghiệm`} />
         <Card label="Video tình huống thật" value={Object.keys(cases).filter((k) => !k.startsWith('_')).length} note="còn lại dùng video bảng giảng tự dựng" />
       </section>
       <section>
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <H2>Chỉ số</H2>
-          {[['all', 'Tất cả'], ['draft', 'Chờ duyệt'], ['added', 'Sinh thêm'], ['missing', 'Thiếu bài đọc']].map(([k, l]) => (
+          <H2>Khái niệm · {list.length}</H2>
+          {[['all', 'Tất cả'], ['draft', 'Chờ duyệt'], ['high', 'Cần duyệt từng bài'], ['added', 'Có nguồn bài viết'], ['missing', 'Thiếu bài đọc']].map(([k, l]) => (
             <button key={k} onClick={() => setFilter(k)} className={`rounded-full px-3 py-1 text-xs font-semibold ${filter === k ? 'bg-ink text-white' : 'bg-stone-100 text-body'}`}>{l} · {counts[k]}</button>
           ))}
         </div>
+        <div className="mb-3 flex flex-wrap gap-2 text-sm">
+          <select value={dom} onChange={(e) => setDom(e.target.value)} className="rounded-xl bg-white px-3 py-1.5 ring-1 ring-stone-200"><option value="">Mọi lĩnh vực</option>{STAGES.map((d) => <option key={d.id} value={d.id}>{d.label}</option>)}</select>
+          <select value={typ} onChange={(e) => setTyp(e.target.value)} className="rounded-xl bg-white px-3 py-1.5 ring-1 ring-stone-200"><option value="">Mọi loại</option>{Object.entries(TYPES).map(([k, t]) => <option key={k} value={k}>{t.label}</option>)}</select>
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Tìm theo tên, mã" className="rounded-xl bg-white px-3 py-1.5 ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[40rem] text-sm">
-            <thead><tr className="text-left text-xs text-muted"><th className="py-2 pr-3">Chỉ số</th><th className="pr-3">Khâu</th><th className="pr-3">Trạng thái</th><th className="pr-3">Playbook</th><th className="pr-3">Có thêm</th><th className="pr-3">Nguồn</th></tr></thead>
+            <thead><tr className="text-left text-xs text-muted"><th className="py-2 pr-3">Chỉ số</th><th className="pr-3">Lĩnh vực · chủ đề</th><th className="pr-3">Loại</th><th className="pr-3">Trạng thái</th><th className="pr-3">Playbook</th><th className="pr-3">Có thêm</th><th className="pr-3">Nguồn</th></tr></thead>
             <tbody className="divide-y divide-stone-100">
-              {list.map((m) => (
+              {shown.map((m) => (
                 <tr key={m.metric_id}>
                   <td className="py-2 pr-3"><a href={href({ type: 'metric', id: m.metric_id })} className="font-semibold text-ink hover:text-brand-700">{m.code}</a><span className="block text-xs text-muted">{m.metric_id}</span></td>
-                  <td className="num pr-3">{stageNo(m.stage)}</td>
+                  <td className="pr-3 text-xs text-charcoal">{stageNo(m.stage)}. {topicById[m.topic]?.label}</td>
+                  <td className="pr-3 text-xs">{TYPES[m.type || 'metric']?.label}{m.risk === 'high' && <span className="ml-1 font-bold text-coral" title="Bài số liệu, thuế, pháp lý: duyệt từng bài">!</span>}</td>
                   <td className="pr-3">{m.review === 'draft' ? <span className="rounded-full bg-lemon px-2 py-0.5 text-[11px] font-bold text-navy-ink">Chờ duyệt</span> : <span className="text-xs text-ok">Đã duyệt</span>}{m.basis?.type === 'custom' && <span className="ml-1 text-[11px] text-muted">tự xây</span>}</td>
                   <td className="num pr-3">{m.playbook_refs?.length || 0}</td>
                   <td className="pr-3 text-xs text-charcoal">{[m.simulator && 'giả lập', m.diagnostic_homework && 'bài tập', m.hasCase && 'video thật'].filter(Boolean).join(', ') || '–'}</td>
@@ -358,6 +374,13 @@ function Content() {
             </tbody>
           </table>
         </div>
+        {pages > 1 && (
+          <div className="mt-3 flex items-center gap-3 text-sm">
+            <button disabled={page === 0} onClick={() => setPage((p) => p - 1)} className="rounded-full bg-stone-100 px-3 py-1 font-semibold disabled:opacity-40">← Trước</button>
+            <span className="text-charcoal">Trang {page + 1}/{pages}</span>
+            <button disabled={page >= pages - 1} onClick={() => setPage((p) => p + 1)} className="rounded-full bg-stone-100 px-3 py-1 font-semibold disabled:opacity-40">Sau →</button>
+          </div>
+        )}
         <p className="mt-3 text-sm text-charcoal">Sửa nội dung: nhắn Claude (“duyệt …”, “sửa bài …”, dán bài viết để sinh chỉ số mới), hoặc sửa trực tiếp <a className="font-semibold text-brand-700 underline" href={`${REPO}/blob/main/src/data/lessons.json`} target="_blank" rel="noopener noreferrer">lessons.json</a>, <a className="font-semibold text-brand-700 underline" href={`${REPO}/blob/main/data-src/quizzes.json`} target="_blank" rel="noopener noreferrer">quizzes.json</a>, <a className="font-semibold text-brand-700 underline" href={`${REPO}/blob/main/src/data/site.json`} target="_blank" rel="noopener noreferrer">site.json</a> trên GitHub.</p>
       </section>
     </div>

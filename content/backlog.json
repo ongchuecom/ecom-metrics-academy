@@ -1,0 +1,4 @@
+{
+  "_huong_dan": "Kho đề cử: khái niệm chờ viết. status: todo | writing | done | rejected. Mỗi đề cử ghi lĩnh vực, chủ đề, loại, nguồn và lý do. Claude lấy theo thứ tự priority (1 cao nhất) khi sinh lô (skill sinh-lo-khai-niem). Đề cử bị loại ghi reason.",
+  "items": []
+}
