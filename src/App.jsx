@@ -7,6 +7,7 @@ import Privacy from './components/Privacy.jsx'
 import { LoginDialog, AccountButton } from './components/Login.jsx'
 import { useAuth } from './lib/auth.jsx'
 import { syncAccount } from './lib/sync.js'
+import { flushOutbox } from './lib/api.js'
 import Sidebar from './components/Sidebar.jsx'
 import MetricLesson, { H2 } from './components/MetricLesson.jsx'
 import MetricSimulator from './components/MetricSimulator.jsx'
@@ -88,8 +89,10 @@ export default function App() {
   const openHealth = useCallback(() => go({ type: 'health' }), [go])
   const openLeaderboard = useCallback(() => go({ type: 'leaderboard' }), [go])
   // Đăng nhập xong thì gộp điểm trắc nghiệm trên máy với điểm theo tài khoản
-  const { user, getToken } = useAuth()
-  useEffect(() => { if (user) syncAccount(user, getToken).catch(() => {}) }, [user?.uid]) // eslint-disable-line react-hooks/exhaustive-deps
+  const { user } = useAuth()
+  useEffect(() => { if (user) syncAccount(user).catch(() => {}) }, [user?.uid]) // eslint-disable-line react-hooks/exhaustive-deps
+  // góp ý gửi lỗi lần trước: gửi lại khi trang đã tải xong
+  useEffect(() => { const t = setTimeout(() => flushOutbox(), 4000); return () => clearTimeout(t) }, [])
   const setTab = useCallback((t) => go({ type: 'metric', id: route.id, tab: t }, { replace: true, scroll: false }), [go, route.id])
 
   // Link cũ dạng #id → đường dẫn mới; nút Back/Forward

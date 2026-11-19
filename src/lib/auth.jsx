@@ -10,13 +10,17 @@ const FLAG = 'ema-auth'
 const flag = { get: () => { try { return localStorage.getItem(FLAG) === '1' } catch { return false } }, set: (v) => { try { v ? localStorage.setItem(FLAG, '1') : localStorage.removeItem(FLAG) } catch { /* bỏ qua */ } } }
 
 let sdk = null
+// Dùng chung app Firebase cho Firestore (src/lib/db.js)
+export const getFirebase = () => load()
 async function load() {
   if (sdk) return sdk
   const [{ initializeApp }, a] = await Promise.all([import('firebase/app'), import('firebase/auth')])
   const app = initializeApp(CFG)
   const auth = a.getAuth(app)
   auth.languageCode = 'vi'
-  sdk = { auth, a }
+  // chỉ khi kiểm thử (build với VITE_FB_EMULATOR=1): nối vào bộ giả lập Firebase trên máy
+  if (import.meta.env.VITE_FB_EMULATOR) a.connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true })
+  sdk = { app, auth, a }
   return sdk
 }
 
@@ -52,7 +56,10 @@ export function AuthProvider({ children }) {
     const { auth, a } = await load()
     const provider = which === 'facebook' ? new a.FacebookAuthProvider() : new a.GoogleAuthProvider()
     if (which === 'google') provider.setCustomParameters({ prompt: 'select_account' })
-    const cred = await a.signInWithPopup(auth, provider)
+    // chỉ khi kiểm thử với bộ giả lập: đăng nhập bằng tài khoản Google giả, không mở cửa sổ (máy kiểm thử không tới được apis.google.com)
+    const cred = import.meta.env.VITE_FB_EMULATOR && window.__EMA_TEST_ACCOUNT
+      ? await a.signInWithCredential(auth, a.GoogleAuthProvider.credential(JSON.stringify(window.__EMA_TEST_ACCOUNT)))
+      : await a.signInWithPopup(auth, provider)
     flag.set(true)
     watch()
     return cred.user

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { playbooks } from '../data/index.js'
-import { GAM, RANK_LIST, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, QUIZ_EVENT, accountPlayer } from '../lib/quiz.js'
-import { getJSON, postJSON, hasEndpoint } from '../lib/api.js'
+import { GAM, RANK_LIST, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, QUIZ_EVENT } from '../lib/quiz.js'
 import { useAuth, authEnabled } from '../lib/auth.jsx'
+import { fetchBoard, deleteMe } from '../lib/db.js'
+const hasEndpoint = authEnabled // bảng chung chạy trên Firestore, cần đăng nhập Firebase
 import { pbTitle } from './Playbooks.jsx'
 import RankBadge from './RankBadge.jsx'
 
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1]
 
 export default function Leaderboard({ onOpenPlaybook }) {
-  const { user, getToken, openLogin } = useAuth()
+  const { user, ready, openLogin } = useAuth()
   const [me, setMe] = useState(loadQuiz)
   const [tick, setTick] = useState(0)
   const [del, setDel] = useState('idle')
@@ -18,20 +19,20 @@ export default function Leaderboard({ onOpenPlaybook }) {
     const f = () => { setMe(loadQuiz()); setTick((t) => t + 1) }
     window.addEventListener(QUIZ_EVENT, f); return () => window.removeEventListener(QUIZ_EVENT, f)
   }, [])
-  const player = user ? accountPlayer(user.uid) : me.player
+  const uid = user?.uid || null
   useEffect(() => {
-    if (!hasEndpoint) return
-    getJSON({ action: 'leaderboard', ...(player ? { me: player } : {}) })
+    if (!hasEndpoint || !ready) return
+    fetchBoard(uid, { fresh: tick > 0 })
       .then((j) => setBoard({ state: 'ok', ...j }))
       .catch(() => setBoard({ state: 'error' }))
-  }, [player, tick])
+  }, [uid, tick, ready])
 
   // Xóa điểm khỏi bảng xếp hạng (và khỏi máy này) theo yêu cầu người dùng
   const removeMe = async () => {
     if (!window.confirm('Xóa toàn bộ điểm của anh/chị khỏi bảng xếp hạng và khỏi máy này? Không hoàn tác được.')) return
     setDel('sending')
     try {
-      await postJSON({ type: 'delete', player, idToken: await getToken() })
+      await deleteMe(user.uid)
       saveQuiz({ player: '', name: '', first: {}, last: {}, synced: {} }); setMe(loadQuiz()); setTick((t) => t + 1); setDel('done')
     } catch { setDel('error') }
   }
@@ -80,7 +81,7 @@ export default function Leaderboard({ onOpenPlaybook }) {
             <span className="text-xs text-muted">Google hoặc Facebook. Điểm trên máy này được đưa lên tài khoản.</span>
           </div>
         )}
-        {hasEndpoint && !authEnabled && !me.name && total > 0 && <p className="mt-3 text-sm text-charcoal">Anh/chị chưa lên bảng. Làm xong trắc nghiệm một Playbook bất kỳ, nhập tên hiển thị là điểm được đưa lên.</p>}
+        {user && !me.name && total > 0 && <p className="mt-3 text-sm text-charcoal">Anh/chị chưa lên bảng. Làm xong trắc nghiệm một Playbook bất kỳ, chọn tên hiển thị là điểm được đưa lên.</p>}
         {hasEndpoint && user && (
           <p className="mt-3 text-xs text-muted">
             {del === 'done' ? 'Đã xóa điểm của anh/chị.' : del === 'error' ? <span className="text-coral">Chưa xóa được, thử lại sau.</span> : null}{' '}
@@ -91,14 +92,14 @@ export default function Leaderboard({ onOpenPlaybook }) {
 
       {/* Bảng chung */}
       <section aria-labelledby="top-h">
-        <h2 id="top-h" className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Top 100</h2>
-        {board.state === 'off' && <p className="rounded-2xl bg-stone-50 p-4 text-sm text-charcoal">Bảng xếp hạng chung sẽ mở khi web được kết nối máy chủ. Điểm của anh/chị vẫn được lưu trên máy này và sẽ đưa lên được sau.</p>}
+        <h2 id="top-h" className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Top 50</h2>
+        {board.state === 'off' && <p className="rounded-2xl bg-stone-50 p-4 text-sm text-charcoal">Bảng xếp hạng chung sẽ mở khi web bật đăng nhập. Điểm của anh/chị vẫn được lưu trên máy này và sẽ đưa lên được sau.</p>}
         {board.state === 'loading' && <p className="text-sm text-muted">Đang tải bảng xếp hạng…</p>}
         {board.state === 'error' && <p className="text-sm text-coral">Chưa tải được bảng xếp hạng, thử tải lại trang sau ít phút.</p>}
         {board.state === 'ok' && (board.top.length === 0 ? <p className="text-sm text-charcoal">Chưa có ai trên bảng. Làm trắc nghiệm một Playbook để là người đầu tiên.</p> : (
           <ol className="divide-y divide-stone-100 rounded-2xl ring-1 ring-stone-200">
             {board.top.map((r) => {
-              const mine = board.me && board.me.pos === r.pos
+              const mine = !!uid && r.uid === uid
               return (
                 <li key={r.pos} className={`grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:grid-cols-[3rem_minmax(0,1fr)_auto_auto] ${mine ? 'bg-brand-50' : ''}`}>
                   <span className={`text-center font-display font-black ${r.pos <= 3 ? 'text-brand-600 text-lg' : 'text-muted'}`}>{r.pos}</span>

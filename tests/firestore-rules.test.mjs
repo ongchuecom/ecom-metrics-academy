@@ -1,0 +1,37 @@
+// Kiểm tra quy tắc bảo mật Firestore (integrations/firestore.rules) trên bộ giả lập thật.
+// Chạy: npm run test:rules  (cần Java; lần đầu tự tải firebase-tools và bộ giả lập Firestore)
+import { initializeTestEnvironment, assertSucceeds, assertFails } from '@firebase/rules-unit-testing'
+import { doc, setDoc, updateDoc, deleteDoc, getDoc, serverTimestamp, collection, query, orderBy, limit, getDocs } from 'firebase/firestore'
+import { readFileSync } from 'node:fs'
+const env = await initializeTestEnvironment({ projectId: 'ema-test', firestore: { rules: readFileSync(new URL('../integrations/firestore.rules', import.meta.url), 'utf8'), host: '127.0.0.1', port: 8085 } })
+const db = (uid) => (uid ? env.authenticatedContext(uid) : env.unauthenticatedContext()).firestore()
+const P = (scores, name = 'Hùng Shop') => ({ name, scores, total: Object.values(scores).reduce((a, b) => a + b, 0), done: Object.keys(scores).length, updatedAt: serverTimestamp() })
+let pass = 0, fail = 0
+const t = async (label, p, ok) => { try { await (ok ? assertSucceeds(p) : assertFails(p)); pass++ } catch (e) { fail++; console.log('✗', label, e.message.slice(0, 160)) } }
+const a = db('alice')
+await t('tạo bản ghi đúng', setDoc(doc(a, 'players/alice'), P({ pb_01_profit_reality: 20 })), true)
+await t('chưa đăng nhập không ghi được', setDoc(doc(db(null), 'players/x'), P({ pb_01_profit_reality: 20 })), false)
+await t('ghi thay người khác', setDoc(doc(a, 'players/bob'), P({ pb_01_profit_reality: 30 })), false)
+await t('thêm Playbook mới', setDoc(doc(a, 'players/alice'), P({ pb_01_profit_reality: 20, pb_02_cashflow_trap: 30 })), true)
+await t('sửa điểm lần đầu', setDoc(doc(a, 'players/alice'), P({ pb_01_profit_reality: 30, pb_02_cashflow_trap: 30 })), false)
+await t('bớt một Playbook', setDoc(doc(a, 'players/alice'), P({ pb_02_cashflow_trap: 30 })), false)
+await t('đổi tên', setDoc(doc(a, 'players/alice'), P({ pb_01_profit_reality: 20, pb_02_cashflow_trap: 30 }, 'Alice')), true)
+await t('khai gian total', setDoc(doc(db('c'), 'players/c'), { ...P({ pb_01_profit_reality: 10 }), total: 300 }), false)
+await t('khai gian done', setDoc(doc(db('c'), 'players/c'), { ...P({ pb_01_profit_reality: 10 }), done: 10 }), false)
+await t('điểm lẻ 25', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 25 })), false)
+await t('điểm 40', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 40 })), false)
+await t('Playbook lạ', setDoc(doc(db('c'), 'players/c'), P({ pb_99_hack: 10 })), false)
+await t('trường lạ', setDoc(doc(db('c'), 'players/c'), { ...P({ pb_01_profit_reality: 10 }), admin: true }), false)
+await t('tên có số điện thoại', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 10 }, 'Lan 0912 345 678')), false)
+await t('tên có link', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 10 }, 'xem WWW.abc.vn')), false)
+await t('tên rỗng', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 10 }, '')), false)
+await t('tên 25 ký tự', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 10 }, 'x'.repeat(25))), false)
+await t('updatedAt tự đặt', setDoc(doc(db('c'), 'players/c'), { ...P({ pb_01_profit_reality: 10 }), updatedAt: new Date(2000, 1, 1) }), false)
+await t('tên tiếng Việt có số nhỏ', setDoc(doc(db('c'), 'players/c'), P({ pb_01_profit_reality: 10 }, 'Shop Giày 247')), true)
+await t('ai cũng đọc được bảng', getDocs(query(collection(db(null), 'players'), orderBy('total', 'desc'), limit(50))), true)
+await t('đọc một người', getDoc(doc(db(null), 'players/alice')), true)
+await t('xóa của người khác', deleteDoc(doc(db('bob'), 'players/alice')), false)
+await t('tự xóa', deleteDoc(doc(a, 'players/alice')), true)
+await t('ghi collection khác', setDoc(doc(a, 'feedback/x'), { a: 1 }), false)
+console.log(`\n${pass} đạt, ${fail} lỗi`)
+await env.cleanup(); process.exit(fail ? 1 : 0)

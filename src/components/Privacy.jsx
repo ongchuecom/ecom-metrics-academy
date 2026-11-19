@@ -33,7 +33,7 @@ export default function Privacy() {
       </S>
 
       <S title="Lưu ở đâu">
-        <p>Đăng nhập do Firebase Authentication (Google) xử lý. Điểm trắc nghiệm và góp ý lưu trong kho dữ liệu riêng tư của Ông chú Ecom trên GitHub. Thông tin form Zalo lưu trong Google Sheet riêng tư. Chỉ Ông chú Ecom và đội A1demy xem được.</p>
+        <p>Đăng nhập do Firebase Authentication (Google) xử lý. Điểm trắc nghiệm và tên hiển thị lưu trên Firestore (Google). Góp ý lưu trong kho dữ liệu riêng tư của Ông chú Ecom trên GitHub. Thông tin form Zalo lưu trong Google Sheet riêng tư. Chỉ Ông chú Ecom và đội A1demy xem được.</p>
       </S>
 
       <S title="Xóa dữ liệu của anh/chị">

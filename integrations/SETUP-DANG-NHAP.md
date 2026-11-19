@@ -27,11 +27,21 @@ Web dùng **Firebase Authentication** (miễn phí) cho cả hai cách đăng nh
 5. Chuyển app sang chế độ **Live** (công khai). Facebook có thể yêu cầu xác minh doanh nghiệp tùy loại app.
    Trước khi Live, chỉ tài khoản quản trị app đăng nhập được.
 
-## 4. Bảo vệ bảng xếp hạng (1 phút)
+## 4. Bật Firestore cho bảng xếp hạng (3 phút)
 
-Trong Apps Script của Sheet Zalo, vào **Cài đặt dự án → Thuộc tính tập lệnh**, thêm `FIREBASE_API_KEY` = `apiKey` ở bước 1.
+Bảng xếp hạng và điểm trắc nghiệm lưu trong **Firestore** (cơ sở dữ liệu của Firebase), chịu được hàng nghìn người cùng lúc.
 
-Từ lúc đó, bảng xếp hạng chỉ nhận điểm của người đã đăng nhập: không ai gửi điểm thay người khác được, và mỗi người tự xóa được điểm của mình.
+1. Firebase → **Build → Firestore Database → Create database**. Chọn **Production mode** và vị trí `asia-southeast1` (Singapore, gần Việt Nam).
+2. Mở tab **Rules**, xóa hết nội dung cũ, dán **toàn bộ** file `integrations/firestore.rules` vào, rồi bấm **Publish**.
+   Quy tắc này bảo đảm:
+   - chỉ chủ tài khoản ghi được điểm của mình;
+   - điểm lần đầu mỗi Playbook không sửa được;
+   - không khai gian được tổng điểm;
+   - tên hiển thị không chứa số điện thoại hay đường link.
+3. Gói miễn phí (Spark) cho 20.000 lượt ghi và 50.000 lượt đọc mỗi ngày. Hết hạn mức thì Firestore tạm ngừng tới hôm sau, **không tự tính tiền**.
+   Khi người dùng đông hơn khoảng 1.000 người/ngày, chuyển sang gói Blaze (trả theo dùng, khoảng 0,06 USD cho mỗi 100.000 lượt đọc).
+
+**Khi thêm hay bớt Playbook:** chạy `npm run data:pack` để sinh lại `firestore.rules`, rồi dán lại vào tab Rules.
 
 ## Lưu ý
 

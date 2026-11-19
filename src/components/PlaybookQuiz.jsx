@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { playbooks } from '../data/index.js'
-import { GAM, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, ensurePlayer, QUIZ_EVENT, accountPlayer } from '../lib/quiz.js'
-import { postJSON, hasEndpoint } from '../lib/api.js'
+import { GAM, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, QUIZ_EVENT } from '../lib/quiz.js'
 import { useAuth, authEnabled } from '../lib/auth.jsx'
+import { saveScores, cleanName, dropBoardCache } from '../lib/db.js'
 import RankBadge from './RankBadge.jsx'
 
 // Trắc nghiệm thực chiến cuối mỗi Playbook: chấm ngay khi nộp, hiện giải thích từng câu.
@@ -15,7 +15,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
   const [result, setResult] = useState(null) // { score, official }
   const [name, setName] = useState(store.name)
   const [sync, setSync] = useState('idle') // idle | sending | done | error
-  const { user, getToken, openLogin } = useAuth()
+  const { user, openLogin } = useAuth()
   // điểm vừa được đồng bộ với tài khoản ở nơi khác → đọc lại
   useEffect(() => {
     const f = () => { const s = loadQuiz(); setStore(s); setName((n) => n || s.name) }
@@ -23,29 +23,27 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
   }, [])
   useEffect(() => { if (user && !name) setName(user.name.slice(0, 24)) }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
   if (!quiz.length) return null
-  // Có đăng nhập thì bảng xếp hạng chỉ nhận điểm gắn với tài khoản
-  const needLogin = authEnabled && !user
+  // Bảng xếp hạng chỉ nhận điểm gắn với tài khoản đăng nhập
+  const needLogin = !user
 
   const first = store.first[p.playbook_id]
   const done = !!result
   const allAnswered = quiz.every((q) => answers[q.question_id])
 
   const publish = async (s, nm) => {
-    if (!hasEndpoint || !nm || needLogin) return
+    if (!authEnabled || !user || !cleanName(nm)) return
     setSync('sending')
     try {
-      const idToken = authEnabled ? await getToken() : undefined
-      if (user) s = { ...s, player: accountPlayer(user.uid) }
-      await postJSON({ type: 'score', player: s.player, name: nm, scores: s.first, ...(idToken ? { idToken } : {}) })
-      const next = { ...s, name: nm, synced: Object.fromEntries(Object.keys(s.first).map((k) => [k, true])) }
-      saveQuiz(next); setStore(next); setSync('done')
+      const r = await saveScores(user.uid, nm, s.first)
+      const next = { ...s, uid: user.uid, name: r.name, first: r.scores, synced: Object.fromEntries(Object.keys(r.scores).map((k) => [k, true])), syncedAt: Date.now() }
+      saveQuiz(next); setStore(next); dropBoardCache(); setSync('done')
     } catch { setSync('error') }
   }
 
   const submit = () => {
     const score = quiz.reduce((a, q) => a + (answers[q.question_id] === q.correct_option ? q.points : 0), 0)
     const official = first === undefined
-    let s = user ? { ...store, player: accountPlayer(user.uid) } : ensurePlayer(store)
+    let s = { ...store }
     s = { ...s, last: { ...s.last, [p.playbook_id]: { score, at: new Date().toISOString() } }, ...(official ? { first: { ...s.first, [p.playbook_id]: score } } : {}) }
     saveQuiz(s); setStore(s); setResult({ score, official })
     if (official && s.name) publish(s, s.name)
@@ -124,25 +122,25 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
             )}
           </div>
 
-          {hasEndpoint && result.official && needLogin && (
+          {authEnabled && result.official && needLogin && (
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <button type="button" onClick={() => openLogin('Đăng nhập để lưu điểm này vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')}
                 className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng xếp hạng</button>
               <span className="text-xs text-muted">Điểm vẫn được giữ trên máy này, đăng nhập lúc nào cũng đưa lên được.</span>
             </div>
           )}
-          {hasEndpoint && result.official && !needLogin && (
+          {authEnabled && result.official && !needLogin && (
             store.name ? (
               <p className="mt-3 text-sm text-charcoal">
                 {sync === 'sending' ? 'Đang cập nhật bảng xếp hạng…' : sync === 'error' ? <span className="text-coral">Chưa cập nhật được bảng xếp hạng. <button type="button" onClick={() => publish(store, store.name)} className="font-semibold underline">Thử lại</button></span> : <>Đã cập nhật bảng xếp hạng với tên <b className="text-ink">{store.name}</b>.</>}
               </p>
             ) : (
-              <form className="mt-3 flex flex-wrap items-center gap-2" onSubmit={(e) => { e.preventDefault(); if (name.trim()) publish(store, name.trim()) }}>
+              <form className="mt-3 flex flex-wrap items-center gap-2" onSubmit={(e) => { e.preventDefault(); if (cleanName(name)) publish(store, name) }}>
                 <label htmlFor={`ten-${p.playbook_id}`} className="w-full text-sm font-semibold text-ink">Lên bảng xếp hạng với tên:</label>
                 <input id={`ten-${p.playbook_id}`} value={name} onChange={(e) => setName(e.target.value)} maxLength={24} placeholder="Ví dụ: Hùng Shop Giày"
                   className="min-w-0 flex-1 rounded-xl bg-white px-3 py-2 text-sm text-ink ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500 sm:max-w-xs" />
-                <button type="submit" disabled={!name.trim() || sync === 'sending'} className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white disabled:opacity-50">{sync === 'sending' ? 'Đang gửi…' : 'Lên bảng'}</button>
-                <span className="w-full text-xs text-muted">Chỉ hiện tên này và điểm, không cần số điện thoại hay email.{sync === 'error' && <span className="text-coral"> Chưa gửi được, thử lại giúp.</span>}</span>
+                <button type="submit" disabled={!cleanName(name) || sync === 'sending'} className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white disabled:opacity-50">{sync === 'sending' ? 'Đang gửi…' : 'Lên bảng'}</button>
+                <span className="w-full text-xs text-muted">Chỉ hiện tên này và điểm. Không ghi số điện thoại hay đường link vào tên.{sync === 'error' && <span className="text-coral"> Chưa gửi được, thử lại giúp.</span>}</span>
               </form>
             )
           )}

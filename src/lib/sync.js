@@ -1,22 +1,23 @@
-// Đăng nhập xong: gộp điểm trên máy này với điểm đã lưu theo tài khoản (máy chủ thắng — lần nộp đầu đã ghi trước đó),
-// rồi đưa các điểm mới làm trên máy này lên tài khoản.
-import { loadQuiz, saveQuiz, notifyQuiz, accountPlayer } from './quiz.js'
-import { postJSON, hasEndpoint } from './api.js'
+// Đăng nhập xong: gộp điểm trên máy với điểm theo tài khoản (máy chủ thắng — lần nộp đầu đã ghi trước đó).
+// Mỗi máy chỉ đồng bộ tối đa một lần mỗi ngày, trừ khi trên máy có điểm mới chưa đưa lên.
+import { loadQuiz, saveQuiz, notifyQuiz } from './quiz.js'
+import { loadProgress, saveScores } from './db.js'
+import { authEnabled } from './auth.jsx'
 
-export async function syncAccount(user, getToken) {
+const DAY = 24 * 3600 * 1000
+
+export async function syncAccount(user) {
+  if (!authEnabled) return
   let s = loadQuiz()
-  const player = accountPlayer(user.uid)
-  if (!hasEndpoint) { saveQuiz({ ...s, player }); notifyQuiz(); return }
-  const idToken = await getToken()
-  const r = await postJSON({ type: 'progress', player, idToken })
-  const server = r.scores || {}
-  const first = { ...s.first, ...server }
-  const name = r.name || s.name || ''
-  s = { ...s, player, name, first, synced: Object.fromEntries(Object.keys(server).map((k) => [k, true])) }
-  const pending = Object.fromEntries(Object.entries(first).filter(([k]) => !(k in server)))
-  if (name && Object.keys(pending).length) {
-    await postJSON({ type: 'score', player, name, scores: pending, idToken })
-    s.synced = Object.fromEntries(Object.keys(first).map((k) => [k, true]))
-  }
-  saveQuiz(s); notifyQuiz()
+  const pending = Object.keys(s.first).some((k) => !s.synced[k])
+  if (s.uid === user.uid && !pending && Date.now() - (s.syncedAt || 0) < DAY) return
+  if (s.uid && s.uid !== user.uid) s = { ...s, first: {}, last: {}, synced: {}, name: '' } // máy dùng chung: không trộn điểm hai tài khoản
+  const cur = await loadProgress(user.uid)
+  let first = { ...s.first, ...(cur?.scores || {}) }
+  let name = cur?.name || s.name || ''
+  // trên máy có điểm mới mà tài khoản đã có tên hiển thị → đưa lên luôn
+  if (cur && Object.keys(first).length > Object.keys(cur.scores).length) ({ scores: first, name } = await saveScores(user.uid, name, first))
+  const synced = cur ? Object.fromEntries(Object.keys(first).map((k) => [k, true])) : {}
+  saveQuiz({ ...s, uid: user.uid, player: 'fb-' + user.uid, name, first, synced, syncedAt: Date.now() })
+  notifyQuiz()
 }

@@ -1,10 +1,9 @@
 /**
  * Nhận dữ liệu từ Ecom Metrics Academy và ghi vào Google Sheet riêng tư. Có 2 loại:
  *  - Form "Để lại Zalo": ghi vào tab đầu của Sheet chứa script này ("A1demy · Zalo từ Ecom Metrics Academy").
- *  - Điểm trắc nghiệm Playbook (type = "score") cho Bảng xếp hạng: lưu ở file leaderboard.json trong cùng repo riêng.
- *    Web đọc bảng top 100 qua doGet (?action=leaderboard), được cache 60 giây.
- *  - Chấm sao và góp ý ẩn danh (type = "feedback"): KHÔNG lưu trên Drive. Mỗi lượt là một dòng JSON, nối vào
- *    file feedback/YYYY-MM-DD.jsonl (mỗi ngày một file) trong repo GitHub riêng tư FEEDBACK_REPO. AI rà soát mỗi 2 ngày đọc từ đó.
+ *  - Chấm sao và góp ý ẩn danh (type = "feedback"): KHÔNG lưu trên Drive. Mỗi lượt vào hàng chờ (Thuộc tính tập lệnh, trả lời ngay
+ *    trong chưa tới 1 giây), cứ 5 phút hàm flushFeedback gom cả hàng chờ thành MỘT lần ghi vào file feedback/YYYY-MM-DD.jsonl
+ *    trong repo GitHub riêng tư FEEDBACK_REPO. AI rà soát mỗi 2 ngày đọc từ đó.
  *
  * Cài đặt (5 phút, làm một lần; đã cài bản cũ thì dán đè rồi triển khai lại):
  * 1. Mở Google Sheet "A1demy · Zalo từ Ecom Metrics Academy" → Tiện ích mở rộng → Apps Script.
@@ -24,9 +23,8 @@
  *    c. Apps Script → Cài đặt dự án (bánh răng) → Thuộc tính tập lệnh → thêm GITHUB_TOKEN = token vừa tạo.
  *       Token chỉ nằm trong Apps Script của anh, không dán vào chat hay repo.
  *
- * 6. Bật đăng nhập Google/Facebook cho bảng xếp hạng (sau khi tạo dự án Firebase):
- *    Thuộc tính tập lệnh → thêm FIREBASE_API_KEY = apiKey của Web app Firebase (giá trị công khai, không phải mật khẩu).
- *    Có thuộc tính này thì bảng xếp hạng chỉ nhận điểm kèm phiên đăng nhập hợp lệ, và người dùng tự xóa được điểm của mình.
+ * 6. Bật lịch gom góp ý (làm một lần): trong trình soạn Apps Script chọn hàm installTriggers rồi bấm Chạy, cấp quyền.
+ *    Hàm này tạo lịch chạy flushFeedback mỗi 5 phút. Bảng xếp hạng không còn qua đây: nó chạy trên Firestore.
  *
  * Sheet và repo góp ý vẫn riêng tư: người gửi chỉ ghi thêm được dòng mới, không đọc được dữ liệu.
  */
@@ -41,9 +39,6 @@ function doPost(e) {
     const d = JSON.parse((e && e.postData && e.postData.contents) || '{}')
     if (d.website) return out({ ok: true }) // ô bẫy chống bot: người thật không điền
     if (d.type === 'feedback') return feedback(d)
-    if (d.type === 'score') return score(d)
-    if (d.type === 'progress') return progress(d)
-    if (d.type === 'delete') return removePlayer(d)
     return withLock(() => lead(d))
   } catch (err) {
     return out({ ok: false, error: 'server' })
@@ -79,11 +74,12 @@ function feedback(d) {
   if (!hasRating && !comment) return out({ ok: false, error: 'empty' })
   const cache = CacheService.getScriptCache()
   const key = 'fb-' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, [d.page, rating, comment].join('|')))
-  // chống spam: bỏ bản gửi trùng trong 10 phút, và tối đa 40 lượt ghi mỗi phút (cửa sổ cố định theo phút).
-  // Chỉ phần đếm nằm trong khóa; gọi GitHub chậm thì để ngoài khóa, xung đột ghi đã có thử lại trong appendLine.
-  const gate = rateGate(cache, key)
-  if (gate === 'dup') return out({ ok: true, dup: true })
-  if (gate === 'busy') return out({ ok: false, error: 'busy' })
+  // Không khóa, không gọi GitHub: mỗi lượt chỉ đọc/ghi bộ nhớ đệm và một thuộc tính, nên chịu được nhiều người cùng lúc.
+  if (cache.get(key)) return out({ ok: true, dup: true })
+  const win = 'fb-min-' + Math.floor(Date.now() / 60000)
+  const n = Number(cache.get(win) || 0) // đếm gần đúng, đủ để chặn spam
+  if (n >= 600) return out({ ok: false, error: 'busy' })
+  cache.put(win, String(n + 1), 120)
   const ref = Number(d.rating_ref)
   const row = {
     t: new Date().toISOString(),
@@ -95,136 +91,37 @@ function feedback(d) {
     comment: comment || null,
     device: String(d.device || '').slice(0, 20),
   }
-  // mỗi ngày một file: file luôn nhỏ, ít xung đột ghi, không chạm giới hạn 1 MB của GitHub contents API
-  const res = appendLine('feedback/' + row.t.slice(0, 10) + '.jsonl', JSON.stringify(row))
-  if (res.ok) cache.put(key, '1', 600) // chỉ đánh dấu đã nhận khi ghi thành công, để gửi lại được nếu lỗi
-  return out(res)
+  try {
+    PropertiesService.getScriptProperties().setProperty('q-' + row.t + '-' + Math.random().toString(36).slice(2, 8), JSON.stringify(row))
+  } catch (err) {
+    return out({ ok: false, error: 'busy' }) // hàng chờ đầy (giới hạn 500 KB), trình duyệt sẽ tự gửi lại sau
+  }
+  cache.put(key, '1', 600)
+  return out({ ok: true })
 }
 
-// Chống spam dùng chung: bỏ bản trùng (key) và tối đa 40 lượt ghi mỗi phút theo cửa sổ cố định
-function rateGate(cache, key) {
+// Chạy theo lịch 5 phút: gom hàng chờ, mỗi ngày một file, mỗi file MỘT commit; ghi xong mới xóa khỏi hàng chờ
+function flushFeedback() {
   const lock = LockService.getScriptLock()
-  if (!lock.tryLock(5000)) return 'busy'
+  if (!lock.tryLock(1000)) return // lần chạy trước chưa xong
   try {
-    if (key && cache.get(key)) return 'dup'
-    const win = 'fb-min-' + Math.floor(Date.now() / 60000)
-    const n = Number(cache.get(win) || 0)
-    if (n >= 40) return 'busy'
-    cache.put(win, String(n + 1), 120)
-    return 'ok'
+    const props = PropertiesService.getScriptProperties()
+    const all = props.getProperties()
+    const keys = Object.keys(all).filter((k) => k.indexOf('q-') === 0).sort()
+    const byDay = {}
+    for (const k of keys) (byDay[k.slice(2, 12)] = byDay[k.slice(2, 12)] || []).push(k)
+    for (const day of Object.keys(byDay)) {
+      const ks = byDay[day]
+      const lines = ks.map((k) => all[k]).join('\n') + '\n'
+      const res = updateFile('feedback/' + day + '.jsonl', (text) => text + lines, 'Góp ý (' + ks.length + ' lượt)')
+      if (res.ok) ks.forEach((k) => props.deleteProperty(k))
+    }
   } finally { lock.releaseLock() }
 }
 
-// ===== Bảng xếp hạng =====
-// leaderboard.json: { players: { <id ngẫu nhiên>: { name, scores: { pb_01_…: 0–30 }, updated } } }
-// Mỗi Playbook chỉ tính điểm lần nộp ĐẦU TIÊN; làm lại để luyện tập không đổi bảng xếp hạng. Đổi tên hiển thị thì được.
-const LB_PATH = 'leaderboard.json'
-const cleanName = (s) => String(s || '').normalize('NFC').replace(/[\u0000-\u001f<>]/g, '').replace(/https?:\/\/\S+|www\.\S+/gi, '')
-  .replace(/\d[\d .-]{5,}\d/g, '').replace(/\s+/g, ' ').trim().slice(0, 24) || 'Ẩn danh'
-
-// Kiểm tra phiên đăng nhập Firebase: trả uid nếu idToken hợp lệ (hỏi thẳng Firebase, kết quả nhớ 10 phút)
-function verifyToken(idToken) {
-  const key = PropertiesService.getScriptProperties().getProperty('FIREBASE_API_KEY')
-  if (!key || !idToken) return null
-  const cache = CacheService.getScriptCache()
-  const ck = 'tok-' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, String(idToken)))
-  const hit = cache.get(ck)
-  if (hit) return hit
-  const res = UrlFetchApp.fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + encodeURIComponent(key),
-    { method: 'post', contentType: 'application/json', payload: JSON.stringify({ idToken: String(idToken) }), muteHttpExceptions: true })
-  if (res.getResponseCode() !== 200) return null
-  const u = (JSON.parse(res.getContentText()).users || [])[0]
-  if (!u || !u.localId) return null
-  cache.put(ck, u.localId, 600)
-  return u.localId
-}
-const authOn = () => !!PropertiesService.getScriptProperties().getProperty('FIREBASE_API_KEY')
-
-// Người chơi đã đăng nhập: player = 'fb-' + uid và phải khớp phiên đăng nhập. Chưa bật đăng nhập: chấp nhận mã ngẫu nhiên của trình duyệt.
-function checkPlayer(d) {
-  const player = String(d.player || '')
-  if (authOn()) {
-    const uid = verifyToken(d.idToken)
-    if (!uid) return { error: 'auth' }
-    if (player !== 'fb-' + uid) return { error: 'player' }
-    return { player }
-  }
-  if (!/^[a-z0-9-]{8,40}$/.test(player)) return { error: 'player' }
-  return { player }
-}
-
-function progress(d) {
-  const c = checkPlayer(d)
-  if (c.error) return out({ ok: false, error: c.error })
-  const r = readFile(LB_PATH)
-  if (!r.ok) return out(r)
-  const x = r.text ? JSON.parse(r.text).players[c.player] : null
-  return out({ ok: true, name: x ? x.name : '', scores: x ? x.scores : {} })
-}
-
-function removePlayer(d) {
-  const c = checkPlayer(d)
-  if (c.error) return out({ ok: false, error: c.error })
-  const res = updateFile(LB_PATH, (text) => {
-    const lb = text ? JSON.parse(text) : { players: {} }
-    delete lb.players[c.player]
-    return JSON.stringify(lb)
-  }, 'Xóa điểm theo yêu cầu')
-  if (res.ok) CacheService.getScriptCache().remove('lb-top')
-  return out(res)
-}
-
-function score(d) {
-  const c = checkPlayer(d)
-  if (c.error) return out({ ok: false, error: c.error })
-  const player = c.player
-  const scores = {}
-  for (const [pb, v] of Object.entries(d.scores || {})) {
-    if (/^pb_\d{2}_[a-z0-9_]{2,60}$/.test(pb) && [0, 10, 20, 30].indexOf(Number(v)) >= 0) scores[pb] = Number(v)
-  }
-  if (!Object.keys(scores).length) return out({ ok: false, error: 'empty' })
-  const cache = CacheService.getScriptCache()
-  if (rateGate(cache, null) === 'busy') return out({ ok: false, error: 'busy' })
-  const name = cleanName(d.name)
-  const res = updateFile(LB_PATH, (text) => {
-    const lb = text ? JSON.parse(text) : { players: {} }
-    const cur = lb.players[player] || { name, scores: {} }
-    cur.name = name
-    for (const [pb, v] of Object.entries(scores)) if (!(pb in cur.scores)) cur.scores[pb] = v
-    cur.updated = new Date().toISOString()
-    lb.players[player] = cur
-    return JSON.stringify(lb)
-  }, 'Điểm trắc nghiệm')
-  if (res.ok) cache.remove('lb-top')
-  return out(res)
-}
-
-function doGet(e) {
-  const p = (e && e.parameter) || {}
-  if (p.action !== 'leaderboard') return out({ ok: false, error: 'action' })
-  const cache = CacheService.getScriptCache()
-  let all = cache.get('lb-top')
-  if (!all) {
-    const r = readFile(LB_PATH)
-    if (!r.ok) return out(r)
-    const players = r.text ? JSON.parse(r.text).players : {}
-    const rows = Object.keys(players).map((id) => {
-      const x = players[id]
-      const sc = Object.values(x.scores)
-      return { id: id, name: x.name, score: sc.reduce((a, b) => a + b, 0), done: sc.length, updated: x.updated }
-    }).sort((a, b) => b.score - a.score || (a.updated < b.updated ? -1 : 1))
-    all = JSON.stringify(rows)
-    try { cache.put('lb-top', all, 60) } catch (err) { /* bảng quá lớn để cache thì thôi */ }
-  }
-  const rows = JSON.parse(all)
-  const meIdx = p.me ? rows.findIndex((r) => r.id === p.me) : -1
-  const strip = (r, i) => ({ pos: i + 1, name: r.name, score: r.score, done: r.done }) // không trả id người chơi ra ngoài
-  return out({ ok: true, total: rows.length, top: rows.slice(0, 100).map(strip), me: meIdx >= 0 ? strip(rows[meIdx], meIdx) : null })
-}
-
-// Nối một dòng vào file trong repo (một commit nhỏ mỗi lượt; repo riêng nên không kích hoạt dựng web)
-function appendLine(path, line) {
-  return updateFile(path, (text) => text + line + '\n', 'Góp ý mới')
+function installTriggers() {
+  ScriptApp.getProjectTriggers().filter((t) => t.getHandlerFunction() === 'flushFeedback').forEach((t) => ScriptApp.deleteTrigger(t))
+  ScriptApp.newTrigger('flushFeedback').timeBased().everyMinutes(5).create()
 }
 
 function gh() {

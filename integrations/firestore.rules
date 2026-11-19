@@ -1,0 +1,56 @@
+rules_version = '2';
+// SINH TỰ ĐỘNG bởi scripts/gen-firestore-rules.mjs từ src/data/playbooks.json. Đừng sửa tay.
+// Dán toàn bộ file này vào Firebase console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Bảng xếp hạng: mỗi người chơi một bản ghi, mã bản ghi = uid đăng nhập Firebase
+    match /players/{uid} {
+      allow read: if true;
+      allow create: if request.auth != null && request.auth.uid == uid && validPlayer(request.resource.data);
+      allow update: if request.auth != null && request.auth.uid == uid && validPlayer(request.resource.data)
+        && firstAttemptKept(resource.data.scores, request.resource.data.scores);
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+
+    function validPlayer(d) {
+      return d.keys().hasOnly(['name', 'scores', 'total', 'done', 'updatedAt'])
+        && d.name is string && d.name.size() >= 1 && d.name.size() <= 24
+        && !d.name.matches('.*[0-9][0-9 .-]{5,}[0-9].*') && !d.name.matches('(?i).*(https?://|www[.]).*')
+        && d.scores is map && d.scores.keys().hasOnly(['pb_01_profit_reality', 'pb_02_cashflow_trap', 'pb_03_tax_and_opex', 'pb_04_ops_efficiency', 'pb_05_sourcing_and_deadstock', 'pb_06_livestream_and_koc', 'pb_07_ads_scaling', 'pb_08_retention_clv', 'pb_09_packing_and_reviews', 'pb_10_team_vs_automation'])
+        && validScores(d.scores)
+        && d.total == totalOf(d.scores)
+        && d.done == doneOf(d.scores)
+        && d.updatedAt == request.time;
+    }
+
+    function validScores(s) {
+      return (!s.keys().hasAny(['pb_01_profit_reality']) || s['pb_01_profit_reality'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_02_cashflow_trap']) || s['pb_02_cashflow_trap'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_03_tax_and_opex']) || s['pb_03_tax_and_opex'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_04_ops_efficiency']) || s['pb_04_ops_efficiency'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_05_sourcing_and_deadstock']) || s['pb_05_sourcing_and_deadstock'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_06_livestream_and_koc']) || s['pb_06_livestream_and_koc'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_07_ads_scaling']) || s['pb_07_ads_scaling'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_08_retention_clv']) || s['pb_08_retention_clv'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_09_packing_and_reviews']) || s['pb_09_packing_and_reviews'] in [0, 10, 20, 30])
+        && (!s.keys().hasAny(['pb_10_team_vs_automation']) || s['pb_10_team_vs_automation'] in [0, 10, 20, 30]);
+    }
+
+    function totalOf(s) {
+      return s.get('pb_01_profit_reality', 0) + s.get('pb_02_cashflow_trap', 0) + s.get('pb_03_tax_and_opex', 0) + s.get('pb_04_ops_efficiency', 0) + s.get('pb_05_sourcing_and_deadstock', 0) + s.get('pb_06_livestream_and_koc', 0) + s.get('pb_07_ads_scaling', 0) + s.get('pb_08_retention_clv', 0) + s.get('pb_09_packing_and_reviews', 0) + s.get('pb_10_team_vs_automation', 0);
+    }
+
+    function doneOf(s) {
+      return (s.keys().hasAny(['pb_01_profit_reality']) ? 1 : 0) + (s.keys().hasAny(['pb_02_cashflow_trap']) ? 1 : 0) + (s.keys().hasAny(['pb_03_tax_and_opex']) ? 1 : 0) + (s.keys().hasAny(['pb_04_ops_efficiency']) ? 1 : 0) + (s.keys().hasAny(['pb_05_sourcing_and_deadstock']) ? 1 : 0) + (s.keys().hasAny(['pb_06_livestream_and_koc']) ? 1 : 0) + (s.keys().hasAny(['pb_07_ads_scaling']) ? 1 : 0) + (s.keys().hasAny(['pb_08_retention_clv']) ? 1 : 0) + (s.keys().hasAny(['pb_09_packing_and_reviews']) ? 1 : 0) + (s.keys().hasAny(['pb_10_team_vs_automation']) ? 1 : 0);
+    }
+
+    // Điểm đã ghi thì giữ nguyên: không bớt Playbook nào, không đổi điểm nào
+    function firstAttemptKept(before, after) {
+      return after.diff(before).removedKeys().size() == 0 && after.diff(before).changedKeys().size() == 0;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
