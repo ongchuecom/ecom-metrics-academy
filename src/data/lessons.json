@@ -169,5 +169,3266 @@
       "source": "Ecom Truyền Kỳ · Khởi nghiệp tinh gọn"
     },
     "remember": "ROAS đẹp chưa chắc có lãi. Phải so với ROAS hòa vốn của chính shop mình."
+  },
+  "vn_prod_landed_cost": {
+    "subtitle": "1 sản phẩm về tới kho tốn bao nhiêu thật",
+    "intro": [
+      "**Giá vốn về tới kho (Landed Cost) là tiền thật bỏ ra cho 1 sản phẩm khi nó đã nằm trên kệ.** Hiểu đơn giản: tiền trả xưởng, cộng cước Trung-Việt, thuế, phí ủy thác, bốc xếp, rồi chia cho số lượng nhập. Ví dụ: xưởng báo 115k/áo, về tới kho thành 125k.",
+      "Nhiều anh em lấy giá xưởng báo để tính lãi. Mỗi sản phẩm hụt 10k thì chưa thấy gì, nhân lên cả lô là ra con số to. Giá vốn (Cogs) sai thì CM1 sai, ROAS hòa vốn sai, giá bán đặt cũng sai theo."
+    ],
+    "tree": {
+      "title": "Giá vốn về kho được tạo ra từ đâu",
+      "note": "Muốn giá vốn về kho giảm thì ép từng khoản: giá xưởng, cước, thuế, phí. Giá vốn về kho thấp thì CM1 dày lên.",
+      "expr": {
+        "label": "Giá vốn về kho",
+        "eq": [
+          "(",
+          {
+            "label": "Tiền trả xưởng",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Cước Trung-Việt",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Thuế, ủy thác",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Bốc xếp",
+            "dir": "down"
+          },
+          ") ÷",
+          {
+            "label": "Số lượng nhập"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 1 áo khoác: xưởng báo 115k, về kho 125k",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Tiền trả xưởng",
+            115
+          ],
+          [
+            "Cước Trung-Việt",
+            6,
+            "focus"
+          ],
+          [
+            "Thuế, phí ủy thác",
+            3,
+            "focus"
+          ],
+          [
+            "Bốc xếp",
+            1,
+            "focus"
+          ],
+          [
+            "Giá vốn về kho",
+            125,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Phần cộng thêm là 10k/áo, gần 9% giá xưởng. **Con số tính lãi là 125k, không phải 115k.**"
+    },
+    "sections": [
+      {
+        "title": "Tính nhầm giá vốn thì lệch bao nhiêu?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Tính theo giá xưởng",
+            "Tính theo giá về kho"
+          ],
+          "items": [
+            [
+              "CM1 của 550 áo",
+              101.2,
+              95.7
+            ]
+          ]
+        },
+        "body": [
+          "Bán 550 áo giá 299k. Tính theo giá xưởng, CM1 (lãi sau giá vốn) là 101,2tr. Tính đúng theo giá về kho chỉ còn 95,7tr. Lệch **5,5tr** mà chưa bán thêm được cái nào.",
+          "Vậy nên mỗi lô hàng về, anh em cộng đủ hóa đơn cước, thuế, phí rồi mới chia cho số lượng nhập. Hàng lỗi, thiếu không bán được thì chia cho số sản phẩm bán được, giá vốn còn nhích lên nữa."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy giá xưởng báo làm giá vốn, quên cước và thuế.",
+      "Tính cước theo cả lô nhưng chia cho cả số hàng lỗi, hàng thiếu.",
+      "Ham giá sỉ rẻ khi ôm lô lớn, quên rằng hàng không bán hết thì giá vốn thật còn cao hơn."
+    ],
+    "quote": {
+      "text": "Giá vốn của Ecom thì bao gồm tiền mua sản phẩm, vận chuyển, phí nhập khẩu lưu kho, phí thông quan.",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "Tính lãi bằng giá vốn về tới kho, không bằng giá xưởng báo."
+  },
+  "vn_prod_hero_sku": {
+    "subtitle": "Shop đang sống nhờ vài mã hay bán đều",
+    "intro": [
+      "**Tỷ lệ hàng chủ lực (Hero SKU) là phần doanh thu đến từ top 20% mã bán chạy nhất.** Hiểu đơn giản: xếp mã từ bán nhiều tới bán ít, lấy 20% mã đầu bảng, xem chúng gánh bao nhiêu phần doanh thu. Ví dụ: shop 20 mã, doanh thu 500tr/tháng, 4 mã đầu bảng ra 360tr thì tỷ lệ là 72%.",
+      "Con số này không tốt hay xấu tự thân. Nó cho biết tiền nhập hàng, tiền Ads và sức của kho nên dồn vào đâu. Nó cũng chỉ ra chỗ hở lớn nhất: mã gánh team mà đứt hàng thì cả shop chao đảo."
+    ],
+    "tree": {
+      "title": "Tỷ lệ hàng chủ lực được tính từ đâu",
+      "note": "Tỷ lệ cao nghĩa là phụ thuộc vài mã. Việc của ta là giữ kho mã chủ lực không bao giờ đứt.",
+      "expr": {
+        "label": "Tỷ lệ hàng chủ lực",
+        "eq": [
+          {
+            "label": "Doanh thu top 20% mã"
+          },
+          "÷",
+          {
+            "label": "Tổng doanh thu"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Shop 20 mã, doanh thu 500tr/tháng",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Mã 1",
+            150,
+            "focus"
+          ],
+          [
+            "Mã 2",
+            100,
+            "focus"
+          ],
+          [
+            "Mã 3",
+            70,
+            "focus"
+          ],
+          [
+            "Mã 4",
+            40,
+            "focus"
+          ],
+          [
+            "16 mã còn lại",
+            140
+          ]
+        ]
+      },
+      "after": "4 mã gánh **72% doanh thu**. Riêng mã 1 đã là 30%. 16 mã kia cộng lại chưa bằng mã 1 với mã 2."
+    },
+    "sections": [
+      {
+        "title": "Tỷ lệ cao thì nên làm gì?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Vài mã gánh doanh thu",
+            "Doanh thu rải đều"
+          ],
+          "y": [
+            "Kho mã chủ lực luôn đủ",
+            "Mã chủ lực hay đứt hàng"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Dồn lực đúng chỗ",
+                "text": "Dồn tiền nhập, Ads, kho vào mã thắng. Scale được.",
+                "tone": "good"
+              },
+              {
+                "title": "An toàn nhưng mỏng",
+                "text": "Vốn rải nhiều mã, khó có mã đủ lực để scale.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Rủi ro cao nhất",
+                "text": "Mã chính đứt 1 tuần là doanh thu cả shop sập.",
+                "tone": "bad"
+              },
+              {
+                "title": "Chưa có mã thắng",
+                "text": "Tìm và test thêm mã trước khi lo kho.",
+                "tone": "mid"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Shop trên mà mã 1 đứt hàng 6 ngày thì mất khoảng 30tr doanh thu (150tr ÷ 30 × 6), chưa kể Ads đang chạy ngon bị tắt ngang, mở lại phải học lại từ đầu.",
+          "Vậy nên Playbook 05 khuyên giữ tồn kho an toàn tối thiểu 10 ngày cho top 20% mã chủ lực. Mã đuôi bán chậm thì nhập lô nhỏ, đừng để chúng giam tiền của mã chính."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chia đều tiền nhập hàng cho mọi mã, mã chính thì thiếu, mã đuôi thì ế.",
+      "Thấy mã chủ lực bán chạy nên quên theo dõi tồn kho, đến lúc đứt mới nhập.",
+      "Nhìn tổng doanh thu tăng mà không biết tăng nhờ mã nào."
+    ],
+    "quote": {
+      "text": "Vì trend thay đổi nên anh em cứ phải nhảy từ Sku này qua Sku khác, lúc được lúc mất.",
+      "source": "Ecom Truyền Kỳ · Gọi vốn Ecom- không chỉ là tiền, mà là Tầm và sự Đồng hành"
+    },
+    "remember": "Biết mã nào gánh team, rồi giữ kho mã đó không bao giờ đứt."
+  },
+  "vn_ops_dio": {
+    "subtitle": "Tiền nhập hàng nằm trong kho bao lâu",
+    "intro": [
+      "**DIO (số ngày tồn kho) là số ngày trung bình hàng nằm trong kho trước khi bán được.** Hiểu đơn giản: lấy tồn kho bình quân chia giá vốn hàng bán ra trong kỳ, nhân số ngày. Ví dụ: mỗi tháng bán ra lượng hàng giá vốn 300tr, kho lúc nào cũng có khoảng 600tr hàng, thì DIO = 600 ÷ 300 × 30 = 60 ngày.",
+      "Hàng nằm kho bao nhiêu ngày thì tiền bị giam bấy nhiêu ngày. Sổ sách có thể báo lãi đều, nhưng tiền lãi đã chui vào kệ hàng. Nhiều anh em gãy dòng tiền không phải vì bán lỗ mà vì DIO dài ra lúc nào không biết."
+    ],
+    "tree": {
+      "title": "DIO được tạo ra từ đâu",
+      "note": "Muốn DIO ngắn lại thì giữ tồn kho gọn hoặc bán ra nhanh hơn với cùng lượng hàng.",
+      "expr": {
+        "label": "DIO",
+        "eq": [
+          {
+            "label": "Tồn kho bình quân",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Giá vốn hàng bán ra trong kỳ",
+            "dir": "up"
+          },
+          "×",
+          {
+            "label": "Số ngày trong kỳ"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Hai shop cùng bán ra 300tr giá vốn/tháng",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Shop A (DIO 30 ngày)",
+          "Shop B (DIO 90 ngày)"
+        ],
+        "items": [
+          [
+            "Giá vốn bán ra/tháng",
+            300,
+            300
+          ],
+          [
+            "Tồn kho bình quân",
+            300,
+            900
+          ]
+        ]
+      },
+      "after": "Bán ra y hệt nhau, nhưng shop B phải nằm thêm **600tr tiền mặt** trong kho. Số tiền đó shop A đem đi chạy Ads, nhập mã mới."
+    },
+    "sections": [
+      {
+        "title": "DIO bao nhiêu là ổn?",
+        "chart": {
+          "type": "line",
+          "xLabel": "DIO (ngày)",
+          "unit": "tr",
+          "points": [
+            [
+              15,
+              150.0
+            ],
+            [
+              30,
+              300.0
+            ],
+            [
+              45,
+              450.0
+            ],
+            [
+              60,
+              600.0
+            ],
+            [
+              75,
+              750.0
+            ],
+            [
+              90,
+              900.0
+            ],
+            [
+              105,
+              1050.0
+            ],
+            [
+              120,
+              1200.0
+            ]
+          ],
+          "threshold": {
+            "x": 90,
+            "label": "Sách: 30–90 ngày là ổn"
+          },
+          "now": {
+            "x": 60,
+            "label": "Đang 60 ngày: giam 600tr"
+          }
+        },
+        "body": [
+          "Nếu chưa từng tính DIO, dự phòng khoảng 30–90 ngày là ổn (theo sách Ecom Truyền Kỳ). Quy ngược lại: giá vốn hàng bán mỗi tháng nhân DIO ra mức tồn kho cho phép.",
+          "Shop trên bán 300tr giá vốn/tháng, đặt trần 60 ngày thì tồn kho không nên vượt 600tr. Thấy kho phình quá mức đó là tín hiệu dừng nhập, xả bớt mã chậm.",
+          "Thực tế mỗi mã một tốc độ. Tính DIO riêng cho từng nhóm hàng, đừng chỉ nhìn một con số trung bình cả kho."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nhìn lãi trên P&L mà không nhìn tiền đang nằm trong kho.",
+      "Tính DIO trung bình cả kho, che mất các mã nằm im cả quý.",
+      "Ham chiết khấu nhập lô lớn, DIO kéo dài hơn phần tiền được giảm."
+    ],
+    "quote": {
+      "text": "Tiền mặt bị giam trong hàng tồn kho cũng như các khoản nợ phải thu. Tăng trưởng thậm chí còn ngốn nhiều tiền mặt hơn nữa.",
+      "source": "Ecom Truyền Kỳ · Nắm bắt trước các chính sách lớn có thể thay đổi hoàn toàn cuộc chơi"
+    },
+    "remember": "Hàng nằm kho bao nhiêu ngày, tiền bị giam bấy nhiêu ngày."
+  },
+  "vn_ops_dead_stock": {
+    "subtitle": "Bao nhiêu tiền đã chết trong kho",
+    "intro": [
+      "**Tỷ lệ hàng tồn chết (Dead Stock) là phần giá trị tồn kho không ra nổi một đơn nào quá 90 ngày.** Hiểu đơn giản: lọc các lô 90 ngày không có đơn, cộng giá vốn lại, chia cho tổng giá trị kho. Ví dụ: kho 800tr, trong đó 200tr là size lẻ nằm im 3 tháng, tỷ lệ là 25%.",
+      "Hàng tồn chết không chỉ giam tiền. Nó còn mất giá theo thời gian: hết mùa, hết trend, bao bì cũ, hạn dùng gần. Càng để lâu càng phải xả rẻ hơn."
+    ],
+    "tree": {
+      "title": "Tỷ lệ hàng tồn chết được tính từ đâu",
+      "note": "Muốn tỷ lệ này thấp thì nhập ít mã chậm, và xả sớm khi mã bắt đầu đứng. DIO dài là dấu hiệu báo trước.",
+      "expr": {
+        "label": "Hàng tồn chết",
+        "eq": [
+          {
+            "label": "Giá trị hàng > 90 ngày không đơn",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Tổng giá trị tồn kho"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Kho 800tr chia theo tuổi hàng",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Bán hết trong 30 ngày",
+            400
+          ],
+          [
+            "30–60 ngày",
+            140
+          ],
+          [
+            "60–90 ngày",
+            60,
+            "focus"
+          ],
+          [
+            "Quá 90 ngày, không đơn nào",
+            200,
+            "loss"
+          ]
+        ]
+      },
+      "after": "**Cứ 4 đồng trong kho có 1 đồng đã chết.** Nhóm 60–90 ngày (60tr) là ứng viên tiếp theo nếu không xử lý."
+    },
+    "sections": [
+      {
+        "title": "Xả ngay hay chờ thêm?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Xả ngay, 50% giá vốn",
+            "Chờ 3 tháng, 30% giá vốn"
+          ],
+          "items": [
+            [
+              "Tiền thu về",
+              100.0,
+              60.0
+            ],
+            [
+              "Mất so với giá vốn",
+              100.0,
+              140.0
+            ]
+          ]
+        },
+        "body": [
+          "Lô 200tr giá vốn mà xả ngay được nửa giá thì thu 100tr tiền mặt, đem nhập mã đang bán chạy. Chờ thêm 3 tháng, hết mùa chỉ bán được 30% giá vốn thì còn 60tr, mất thêm 40tr và 3 tháng tiền nằm im.",
+          "Vậy nên đặt luật cứng như Playbook 02: mã nào quá 60 ngày không đạt tốc độ bán thì chạy Flash Sale, ghép quà, ghép combo. Đừng chờ đủ 90 ngày mới xử lý."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Giữ hàng chết vì tiếc giá vốn, trong khi giá trị thật của nó mỗi tháng một giảm.",
+      "Vẫn tính hàng chết vào tài sản theo giá nhập, tưởng kho còn nhiều tiền.",
+      "Chia đều số lượng nhập cho mọi size, màu nên size lẻ thành hàng chết."
+    ],
+    "quote": {
+      "text": "Nhiều bạn nghĩ mua nhiều hàng để có giá rẻ rồi lưu trong kho và bán dần. Nhưng nếu không bán được thì sao? Tồn kho khi đó trở thành hàng phế phẩm không có giá trị. Và lỗ.",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "Hàng tồn chết xả càng sớm càng thu được nhiều tiền."
+  },
+  "vn_prod_defect_rate": {
+    "subtitle": "Bao nhiêu hàng lỗi đã lọt vào kho",
+    "intro": [
+      "**Tỷ lệ hàng lỗi nhập xưởng là phần sản phẩm lỗi phát hiện khi kiểm hàng nhập kho.** Hiểu đơn giản: đếm số sản phẩm lỗi đường may, trầy xước, móp méo, chia cho tổng số nhập. Ví dụ: nhập 2.000 sản phẩm, kiểm ra 60 cái lỗi thì tỷ lệ là 3%.",
+      "Lỗi bắt được ở kho thì còn đổi được với xưởng. Lỗi lọt tới tay khách thì thành đơn hoàn, mất 2 chiều ship, kèm đánh giá 1 sao ngay đầu trang sản phẩm. Lúc đó cái giá không còn là 1 sản phẩm nữa."
+    ],
+    "tree": {
+      "title": "Tỷ lệ hàng lỗi được tính từ đâu",
+      "note": "Muốn tỷ lệ này thấp thì chọn xưởng kỹ, ghi rõ tiêu chuẩn hàng đạt, và kiểm từng lô.",
+      "expr": {
+        "label": "Tỷ lệ hàng lỗi",
+        "eq": [
+          {
+            "label": "Số sản phẩm lỗi khi kiểm kho",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Tổng số lượng nhập"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Lô 2.000 sản phẩm, kiểm ra 60 cái lỗi",
+      "chart": {
+        "type": "bars",
+        "unit": "sp",
+        "items": [
+          [
+            "Lỗi đường may",
+            30,
+            "focus"
+          ],
+          [
+            "Trầy xước",
+            20
+          ],
+          [
+            "Móp méo",
+            10
+          ]
+        ]
+      },
+      "after": "Một nửa số lỗi là đường may. **Biết lỗi nằm ở khâu nào thì mới ép xưởng sửa đúng chỗ**, và ghi vào điều khoản đổi trả cho lô sau."
+    },
+    "sections": [
+      {
+        "title": "Kiểm hàng có đáng công không?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Kiểm từng sản phẩm",
+            "Không kiểm, lọt tới khách"
+          ],
+          "items": [
+            [
+              "Tiền công kiểm hàng",
+              1.0,
+              0
+            ],
+            [
+              "Tiền mất vì hàng lỗi",
+              0,
+              6.6
+            ]
+          ]
+        },
+        "body": [
+          "Kiểm 2.000 sản phẩm, tính 500đ/cái, hết 1tr. Không kiểm, 60 cái lỗi đi thẳng tới khách: mỗi đơn mất 30k ship 2 chiều cộng 80k giá vốn sản phẩm hỏng, tổng 6,6tr. Đó là chưa tính 60 cái đánh giá xấu kéo tụt tỷ lệ chuyển đổi.",
+          "Sách Ecom Truyền Kỳ đặt mốc cost structure lý tưởng cho khoản bồi hoàn, hư hao dưới 5% doanh thu. Hàng lỗi lọt ra ngoài là thứ ăn vào khoản này nhanh nhất."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tin xưởng quen nên bỏ qua kiểm hàng, chỉ đếm số lượng.",
+      "Kiểm xong không ghi lại loại lỗi, lô sau xưởng lặp lại đúng lỗi cũ.",
+      "Đem hàng lỗi nhẹ ra bán giá gốc, rồi nhận về đơn hoàn và 1 sao."
+    ],
+    "remember": "Lỗi bắt ở kho rẻ hơn nhiều so với lỗi để khách bắt."
+  },
+  "vn_prod_packaging_cost": {
+    "subtitle": "Mỗi đơn tốn bao nhiêu tiền hộp, xốp, quà",
+    "intro": [
+      "**Chi phí đóng gói trên mỗi đơn là tiền hộp, xốp, băng keo, túi niêm phong và quà kèm chia cho số đơn xuất.** Hiểu đơn giản: cả tháng mua vật tư hết bao nhiêu, chia cho số đơn gửi đi. Ví dụ: tháng mua vật tư hết 28tr, xuất 4.000 đơn thì mỗi đơn tốn 7k.",
+      "Nghe nhỏ, nhưng khoản này trừ thẳng vào CM2, cùng chỗ với phí sàn và ship. Đơn giá trị thấp thì vài nghìn tiền hộp đã là một phần đáng kể của lãi."
+    ],
+    "tree": {
+      "title": "Chi phí đóng gói được tạo ra từ đâu",
+      "note": "Muốn chi phí này giảm thì mua vật tư theo lô, chọn hộp vừa cỡ, và tăng số món trên mỗi đơn.",
+      "expr": {
+        "label": "Đóng gói/đơn",
+        "eq": [
+          "(",
+          {
+            "label": "Hộp, xốp",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Băng keo, túi",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Quà kèm",
+            "dir": "down"
+          },
+          ") ÷",
+          {
+            "label": "Số đơn xuất"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 1 đơn đồ gia dụng: 7k tiền đóng gói",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Hộp carton",
+            3
+          ],
+          [
+            "Xốp nổ",
+            1
+          ],
+          [
+            "Băng keo",
+            0.3
+          ],
+          [
+            "Túi niêm phong",
+            0.7
+          ],
+          [
+            "Quà tặng kèm",
+            2,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Với đơn 250k, đóng gói ăn 2,8% doanh thu. Shop 4.000 đơn/tháng là **28tr/tháng**, cả năm 336tr."
+    },
+    "sections": [
+      {
+        "title": "Cắt chỗ nào, giữ chỗ nào?",
+        "chart": {
+          "type": "compare",
+          "unit": "k",
+          "labels": [
+            "2 đơn lẻ, mỗi đơn 1 món",
+            "1 đơn combo 2 món"
+          ],
+          "items": [
+            [
+              "Tiền đóng gói",
+              14.0,
+              8.0
+            ],
+            [
+              "Tính trên mỗi sản phẩm",
+              7.0,
+              4.0
+            ]
+          ]
+        },
+        "body": [
+          "Cách giảm đỡ đau nhất là gộp combo. Hai món đi chung một hộp to hơn chút (thêm 1k), tiền đóng gói mỗi sản phẩm từ 7k còn 4k.",
+          "Thứ không nên cắt là hộp cứng và xốp chống sốc. Tiết kiệm 2k tiền hộp, đơn hoàn về bẹp dúm thì không bán lại giá gốc được (Playbook 09). Quà kèm thì nên đo: tặng mà không tăng đánh giá tốt hay khách quay lại thì bỏ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Không tính đóng gói vào chi phí mỗi đơn vì thấy mỗi lần chỉ vài nghìn.",
+      "Cắt hộp, xốp để tiết kiệm, rồi trả giá bằng hàng vỡ và hàng hoàn không bán lại được.",
+      "Tặng quà kèm theo cảm tính, không đo xem có đổi lại đánh giá hay đơn quay lại."
+    ],
+    "quote": {
+      "text": "Tiền giấy, băng keo, hộp, mực...tốn tầm 1k/ đơn thì mất 10tr",
+      "source": "Ecom Truyền Kỳ · Bán hàng trên sàn Ecom còn có lãi không?"
+    },
+    "remember": "Vài nghìn mỗi đơn nhân cả tháng là tiền thật. Cắt quà vô ích, đừng cắt hộp."
+  },
+  "vn_prod_lead_time": {
+    "subtitle": "Từ lúc cọc xưởng tới lúc bán mất bao lâu",
+    "intro": [
+      "**Lead time nhập hàng là số ngày từ lúc chốt cọc xưởng đến khi hàng nằm trên kệ sẵn sàng bán.** Hiểu đơn giản: tính từ ngày chuyển tiền cọc, không phải từ ngày xưởng báo xong hàng. Ví dụ: cọc ngày 1, ngày 25 hàng mới kiểm xong lên kệ thì lead time là 24 ngày.",
+      "Lead time quyết định phải báo nhập sớm cỡ nào. Mã bán 30 cái/ngày, lead time 24 ngày thì trong lúc chờ hàng đã bán hết 720 cái. Nhập trễ là đứt hàng, Ads đang chạy ngon phải tắt ngang."
+    ],
+    "tree": {
+      "title": "Lead time được tạo ra từ đâu",
+      "note": "Muốn lead time ngắn thì rút từng chặng. Chặng dài nhất thường là xưởng sản xuất.",
+      "expr": {
+        "label": "Lead time",
+        "eq": [
+          {
+            "label": "Sản xuất",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Vận chuyển",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Thông quan",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Kiểm hàng, lên kệ",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Lô áo khoác Quảng Châu: 24 ngày từ cọc tới kệ",
+      "chart": {
+        "type": "bars",
+        "unit": "ngày",
+        "items": [
+          [
+            "Xưởng sản xuất",
+            12,
+            "focus"
+          ],
+          [
+            "Vận chuyển Trung-Việt",
+            7
+          ],
+          [
+            "Thông quan, ủy thác",
+            3
+          ],
+          [
+            "Kiểm hàng, lên kệ",
+            2
+          ]
+        ]
+      },
+      "after": "Xưởng chiếm một nửa thời gian. **Chặng sản xuất là chỗ đàm phán được nhiều nhất**, còn vận chuyển và thông quan thường khó rút."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kiểm soát lead time?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo từng chặng",
+              "Ghi ngày cọc, ngày xưởng xong, ngày về kho, ngày lên kệ cho mỗi lô."
+            ],
+            [
+              "Lấy số chậm",
+              "Lập kế hoạch theo lô chậm nhất 3 lần gần đây, không theo lời hứa."
+            ],
+            [
+              "Ép chặng dài",
+              "Giữ lịch sản xuất với xưởng cho mã chủ lực, cọc sớm hơn."
+            ],
+            [
+              "Báo nhập sớm",
+              "Đưa lead time vào điểm báo nhập để không đứt hàng."
+            ]
+          ]
+        },
+        "body": [
+          "Thực tế lead time không cố định. Mùa cao điểm xưởng dồn đơn, cửa khẩu ùn, lô 24 ngày dễ thành 35 ngày. Vậy nên đừng lấy số đẹp nhất để tính.",
+          "Lead time dài cũng là tiền: tiền cọc đã ra khỏi túi từ ngày 1 nhưng chưa bán được gì. Chọn nguồn hàng gần hơn, giá nhỉnh hơn chút, đôi khi lại có lợi cho dòng tiền."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính lead time từ ngày xưởng báo xong hàng, bỏ mất phần thời gian sản xuất.",
+      "Lấy lead time của lô nhanh nhất để lên kế hoạch nhập.",
+      "Quên thời gian kiểm hàng, dán tem, lên kệ trước khi bán được."
+    ],
+    "quote": {
+      "text": "Vòng quay vốn lâu chủ yếu do ảnh hưởng của thời gian vận chuyển hàng hóa và thời gian ship nội địa",
+      "source": "Ecom Truyền Kỳ · Từ Ao Làng đến Ao Trình- câu chuyện của những anh em 9x đánh ĐNA"
+    },
+    "remember": "Lead time tính từ ngày cọc tới ngày lên kệ, và lấy số chậm để lên kế hoạch."
+  },
+  "vn_ops_reorder_point": {
+    "subtitle": "Kho còn bao nhiêu thì phải đặt hàng ngay",
+    "intro": [
+      "**Điểm báo nhập (Reorder Point) là mức tồn kho mà chạm tới là phải đặt hàng ngay.** Hiểu đơn giản: số bán mỗi ngày nhân số ngày chờ hàng về, cộng thêm một phần tồn kho an toàn. Ví dụ: serum bán 40 chai/ngày, hàng về mất 12 ngày, giữ an toàn 10 ngày, thì điểm báo nhập là 40 × 12 + 400 = 880 chai.",
+      "Đặt thấp quá thì đứt hàng, đúng lúc Ads đang thắng phải tắt. Đặt cao quá thì ôm hàng thừa, tiền nằm kho. Điểm báo nhập là chỗ cân hai cái rủi ro đó bằng con số, thay vì cảm giác của thủ kho."
+    ],
+    "tree": {
+      "title": "Điểm báo nhập được tạo ra từ đâu",
+      "note": "Lead time càng dài, bán càng nhanh thì phải báo nhập càng sớm. Bấm vào Lead time để học sâu.",
+      "expr": {
+        "label": "Điểm báo nhập",
+        "eq": [
+          "(",
+          {
+            "label": "Bán mỗi ngày"
+          },
+          "×",
+          {
+            "id": "vn_prod_lead_time",
+            "label": "Lead time"
+          },
+          ") +",
+          {
+            "label": "Tồn kho an toàn"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Serum chủ lực: báo nhập khi còn 880 chai",
+      "chart": {
+        "type": "bars",
+        "unit": "chai",
+        "items": [
+          [
+            "Bán trong lúc chờ hàng (40 × 12)",
+            480,
+            "focus"
+          ],
+          [
+            "Tồn kho an toàn (10 ngày)",
+            400,
+            "keep"
+          ]
+        ]
+      },
+      "after": "480 chai để bán trong 12 ngày chờ hàng. **400 chai còn lại là tấm đệm** cho lúc xưởng trễ hay đơn tăng đột biến."
+    },
+    "sections": [
+      {
+        "title": "Điểm báo nhập chạy thế nào trong thực tế?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Ngày",
+          "unit": "chai",
+          "points": [
+            [
+              0,
+              1400
+            ],
+            [
+              3,
+              1280
+            ],
+            [
+              6,
+              1160
+            ],
+            [
+              9,
+              1040
+            ],
+            [
+              13,
+              880
+            ],
+            [
+              16,
+              760
+            ],
+            [
+              19,
+              640
+            ],
+            [
+              22,
+              520
+            ],
+            [
+              24,
+              440
+            ],
+            [
+              25,
+              1400
+            ],
+            [
+              27,
+              1320
+            ],
+            [
+              30,
+              1200
+            ]
+          ],
+          "threshold": {
+            "x": 13,
+            "label": "Ngày 13 chạm 880: đặt hàng"
+          },
+          "now": {
+            "x": 25,
+            "label": "Ngày 25 hàng về, còn đúng 400 chai"
+          }
+        },
+        "body": [
+          "Kho đầu kỳ 1.400 chai, mỗi ngày bán 40. Ngày 13 chạm 880 thì đặt hàng. 12 ngày sau hàng về, kho còn đúng 400 chai tồn an toàn, chưa đứt ngày nào.",
+          "Nếu chờ còn 480 chai mới đặt, không có tồn an toàn, xưởng trễ 6 ngày là đứt 6 ngày, mất 240 chai. Playbook 04 kể đúng cảnh này: mã serum chủ lực đứt 6 ngày vì thủ kho báo nhập chậm. Cách sửa là cài cảnh báo tồn kho tự động."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Đợi hết hàng mới đặt, quên rằng hàng về còn mất cả chục ngày.",
+      "Dùng một điểm báo nhập cho mọi mã, dù tốc độ bán và lead time khác nhau.",
+      "Không cập nhật khi đang đẩy Ads, số bán mỗi ngày tăng mà điểm báo nhập vẫn giữ cũ."
+    ],
+    "quote": {
+      "text": "Quản trị hàng tồn kho: không quá nhiều tồn kho để bị đọng vốn nhưng không thiếu hàng đến mức khách mua phải đợi.",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "Báo nhập khi kho còn đủ bán trong lúc chờ hàng, cộng một phần an toàn."
+  },
+  "vn_fin_gmroi": {
+    "subtitle": "Mỗi đồng nằm trong kho đẻ ra bao nhiêu lãi",
+    "intro": [
+      "**GMROI là số đồng lãi gộp CM1 mà mỗi đồng vốn tồn kho sinh ra trong kỳ.** Hiểu đơn giản: lấy CM1 cả năm của một mã chia tồn kho bình quân của mã đó. Ví dụ: mã A cả năm ra 600tr CM1, kho lúc nào cũng giữ khoảng 150tr hàng, thì GMROI = 600 ÷ 150 = 4.",
+      "Nhiều anh em chọn mã theo biên lãi trên mỗi sản phẩm. Nhưng biên lãi chỉ nói một nửa. Mã lãi dày mà nằm kho nửa năm có khi thua mã lãi mỏng mà quay vòng hàng tháng. GMROI gộp cả hai vào một con số."
+    ],
+    "tree": {
+      "title": "GMROI được tạo ra từ đâu",
+      "note": "Muốn GMROI tăng thì CM1 ↑ (giá vốn thấp, bán đúng giá) hoặc tồn kho ↓ (quay nhanh, DIO ngắn).",
+      "expr": {
+        "label": "GMROI",
+        "eq": [
+          {
+            "id": "vn_fin_cm1",
+            "label": "Lãi gộp CM1",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Tồn kho bình quân",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Hai mã cùng ra 600tr CM1/năm",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Mã A",
+          "Mã B"
+        ],
+        "items": [
+          [
+            "Lãi gộp CM1/năm",
+            600,
+            600
+          ],
+          [
+            "Tồn kho bình quân",
+            150,
+            400
+          ]
+        ]
+      },
+      "after": "Cùng 600tr lãi, mã A chỉ cần giam 150tr, mã B giam 400tr. GMROI **A = 4, B = 1,5**. Có 250tr thừa ra để nhập thêm mã A."
+    },
+    "sections": [
+      {
+        "title": "Kéo GMROI lên bằng cách nào?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Quay vòng nhanh",
+            "Quay vòng chậm"
+          ],
+          "y": [
+            "CM1 dày",
+            "CM1 mỏng"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Mã ngôi sao",
+                "text": "Nhập đều, giữ kho không đứt, bơm Ads.",
+                "tone": "good"
+              },
+              {
+                "title": "Lãi đậm, giam vốn",
+                "text": "Nhập lô nhỏ hơn, nhập dày hơn.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Kéo traffic",
+                "text": "Giữ vì ra đơn đều, ép giá vốn để dày lãi.",
+                "tone": "mid"
+              },
+              {
+                "title": "Cắt hoặc xả",
+                "text": "Đang ăn vốn của mã khác. Xả và không nhập lại.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Có 2 đòn bẩy. Một là CM1: giá vốn về kho thấp hơn, bán đúng giá, bớt voucher. Hai là tồn kho: nhập lô vừa đủ, xả hàng chậm sớm, DIO ngắn lại.",
+          "Tính GMROI từng mã, xếp từ cao tới thấp. Tiền nhập hàng tháng sau ưu tiên mã đứng đầu. Mã nằm ô cắt hoặc xả thì đừng nhập lại chỉ vì xưởng chào giá rẻ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chọn mã chỉ theo biên lãi trên mỗi sản phẩm, bỏ qua thời gian hàng nằm kho.",
+      "Tính GMROI bằng doanh thu thay vì CM1, nên mã bán rẻ nhìn rất đẹp.",
+      "Tính chung cả kho, không biết mã nào đang kéo con số xuống."
+    ],
+    "quote": {
+      "text": "Dẫn đến việc nếu có lãi cũng chỉ là “lãi màn hình”, tiền nằm hết ở tồn kho lẫn rủi ro",
+      "source": "Ecom Truyền Kỳ · Thích nghi và Xoay xở"
+    },
+    "remember": "Mã tốt là mã đẻ nhiều lãi trên mỗi đồng nằm kho, không chỉ mã lãi dày."
+  },
+  "vn_ops_rto_rate": {
+    "subtitle": "Bao nhiêu đơn gửi đi rồi quay đầu về kho",
+    "intro": [
+      "**Tỷ lệ hoàn (RTO) là phần trăm đơn đã giao cho bên vận chuyển nhưng bị hoàn quay đầu về kho.** Hiểu đơn giản: bom hàng, khách từ chối nhận. Gửi 3.000 đơn mà 450 đơn quay về thì RTO = 15%.",
+      "Nhiều anh em chỉ nhìn số đơn ra. Nhưng mỗi đơn hoàn là mất ship 2 chiều, hộp hỏng, và cả tiền Ads đã chi để có đơn đó. Vậy nên RTO cao thì doanh thu màn hình đẹp mà tiền về lại ít."
+    ],
+    "tree": {
+      "title": "Đơn hoàn đến từ đâu",
+      "note": "Muốn RTO giảm thì bớt đơn COD rủi ro và giảm tỷ lệ bom của chính đơn COD. Giao nhanh, giao được ngay lần đầu cũng kéo RTO xuống.",
+      "expr": {
+        "label": "RTO",
+        "eq": [
+          {
+            "label": "Đơn hoàn quay đầu",
+            "dir": "down",
+            "eq": [
+              {
+                "id": "vn_ops_cod_ratio",
+                "label": "Đơn COD",
+                "dir": "down"
+              },
+              "×",
+              {
+                "label": "Tỷ lệ bom của đơn COD",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Đơn chuyển khoản bị hoàn",
+                "dir": "down"
+              }
+            ]
+          },
+          "÷",
+          {
+            "label": "Đơn đã bàn giao vận chuyển"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "3.000 đơn, RTO 15%: một tháng mất bao nhiêu",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Ship 2 chiều (450 × 45k)",
+            20.25,
+            "loss"
+          ],
+          [
+            "Đóng gói, hư hỏng (450 × 15k)",
+            6.75,
+            "loss"
+          ],
+          [
+            "Ads đã chi cho đơn hoàn (CPA 40k)",
+            18,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Riêng ship và hộp đã mất **27tr/tháng**. Cộng tiền Ads đã đốt cho 450 đơn đó thì lên **45tr**, mà không có đồng doanh thu nào."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo RTO xuống?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "RTO 15%",
+            "RTO 6%"
+          ],
+          "items": [
+            [
+              "Tiền ship + hộp mất do hoàn",
+              27,
+              10.8
+            ],
+            [
+              "Tiền Ads đốt cho đơn hoàn",
+              18,
+              7.2
+            ]
+          ]
+        },
+        "body": [
+          "Đừng tắt COD. Tắt COD thì hoàn giảm ngay nhưng mất luôn khách quen trả tiền khi nhận. Cách thực dụng hơn: gọi hoặc nhắn xác nhận trước khi gửi, ưu đãi nhỏ cho khách chuyển khoản trước, chặn số điện thoại có lịch sử bom hàng.",
+          "Kéo RTO từ 15% về 6% thì đơn hoàn còn 180. Tiền ship và hộp mất chỉ còn **10,8tr**, tiền Ads đốt oan còn 7,2tr. Mỗi tháng giữ lại 27tr."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đếm số đơn hoàn, quên nhân với chi phí 1 đơn hoàn và tiền Ads đã chi.",
+      "Tính ROAS trên cả đơn sau này bị hoàn, nên tưởng Ads đang lãi.",
+      "Tắt COD hẳn để hết hoàn, mất luôn phần lớn khách thật."
+    ],
+    "quote": {
+      "text": "Bán được nhưng hàng thất thoát, hoàn huỷ, tiền về chậm, chi phí kiểm soát không được, nhân sự hỗn loạn, khách phốt...là điều dễ thấy ở nhiều công ty",
+      "source": "Ecom Truyền Kỳ · Quản trị cty"
+    },
+    "remember": "Mỗi đơn hoàn là mất ship 2 chiều, hộp và tiền Ads. Đơn ra chưa phải tiền về."
+  },
+  "vn_ops_cancel_rate": {
+    "subtitle": "Bao nhiêu đơn đặt rồi huỷ trước khi gửi",
+    "intro": [
+      "**Tỷ lệ huỷ đơn là phần trăm đơn bị khách huỷ ngang hoặc gọi xác nhận không nghe máy, trước khi xuất kho.** Ví dụ: tháng có 2.000 đơn đặt, 200 đơn huỷ trước khi gửi thì tỷ lệ huỷ = 10%.",
+      "Huỷ trước khi gửi còn đỡ hơn hoàn, vì chưa mất ship. Nhưng tiền Ads để có 200 đơn đó đã đốt rồi. Thêm nữa, doanh thu trên màn hình đã tính cả đơn huỷ, nên anh em dễ tưởng mình bán tốt hơn thực tế."
+    ],
+    "tree": {
+      "title": "Tỷ lệ huỷ được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ huỷ giảm thì xác nhận nhanh, trả lời tin nhắn nhanh (FRT). Khách chờ lâu là khách đổi ý.",
+      "expr": {
+        "label": "Tỷ lệ huỷ",
+        "eq": [
+          {
+            "label": "Đơn huỷ trước khi gửi",
+            "dir": "down",
+            "eq": [
+              {
+                "label": "Khách huỷ ngang",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Gọi xác nhận không nghe máy",
+                "dir": "down"
+              }
+            ]
+          },
+          "÷",
+          {
+            "label": "Tổng đơn đặt"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "2.000 đơn đặt, còn bao nhiêu đơn thật",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Đơn đặt (400tr màn hình)",
+            2000
+          ],
+          [
+            "Xuất kho (huỷ 10%)",
+            1800
+          ],
+          [
+            "Giao thành công (hoàn 10%)",
+            1620
+          ]
+        ]
+      },
+      "after": "Màn hình báo 2.000 đơn, AOV 200k là 400tr. Sau huỷ chỉ còn 1.800 đơn, tức **360tr**. Riêng 200 đơn huỷ với CPA 50k là **10tr Ads đốt oan**."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo tỷ lệ huỷ xuống?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Trả lời nhanh",
+              "Khách nhắn là rep ngay, chậm vài phút khách đã mua chỗ khác"
+            ],
+            [
+              "Xác nhận sớm",
+              "Nhắn hoặc gọi xác nhận ngay khi có đơn, đừng dồn cuối ngày"
+            ],
+            [
+              "Hỏi lý do",
+              "Ghi lại vì sao khách huỷ: giá, ship lâu, đặt nhầm"
+            ],
+            [
+              "Sửa gốc",
+              "Lý do nào lặp lại nhiều thì sửa từ trang sản phẩm, quảng cáo"
+            ]
+          ]
+        },
+        "body": [
+          "Đơn huỷ phần lớn đến từ chờ. Khách đặt lúc hứng, mấy tiếng sau chưa thấy ai xác nhận là nguội. Vậy nên xác nhận càng sớm càng tốt.",
+          "Đo tỷ lệ huỷ theo từng nguồn đơn. Có nhóm quảng cáo ra đơn rẻ nhưng huỷ nhiều, tính ra CPA thật lại đắt nhất."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Báo cáo doanh thu theo đơn đặt, không trừ đơn huỷ.",
+      "Tính CPA trên đơn đặt, nên nhóm quảng cáo nhiều đơn huỷ trông rất rẻ.",
+      "Để đơn tồn tới cuối ngày mới gọi xác nhận một lượt."
+    ],
+    "quote": {
+      "text": "Cứ nghĩ bán được hàng, kí được hợp đồng là ting ting. Thực tế không như vậy. Khách huỷ, hoàn.",
+      "source": "Ecom Truyền Kỳ · Những cái bẫy trong Tài chính DN có thể đánh gục mọi ước mơ"
+    },
+    "remember": "Đơn đặt chưa phải doanh thu. Trừ đơn huỷ rồi mới biết Ads đang đổi được bao nhiêu đơn thật."
+  },
+  "vn_ops_cost_per_return": {
+    "subtitle": "Một đơn hoàn thật ra mất bao nhiêu tiền",
+    "intro": [
+      "**Chi phí 1 đơn hoàn là tổng tiền mất cho một đơn quay đầu: ship đi, ship về, hộp xốp hỏng và công kiểm hàng nhập lại.** Ví dụ: ship đi 22k, ship về 22k, hộp 6k, công kiểm 5k thì mỗi đơn hoàn mất 55k.",
+      "Nhiều anh em chỉ nhớ phí ship hoàn, nghĩ mỗi đơn mất vài chục nghìn. Thực tế còn hàng móp không bán lại được giá gốc. Nhân con số thật này với số đơn hoàn mới thấy hoàn huỷ đắt cỡ nào."
+    ],
+    "tree": {
+      "title": "Chi phí 1 đơn hoàn gồm những gì",
+      "note": "Muốn chi phí này giảm thì giảm ship 2 chiều, dùng hộp đủ chắc để hàng hoàn về còn bán lại được, và kiểm nhập lại nhanh.",
+      "expr": {
+        "label": "Chi phí 1 đơn hoàn",
+        "eq": [
+          "(",
+          {
+            "label": "Ship đi",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Ship hoàn",
+            "dir": "down"
+          },
+          "+",
+          {
+            "id": "vn_prod_packaging_cost",
+            "label": "Hộp, xốp hỏng",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Công kiểm nhập lại",
+            "dir": "down"
+          },
+          ")",
+          "÷",
+          {
+            "label": "Số đơn hoàn"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 1 đơn hoàn: không phải 22k mà là 70k",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Ship đi",
+            22
+          ],
+          [
+            "Ship hoàn",
+            22,
+            "focus"
+          ],
+          [
+            "Hộp, xốp hỏng",
+            6
+          ],
+          [
+            "Công kiểm nhập lại",
+            5
+          ],
+          [
+            "Hàng móp không bán lại (chia đều)",
+            15,
+            "loss"
+          ]
+        ]
+      },
+      "after": "Theo công thức là 55k. Cộng phần hàng móp phải thanh lý thì mỗi đơn hoàn mất **70k, gấp hơn 3 lần** phí ship hoàn mà anh em hay nhớ."
+    },
+    "sections": [
+      {
+        "title": "Một đơn hoàn ăn mất lãi của mấy đơn?",
+        "chart": {
+          "type": "compare",
+          "unit": "k",
+          "labels": [
+            "Hàng 150k",
+            "Hàng 450k"
+          ],
+          "items": [
+            [
+              "Chi phí 1 đơn hoàn",
+              70,
+              70
+            ],
+            [
+              "Lãi 1 đơn giao thành công",
+              35,
+              120
+            ]
+          ]
+        },
+        "body": [
+          "Cùng mất 70k một đơn hoàn. Shop bán hàng 150k, lãi mỗi đơn thành công 35k, thì **1 đơn hoàn xoá lãi của 2 đơn ngon**. Shop bán hàng 450k, lãi 120k, thì 1 đơn hoàn chỉ ăn hơn nửa đơn.",
+          "Vậy nên hàng giá thấp càng phải giữ hoàn thật thấp. Sách Ecom Truyền Kỳ đặt mốc bồi hoàn, hư hao dưới 5% doanh thu trong một cost structure hợp lý."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ tính phí ship hoàn, bỏ quên ship đi, hộp hỏng và công kiểm.",
+      "Không tính phần hàng hoàn móp méo phải bán rẻ hoặc bỏ.",
+      "Dùng một chi phí đơn hoàn cho mọi mã hàng, trong khi hàng dễ vỡ mất nhiều hơn hẳn."
+    ],
+    "remember": "Chi phí 1 đơn hoàn thường gấp mấy lần phí ship hoàn. Hàng giá rẻ thì 1 đơn hoàn xoá lãi mấy đơn."
+  },
+  "vn_ops_cod_ratio": {
+    "subtitle": "Bao nhiêu đơn thu tiền khi giao",
+    "intro": [
+      "**Tỷ lệ COD là phần trăm đơn thu tiền khi giao hàng (COD), so với tổng đơn giao đi.** Còn lại là đơn khách chuyển khoản trước. Gửi 3.000 đơn mà 2.550 đơn COD thì tỷ lệ COD = 85%.",
+      "COD dễ chốt vì khách nhận hàng rồi mới trả tiền. Nhưng đổi lại có 2 cái giá: tiền nằm ở bên vận chuyển chờ đối soát, và rủi ro bom hàng cao hơn. COD càng cao, dòng tiền càng chậm và đơn hoàn càng nhiều."
+    ],
+    "tree": {
+      "title": "Tỷ lệ COD được tạo ra từ đâu",
+      "note": "Tỷ lệ COD không phải càng thấp càng tốt. Ép COD xuống bằng ưu đãi chuyển khoản trước, đừng ép bằng cách tắt COD.",
+      "expr": {
+        "label": "Tỷ lệ COD",
+        "eq": [
+          {
+            "label": "Đơn COD"
+          },
+          "÷",
+          {
+            "label": "Tổng đơn giao đi"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Doanh thu 600tr/tháng, COD chờ 14 ngày mới về",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "COD 85%",
+          "COD 60%"
+        ],
+        "items": [
+          [
+            "Tiền COD đang treo chờ đối soát",
+            238,
+            168
+          ]
+        ]
+      },
+      "after": "COD 85%, mỗi ngày 17tr tiền COD, 14 ngày mới về thì lúc nào cũng có **238tr nằm ngoài túi**. Kéo COD về 60% là rút về được **70tr** để nhập hàng."
+    },
+    "sections": [
+      {
+        "title": "COD kéo tỷ lệ hoàn lên thế nào?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Tỷ lệ COD (%)",
+          "unit": "%",
+          "points": [
+            [
+              30,
+              6.6
+            ],
+            [
+              40,
+              7.8
+            ],
+            [
+              50,
+              9.0
+            ],
+            [
+              60,
+              10.2
+            ],
+            [
+              70,
+              11.4
+            ],
+            [
+              80,
+              12.6
+            ],
+            [
+              85,
+              13.2
+            ],
+            [
+              90,
+              13.8
+            ],
+            [
+              100,
+              15.0
+            ]
+          ],
+          "now": {
+            "x": 85,
+            "label": "Đang 85%: hoàn 13,2%"
+          }
+        },
+        "body": [
+          "Giả sử đơn COD bị bom 15%, đơn chuyển khoản trước chỉ hoàn 3%. Shop 3.000 đơn, COD 85% thì hoàn 396 đơn, RTO 13,2%. COD về 60% thì còn 306 đơn, RTO 10,2%.",
+          "Theo sách Ecom Truyền Kỳ, COD từng chiếm 80% giao dịch online, và xu hướng thanh toán số sẽ kéo tỉ lệ COD xuống dưới 50%. Vậy nên tập cho khách chuyển khoản trước từ bây giờ: giảm vài nghìn, tặng quà nhỏ, miễn ship."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Coi doanh thu COD đã giao là tiền trong túi, trong khi còn chờ đối soát cả tuần.",
+      "Tắt COD hẳn để hết bom hàng, mất luôn khách quen trả khi nhận.",
+      "Không tách tỷ lệ hoàn của đơn COD và đơn chuyển khoản nên không thấy COD đắt cỡ nào."
+    ],
+    "quote": {
+      "text": "Lazada triển khai COD giải quyết toàn bộ những bất cập này. Từ đó về sau Cod chiếm 80% giao dịch online/ ecom và mở khoá van tiền cho cả thị trường",
+      "source": "Ecom Truyền Kỳ · Sàn Ecom tạo nên những đại lộ thẳng tắp đến cửa khách hàng"
+    },
+    "remember": "COD giúp chốt đơn nhưng giam tiền và kéo hoàn lên. Mỗi điểm COD giảm là dòng tiền nhẹ hơn."
+  },
+  "vn_ops_picking_error": {
+    "subtitle": "Kho đóng sai bao nhiêu đơn",
+    "intro": [
+      "**Tỷ lệ đóng nhầm là phần trăm đơn kho đóng sai size, sai màu hoặc thiếu món.** Ví dụ: shop giày mỗi ngày đóng 350 đơn, nhầm khoảng 11 đơn thì tỷ lệ đóng nhầm ≈ 3,1%.",
+      "Nghe 3% thì nhỏ. Nhưng mỗi đơn nhầm là một lần ship đổi trả 2 chiều, và rất dễ kèm một đánh giá 1 sao ngay đầu trang sản phẩm. Đánh giá xấu kéo tụt CR của hàng ngàn khách vào xem sau đó."
+    ],
+    "tree": {
+      "title": "Tỷ lệ đóng nhầm được tạo ra từ đâu",
+      "note": "Ép tốc độ đóng gói mà không có máy quét mã vạch thì đơn nhầm tăng. Muốn giảm thì quét từng món trước khi dán vận đơn.",
+      "expr": {
+        "label": "Tỷ lệ đóng nhầm",
+        "eq": [
+          {
+            "label": "Đơn sai size, sai màu, thiếu món",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Tổng đơn xuất kho"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Shop giày 350 đơn/ngày, nhầm 3,1%",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Nhặt bằng mắt (3,1%)",
+          "Quét mã vạch (0,1%)"
+        ],
+        "items": [
+          [
+            "Tiền ship đổi trả/tháng",
+            18.15,
+            0.58
+          ],
+          [
+            "Tiền máy quét (trả 1 lần)",
+            0,
+            6
+          ]
+        ]
+      },
+      "after": "330 đơn nhầm/tháng × 55k ship đổi trả = **18,15tr ném qua cửa sổ**. Bỏ 6tr mua 2 máy quét, tỷ lệ nhầm về 0,1%, chưa tới nửa tháng đã thu lại tiền máy."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo tỷ lệ đóng nhầm về gần 0?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Quét mã từng món",
+              "Bắn mã vạch từng sản phẩm trước khi dán vận đơn"
+            ],
+            [
+              "Quay video đóng gói",
+              "Có bằng chứng khi khách khiếu nại hoặc tranh chấp với sàn"
+            ],
+            [
+              "Xếp kệ theo mã",
+              "Size, màu dễ nhầm thì để xa nhau, dán nhãn to"
+            ],
+            [
+              "Đo mỗi tuần",
+              "Đếm đơn nhầm theo từng người đóng để sửa đúng chỗ"
+            ]
+          ]
+        },
+        "body": [
+          "Nhiều anh em nghĩ kho vài trăm đơn/ngày chưa cần máy quét, nhìn mắt thường cho nhanh. Ví dụ trên cho thấy ngược lại: 6tr tiền máy so với 18tr/tháng tiền ship đổi trả.",
+          "Chưa kể shop này còn mất 40 đánh giá 1 sao, điểm tụt từ 4,9 xuống 4,6. Cái đó không hiện trên P&L nhưng làm Ads đắt lên."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nghĩ kho nhỏ thì không cần máy quét mã vạch.",
+      "Chỉ tính tiền ship đổi trả, quên tiền mất vì đánh giá 1 sao.",
+      "Thúc nhân viên đóng nhanh hơn mà không thêm công cụ kiểm tra."
+    ],
+    "quote": {
+      "text": "Tổng cộng 99 cái quy trình, không chi tiết ra thì hư hỏng, sai lệch, thất thoát...tính tỉ lệ sai 5% là mỗi tháng sơ sơ mất 200tr",
+      "source": "Ecom Truyền Kỳ · Operational Excellence (OP): vận hành xuất sắc"
+    },
+    "remember": "Một đơn đóng nhầm là mất 2 lần ship và một đánh giá xấu. Máy quét rẻ hơn nhiều."
+  },
+  "vn_ops_stockout_rate": {
+    "subtitle": "Mã chủ lực hết hàng bao nhiêu ngày",
+    "intro": [
+      "**Tỷ lệ đứt hàng là số ngày mã chủ lực hết tồn kho, chia cho số ngày bán trong tháng.** Ví dụ: mã serum hết hàng 6 ngày trong tháng 30 ngày thì tỷ lệ đứt hàng = 20%.",
+      "Đứt hàng đau nhất là đúng lúc Ads đang thắng. Hết hàng thì phải tắt Ads, mất đơn, mất nhịp phân phối, rớt cả thứ hạng trên sàn. Có hàng lại rồi, Ads phải học lại từ đầu."
+    ],
+    "tree": {
+      "title": "Tỷ lệ đứt hàng được tạo ra từ đâu",
+      "note": "Muốn bớt ngày hết hàng thì đặt điểm báo nhập hàng đúng: tính theo tốc độ bán, số ngày hàng về và tồn kho an toàn.",
+      "expr": {
+        "label": "Tỷ lệ đứt hàng",
+        "eq": [
+          {
+            "label": "Số ngày mã chủ lực hết hàng",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Số ngày bán trong tháng"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Serum bán 80 đơn/ngày, đứt hàng 6 ngày",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Đứt 6 ngày",
+          "Đủ hàng 30 ngày"
+        ],
+        "items": [
+          [
+            "Doanh thu mã serum",
+            480,
+            600
+          ],
+          [
+            "Lãi sau Ads",
+            76.8,
+            96
+          ]
+        ]
+      },
+      "after": "Mỗi ngày 80 đơn × 250k = 20tr. Đứt 6 ngày là mất **120tr doanh thu** và **19,2tr lãi**, chưa tính tiền Ads phải đốt lại để kéo nhịp."
+    },
+    "sections": [
+      {
+        "title": "Làm sao không bị đứt hàng?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo tốc độ bán",
+              "Lấy số đơn trung bình mỗi ngày của mã chủ lực"
+            ],
+            [
+              "Cộng ngày hàng về",
+              "Từ lúc đặt đến lúc hàng vào kho mất mấy ngày"
+            ],
+            [
+              "Giữ tồn an toàn",
+              "Tối thiểu 10 ngày bán cho các mã chủ lực"
+            ],
+            [
+              "Cài cảnh báo",
+              "Tồn chạm điểm báo nhập là đặt hàng ngay"
+            ]
+          ]
+        },
+        "body": [
+          "Ví dụ: serum bán 80 đơn/ngày, đặt hàng 15 ngày mới về, giữ tồn an toàn 10 ngày. Điểm báo nhập = 80 × (15 + 10) = **2.000 sản phẩm**. Tồn còn 2.000 là phải đặt.",
+          "Đừng để thủ kho nhớ bằng đầu. Cài cảnh báo tồn kho tự động, và người chạy Ads cũng phải nhìn được số tồn trước khi vít ngân sách."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Vít Ads mã đang thắng mà không nhìn tồn kho còn bao nhiêu ngày.",
+      "Đặt hàng theo cảm tính, không tính số ngày hàng về.",
+      "Sợ tồn nên nhập rón rén từng ít một, đến lúc bán chạy thì gãy hàng."
+    ],
+    "quote": {
+      "text": "Tối ưu kho bãi: đồng bộ dữ liệu 20 kho ở 12 quốc gia, cảnh báo gãy hàng, đề xuất nhập hàng, cân đối tồn theo tốc độ bán để tránh “chết hàng”",
+      "source": "Ecom Truyền Kỳ · Automation go-global thực chiến"
+    },
+    "remember": "Đứt hàng lúc Ads đang thắng là mất đơn, mất nhịp và mất hạng. Đặt điểm báo nhập trước."
+  },
+  "vn_ops_resellable_return": {
+    "subtitle": "Hàng hoàn về còn bán lại được bao nhiêu",
+    "intro": [
+      "**Tỷ lệ hàng hoàn bán lại được là phần trăm sản phẩm hoàn về còn nguyên hộp, tem mác để bán lại giá gốc.** Ví dụ: 300 sản phẩm hoàn về, 210 cái còn nguyên thì tỷ lệ = 70%.",
+      "Phần còn lại là lỗ thêm, ngoài tiền ship. Hộp móp phải bán thanh lý dưới giá vốn, hàng hỏng thì bỏ. Nhiều anh em tiết kiệm vài nghìn tiền hộp, rồi mất gấp nhiều lần khi hàng hoàn về bẹp dúm."
+    ],
+    "tree": {
+      "title": "Tỷ lệ bán lại được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này tăng thì bao bì phải chịu được 2 vòng vận chuyển đi và về, hàng hoàn về phải kiểm và nhập lại kệ ngay.",
+      "expr": {
+        "label": "Tỷ lệ bán lại được",
+        "eq": [
+          {
+            "label": "Sản phẩm hoàn về còn nguyên hộp, tem",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Tổng sản phẩm hoàn về"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "300 sản phẩm hoàn về, giá vốn 200k",
+      "chart": {
+        "type": "bars",
+        "unit": "sp",
+        "items": [
+          [
+            "Bán lại nguyên giá",
+            210,
+            "keep"
+          ],
+          [
+            "Móp hộp, thanh lý lỗ 120k/cái",
+            60,
+            "focus"
+          ],
+          [
+            "Hỏng hẳn, mất 200k/cái",
+            30,
+            "loss"
+          ]
+        ]
+      },
+      "after": "60 cái thanh lý mất 7,2tr, 30 cái hỏng mất 6tr. Tổng **13,2tr/tháng** lỗ thêm, ngoài tiền ship hoàn."
+    },
+    "sections": [
+      {
+        "title": "Có đáng bỏ thêm tiền hộp cứng không?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Hộp mỏng (70%)",
+            "Hộp cứng (92%)"
+          ],
+          "items": [
+            [
+              "Lỗ hàng hoàn không bán lại",
+              13.2,
+              3.36
+            ],
+            [
+              "Tiền hộp cứng thêm",
+              0,
+              5
+            ]
+          ]
+        },
+        "body": [
+          "Shop gửi 2.500 đơn/tháng. Đổi sang hộp cứng, mỗi đơn tốn thêm 2k, tức 5tr/tháng. Đổi lại 92% hàng hoàn bán lại được: chỉ còn 18 cái thanh lý, 6 cái hỏng, lỗ 3,36tr.",
+          "Tổng mất còn **8,36tr thay vì 13,2tr**, mỗi tháng giữ lại gần 5tr. Chưa kể hàng đi tới tay khách cũng ít móp hơn."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ tính tiền ship hoàn, quên tiền hàng không bán lại được.",
+      "Tiết kiệm vài nghìn tiền hộp, xốp cho mọi đơn.",
+      "Để hàng hoàn chất đống nhiều ngày mới kiểm, lâu dần thành hàng tồn không ai bán."
+    ],
+    "remember": "Hàng hoàn về không bán lại được là lỗ thêm ngoài ship. Bao bì phải chịu được 2 vòng đi về."
+  },
+  "vn_fin_net_sales": {
+    "subtitle": "Tiền thật về túi là bao nhiêu",
+    "intro": [
+      "**Net Sales (doanh thu thực thu) là doanh thu hiển thị trên sàn trừ voucher shop tự giảm, đơn huỷ và đơn hoàn.** Hiểu đơn giản: tiền khách thật sự trả cho hàng đã giao xong. Ví dụ: sàn báo 500tr, voucher shop 25tr, đơn huỷ 40tr, đơn hoàn 60tr. Net Sales chỉ còn 375tr.",
+      "Doanh thu là thứ rất dễ khoe. Nhiều anh em lấy số trên màn hình đi tính lãi, tính ngân sách Ads, rồi cuối tháng thấy hụt mà không biết hụt ở đâu. Mọi tầng lãi phía sau (CM1, CM2, CM3) đều phải tính từ Net Sales, không tính từ số hiển thị."
+    ],
+    "tree": {
+      "title": "Net Sales được tạo ra từ đâu",
+      "note": "Muốn Net Sales sát số hiển thị thì phải giảm huỷ, giảm hoàn và tiêu voucher có kiểm soát. Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "Net Sales",
+        "eq": [
+          {
+            "label": "Doanh thu hiển thị",
+            "dir": "up"
+          },
+          "−",
+          {
+            "label": "Voucher shop",
+            "dir": "down"
+          },
+          "−",
+          {
+            "id": "vn_ops_cancel_rate",
+            "label": "Đơn huỷ",
+            "dir": "down"
+          },
+          "−",
+          {
+            "id": "vn_ops_rto_rate",
+            "label": "Đơn hoàn",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Sàn báo 500tr, về túi được bao nhiêu",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Voucher shop",
+            25,
+            "loss"
+          ],
+          [
+            "Đơn huỷ",
+            40,
+            "loss"
+          ],
+          [
+            "Đơn hoàn",
+            60,
+            "loss"
+          ],
+          [
+            "Net Sales",
+            375,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Cứ 100k trên màn hình chỉ có 75k là thật. **Một phần tư doanh thu bốc hơi** trước khi kịp trừ giá vốn hay phí sàn."
+    },
+    "sections": [
+      {
+        "title": "Kéo Net Sales lên bằng cách nào?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Shop A",
+            "Shop B"
+          ],
+          "items": [
+            [
+              "Voucher shop",
+              25,
+              10
+            ],
+            [
+              "Đơn huỷ",
+              40,
+              20
+            ],
+            [
+              "Đơn hoàn",
+              60,
+              25
+            ],
+            [
+              "Net Sales",
+              375,
+              445
+            ]
+          ]
+        },
+        "body": [
+          "Hai shop cùng báo 500tr. Shop B gọi xác nhận đơn trước khi gửi, voucher chỉ tung cho đơn đủ ngưỡng. Kết quả Net Sales hơn shop A **70tr**, không tốn thêm đồng Ads nào.",
+          "Vậy nên khi đặt mục tiêu tháng, anh em đặt theo Net Sales. Doanh thu hiển thị tăng mà Net Sales đứng im tức là đang bơm thêm huỷ hoàn chứ không phải bán thêm."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy doanh thu hiển thị trên sàn đi tính ROAS, tính lãi.",
+      "Chốt số khi đơn còn đang giao, chưa trừ phần sẽ bị hoàn về.",
+      "Quên trừ voucher shop tự bỏ tiền, tưởng sàn tài trợ hết."
+    ],
+    "quote": {
+      "text": "Doanh thu là số tiền của mình nhận về tài khoản, chứ không phải GMV (gross merchandise value)",
+      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày - chia sẻ từ Huân Vũ Trụ"
+    },
+    "remember": "Doanh thu để khoe, Net Sales để tính lãi. Mọi phép tính lợi nhuận bắt đầu từ Net Sales."
+  },
+  "vn_fin_platform_fee": {
+    "subtitle": "Sàn lấy đi bao nhiêu phần trăm doanh thu",
+    "intro": [
+      "**Tổng phí sàn là mọi khoản sàn trừ trên doanh thu thực thu: phí cố định, phí thanh toán, Freeship Xtra, Voucher Xtra và thuế sàn thu hộ.** Hiểu đơn giản: bán 100k thì sàn giữ lại bao nhiêu. Ví dụ đơn 200k bị trừ tổng 38k thì phí sàn là 19%.",
+      "Nhiều anh em chỉ nhớ phí cố định mà quên các gói Freeship, Voucher đã đăng ký. Cộng hết lại mới thấy sàn là khoản chi lớn thứ hai sau giá vốn. Trong bảng cost structure của sách Ecom Truyền Kỳ, chi phí nền tảng (sàn/ web/ payment) đã là 18%."
+    ],
+    "tree": {
+      "title": "Phí sàn được tạo ra từ đâu",
+      "note": "Muốn phí sàn % thấp xuống thì soát từng gói đã đăng ký và bỏ gói không ra thêm đơn. Bấm vào Net Sales để học sâu.",
+      "expr": {
+        "label": "Phí sàn %",
+        "eq": [
+          "(",
+          {
+            "label": "Phí cố định",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Phí thanh toán",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Freeship Xtra",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Voucher Xtra",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Thuế sàn thu hộ"
+          },
+          ")",
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Một đơn 200k, sàn giữ lại 38k",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Phí cố định",
+            16,
+            "focus"
+          ],
+          [
+            "Thanh toán + thuế thu hộ",
+            10,
+            "focus"
+          ],
+          [
+            "Freeship Xtra",
+            6,
+            "focus"
+          ],
+          [
+            "Voucher Xtra",
+            6,
+            "focus"
+          ],
+          [
+            "Shop nhận về",
+            162,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Số trong ví dụ chỉ để minh hoạ, mỗi sàn mỗi ngành mỗi khác. Nhưng cộng lại **19%** là chuyện thường, và 162k kia còn chưa trừ giá vốn."
+    },
+    "sections": [
+      {
+        "title": "Phí sàn tăng 1–2% thì sao?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Phí sàn (%)",
+          "unit": "%",
+          "points": [
+            [
+              14,
+              11
+            ],
+            [
+              15,
+              10
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              17,
+              8
+            ],
+            [
+              18,
+              7
+            ],
+            [
+              19,
+              6
+            ],
+            [
+              20,
+              5
+            ],
+            [
+              21,
+              4
+            ],
+            [
+              22,
+              3
+            ],
+            [
+              23,
+              2
+            ],
+            [
+              24,
+              1
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              26,
+              -1
+            ]
+          ],
+          "threshold": {
+            "x": 25,
+            "label": "Phí sàn 25%: hết lãi"
+          },
+          "now": {
+            "x": 18,
+            "label": "Sách: phí 18%, Net margin 7%"
+          },
+          "lossBelowZero": true
+        },
+        "body": [
+          "Lấy đúng cost structure trong sách: phí nền tảng 18%, Net margin còn 7%. Các chi phí khác giữ nguyên, phí sàn mỗi lần tăng 1% là Net margin mất 1%.",
+          "Phí tăng 2% nghe nhỏ, nhưng là mất **gần 30%** tiền lãi (2 ÷ 7). Tăng tới 25% là về 0. Vậy nên mỗi lần sàn đổi biểu phí, anh em phải tính lại giá bán và ROAS hòa vốn ngay, đừng đợi cuối tháng."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ tính phí cố định, quên Freeship Xtra, Voucher Xtra và phí thanh toán.",
+      "Chia phí sàn cho doanh thu hiển thị nên ra % thấp hơn thực tế.",
+      "Đăng ký mọi gói của sàn mà không đo gói nào thật sự ra thêm đơn."
+    ],
+    "quote": {
+      "text": "Tương lai gần, mức phí tổng cộng cho sàn có thể lên đến 60% (phí sàn + ads + ưu đãi + hoàn huỷ), ai có vị thế lớn có thể giảm được chút ít nhưng chắc là không thấp hơn 50%",
+      "source": "Ecom Truyền Kỳ · Vận hành tiêu chuẩn là nền móng để mở rộng bền vững"
+    },
+    "remember": "Phí sàn tăng 1% là lãi mỏng 1%. Sàn đổi phí thì tính lại giá ngay."
+  },
+  "vn_fin_cm1": {
+    "subtitle": "Bán xong trừ tiền hàng còn bao nhiêu",
+    "intro": [
+      "**CM1 (lãi gộp sau giá vốn) là Net Sales trừ giá vốn của các đơn đã giao thành công.** Hiểu đơn giản: tầng lãi đầu tiên, chưa trừ phí sàn, ship hay Ads. Ví dụ: đơn thực thu 250k, giá vốn (Cogs) 100k thì CM1 là 150k, tức 60%.",
+      "CM1 là cái túi để trả mọi thứ phía sau: phí sàn, ship, hoàn, Ads, KOC, lương. CM1 mỏng thì làm gì phía dưới cũng khó có lãi. Nhiều anh em tính giá vốn chỉ bằng giá nhập, quên tiền ship về kho và tem nhãn, nên CM1 trên sổ đẹp hơn CM1 thật."
+    ],
+    "tree": {
+      "title": "CM1 được tạo ra từ đâu",
+      "note": "Muốn CM1 dày thì Net Sales ↑ (giảm huỷ hoàn, tăng giá được) hoặc giá vốn ↓ (nhập số lớn, deal nguồn). Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "CM1",
+        "eq": [
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales",
+            "dir": "up"
+          },
+          "−",
+          {
+            "id": "vn_prod_landed_cost",
+            "label": "Giá vốn hàng đã giao",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Một đơn thực thu 250k, giá vốn thật là bao nhiêu",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Giá nhập",
+            80,
+            "focus"
+          ],
+          [
+            "Ship về kho",
+            12,
+            "focus"
+          ],
+          [
+            "Tem nhãn, kiểm hàng",
+            8,
+            "focus"
+          ],
+          [
+            "CM1",
+            150,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Chỉ nhìn giá nhập 80k thì tưởng CM1 68%. Cộng đủ thì giá vốn là 100k, **CM1 thật chỉ 60%**."
+    },
+    "sections": [
+      {
+        "title": "CM1 bao nhiêu là đủ dày?",
+        "chart": {
+          "type": "compare",
+          "unit": "%",
+          "labels": [
+            "Đặt 1.000 sp",
+            "Đặt 5.000 sp"
+          ],
+          "items": [
+            [
+              "Giá vốn",
+              30,
+              18
+            ],
+            [
+              "CM1",
+              70,
+              82
+            ]
+          ]
+        },
+        "body": [
+          "Sách Ecom Truyền Kỳ đặt mục tiêu lãi gộp 55–60% ngay từ đầu, vì phía sau còn cả chuỗi chi phí phải gánh. CM1 dưới 50% mà vẫn bán sàn, chạy Ads mạnh thì rất dễ lỗ.",
+          "Cách kéo CM1 mạnh nhất nằm ở nguồn hàng. Ví dụ trong sách: đặt 1.000 sản phẩm thì giá vốn 30%, đặt 5.000 thì còn 18%. CM1 nhảy từ 70% lên **82%** mà không phải tăng giá bán. Đổi lại, đặt nhiều thì phải chắc bán được, không thì thành hàng tồn."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính giá vốn chỉ bằng giá nhập, bỏ ship về kho, thuế nhập, tem nhãn.",
+      "Trừ giá vốn theo số đơn đặt thay vì số đơn giao thành công.",
+      "Thấy CM1 cao là yên tâm, quên rằng phí sàn, ship, Ads còn chưa trừ."
+    ],
+    "quote": {
+      "text": "Phải có lãi gộp cao để có ngân sách để làm marketing, ads, promotion, hàng tặng, hàng hoàn, gói sàn",
+      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày - chia sẻ từ Huân Vũ Trụ"
+    },
+    "remember": "CM1 là cái túi trả mọi chi phí phía sau. Túi mỏng thì bán càng nhiều càng mệt."
+  },
+  "vn_fin_cm2": {
+    "subtitle": "Còn bao nhiêu tiền để chạy Ads",
+    "intro": [
+      "**CM2 là CM1 trừ tiếp phí sàn, ship shop bù, đóng gói và chi phí đơn hoàn.** Hiểu đơn giản: tiền còn lại sau khi hàng đã tới tay khách, và đây là phần được phép đem đi chạy Ads. Ví dụ: Net Sales 800tr, CM1 480tr, trừ các khoản trên còn CM2 276tr.",
+      "Nhiều anh em lấy CM1 ra so với tiền Ads, thấy còn dư nhiều. Nhưng phí sàn, ship, hoàn cộng lại thường ăn một miếng rất to. Trong cost structure của sách Ecom Truyền Kỳ, riêng nền tảng 18%, logistics 10%, rủi ro/ bồi hoàn 5% đã là 33% doanh thu."
+    ],
+    "tree": {
+      "title": "CM2 được tạo ra từ đâu",
+      "note": "Muốn CM2 dày thì CM1 ↑, còn phí sàn, ship, đóng gói, hoàn đều phải ↓. Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "CM2",
+        "eq": [
+          {
+            "id": "vn_fin_cm1",
+            "label": "CM1",
+            "dir": "up"
+          },
+          "−",
+          {
+            "id": "vn_fin_platform_fee",
+            "label": "Phí sàn",
+            "dir": "down"
+          },
+          "−",
+          {
+            "label": "Ship shop bù",
+            "dir": "down"
+          },
+          "−",
+          {
+            "id": "vn_prod_packaging_cost",
+            "label": "Đóng gói",
+            "dir": "down"
+          },
+          "−",
+          {
+            "id": "vn_ops_cost_per_return",
+            "label": "Chi phí đơn hoàn",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Net Sales 800tr, CM2 còn 276tr",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Giá vốn",
+            320
+          ],
+          [
+            "Phí sàn (18%)",
+            144,
+            "focus"
+          ],
+          [
+            "Ship shop bù",
+            24,
+            "focus"
+          ],
+          [
+            "Đóng gói",
+            16,
+            "focus"
+          ],
+          [
+            "Chi phí đơn hoàn",
+            20,
+            "focus"
+          ],
+          [
+            "CM2",
+            276,
+            "keep"
+          ]
+        ]
+      },
+      "after": "CM1 60% mà CM2 chỉ còn **34,5%**. Mỗi 100k doanh thu còn 34,5k để trả Ads, nên ROAS dưới khoảng 2,9 là lỗ ngay trên từng đơn, chưa kể lương."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo CM2 dày lên?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Gộp combo",
+              "Bán 2–3 món một đơn, phí ship và hộp chia cho nhiều sản phẩm."
+            ],
+            [
+              "Lọc bom hàng",
+              "Gọi hoặc nhắn xác nhận đơn rủi ro trước khi đóng gói."
+            ],
+            [
+              "Soát gói sàn",
+              "Gói Freeship, Voucher nào không ra thêm đơn thì tắt."
+            ],
+            [
+              "Tính lại hàng tháng",
+              "CM2 đổi thì ROAS hòa vốn đổi theo, báo team Ads ngay."
+            ]
+          ]
+        },
+        "body": [
+          "CM2 khó tăng bằng một chiêu lớn. Nó tăng nhờ vá từng khoản nhỏ: vài nghìn tiền ship, vài phần trăm hoàn. Cộng lại vẫn ra tiền thật.",
+          "Thực tế, CM2 là con số team Ads cần biết nhất. Team Ads giỏi đến mấy mà không biết CM2 thì vẫn có thể vít ads trong khi shop đang lỗ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy CM1 làm trần ngân sách Ads, quên phí sàn, ship, hoàn.",
+      "Chỉ đếm số đơn hoàn, không nhân với chi phí mỗi đơn hoàn và hàng hỏng không bán lại được.",
+      "Tính CM2 một lần rồi để đó, trong khi phí sàn và tỷ lệ hoàn đổi từng tháng."
+    ],
+    "quote": {
+      "text": "Sàn tăng phí, ship trì trệ vì giao thông, thuế siết, cạnh tranh đạp giá khiến Net margin suy giảm.",
+      "source": "Ecom Truyền Kỳ · Kỉ nguyên vươn mình của Ecom"
+    },
+    "remember": "CM2 là trần tiền Ads. Ads ăn quá CM2 thì đơn nào cũng lỗ."
+  },
+  "vn_fin_cm3": {
+    "subtitle": "Sau Ads còn đủ nuôi bộ máy không",
+    "intro": [
+      "**CM3 là CM2 trừ tiền chạy Ads và tiền booking KOC, affiliate.** Hiểu đơn giản: tiền còn lại sau khi đã trả hết cho việc ra đơn. Ví dụ: Net Sales 1 tỷ, CM2 420tr, Ads 300tr, KOC và affiliate 50tr, CM3 còn 70tr.",
+      "CM3 phải đủ trả lương, kho, văn phòng thì shop mới có lãi thật. Nhiều anh em nhìn doanh thu tỷ đồng, ROAS trên 3, mà cuối tháng không còn tiền trả lương. Lý do thường nằm ở đây: CM3 nhỏ hơn chi phí cố định."
+    ],
+    "tree": {
+      "title": "CM3 được tạo ra từ đâu",
+      "note": "Muốn CM3 dày thì CM2 ↑, tiền Ads và KOC cho mỗi đơn ↓. Bấm vào CM2 để học sâu.",
+      "expr": {
+        "label": "CM3",
+        "eq": [
+          {
+            "id": "vn_fin_cm2",
+            "label": "CM2",
+            "dir": "up"
+          },
+          "−",
+          {
+            "label": "Tiền Ads",
+            "dir": "down"
+          },
+          "−",
+          {
+            "label": "KOC, affiliate",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Doanh thu 1 tỷ, CM3 còn 70tr",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Giá vốn",
+            380
+          ],
+          [
+            "Phí sàn, ship, hoàn",
+            200
+          ],
+          [
+            "Ads",
+            300,
+            "focus"
+          ],
+          [
+            "KOC, affiliate",
+            50,
+            "focus"
+          ],
+          [
+            "CM3",
+            70,
+            "keep"
+          ]
+        ]
+      },
+      "after": "CM3 70tr, trong khi lương, kho, văn phòng hết 120tr. **Doanh thu 1 tỷ mà lỗ 50tr.** Ads đang ăn 30% doanh thu."
+    },
+    "sections": [
+      {
+        "title": "Ads chiếm bao nhiêu % thì không lỗ?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Ads (% doanh thu)",
+          "unit": "tr",
+          "points": [
+            [
+              10,
+              150.0
+            ],
+            [
+              12.5,
+              125.0
+            ],
+            [
+              15,
+              100.0
+            ],
+            [
+              17.5,
+              75.0
+            ],
+            [
+              20,
+              50.0
+            ],
+            [
+              22.5,
+              25.0
+            ],
+            [
+              25,
+              0.0
+            ],
+            [
+              27.5,
+              -25.0
+            ],
+            [
+              30,
+              -50.0
+            ],
+            [
+              32.5,
+              -75.0
+            ],
+            [
+              35,
+              -100.0
+            ]
+          ],
+          "threshold": {
+            "x": 25,
+            "label": "Ads quá 25% là lỗ"
+          },
+          "now": {
+            "x": 30,
+            "label": "Đang 30%: lỗ 50tr"
+          },
+          "lossBelowZero": true
+        },
+        "body": [
+          "Đường trên là lãi sau khi trả 120tr cố định, giữ doanh thu 1 tỷ. Ads phải về dưới 25% doanh thu mới hết lỗ. Sách Ecom Truyền Kỳ khuyên theo dõi tỉ trọng Ads có nằm ở mức cho phép (< 20%) hay không.",
+          "Cắt Ads thẳng tay thì doanh thu cũng tụt. Cách bền hơn là làm CM2 dày lên và kéo Ads trên mỗi đơn xuống: CPA thấp hơn, AOV cao hơn, hoàn ít hơn. Cắt chi phí cố định chỉ là vá tạm."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ tính Ads, quên tiền booking KOC, hoa hồng affiliate và mẫu gửi đi.",
+      "Thấy CM3 dương là nghĩ có lãi, quên trừ lương, kho, văn phòng.",
+      "Scale Ads khi CM3 đang mỏng, doanh thu to hơn nhưng lỗ cũng to hơn."
+    ],
+    "quote": {
+      "text": "Ví dụ: doanh số Tiktok 30 tỉ thì sau khi trừ chi phí sàn, marketing, giá vốn sẽ thu về 9 tỉ (30%). Số tiền này phải trả cho kho, đội vận hành, kế toán tài chính, văn phòng, điện nước….sẽ còn đâu có 4 tỉ trước thuế (EBITDA).",
+      "source": "Ecom Truyền Kỳ · Thích nghi và Xoay xở"
+    },
+    "remember": "CM3 phải lớn hơn chi phí cố định. Không thì doanh thu càng to, lỗ càng sâu."
+  },
+  "vn_fin_tax_reserve": {
+    "subtitle": "Phải để riêng bao nhiêu cho thuế",
+    "intro": [
+      "**Tỷ lệ dự phòng thuế là phần trăm Net Sales cần để riêng cho thuế: GTGT, TNDN hoặc thuế hộ kinh doanh, thuế nhà thầu khi chạy Ads nền tảng nước ngoài.** Hiểu đơn giản: tiền này không phải của mình, chỉ đang giữ hộ. Ví dụ: Net Sales 1,5 tỷ/tháng, khoản thuế phải để riêng 80tr, tỷ lệ khoảng 5,3%.",
+      "Nhiều anh em thấy tiền về ví sàn là coi như lãi, đem nhập hàng, chạy Ads. Tới kỳ quyết toán mới gom, lúc đó tiền đã nằm hết trong hàng tồn. Không để riêng từ đầu thì cuối năm rất dễ đứt vốn."
+    ],
+    "tree": {
+      "title": "Dự phòng thuế được tạo ra từ đâu",
+      "note": "Số thuế phải nộp phụ thuộc loại hình (hộ kinh doanh hay công ty) và hóa đơn đầu vào. Kiểm lại quy định hiện hành với kế toán.",
+      "expr": {
+        "label": "Dự phòng thuế %",
+        "eq": [
+          "(",
+          {
+            "label": "Thuế GTGT",
+            "eq": [
+              {
+                "label": "GTGT đầu ra"
+              },
+              "−",
+              {
+                "id": "vn_fin_vat_input_ratio",
+                "label": "GTGT đầu vào được khấu trừ",
+                "dir": "up"
+              }
+            ]
+          },
+          "+",
+          {
+            "label": "TNDN / thuế hộ kinh doanh"
+          },
+          "+",
+          {
+            "label": "Thuế nhà thầu Ads"
+          },
+          ")",
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "CM3 240tr, bỏ túi được bao nhiêu",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Chi phí cố định",
+            160
+          ],
+          [
+            "Dự phòng thuế",
+            80,
+            "focus"
+          ],
+          [
+            "Bỏ túi",
+            0,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Doanh thu 1,5 tỷ, CM3 240tr nhìn rất ngon. Trừ cố định và thuế thì **bỏ túi 0 đồng**. Không trích trước thì 80tr mỗi tháng đó vẫn bị tiêu như tiền lãi."
+    },
+    "sections": [
+      {
+        "title": "Trích quỹ thuế thế nào cho khỏi quên?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Ước tỷ lệ",
+              "Nhờ kế toán tính theo loại hình và quy định hiện hành."
+            ],
+            [
+              "Trích khi tiền về",
+              "Mỗi lần sàn trả tiền, chuyển ngay phần thuế sang tài khoản riêng."
+            ],
+            [
+              "Không đụng vào",
+              "Quỹ thuế không dùng nhập hàng hay chạy Ads."
+            ],
+            [
+              "Đối chiếu theo quý",
+              "So số đã trích với số phải nộp, thiếu thì bù."
+            ]
+          ]
+        },
+        "body": [
+          "Tỷ lệ cụ thể mỗi shop mỗi khác, và quy định thuế thay đổi khá nhanh, nên anh em kiểm lại với kế toán chứ đừng chép số của shop khác. Trong cost structure của sách Ecom Truyền Kỳ, VAT (có khấu trừ) 4% và thuế (nếu là DN) 5% doanh thu.",
+          "Quan trọng là làm từ tháng đầu. Trích đều mỗi tháng thì nhẹ, dồn cả năm một lần thì có thể nuốt sạch lãi."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nghĩ tiền về ví sàn hoặc tài khoản cá nhân thì không ai nắm được.",
+      "Quên thuế nhà thầu khi chạy Ads trên nền tảng nước ngoài.",
+      "Lấy quỹ thuế đi nhập hàng, tới hạn nộp thì tiền đang nằm trong kho."
+    ],
+    "quote": {
+      "text": "Thuế: Vat, TNDN thì bây giờ gần như sẽ phải đóng đủ. Điều này chắc chắn ảnh hưởng tới net margin.",
+      "source": "Ecom Truyền Kỳ · Nâng tầm quản trị"
+    },
+    "remember": "Tiền thuế là tiền giữ hộ. Trích ngay khi tiền về, đừng đợi quyết toán."
+  },
+  "vn_fin_vat_input_ratio": {
+    "subtitle": "Bao nhiêu hàng nhập có hóa đơn đỏ",
+    "intro": [
+      "**Tỷ lệ hóa đơn đầu vào là phần trăm giá trị hàng nhập có hóa đơn đỏ (VAT) hợp lệ.** Hiểu đơn giản: trong 100 đồng tiền hàng, bao nhiêu đồng chứng minh được trên giấy. Ví dụ: tháng nhập 500tr hàng, chỉ 100tr có hóa đơn thì tỷ lệ là 20%.",
+      "Thiếu hóa đơn thì phần chi phí đó có thể không được trừ khi tính thuế. Lãi trên giấy cao hơn lãi thật, và anh em đóng thuế trên phần lãi không hề có. Doanh thu bán ra thì sàn đã ghi nhận đủ, nên chỗ hở nằm ở đầu vào."
+    ],
+    "tree": {
+      "title": "Tỷ lệ hóa đơn đầu vào được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này tăng thì chuyển dần hàng chủ lực sang nguồn xuất được hóa đơn.",
+      "expr": {
+        "label": "Tỷ lệ hóa đơn đầu vào",
+        "eq": [
+          {
+            "label": "Hàng nhập có hóa đơn hợp lệ",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Tổng hàng nhập"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Nhập 500tr, chỉ 100tr có hóa đơn",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Sổ thật",
+          "Trên giấy tờ"
+        ],
+        "items": [
+          [
+            "Giá vốn được tính",
+            500,
+            100
+          ],
+          [
+            "Lãi",
+            100,
+            500
+          ]
+        ]
+      },
+      "after": "Lãi thật 100tr, nhưng 400tr tiền hàng không có hóa đơn có thể bị loại khỏi chi phí. **Lãi trên giấy thành 500tr.** Ví dụ đơn giản hoá cho mô hình tính thuế trên lợi nhuận."
+    },
+    "sections": [
+      {
+        "title": "Nâng tỷ lệ hóa đơn thế nào?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Lọc mã chủ lực",
+              "Tìm vài mã chiếm phần lớn tiền nhập."
+            ],
+            [
+              "Đổi nguồn",
+              "Chuyển sang nhà cung cấp xuất được hóa đơn, nhập chính ngạch."
+            ],
+            [
+              "Tính lại giá vốn",
+              "Giá có hóa đơn có thể cao hơn, tính lại CM1."
+            ],
+            [
+              "Đo hằng tháng",
+              "Theo dõi tỷ lệ cùng kế toán, mục tiêu tăng dần."
+            ]
+          ]
+        },
+        "body": [
+          "Không cần đổi hết trong một tháng. Làm từ mã bán chạy nhất trước, vì đó là chỗ tiền nhập lớn nhất.",
+          "Giá nhập có hóa đơn đôi khi đắt hơn vài phần trăm. Nhưng so với rủi ro bị xuất toán chi phí và truy thu thì vẫn rẻ. Quy định cụ thể thì anh em kiểm lại quy định hiện hành với kế toán."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nghĩ chỉ cần doanh thu khai đủ là xong, không lo đầu vào.",
+      "Mua hàng trôi nổi vì rẻ hơn vài phần trăm, không tính rủi ro thuế.",
+      "Đợi doanh thu lớn rồi mới chuẩn hoá nguồn hàng, lúc đó sửa rất đau."
+    ],
+    "quote": {
+      "text": "Hàng không thể mua trôi nổi nữa mà cần hoá đơn/ chứng từ/ hợp đồng/ kiểm định.",
+      "source": "Ecom Truyền Kỳ · Khởi nghiệp tinh gọn"
+    },
+    "remember": "Hàng không hóa đơn thì lãi trên giấy cao hơn lãi thật. Chuẩn hoá từ mã chủ lực trước."
+  },
+  "vn_fin_promo_cost_ratio": {
+    "subtitle": "Khuyến mãi đang ăn bao nhiêu doanh thu",
+    "intro": [
+      "**Tỷ lệ chi phí khuyến mãi là giá vốn quà tặng kèm cộng voucher shop tự tung ra, chia cho Net Sales.** Hiểu đơn giản: mỗi 100k thực thu, shop đang cho đi bao nhiêu. Ví dụ: tháng thực thu 400tr, quà tặng hết 24tr, voucher shop 16tr, tỷ lệ là 10%.",
+      "Quà tặng nằm trong kho nên ít ai đếm. Voucher thì bật lên cho có, cả tháng không tắt. Khuyến mãi không đo là khoản rò lớn mà anh em ít để ý, vì nó không hiện thành hoá đơn như phí sàn hay Ads."
+    ],
+    "tree": {
+      "title": "Chi phí khuyến mãi được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này giảm thì quà và voucher chỉ dành cho đơn đạt ngưỡng. Bấm vào Net Sales để học sâu.",
+      "expr": {
+        "label": "Khuyến mãi %",
+        "eq": [
+          "(",
+          {
+            "label": "Giá vốn quà tặng",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Voucher shop",
+            "dir": "down"
+          },
+          ")",
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Một đơn hiển thị 260k, khuyến mãi lấy 25k",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Voucher shop",
+            10,
+            "focus"
+          ],
+          [
+            "Quà tặng (giá vốn)",
+            15,
+            "focus"
+          ],
+          [
+            "Giá vốn",
+            100
+          ],
+          [
+            "Phí sàn, ship, hoàn",
+            60
+          ],
+          [
+            "Còn để chạy Ads",
+            75,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Thực thu 250k, khuyến mãi 25k là **10%**. Phần để chạy Ads còn 75k, tức khuyến mãi đã bằng một phần ba tiền Ads."
+    },
+    "sections": [
+      {
+        "title": "Quà nào giữ, quà nào cắt?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Quà rẻ",
+            "Quà đắt"
+          ],
+          "y": [
+            "Kéo được đơn, AOV",
+            "Không kéo được"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Giữ",
+                "text": "Rẻ mà ra đơn. Đo tiếp mỗi tháng.",
+                "tone": "good"
+              },
+              {
+                "title": "Đặt ngưỡng",
+                "text": "Chỉ tặng cho đơn từ 2 sản phẩm.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Cắt dần",
+                "text": "Rẻ nhưng cộng dồn vẫn thành tiền.",
+                "tone": "mid"
+              },
+              {
+                "title": "Cắt ngay",
+                "text": "Tốn tiền mà khách không cần.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Đo bằng cách tắt quà một tuần ở một nhóm sản phẩm, so CR và AOV. Không đổi gì thì quà đó đang là tiền cho không.",
+          "Sách Ecom Truyền Kỳ đưa cost structure lí tưởng với giảm giá, chiết khấu < 15%. Lưu ý voucher shop đã bị trừ khi tính Net Sales. Ở đây gom lại với quà để thấy tổng tiền khuyến mãi, không trừ lần hai khi tính lãi."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Không tính giá vốn quà tặng vào chi phí, coi như hàng có sẵn.",
+      "Bật voucher cả tháng mà không đo đơn có voucher khác gì đơn không voucher.",
+      "Trừ voucher hai lần, vừa trong Net Sales vừa trong chi phí."
+    ],
+    "quote": {
+      "text": "Chi phí: phí sàn, ship, ads, commission, voucher, hàng, quà tặng, thuế….",
+      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày - chia sẻ từ Huân Vũ Trụ"
+    },
+    "remember": "Quà và voucher cũng là chi phí. Không kéo được đơn thì cắt."
+  },
+  "vn_fin_platform_penalty": {
+    "subtitle": "Sàn phạt mất bao nhiêu tiền oan",
+    "intro": [
+      "**Tỷ lệ tiền phạt sàn là tổng tiền bị sàn trừ do giao trễ, hết hàng phải tự huỷ đơn, vi phạm từ khoá, chia cho Net Sales.** Hiểu đơn giản: tiền mất vì lỗi của chính mình. Ví dụ: Net Sales 600tr, bị phạt tổng 9tr, tỷ lệ là 1,5%.",
+      "1,5% nghe nhỏ. Nhưng tiền phạt trừ thẳng vào lãi, không mua được thêm đơn nào. Với Net margin 7% như cost structure trong sách Ecom Truyền Kỳ, shop này lãi 42tr, phạt 9tr là mất hơn một phần năm tiền lãi."
+    ],
+    "tree": {
+      "title": "Tiền phạt được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ phạt về gần 0 thì giao đúng hạn, không để đứt hàng, duyệt nội dung trước khi đăng. Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "Tiền phạt %",
+        "eq": [
+          "(",
+          {
+            "id": "vn_ops_sla_breach",
+            "label": "Phạt giao trễ",
+            "dir": "down"
+          },
+          "+",
+          {
+            "id": "vn_ops_stockout_rate",
+            "label": "Phạt hết hàng huỷ đơn",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Phạt vi phạm từ khoá",
+            "dir": "down"
+          },
+          ")",
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Lãi 42tr, sàn phạt mất 9tr",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Giao trễ",
+            4.2,
+            "focus"
+          ],
+          [
+            "Hết hàng, tự huỷ đơn",
+            3,
+            "focus"
+          ],
+          [
+            "Vi phạm từ khoá",
+            1.8,
+            "focus"
+          ],
+          [
+            "Lãi còn lại",
+            33,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Không tốn thêm đồng Ads nào mà lãi tụt từ 42tr xuống 33tr. **Tiền phạt là tiền mất oan hoàn toàn.**"
+    },
+    "sections": [
+      {
+        "title": "Bịt tiền phạt thế nào?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Tách sổ phạt",
+              "Mỗi tuần xuất khoản bị trừ, chia theo lý do."
+            ],
+            [
+              "Giao trễ",
+              "Chốt giờ đóng gói trong ngày, theo dõi đơn trễ hạn."
+            ],
+            [
+              "Hết hàng",
+              "Cài cảnh báo tồn kho trước khi đứt, tắt mã sắp hết."
+            ],
+            [
+              "Từ khoá",
+              "Duyệt tên, mô tả, video theo checklist trước khi đăng."
+            ]
+          ]
+        },
+        "body": [
+          "Phần lớn tiền phạt đến từ quy trình, không phải xui. Kho không kịp đóng thì trễ, thủ kho báo nhập chậm thì đứt hàng.",
+          "Vậy nên nhìn sổ phạt là thấy chỗ vận hành đang thủng. Bịt được thì vừa đỡ mất tiền, vừa không bị sàn bóp hiển thị."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Không xem chi tiết các khoản sàn trừ, chỉ nhìn số tiền về.",
+      "Để mã hết hàng vẫn mở bán, khách đặt rồi phải tự huỷ.",
+      "Coi phạt là chi phí đương nhiên của nghề, không ai chịu trách nhiệm."
+    ],
+    "quote": {
+      "text": "Trừ đi các rủi ro (hàng tồn, phạt, lỗi) thì net margin chắc còn 5-7%. Cuộc chơi dần khắc nghiệt và không có chỗ cho hao phí.",
+      "source": "Ecom Truyền Kỳ · Vận hành xuất sắc là bí mật của Tăng trưởng"
+    },
+    "remember": "Tiền phạt trừ thẳng vào lãi. Đo theo lý do mỗi tuần để biết vận hành thủng ở đâu."
+  },
+  "vn_team_chat_cvr": {
+    "subtitle": "Bao nhiêu khách nhắn tin thì chốt được đơn",
+    "intro": [
+      "**Tỷ lệ chốt qua chat là số đơn chốt được chia cho số khách nhắn tin hỏi mua.** Hiểu đơn giản: 100 khách nhắn Zalo, Messenger, TikTok hỏi giá, chốt được 18 đơn thì tỷ lệ chốt là 18%.",
+      "Nhiều anh em doanh thu chững là nghĩ ngay tới tăng tiền Ads. Nhưng khách đã nhắn tin là khách ta đã trả tiền Ads để có. Để họ chờ, trả lời cụt lủn, họ sang shop khác mua. Tiền Ads coi như đổ đi."
+    ],
+    "tree": {
+      "title": "Tỷ lệ chốt chat được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ chốt tăng thì phải chốt được nhiều đơn hơn trên cùng số khách nhắn. Đòn bẩy lớn nhất là trả lời nhanh (FRT) và kịch bản tư vấn tốt.",
+      "expr": {
+        "label": "Tỷ lệ chốt chat",
+        "eq": [
+          {
+            "label": "Đơn chốt qua chat",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Khách nhắn hỏi mua"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "2.000 khách nhắn tin, chốt được 360 đơn",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Khách nhắn hỏi mua",
+            2000
+          ],
+          [
+            "Còn ở lại khi được trả lời",
+            1100
+          ],
+          [
+            "Hỏi tiếp giá, size, ship",
+            700
+          ],
+          [
+            "Chốt đơn",
+            360
+          ]
+        ]
+      },
+      "after": "Tỷ lệ chốt 18%. Gần một nửa khách **rơi ngay ở bước đầu**, vì chờ lâu quá không ai trả lời. Đó là chỗ thủng to nhất, không phải ở kỹ năng chốt."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo tỷ lệ chốt lên?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Trả lời nhanh",
+              "Rep khách trong 1–2 phút, ngoài giờ có tin tự động giữ khách."
+            ],
+            [
+              "Mẫu câu sẵn",
+              "Soạn sẵn câu trả lời cho giá, size, ship, đổi trả."
+            ],
+            [
+              "Hỏi để chốt",
+              "Hỏi khách chọn màu nào, size nào thay vì hỏi có mua không."
+            ],
+            [
+              "Nhắn lại khách im",
+              "Khách đã hỏi mà chưa chốt thì nhắn lại trong ngày."
+            ]
+          ]
+        },
+        "body": [
+          "Ví dụ: shop có 2.000 khách nhắn tin mỗi tháng, AOV (giá trị đơn trung bình) 300k. Chốt 18% là 360 đơn, 108tr. Kéo lên 25% là 500 đơn, 150tr. Thêm **42tr doanh thu mà không tốn thêm đồng Ads nào**.",
+          "Thực tế, những công ty biết cskh 1-1 qua zalo/ messenger/ email thì trên 50% doanh thu không tốn tiền marketing (theo sách Ecom Truyền Kỳ). Chat không chỉ để chốt đơn đầu, mà để giữ khách mua lại."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Đổ thêm tiền Ads vào khi khâu trực chat đang để khách chờ cả chục phút.",
+      "Chỉ đếm đơn chốt, không đếm tổng khách nhắn, nên không biết mình đang để rơi bao nhiêu.",
+      "Trả lương cứng cho người trực chat mà không gắn với tỷ lệ chốt."
+    ],
+    "quote": {
+      "text": "Thời 2008-2009 mình ngồi chat hỗ trợ khách trên yahoo suốt nên hiểu được sức mạnh của chốt chat thế nào, chỉ cần 3 câu là có thể dứt điểm 1 việc",
+      "source": "Ecom Truyền Kỳ · Chốt đơn Online - từ công nhân chat tới chiến thần triệu đô"
+    },
+    "remember": "Khách nhắn tin là khách đã tốn tiền Ads để có. Để rơi họ là đốt tiền."
+  },
+  "vn_team_frt": {
+    "subtitle": "Khách phải chờ bao lâu mới được trả lời",
+    "intro": [
+      "**FRT (thời gian trả lời đầu tiên) là thời gian trung bình từ lúc khách nhắn tới lúc nhận câu trả lời đầu tiên.** Ví dụ: 4 khách chờ lần lượt 1, 2, 10 và 15 phút. Tổng 28 phút chia 4 thì FRT = 7 phút.",
+      "Khách nhắn cùng lúc cho 3–4 shop. Shop nào trả lời trước thì shop đó có cơ hội chốt. Vậy nên FRT càng thấp càng tốt, và nó kéo thẳng tỷ lệ chốt qua chat."
+    ],
+    "tree": {
+      "title": "FRT được tạo ra từ đâu",
+      "note": "Muốn FRT giảm thì phải bớt phút chờ: chia ca trực hợp lý, có tin trả lời tự động, có mẫu câu sẵn.",
+      "expr": {
+        "label": "FRT",
+        "eq": [
+          {
+            "label": "Tổng phút khách chờ",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Số cuộc chat"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "200 chat/ngày, FRT trung bình 9 phút",
+      "chart": {
+        "type": "bars",
+        "unit": " phút",
+        "items": [
+          [
+            "Giờ hành chính (120 chat)",
+            2
+          ],
+          [
+            "Nghỉ trưa (40 chat)",
+            15,
+            "loss"
+          ],
+          [
+            "Buổi tối (40 chat)",
+            24,
+            "loss"
+          ],
+          [
+            "Trung bình cả ngày",
+            9,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Giờ hành chính rep 2 phút là ổn. **Lỗ thủng nằm ở giờ trưa và buổi tối**, khách chờ 15–24 phút. Nhìn mỗi số trung bình sẽ không thấy."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo FRT xuống?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo theo khung giờ",
+              "Tách FRT sáng, trưa, tối, cuối tuần. Tìm giờ khách chờ lâu nhất."
+            ],
+            [
+              "Tin tự động",
+              "Ngoài giờ có tin chào, báo giá cơ bản, hẹn thời gian gọi lại."
+            ],
+            [
+              "Mẫu câu sẵn",
+              "Câu hỏi lặp lại thì có sẵn câu trả lời, bấm là gửi."
+            ],
+            [
+              "Chia ca",
+              "Xếp người trực đúng giờ khách nhắn nhiều, không chỉ giờ hành chính."
+            ]
+          ]
+        },
+        "body": [
+          "Trong Playbook 04, shop mỹ phẩm để FRT 9 phút, tỷ lệ chốt chat chỉ 18%. Cài kịch bản trả lời nhanh, ép FRT xuống dưới 1 phút, tỷ lệ chốt lên 25%.",
+          "Chatbot giúp giữ khách, nhưng đừng giao hết cho bot. Theo sách Ecom Truyền Kỳ, tỷ lệ khách hàng nhận ra chatbot là AI khoảng 26–27%, và quá nửa dừng hội thoại. Bot chào và hỏi nhu cầu, người thật vào chốt."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ nhìn FRT trung bình cả ngày, bỏ qua giờ trưa, buổi tối khách chờ cả chục phút.",
+      "Cài bot trả lời ngay rồi coi như xong, trong khi khách vẫn chờ người thật rất lâu.",
+      "Tính FRT chỉ trong giờ hành chính cho đẹp số."
+    ],
+    "quote": {
+      "text": "Những khâu cskh dù có AI kiểu gì vẫn rất phụ thuộc nhân sự.",
+      "source": "Ecom Truyền Kỳ · Bán hàng trên sàn Ecom còn có lãi không?"
+    },
+    "remember": "Khách nhắn nhiều shop cùng lúc. Shop nào trả lời trước, shop đó có đơn."
+  },
+  "vn_team_live_gmv_hour": {
+    "subtitle": "Mỗi giờ lên sóng ra bao nhiêu tiền",
+    "intro": [
+      "**GMV/giờ Live là doanh thu phát sinh trong phiên chia cho số giờ lên sóng.** Ví dụ: phòng Live chạy 4 tiếng/ngày, 30 ngày là 120 giờ. Cả tháng ra 180tr GMV thì GMV/giờ = 1,5tr.",
+      "Nhiều anh em nhìn phiên Live chục triệu là mừng. Nhưng mỗi giờ lên sóng đều tốn tiền host, trợ live, Ads mồi. GMV/giờ trả lời câu hỏi: **phòng Live có nuôi được chính nó không**."
+    ],
+    "tree": {
+      "title": "GMV/giờ Live được tạo ra từ đâu",
+      "note": "Muốn GMV/giờ tăng thì phải kéo thêm người xem mỗi giờ, hoặc mỗi 1.000 lượt xem ra nhiều tiền hơn (GPM).",
+      "expr": {
+        "label": "GMV/giờ Live",
+        "eq": [
+          {
+            "label": "Lượt xem mỗi giờ",
+            "dir": "up"
+          },
+          "×",
+          {
+            "id": "vn_team_live_gpm",
+            "label": "GPM",
+            "dir": "up"
+          },
+          "÷ 1.000"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 1 giờ Live ra 1,5tr GMV",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Giá vốn (35%)",
+            525
+          ],
+          [
+            "Phí sàn (15%)",
+            225
+          ],
+          [
+            "Hoàn huỷ (10%)",
+            150,
+            "loss"
+          ],
+          [
+            "Host + trợ live + Ads mồi",
+            500,
+            "focus"
+          ],
+          [
+            "Còn lại",
+            100,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Chi phí phòng Live 60tr/tháng chia 120 giờ là 500k mỗi giờ. Ra 1,5tr GMV mà **mỗi giờ chỉ còn 100k**. Một phiên hụt số là lỗ."
+    },
+    "sections": [
+      {
+        "title": "GMV/giờ bao nhiêu thì không lỗ?",
+        "chart": {
+          "type": "line",
+          "xLabel": "GMV/giờ (tr)",
+          "unit": "k",
+          "points": [
+            [
+              0.5,
+              -300.0
+            ],
+            [
+              0.75,
+              -200.0
+            ],
+            [
+              1,
+              -100.0
+            ],
+            [
+              1.25,
+              0.0
+            ],
+            [
+              1.5,
+              100.0
+            ],
+            [
+              1.75,
+              200.0
+            ],
+            [
+              2,
+              300.0
+            ],
+            [
+              2.25,
+              400.0
+            ],
+            [
+              2.5,
+              500.0
+            ],
+            [
+              2.75,
+              600.0
+            ],
+            [
+              3,
+              700.0
+            ]
+          ],
+          "threshold": {
+            "x": 1.25,
+            "label": "Không lỗ từ 1,25tr/giờ"
+          },
+          "now": {
+            "x": 1.5,
+            "label": "Đang chạy 1,5tr: còn 100k/giờ"
+          },
+          "lossBelowZero": true
+        },
+        "body": [
+          "Shop trên sau giá vốn, phí sàn, hoàn huỷ còn 40% GMV. Mỗi giờ tốn 500k cho phòng Live, vậy GMV/giờ phải từ 500k ÷ 40% = **1,25tr** mới không lỗ.",
+          "Playbook 06 đặt KPI chặt hơn: GMV mỗi giờ tối thiểu gấp 5 lần chi phí nhân sự + Ads của giờ đó, tức 2,5tr ở shop này. Khung giờ nào không đạt thì cắt, dồn host vào giờ ra số."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nhìn GMV cả phiên, không chia theo giờ và theo từng host, nên không biết giờ nào đang lỗ.",
+      "Tính GMV gồm cả đơn sau này bị huỷ, hoàn rồi khoe là có lãi.",
+      "Quên tính lương host, trợ live, Ads mồi vào chi phí của phiên."
+    ],
+    "quote": {
+      "text": "Bán tiền tỉ xong lỗ ngập mặt, điển hình là các phiên mega live",
+      "source": "Ecom Truyền Kỳ · Tài chính, Gọi vốn và M&A trong Ecom"
+    },
+    "remember": "Live phải ra đủ tiền mỗi giờ để trả host, Ads và giá vốn. Không đủ thì cắt giờ đó."
+  },
+  "vn_team_koc_return_rate": {
+    "subtitle": "Gửi mẫu cho KOC thì thu về bao nhiêu clip",
+    "intro": [
+      "**Tỷ lệ KOC trả clip là số KOC trả video gắn giỏ đúng hẹn chia cho số mẫu miễn phí đã gửi.** Ví dụ: gửi 200 set mẫu, 65 KOC trả clip thì tỷ lệ là 32,5%.",
+      "Nhiều anh em nghĩ gửi mẫu là miễn phí, không mất tiền quảng cáo. Thực tế mỗi set gửi đi là giá vốn cộng tiền ship. Mẫu đi mà clip không về là **mất trắng**, và nó vẫn nằm trong chi phí Marketing, kéo tụt CM3."
+    ],
+    "tree": {
+      "title": "Tỷ lệ trả clip được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này tăng thì không phải gửi nhiều hơn, mà phải chọn đúng KOC và chốt hẹn rõ ràng trước khi gửi.",
+      "expr": {
+        "label": "Tỷ lệ trả clip",
+        "eq": [
+          {
+            "label": "KOC trả clip đúng hẹn",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Mẫu đã gửi"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Gửi 200 set mẫu, mỗi set 110k (90k vốn + 20k ship)",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "65 mẫu có clip",
+            7.15,
+            "keep"
+          ],
+          [
+            "135 mẫu mất hút",
+            14.85,
+            "loss"
+          ]
+        ]
+      },
+      "after": "Bỏ ra 22tr, chỉ 7,15tr ra clip. Chia ra **mỗi clip tốn gần 340k tiền mẫu**, chưa tính hoa hồng khi có đơn."
+    },
+    "sections": [
+      {
+        "title": "Tỷ lệ trả clip bao nhiêu là ổn?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Tỷ lệ trả clip (%)",
+          "unit": "k",
+          "points": [
+            [
+              20,
+              550.0
+            ],
+            [
+              30,
+              366.7
+            ],
+            [
+              32.5,
+              338.5
+            ],
+            [
+              40,
+              275.0
+            ],
+            [
+              50,
+              220.0
+            ],
+            [
+              60,
+              183.3
+            ],
+            [
+              70,
+              157.1
+            ],
+            [
+              80,
+              137.5
+            ],
+            [
+              90,
+              122.2
+            ]
+          ],
+          "threshold": {
+            "x": 70,
+            "label": "70%: còn 157k/clip"
+          },
+          "now": {
+            "x": 32.5,
+            "label": "Đang 32,5%: 338k/clip"
+          }
+        },
+        "body": [
+          "Giá thật của 1 clip = 110k ÷ tỷ lệ trả clip. Ở 32,5% là khoảng 338k. Kéo lên 70% thì còn khoảng 157k, rẻ hơn một nửa với cùng số mẫu.",
+          "Playbook 06 đặt luật: chỉ gửi mẫu cho KOC có tỷ lệ đăng video thực tế trên 70% trong 30 ngày gần nhất. Còn lại thì chốt hẹn, hoặc bắt cọc. Nhớ là chi phí booking Koc cũng 20% (theo sách Ecom Truyền Kỳ), nên mẫu thất thoát là cộng thêm vào khoản vốn đã nặng."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Gửi mẫu tràn lan vì nghĩ miễn phí, không mất tiền quảng cáo.",
+      "Chỉ đếm số clip về, không chia chi phí mẫu ra giá thật mỗi clip.",
+      "Không lưu lịch sử từng KOC, nên KOC nhận mẫu không trả vẫn được gửi tiếp."
+    ],
+    "quote": {
+      "text": "Thế rồi, hậu quả là: hàng hoá chất đống, tiền cúng hết cho Koc, nợ chồng nợ.",
+      "source": "Ecom Truyền Kỳ · Vận hành tiêu chuẩn là nền móng để mở rộng bền vững"
+    },
+    "remember": "Mẫu gửi KOC không miễn phí. Chia tiền mẫu cho số clip về mới thấy giá thật."
+  },
+  "vn_team_pack_speed": {
+    "subtitle": "Mỗi người kho gói được bao nhiêu đơn một ca",
+    "intro": [
+      "**Năng suất đóng gói là số đơn gói xong chia cho số nhân viên kho nhân số ca.** Ví dụ: kho 4 người, làm 1 ca, gói xong 600 đơn thì năng suất là 150 đơn/người/ca.",
+      "Đơn tăng, kho kêu quá tải, nhiều anh em tuyển thêm người ngay. Nhưng chỉ số này cho biết kho đang **thiếu người hay thiếu quy trình, công cụ**. Thiếu quy trình mà tuyển thêm thì chỉ nhân thêm sự chậm."
+    ],
+    "tree": {
+      "title": "Năng suất đóng gói được tạo ra từ đâu",
+      "note": "Muốn năng suất tăng thì gói được nhiều đơn hơn trên cùng số ca công. Cách nhanh nhất là bớt thời gian đi tìm hàng.",
+      "expr": {
+        "label": "Năng suất đóng gói",
+        "eq": [
+          {
+            "label": "Đơn gói xong",
+            "dir": "up"
+          },
+          "÷ (",
+          {
+            "label": "Nhân viên kho"
+          },
+          "×",
+          {
+            "label": "Số ca"
+          },
+          ")"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "1 đơn mất 3,2 phút, ca 8 tiếng gói được 150 đơn",
+      "chart": {
+        "type": "bars",
+        "unit": " phút",
+        "items": [
+          [
+            "Đi tìm hàng trên kệ",
+            1.6,
+            "focus"
+          ],
+          [
+            "Quét mã kiểm hàng",
+            0.3
+          ],
+          [
+            "Gói hàng",
+            0.9
+          ],
+          [
+            "In, dán vận đơn",
+            0.4
+          ]
+        ]
+      },
+      "after": "Một nửa thời gian là **đi tìm hàng**. Xếp mã bán chạy ra kệ gần, đánh số vị trí, tìm hàng còn 0,6 phút thì 1 đơn còn 2,2 phút, mỗi người gói được khoảng 218 đơn/ca."
+    },
+    "sections": [
+      {
+        "title": "Kho thiếu người hay thiếu quy trình?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Năng suất cao",
+            "Năng suất thấp"
+          ],
+          "y": [
+            "Ít gói nhầm",
+            "Hay gói nhầm"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Kho chuẩn",
+                "text": "Đơn tăng thật mới tuyển thêm.",
+                "tone": "good"
+              },
+              {
+                "title": "Chậm mà chắc",
+                "text": "Thiếu công cụ, sắp lại kệ.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Gói ẩu",
+                "text": "Bắt quét mã từng món trước khi dán đơn.",
+                "tone": "mid"
+              },
+              {
+                "title": "Thiếu quy trình",
+                "text": "Viết quy trình trước, đừng tuyển.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Mùa sale đơn lên 1.200/ngày. Ở 150 đơn/người/ca cần 8 người. Ở 218 đơn/người/ca chỉ cần 6 người. Sửa quy trình rẻ hơn tuyển 2 người.",
+          "Nhưng đừng ép tốc độ mà quên độ chính xác. Theo sách Ecom Truyền Kỳ, 1 kho hàng 500 Sku, ngàn đơn/ ngày, giá trị kho 4 tỉ cần 10 người làm; tính tỉ lệ sai 5% là mỗi tháng sơ sơ mất 200tr. Gói nhanh mà nhầm thì mất cả tiền ship hai chiều."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Kho kêu quá tải là tuyển thêm, không đo xem mỗi người đang gói bao nhiêu đơn.",
+      "Thưởng theo số đơn gói mà không trừ đơn gói nhầm.",
+      "Tính năng suất theo ngày, bỏ qua số ca, nên ngày tăng ca nhìn tưởng năng suất tăng."
+    ],
+    "quote": {
+      "text": "Bản chất Ecom là hàng ngàn việc nhỏ được nối tiếp/ song song với nhau mỗi phút. Nếu không có mô tả, không có quy trình sẽ rối và tạo ra các thất thoát mất kiểm soát",
+      "source": "Ecom Truyền Kỳ · Những bài học nào cần khắc cốt ghi tâm?"
+    },
+    "remember": "Kho chậm thì sửa quy trình trước, tuyển người sau."
   }
 }
