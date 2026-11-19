@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /ecom-metrics-academy/quan-tri/
 Sitemap: https://ongchuecom.github.io/ecom-metrics-academy/sitemap.xml
