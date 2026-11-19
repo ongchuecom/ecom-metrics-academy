@@ -1,0 +1,34 @@
+{
+  "_huong_dan": "Mỗi bài một tình huống thực tế: video dựng bằng skill a1demy-explainer-video (mã nguồn ở films-src/<metric_id>), playbook viết theo skill a1demy-google-docs-2. Số trong playbook phải khớp video.",
+  "fin_roas": {
+    "title": "ROAS 3,2 mà cuối tháng vẫn hết tiền?",
+    "video": "films/fin_roas/index.html",
+    "poster": "films/fin_roas/poster.jpg",
+    "srt": "films/fin_roas/loi-doc.srt",
+    "duration": "0:53",
+    "note": "Ví dụ minh họa: shop mỹ phẩm doanh thu 1,5 tỷ/tháng, chi phí cố định tính theo mức doanh thu này.",
+    "playbook": {
+      "title": "ROAS đẹp mà không có tiền",
+      "signs": [
+        "ROAS trên trình quản lý quảng cáo từ 3 trở lên, doanh thu tăng đều.",
+        "Cuối tháng tài khoản không tăng, vẫn phải ứng thêm tiền nhập hàng.",
+        "Tăng ngân sách thì doanh thu tăng, nhưng tiền còn lại không tăng theo."
+      ],
+      "why": "ROAS chỉ so doanh thu với tiền Ads. Với shop trong video, cứ 100 nghìn doanh thu còn phải trả 35 nghìn giá vốn, 14 nghìn phí sàn và thanh toán, 5 nghìn hoàn hàng, 12 nghìn lương và kho: 66 nghìn không nằm trong phép tính ROAS. Ads ăn thêm 31,25 nghìn ở ROAS 3,2, nên shop chỉ giữ lại 2,75 nghìn. ROAS tụt xuống 2,9 là lỗ.",
+      "check": {
+        "title": "Tự soi shop mình trong 5 phút",
+        "defaults": { "cogs": 35, "fees": 14, "returns": 5, "fixed": 180, "revenue": 1500, "roas": 3.2 }
+      },
+      "actions": [
+        { "title": "Kéo hoàn hàng từ 12% xuống 4%", "how": "Gọi hoặc nhắn xác nhận đơn trước khi gửi, ưu đãi nhỏ cho khách chuyển khoản trước, chặn số điện thoại có lịch sử bom hàng.", "money": "+50 triệu/tháng" },
+        { "title": "Combo nâng giá trị đơn (AOV) 10%", "how": "Ghép sản phẩm chủ lực với một món biên cao; giữ nguyên số đơn và tiền Ads. Giả định tỷ lệ giá vốn và phí giữ nguyên.", "money": "+69 triệu/tháng" },
+        { "title": "Đặt luật ngân sách theo ROAS hòa vốn thật", "how": "Nhóm quảng cáo dưới 2,94 thì không tăng tiền. Dưới 2,17 thì mỗi đơn đều lỗ cả trước khi trả lương: tắt hoặc sửa ngay.", "money": "Chặn lỗ" }
+      ],
+      "mistakes": [
+        "Dùng mốc hòa vốn chưa tính lương, kho (2,17) để duyệt ngân sách.",
+        "Tin con số ROAS trình quản lý quảng cáo báo, trong khi số đó thường tính cả những đơn sau này bị hoàn.",
+        "Nhìn ROAS trung bình cả tài khoản, bỏ qua các nhóm quảng cáo đang lỗ bên trong."
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+1
+00:00:00,300 --> 00:00:04,300
+ROAS 3,2, Ads báo lãi, mà cuối tháng tài khoản vẫn cạn.
+
+2
+00:00:04,600 --> 00:00:10,200
+Bóc thử 100 nghìn doanh thu. Giá vốn 35, phí sàn 14, hoàn hàng 5, quảng cáo 31 nghìn rưỡi.
+
+3
+00:00:10,200 --> 00:00:15,800
+Trừ thêm lương và kho, shop giữ lại chưa tới 3 nghìn.
+
+4
+00:00:16,200 --> 00:00:20,600
+Giờ cho ROAS tụt nhẹ xuống 2,9. Ô còn lại chuyển đỏ: lỗ.
+
+5
+00:00:20,800 --> 00:00:25,800
+Tính đủ chi phí, ROAS hòa vốn thật của shop là 2,94, không phải 2,17.
+
+6
+00:00:26,200 --> 00:00:33,800
+Khoản rò lớn nhất là hoàn hàng: 12 trên 100 đơn quay đầu, mất ship hai chiều, hàng móp và tiền Ads.
+
+7
+00:00:34,200 --> 00:00:38,800
+Ba việc làm ngay. Gọi xác nhận đơn, kéo hoàn từ 12 xuống 4 phần trăm: thêm 50 triệu mỗi tháng.
+
+8
+00:00:39,200 --> 00:00:42,400
+Làm combo nâng giá trị đơn 10 phần trăm: thêm 69 triệu.
+
+9
+00:00:42,600 --> 00:00:46,800
+Và ROAS dưới 2,94 thì đừng tăng ngân sách.
+
+10
+00:00:47,200 --> 00:00:52,800
+Lưu lại. Tối nay tính ROAS hòa vốn thật của shop mình.
+

@@ -9,6 +9,7 @@ import PnLSimulator from './components/PnLSimulator.jsx'
 import Templates from './components/Templates.jsx'
 import Resources from './components/Resources.jsx'
 import Promos from './components/Promos.jsx'
+import CaseStudy from './components/CaseStudy.jsx'
 import { SectionTitle } from './components/ui.jsx'
 
 const TABS = [
@@ -121,6 +122,8 @@ export default function App() {
       <main className="min-w-0 flex-1">
         <div className="mx-auto max-w-5xl space-y-10 px-4 py-5 sm:px-6 lg:px-10 lg:py-8">
           <MetricLesson metric={metric} onSelect={select} onHomework={openHomework} />
+
+          <CaseStudy key={`case-${selectedMetricId}`} metric={metric} onSelect={select} />
 
           <section id="thuc-hanh" className="scroll-mt-20 space-y-4">
             <SectionTitle eyebrow="Thực hành" title="Tự tay tính, tự ra quyết định" />

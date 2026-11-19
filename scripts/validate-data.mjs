@@ -56,10 +56,19 @@ for (const m of all) {
     }
   }
 }
+// Tình huống thực tế (cases.json): id phải tồn tại, file video/poster/srt phải có trong public/
+import { existsSync } from 'node:fs'
+const cases = JSON.parse(readFileSync(join(dir, '../cases.json'), 'utf8'))
+for (const [id, c] of Object.entries(cases)) {
+  if (id.startsWith('_')) continue
+  if (!ids.has(id)) err(id, 'cases.json: metric_id không tồn tại')
+  for (const k of ['video', 'poster', 'srt']) if (c[k] && !existsSync(join(dir, '../../../public', c[k]))) err(id, `cases.json: thiếu file public/${c[k]}`)
+  if (!c.playbook?.actions?.length || c.playbook.actions.length > 3) err(id, 'cases.json: playbook cần 1–3 việc làm')
+}
 const withSim = all.filter((m) => m.simulator).length
 const withHw = all.filter((m) => m.diagnostic_homework).length
 if (errors.length) {
   console.error(`✗ ${errors.length} lỗi:\n` + errors.join('\n'))
   process.exit(1)
 }
-console.log(`✓ ${all.length} chỉ số hợp lệ · ${withSim} có simulator · ${withHw} có bài tập chẩn đoán`)
+console.log(`✓ ${all.length} chỉ số hợp lệ · ${withSim} có simulator · ${withHw} có bài tập chẩn đoán · ${Object.keys(cases).filter((k) => !k.startsWith('_')).length} có tình huống thực tế`)

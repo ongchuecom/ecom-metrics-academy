@@ -68,6 +68,20 @@ Mỗi chỉ số có các trường:
 
    Lệnh `npm run build` cũng tự chạy bước kiểm tra này.
 
+## Video tình huống thực tế sau mỗi bài
+- Mỗi bài có mục **Tình huống thực tế**:
+  - một video 16:9 dựng theo skill `a1demy-explainer-video`, phong cách Màn hình thật;
+  - một **playbook** viết theo skill `a1demy-google-docs-2`, gồm dấu hiệu, vì sao, ô tự soi tính bằng số của shop mình, 3 việc làm kèm số tiền, lỗi hay gặp.
+- Dữ liệu nằm ở `src/data/cases.json`, video đóng gói ở `public/films/<metric_id>/`:
+  - `index.html`: trình phát tự chạy;
+  - `nhac.mp3`;
+  - `poster.jpg`;
+  - `loi-doc.srt`.
+- Mã nguồn từng cảnh nằm ở `films-src/<metric_id>/`.
+- Dựng lại (cần bộ khung trong skill `a1demy-social-video`):
+  `python3 films-src/build.py films-src/<id>/spec.json out`, rồi `python3 films-src/make_player.py out public/films/<id>/index.html nhac.mp3`.
+- `npm run validate` kiểm tra id và file của từng tình huống.
+
 ## Chạy
 ```bash
 npm install
