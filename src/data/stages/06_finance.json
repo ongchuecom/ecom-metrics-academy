@@ -731,10 +731,10 @@
     "vi_name": "Tỷ lệ chi phí khuyến mãi & quà tặng",
     "stage": "06_finance_unit_econ",
     "sub_group": "Phí Sàn & Lợi nhuận",
-    "definition": "Giá vốn quà tặng kèm cộng voucher shop tự tung ra, tính theo % doanh thu thực thu. Khuyến mãi không đo là khoản rò lớn nhất mà anh em ít để ý.",
+    "definition": "Giá vốn quà tặng kèm cộng voucher shop tự tung ra, tính theo % doanh thu hiển thị (trước voucher). Voucher đã được trừ khi tính Net Sales, nên chỉ số này để đo mức chi khuyến mãi, không trừ thêm lần nữa trong P&L.",
     "formula": {
-      "readable": "(Giá vốn hàng tặng kèm + Giá trị voucher shop tự tung ra) / Doanh thu thực thu × 100%",
-      "derived": "((Free_Gift_COGS + Shop_Vouchers) / Net_Sales) * 100"
+      "readable": "(Giá vốn hàng tặng kèm + Giá trị voucher shop tự tung ra) / Doanh thu hiển thị (trước voucher) × 100%",
+      "derived": "((Free_Gift_COGS + Shop_Vouchers) / Gross_Sales) * 100"
     },
     "benchmarks": {},
     "relationships": {

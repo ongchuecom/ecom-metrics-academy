@@ -1,5 +1,5 @@
 {
-  "version": "5.0_VN_60_Metrics_10_Playbooks",
+  "version": "5.0_VN_60_Metrics_10_Playbooks_r1",
   "description": "Bộ 60 chỉ số vận hành thực chiến thuần Việt kèm trọn bộ 10 Playbook tình huống giả lập liên kết hai chiều",
   "playbooks": [
     {
@@ -27,19 +27,19 @@
       "core_correlation": "Doanh thu hiển thị trên màn hình Shopee/TikTok chưa bao giờ là tiền của bạn. Tiền thật phải đi qua 3 lớp lọc: trừ giá vốn ra CM1, trừ tiếp phí sàn + ship + chi phí đơn hoàn ra CM2, rồi mới đem CM2 đi chạy Ads. Nếu phí sàn tăng hoặc tỷ lệ hoàn nhích lên mà không tính lại ROAS hòa vốn, càng đẩy ngân sách Ads thì lỗ càng nặng.",
       "case_study": {
         "title": "Shop gia dụng doanh thu 1 tỷ/tháng, ROAS 5.0 nhưng cuối tháng lỗ ròng 25 triệu",
-        "context": "Anh Nam bán đồ gia dụng tiện ích trên TikTok Shop giá niêm yết 250.000đ/đơn. Tháng này báo doanh thu 1 tỷ đồng (4.000 đơn), tiền Ads hết 200 triệu (ROAS = 5.0).",
+        "context": "Anh Nam bán đồ gia dụng tiện ích trên TikTok Shop giá niêm yết 250.000đ/đơn. Tháng này báo doanh thu 1 tỷ đồng (4.000 đơn đặt), tiền Ads hết 200 triệu (ROAS = 5.0, tính trên doanh thu hiển thị).",
         "breakdown": [
-          "Giá vốn nhập kho thực tế (Landed Cost): 85.000đ/sp (34%).",
-          "Voucher shop tự giảm + khách hủy ngang trước khi giao (8%): Doanh thu thực thu chỉ còn 920 triệu.",
-          "Tổng phí sàn (cố định + thanh toán + Freeship Xtra + Voucher Xtra + thuế sàn thu hộ): 16% = 147 triệu.",
-          "Tỷ lệ hoàn hàng (RTO): 12% (480 đơn quay đầu). Mỗi đơn hoàn tốn 32.000đ (ship 2 chiều + hộp rách hỏng) = 15,4 triệu chi phí chìm và mất trắng doanh thu 480 đơn này."
+          "Giá vốn nhập kho thực tế (Landed Cost): 85.000đ/sp (34% giá niêm yết).",
+          "Khách huỷ ngang trước khi giao 4% (160 đơn), gửi đi 3.840 đơn. Tỷ lệ hoàn hàng (RTO) 12,5% số đơn đã gửi: 480 đơn quay đầu. Chỉ 3.360 đơn giao thành công = 840 triệu.",
+          "Voucher shop tự giảm 5% → Doanh thu thực thu (Net Sales) còn 798 triệu. Trừ giá vốn 3.360 × 85.000đ = 285,6 triệu → CM1 = 512,4 triệu.",
+          "Tổng phí sàn (cố định + thanh toán + Freeship Xtra + Voucher Xtra + thuế sàn thu hộ) 16% Net Sales = 127,7 triệu. Shop bù ship + đóng gói 32.500đ/đơn = 109,2 triệu. Mỗi đơn hoàn tốn 32.000đ (ship 2 chiều + hộp rách hỏng) = 15,4 triệu."
         ],
-        "result": "Tiền CM2 còn lại đúng 260 triệu. Trừ tiếp 200 triệu tiền Ads, CM3 chỉ còn vỏn vẹn 60 triệu — không đủ trả tiền thuê kho, điện nước và lương 4 nhân sự (85 triệu/tháng). Thực tế lỗ ròng 25 triệu."
+        "result": "CM2 còn khoảng 260 triệu. Trừ tiếp 200 triệu tiền Ads, CM3 chỉ còn 60 triệu — không đủ trả tiền thuê kho, điện nước và lương 4 nhân sự (85 triệu/tháng). Thực tế lỗ ròng 25 triệu."
       },
       "myths_and_mistakes": [
         {
           "type": "Ngộ nhận",
-          "detail": "Thấy ROAS = 5.0 là auto có lời. Thực tế với cơ cấu phí sàn và hoàn hàng trên, ROAS hòa vốn biến phí đã là ~3.8, và để nuôi bộ máy cố định thì ROAS tối thiểu phải đạt 5.5 trở lên."
+          "detail": "Thấy ROAS = 5.0 là auto có lời. Thực tế với cơ cấu phí sàn và hoàn hàng trên, ROAS hòa vốn biến phí đã là ~3,8 (1 tỷ ÷ 260 triệu), và để nuôi thêm 85 triệu định phí thì ROAS phải đạt khoảng 5,7 trở lên (1 tỷ ÷ 175 triệu)."
         },
         {
           "type": "Sai lầm",
@@ -77,7 +77,7 @@
           "Nhập 1 lần bán cả mùa nên hàng nằm trong kho trung bình 65 ngày mới xả hết (DIO = 65 ngày), trong đó 25% vốn nằm chết ở các size lẻ (XS, XXL) quá 90 ngày.",
           "Khách mua sàn và COD chiếm 85%, từ lúc gửi hàng đến khi đối soát rút được tiền về ngân hàng mất trung bình 14 ngày (DSO = 14 ngày)."
         ],
-        "result": "Chu kỳ kẹt vốn là 65 + 14 - 0 = 79 ngày. Bỏ 1 đồng tiền mặt ra nhập hàng thì gần 3 tháng sau tiền mới quay về túi. Càng bán mạnh càng phải ứng tiền túi ra nhập hàng mới."
+        "result": "Chu kỳ kẹt vốn là 65 + 14 - 0 = 79 ngày. Bỏ 1 đồng tiền mặt ra nhập hàng thì hơn 2,5 tháng sau tiền mới quay về túi. Càng bán mạnh càng phải ứng tiền túi ra nhập hàng mới."
       },
       "myths_and_mistakes": [
         {
@@ -118,7 +118,7 @@
           "Chi phí chạy Ads Facebook/TikTok chưa nộp thuế nhà thầu nước ngoài.",
           "Khoản dự phòng thuế thực tế (GTGT, TNDN/Hộ kinh doanh và thuế nhà thầu Ads) ngốn mất 4,5% - 6% doanh thu (tương đương 80 triệu/tháng)."
         ],
-        "result": "CM3 (240 triệu) - Định phí (160 triệu) - Dự phòng thuế (80 triệu) = 0 đồng. Cả team cày cuốc 1,5 tỷ/tháng nhưng lợi nhuận ròng thực bỏ túi bằng không."
+        "result": "CM3 (240 triệu) - Định phí (160 triệu) - Dự phòng thuế (80 triệu) = 0 đồng. Cả team cày cuốc 1,5 tỷ/tháng nhưng lợi nhuận ròng thực bỏ túi bằng không. Định phí 160 triệu mới là 10,7% doanh thu, chưa phải cao; vấn đề là CM3 chỉ còn 16% doanh thu nên không gánh nổi định phí cộng thuế 5,3%."
       },
       "myths_and_mistakes": [
         {
@@ -197,11 +197,11 @@
         "title": "Ôm 1.000 áo khoác để giảm giá nhập 25k/áo nhưng cuối mùa lỗ 20 triệu vì thanh lý size lẻ",
         "context": "Anh Tuấn nhập lô áo khoác gió mùa đông từ Quảng Châu. Xưởng báo 140k nếu lấy 300 cái, giảm còn 115k nếu ôm 1.000 cái. Anh Tuấn chốt 1.000 cái (Landed Cost = 125k/áo, tổng vốn 125 triệu).",
         "breakdown": [
-          "Tháng đầu vào mùa lạnh bán chạy được 550 cái giá 299k, lãi gộp ngon lành.",
-          "Sang tháng thứ 2 thời tiết ấm lên, 450 cái còn lại (chủ yếu size S và XXL) đứng im trong kho suốt 95 ngày (Tỷ lệ hàng tồn chết = 45%).",
-          "Buộc phải thanh lý lỗ 450 cái giá 80k/áo (thu về 36 triệu, lỗ 20,25 triệu tiền vốn gốc)."
+          "Tháng đầu vào mùa lạnh bán chạy được 550 cái giá 299k. Sau phí sàn, ship, Ads (khoảng 45% giá bán), mỗi áo còn lãi khoảng 39.500đ → 550 cái lãi khoảng 21,7 triệu.",
+          "Sang tháng thứ 2 thời tiết ấm lên, 450 cái còn lại (chủ yếu size S và XXL) đứng im trong kho suốt 95 ngày. 45% lô hàng thành hàng tồn chết, và lúc này toàn bộ tồn kho của mã đều là hàng chết.",
+          "Buộc phải thanh lý 450 cái giá 80k/áo (thu về 36 triệu so với 56,25 triệu vốn, lỗ 20,25 triệu)."
         ],
-        "result": "Tiền lãi của 550 cái bán đầu mùa gần như bị nuốt sạch bởi đống hàng tồn thanh lý cuối mùa."
+        "result": "Khoản lỗ thanh lý 20,25 triệu nuốt gần sạch 21,7 triệu lãi của 550 cái bán đầu mùa: cả lô 125 triệu vốn chỉ còn lãi khoảng 1,5 triệu sau gần 4 tháng."
       },
       "myths_and_mistakes": [
         {
@@ -233,13 +233,14 @@
       "core_correlation": "Livestream và Affiliate rất dễ biến thành hố đen đốt tiền nếu chỉ nhìn vào GMV (tổng giá trị đơn đặt) mà quên trừ hoa hồng Affiliate, phí sàn, chi phí gửi mẫu miễn phí và lương cứng/hoa hồng cho Host Live.",
       "case_study": {
         "title": "Doanh thu Live + Affiliate đạt 800 triệu/tháng nhưng lỗ ròng 18 triệu vì gửi mẫu tràn lan",
-        "context": "Chị Mai mở phòng Live 8 tiếng/ngày và gửi 200 set mỹ phẩm (giá vốn 90k/set) cho KOC làm clip gắn giỏ hàng. Cuối tháng tổng doanh thu đạt 800 triệu.",
+        "context": "Chị Mai mở phòng Live 8 tiếng/ngày (240 giờ/tháng) và gửi 200 set mỹ phẩm (giá vốn 90k/set) cho KOC làm clip gắn giỏ hàng. Cuối tháng tổng doanh thu đạt 800 triệu.",
         "breakdown": [
-          "Trong 200 mẫu gửi đi chỉ có 65 KOC trả clip (Tỷ lệ trả clip = 32,5%), 135 mẫu mất hút làm bay mất 12,15 triệu tiền vốn + 4 triệu tiền ship.",
+          "Gửi 200 mẫu tốn 18 triệu tiền hàng + 4 triệu ship (20k/mẫu). Chỉ 65 KOC trả clip (Tỷ lệ trả clip = 32,5%), 135 mẫu mất hút = 12,15 triệu vốn + 2,7 triệu ship đổ sông.",
           "Hoa hồng KOC trung bình 18% + phí sàn & Freeship Xtra 15% = mất đứt 33% doanh thu (264 triệu).",
-          "Phiên Live chỉ đạt trung bình 1,8 triệu/giờ, trong khi chi phí Host Live + trợ live + Ads mồi phiên hết 75 triệu/tháng."
+          "Phiên Live chỉ đạt trung bình 1,8 triệu/giờ, trong khi host + trợ live + Ads mồi phiên hết 120 triệu/tháng = 500k/giờ: doanh thu mỗi giờ chỉ gấp 3,6 lần chi phí, dưới mốc 5 lần.",
+          "Chạy thêm Ads đẩy clip KOC: 52 triệu."
         ],
-        "result": "Sau khi trừ giá vốn (35%), phí sàn + hoa hồng (33%), hoàn hàng 10% và chi phí phòng Live, tháng đó chị Mai lỗ ròng 18 triệu."
+        "result": "Doanh thu 800 triệu, trừ giá vốn 35% (280 triệu), phí sàn + hoa hồng 33% (264 triệu), hoàn hàng 10% (80 triệu), phòng Live 120 triệu, gửi mẫu 22 triệu và Ads đẩy clip 52 triệu: tháng đó chị Mai lỗ ròng 18 triệu."
       },
       "myths_and_mistakes": [
         {
@@ -274,11 +275,11 @@
         "title": "Vít ngân sách từ 3 triệu lên 12 triệu/ngày bị lỗ nặng, lật ngược thế cờ nhờ gộp Combo tăng AOV",
         "context": "Team Dũng chạy Ads Facebook bán thực phẩm bảo vệ sức khỏe giá 350k/hộp. ROAS hòa vốn là 2.8 (CPA tối đa cho phép là 125k/đơn).",
         "breakdown": [
-          "Tuần 1 chạy 3 triệu/ngày: CTR = 2,4%, CPA = 95k/đơn (lãi 30k/đơn).",
-          "Tuần 2 tăng lên 12 triệu/ngày: tệp khách lặp lại khiến CTR tụt xuống 1,3%, CPA đội lên 155k/đơn (ROAS tụt về 2.25), lỗ 3,6 triệu/ngày.",
+          "Tuần 1 chạy 3 triệu/ngày: CTR = 2,4%, CPA = 95k/đơn (lãi 30k/đơn so với mức CPA tối đa 125k).",
+          "Tuần 2 tăng lên 12 triệu/ngày: tệp khách lặp lại khiến CTR tụt xuống 1,47% (CPM và tỷ lệ chốt giữ nguyên), CPA đội lên 155k/đơn (ROAS tụt về 2,26). Khoảng 77 đơn/ngày, mỗi đơn lỗ 30k: lỗ khoảng 2,3 triệu/ngày.",
           "Cách xử lý: Đẩy gói Combo 3 hộp giá 890k (tặng kèm 1 hộp nhỏ) trên trang đích."
         ],
-        "result": "AOV nhảy từ 350k lên 620k. Dù CPA vẫn ở mức 165k/đơn, ROAS lập tức vọt lên 3.75, biến chiến dịch từ lỗ nặng thành lãi đậm."
+        "result": "AOV nhảy từ 350k lên 620k. Dù CPA vẫn ở mức 165k/đơn, ROAS lập tức vọt lên 3,76, vượt xa mốc hòa vốn 2,8 (giả định biên lãi gói Combo tương đương hộp lẻ) và AOV đã gấp hơn 3 lần CPA."
       },
       "myths_and_mistakes": [
         {
@@ -315,7 +316,7 @@
           "Nhờ sản phẩm ngon và phiếu tặng voucher 30k kèm mã QR kết bạn Zalo CSKH trong hộp hàng, 34% khách quay lại mua lần 2 trong 45 ngày, 15% mua lần 3.",
           "Các đơn quay lại chỉ tốn 2.000đ gửi tin nhắn Zalo ZNS."
         ],
-        "result": "Tổng lãi gộp thu về sau 90 ngày đạt 165k/khách (so với chi phí kéo khách 105k), giúp shop tự tin vít Ads mạnh hơn hẳn đối thủ."
+        "result": "Tổng lãi gộp thu về sau 90 ngày đạt khoảng 148k/khách (đã trừ voucher 30k và 2.000đ tin nhắn cho mỗi đơn quay lại), so với chi phí kéo khách 105k. Shop tự tin vít Ads mạnh hơn hẳn đối thủ."
       },
       "myths_and_mistakes": [
         {
@@ -394,7 +395,7 @@
           "Bạn Editor mất 4 tiếng/ngày chỉ để cắt ghép video review cơ bản từ kho tư liệu có sẵn.",
           "Kế toán mất 2 tiếng mỗi sáng tải file Excel từ 3 sàn về ghép tay đối soát đơn hoàn."
         ],
-        "result": "Hoãn tuyển 4 người, chi 15 triệu/tháng dùng chatbot trả lời tự động, template dựng video và tool đồng bộ đơn hàng. Hiệu suất đội cũ tăng 35%, Lợi nhuận gộp/nhân sự nhảy lên 54 triệu/người, tiết kiệm 33 triệu/tháng định phí."
+        "result": "Hoãn tuyển 4 người, chi 15 triệu/tháng dùng chatbot trả lời tự động, template dựng video và tool đồng bộ đơn hàng. Đội cũ xử lý được nhiều việc hơn, lãi gộp tăng 20% lên 972 triệu với đúng 18 người, tức 54 triệu/người. So với phương án tuyển 4 người, tiết kiệm 33 triệu/tháng định phí."
       },
       "myths_and_mistakes": [
         {

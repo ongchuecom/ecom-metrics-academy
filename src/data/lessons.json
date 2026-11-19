@@ -2655,12 +2655,12 @@
   "vn_fin_promo_cost_ratio": {
     "subtitle": "Khuyến mãi đang ăn bao nhiêu doanh thu",
     "intro": [
-      "**Tỷ lệ chi phí khuyến mãi là giá vốn quà tặng kèm cộng voucher shop tự tung ra, chia cho Net Sales.** Hiểu đơn giản: mỗi 100k thực thu, shop đang cho đi bao nhiêu. Ví dụ: tháng thực thu 400tr, quà tặng hết 24tr, voucher shop 16tr, tỷ lệ là 10%.",
+      "**Tỷ lệ chi phí khuyến mãi là giá vốn quà tặng kèm cộng voucher shop tự tung ra, chia cho doanh thu hiển thị (trước voucher).** Hiểu đơn giản: mỗi 100k doanh thu hiển thị, shop đang cho đi bao nhiêu. Ví dụ: tháng doanh thu hiển thị 400tr, quà tặng hết 24tr, voucher shop 16tr, tỷ lệ là 10%.",
       "Quà tặng nằm trong kho nên ít ai đếm. Voucher thì bật lên cho có, cả tháng không tắt. Khuyến mãi không đo là khoản rò lớn mà anh em ít để ý, vì nó không hiện thành hoá đơn như phí sàn hay Ads."
     ],
     "tree": {
       "title": "Chi phí khuyến mãi được tạo ra từ đâu",
-      "note": "Muốn tỷ lệ này giảm thì quà và voucher chỉ dành cho đơn đạt ngưỡng. Bấm vào Net Sales để học sâu.",
+      "note": "Muốn tỷ lệ này giảm thì quà và voucher chỉ dành cho đơn đạt ngưỡng.",
       "expr": {
         "label": "Khuyến mãi %",
         "eq": [
@@ -2677,8 +2677,7 @@
           ")",
           "÷",
           {
-            "id": "vn_fin_net_sales",
-            "label": "Net Sales"
+            "label": "Doanh thu hiển thị"
           }
         ]
       }
@@ -2714,7 +2713,7 @@
           ]
         ]
       },
-      "after": "Thực thu 250k, khuyến mãi 25k là **10%**. Phần để chạy Ads còn 75k, tức khuyến mãi đã bằng một phần ba tiền Ads."
+      "after": "Khuyến mãi 25k trên 260k hiển thị là **9,6%**. Thực thu còn 250k; trừ giá vốn, phí sàn, ship, hoàn và quà, phần để chạy Ads còn 75k, tức khuyến mãi đã bằng một phần ba tiền Ads."
     },
     "sections": [
       {

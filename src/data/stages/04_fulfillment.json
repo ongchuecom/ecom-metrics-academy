@@ -230,7 +230,7 @@
     "sub_group": "Vận hành Kho",
     "definition": "Tỷ lệ đơn kho đóng sai size, sai màu hoặc thiếu món. Mỗi đơn nhầm là một lần ship đổi trả và một nguy cơ đánh giá 1 sao.",
     "formula": {
-      "readable": "Số đơn kho nhặt sai size, đúng màu, thiếu món / Tổng số đơn xuất kho × 100%",
+      "readable": "Số đơn kho nhặt sai size, sai màu, thiếu món / Tổng số đơn xuất kho × 100%",
       "derived": "(Mispacked_Orders / Shipped_Orders) * 100"
     },
     "benchmarks": {},
