@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import site from '../data/site.json'
 
-// Form để lại Zalo: gửi thẳng vào Google Sheet riêng tư qua Apps Script (integrations/zalo-sheet.gs).
+// Form để lại Zalo: gửi thẳng vào Google Sheet riêng tư qua Apps Script (integrations/sheet-receiver.gs).
 // Chưa cấu hình endpoint thì form không hiện.
 const ENDPOINT = site.lead?.endpoint
 const CHANNELS = ['TikTok Shop', 'Shopee', 'Lazada', 'Website / Facebook', 'Bán cả nhiều kênh', 'Chưa bán, đang tìm hiểu']

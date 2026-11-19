@@ -21,7 +21,8 @@ function page(path, title, desc, body) {
     <meta name="description" content="${esc(desc)}" />
     <link rel="canonical" href="${url}" />
     <meta property="og:type" content="article" /><meta property="og:title" content="${esc(title)}" />
-    <meta property="og:description" content="${esc(desc)}" /><meta property="og:url" content="${url}" /><meta property="og:locale" content="vi_VN" />`
+    <meta property="og:description" content="${esc(desc)}" /><meta property="og:url" content="${url}" /><meta property="og:locale" content="vi_VN" />
+    <meta property="og:image" content="${SITE}og.png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />`
   let html = tpl.replace(/<title>[\s\S]*?<\/title>/, head).replace(/<meta name="description"[^>]*>\s*/, '')
   html = html.replace('<div id="root"></div>', `<div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6">${body}</main></div>`)
   mkdirSync(join(DIST, path), { recursive: true })
@@ -31,11 +32,15 @@ function page(path, title, desc, body) {
 
 const urls = []
 // Trang chủ: giữ index.html gốc nhưng thêm nội dung chữ và link tới mọi bài
-const homeBody = `<h1>Ecom Metrics Academy: 60 chỉ số E-commerce và 10 Playbook tình huống</h1>
+const homeBody = `<h1>Ecom Metrics Academy: ${stages.length} chỉ số E-commerce và 10 Playbook tình huống</h1>
 <p>Học các chỉ số vận hành Ecom theo văn phong sách Ecom Truyền Kỳ của Ông chú Ecom: Net Sales, CM1, CM2, CM3, ROAS hòa vốn, CPA, AOV, dòng tiền, tồn kho, hoàn hàng…</p>
 <h2>Playbook tình huống</h2><ul>${playbooks.map((p) => `<li><a href="${SITE + pUrl(p)}">${esc(p.title)}</a></li>`).join('')}</ul>
 <h2>Chỉ số</h2><ul>${stages.map((m) => `<li><a href="${SITE + mUrl(m)}">${esc(m.code)}: ${esc(m.vi_name)}</a></li>`).join('')}</ul>`
-writeFileSync(join(DIST, 'index.html'), tpl.replace('<div id="root"></div>', `<div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif">${homeBody}</main></div>`).replace('</title>', '</title>\n    <link rel="canonical" href="' + SITE + '" />'))
+writeFileSync(join(DIST, 'index.html'), tpl.replace('<div id="root"></div>', `<div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif">${homeBody}</main></div>`).replace('</title>', `</title>
+    <link rel="canonical" href="${SITE}" />
+    <meta property="og:type" content="website" /><meta property="og:title" content="Ecom Metrics Academy · Ông chú Ecom" />
+    <meta property="og:description" content="${stages.length} chỉ số vận hành E-commerce và 10 Playbook tình huống. Hiểu số trước khi đốt tiền." /><meta property="og:url" content="${SITE}" /><meta property="og:locale" content="vi_VN" />
+    <meta property="og:image" content="${SITE}og.png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />`))
 urls.push(SITE)
 
 for (const m of stages) {

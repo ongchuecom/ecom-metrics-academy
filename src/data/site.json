@@ -42,7 +42,7 @@
     ]
   },
   "lead": {
-    "_huong_dan": "Dán URL ứng dụng web của Apps Script (integrations/zalo-sheet.gs) vào endpoint để bật form. Để trống thì form ẩn.",
+    "_huong_dan": "Dán URL ứng dụng web của Apps Script (integrations/sheet-receiver.gs) vào endpoint để bật form Zalo và chấm sao, góp ý. Để trống thì hai phần này ẩn (nút chia sẻ vẫn hiện).",
     "endpoint": ""
   }
 }

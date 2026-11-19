@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { playbooks, playbookById, metricById, STAGES } from '../data/index.js'
 import LeadForm from './LeadForm.jsx'
+import PageFeedback from './PageFeedback.jsx'
 
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1] || ''
 // "Playbook 01: Bài toán …" → "Bài toán …"
@@ -113,6 +114,8 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen }) {
           </ul>
         </section>
       </div>
+
+      <PageFeedback key={p.playbook_id} page={p.playbook_id} title={`Playbook ${num(p)}: ${pbTitle(p)}`} shareText={p.summary} />
 
       <LeadForm source={p.playbook_id} title="Shop anh đang gặp đúng tình huống này?" text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để cùng bóc số của shop." />
 

@@ -83,7 +83,7 @@ Mỗi chỉ số có các trường:
   Sau khám sức khỏe, người gửi có thể chọn gửi kèm kết quả.
 - Dữ liệu ghi thẳng vào một Google Sheet riêng tư qua Apps Script, không qua máy chủ nào khác:
   1. mở Sheet → Tiện ích mở rộng → Apps Script;
-  2. dán `integrations/zalo-sheet.gs`;
+  2. dán `integrations/sheet-receiver.gs`;
   3. triển khai dạng Ứng dụng web;
   4. dán URL vào `lead.endpoint` trong `src/data/site.json`.
 

@@ -13,6 +13,7 @@ import CaseStudy from './components/CaseStudy.jsx'
 import Home from './components/Home.jsx'
 import SearchDialog, { SearchButton } from './components/SearchDialog.jsx'
 import LeadForm from './components/LeadForm.jsx'
+import PageFeedback from './components/PageFeedback.jsx'
 import lessons from './data/lessons.json'
 import cases from './data/cases.json'
 
@@ -215,6 +216,8 @@ export default function App() {
             )}
 
             <p className="text-sm text-charcoal">Muốn tính {metric.code} bằng số của shop mình? <button onClick={openHealth} className="font-semibold text-brand-700 hover:underline">Khám sức khỏe shop →</button></p>
+
+            <PageFeedback key={metric.metric_id} page={metric.metric_id} title={`${metric.code}: ${lessons[metric.metric_id]?.subtitle || metric.vi_name}`} shareText={metric.definition} />
 
             <nav aria-label="Chuyển bài" className="grid grid-cols-2 gap-3">
               {[prev, next].map((m, k) => m ? (
