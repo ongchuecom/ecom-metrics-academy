@@ -123,8 +123,8 @@ export default function DiagnosticHomework({ metric, onSelect }) {
 
   return (
     <div className="space-y-4">
-      <article className="rounded-3xl bg-lemon p-3 sm:p-5">
-        <div className="flex flex-wrap items-center justify-between gap-2 px-1 pb-3 text-navy-ink">
+      <article className="rounded-3xl bg-stone-50 p-3 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2 px-1 pb-3 text-charcoal">
           <span className="eyebrow">Hồ sơ bệnh án · {metric.code}</span>
           <span className="num text-sm font-extrabold">{done}/{hw.tasks.length} bước</span>
         </div>
@@ -145,11 +145,11 @@ export default function DiagnosticHomework({ metric, onSelect }) {
       })}
 
       {done === hw.tasks.length && (
-        <div className="fade-up flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-forest p-4 text-white">
+        <div className="fade-up flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-brand-50 p-4 text-ink">
           <div>
           <p className="font-display font-extrabold">Đã chẩn đoán xong ca này.</p><p className="text-sm"> Học tiếp chỉ số liên quan ở sơ đồ phụ thuộc để hiểu cả chuỗi.</p>
           </div>
-          <button onClick={() => setStates({})} className="rounded-full bg-white px-4 py-2 font-display text-sm font-bold text-forest">Làm lại</button>
+          <button onClick={() => setStates({})} className="rounded-full bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white">Làm lại</button>
         </div>
       )}
     </div>

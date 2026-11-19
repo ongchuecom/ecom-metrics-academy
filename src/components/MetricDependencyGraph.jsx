@@ -23,10 +23,10 @@ function NodeCard({ rel, kind, onSelect, delay }) {
       {rel.note && <p className="mt-1 text-xs leading-snug text-body">{rel.note}</p>}
     </>
   )
-  const cls = `fade-up block w-full rounded-xl border border-stone-200/80 border-l-4 ${s.edge} bg-white p-3 text-left`
+  const cls = `fade-up block w-full rounded-xl bg-stone-50 p-3 text-left`
   if (!target) return <div className={`${cls} opacity-60`} style={{ animationDelay: `${delay}ms` }}>{body}<p className="mt-1 text-[10px] text-stone-400">Chưa có bài học</p></div>
   return (
-    <button onClick={() => onSelect(rel.metric_id)} className={`${cls} transition hover:-translate-y-0.5 hover:bg-brand-50`} style={{ animationDelay: `${delay}ms` }}>
+    <button onClick={() => onSelect(rel.metric_id)} className={`${cls} transition hover:bg-brand-50`} style={{ animationDelay: `${delay}ms` }}>
       {body}
     </button>
   )
@@ -73,16 +73,16 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
             ))}
           </div>
         } />
-      <div className="rounded-2xl bg-white p-3 ring-1 ring-stone-200/80 sm:p-5">
+      <div className="py-1">
       <div className="grid items-center gap-2 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,0.8fr)_auto_minmax(0,1fr)] md:gap-3">
         <Column title="Đầu vào" hint="Chỉ số kéo chỉ số này lên/xuống" empty={up.length ? null : 'Chỉ số gốc, không phụ thuộc chỉ số nào trong hệ thống.'}>
           {up.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind={r.impact} onSelect={onSelect} delay={i * 60} />)}
         </Column>
         <FlowArrow />
-        <div key={metric.metric_id} className="fade-up rounded-2xl bg-forest p-4 text-center text-white ring-4 ring-brand-500/25">
-          <p className="eyebrow text-neon">Đang học</p>
-          <p className="font-display text-2xl font-black">{metric.code}</p>
-          <p className="text-xs text-white/85">{metric.vi_name}</p>
+        <div key={metric.metric_id} className="fade-up rounded-2xl bg-white p-4 text-center ring-2 ring-brand-500">
+          <p className="eyebrow text-brand-600">Đang học</p>
+          <p className="font-display text-2xl font-black text-ink">{metric.code}</p>
+          <p className="text-xs text-charcoal">{metric.vi_name}</p>
         </div>
         <FlowArrow />
         <div className="min-w-0 space-y-4">

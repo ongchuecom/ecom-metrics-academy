@@ -8,8 +8,36 @@
     ],
     "breakdown": {
       "title": "Bóc 1 đơn 100k, ROAS 3,2",
-      "rows": [["Doanh thu", "100k"], ["Giá vốn (Cogs)", "−35k"], ["Phí sàn + thanh toán", "−14k"], ["Hoàn huỷ", "−5k"], ["Ads (100k ÷ 3,2)", "−31,25k"], ["Lương, kho", "−12k"]],
-      "total": ["Còn lại", "2,75k"],
+      "rows": [
+        [
+          "Doanh thu",
+          "100k"
+        ],
+        [
+          "Giá vốn (Cogs)",
+          "−35k"
+        ],
+        [
+          "Phí sàn + thanh toán",
+          "−14k"
+        ],
+        [
+          "Hoàn huỷ",
+          "−5k"
+        ],
+        [
+          "Ads (100k ÷ 3,2)",
+          "−31,25k"
+        ],
+        [
+          "Lương, kho",
+          "−12k"
+        ]
+      ],
+      "total": [
+        "Còn lại",
+        "2,75k"
+      ],
       "after": "ROAS 3,2 mà mỗi đơn 100k chỉ còn chưa tới 3k. **Lãi màn hình** là vậy. ROAS tụt xuống 2,9 thì lỗ luôn."
     },
     "sections": [
@@ -31,6 +59,89 @@
       "text": "Các bạn trẻ say sưa với các chỉ số Cpa, Cpc, Ctr, Roas mà không hiểu rằng: Lifetime value, Margin, Cost structure mới là những thứ cốt lõi",
       "source": "Ecom Truyền Kỳ · Khởi nghiệp tinh gọn"
     },
-    "remember": "ROAS nói Ads có ra doanh thu. Còn có lãi hay không thì phải nhìn Net margin."
+    "remember": "ROAS nói Ads có ra doanh thu. Còn có lãi hay không thì phải nhìn Net margin.",
+    "visuals": {
+      "tree": {
+        "title": "ROAS được tạo ra từ đâu",
+        "note": "Muốn ROAS tăng thì AOV ↑ hoặc CPA ↓. Mà CPA giảm khi CPM ↓, CTR ↑, CR ↑. Bấm vào từng chỉ số để học sâu.",
+        "expr": {
+          "label": "ROAS",
+          "eq": [
+            {
+              "id": "sales_aov",
+              "label": "AOV",
+              "dir": "up"
+            },
+            "÷",
+            {
+              "id": "mkt_cpa",
+              "label": "CPA",
+              "dir": "down",
+              "eq": [
+                {
+                  "id": "mkt_cpm",
+                  "label": "CPM",
+                  "dir": "down"
+                },
+                "÷ (1000 ×",
+                {
+                  "id": "mkt_ctr",
+                  "label": "CTR",
+                  "dir": "up"
+                },
+                "×",
+                {
+                  "id": "sales_cr",
+                  "label": "CR",
+                  "dir": "up"
+                },
+                ")"
+              ]
+            }
+          ]
+        }
+      },
+      "bars": {
+        "title": "100k doanh thu đi đâu (ROAS 3,2)",
+        "unit": "k",
+        "items": [
+          [
+            "Giá vốn (Cogs)",
+            35
+          ],
+          [
+            "Ads (100k ÷ 3,2)",
+            31.25,
+            "focus"
+          ],
+          [
+            "Phí sàn + thanh toán",
+            14
+          ],
+          [
+            "Lương, kho",
+            12
+          ],
+          [
+            "Hoàn huỷ",
+            5
+          ],
+          [
+            "Còn lại",
+            2.75,
+            "keep"
+          ]
+        ]
+      },
+      "curve": {
+        "title": "ROAS và tiền còn lại trên mỗi 100k doanh thu",
+        "cost": 66,
+        "now": 3.2,
+        "range": [
+          1.5,
+          5
+        ]
+      }
+    }
   }
 }

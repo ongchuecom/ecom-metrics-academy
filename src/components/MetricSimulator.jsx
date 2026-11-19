@@ -46,7 +46,7 @@ export default function MetricSimulator({ metric, onSelect }) {
             const warn = isWarning(v, o.warning_threshold)
             return (
               <div key={o.key} aria-live="polite"
-                className={`rounded-2xl border p-4 transition ${warn ? 'border-coral/40 bg-peach' : 'border-stone-200/80 bg-white'}`}>
+                className={`rounded-2xl p-4 transition ${warn ? 'bg-red-50' : 'bg-stone-50'}`}>
                 <p className="eyebrow text-charcoal">{o.label}</p>
                 <p className={`num mt-1 text-3xl font-black ${warn ? 'text-coral' : 'text-ink'}`}>{formatUnit(v, o.unit)}</p>
                 {o.warning_threshold && (
@@ -59,8 +59,8 @@ export default function MetricSimulator({ metric, onSelect }) {
             )
           })}
         </div>
-        <div className="rounded-2xl bg-lemon p-4 text-sm leading-relaxed text-navy-ink">
-          <span className="font-display font-extrabold">Thử ngay: </span>
+        <div className="px-1 text-sm leading-relaxed text-charcoal">
+          <span className="font-display font-extrabold text-ink">Thử ngay: </span>
           kéo từng thanh một và để ý ô nào chuyển đỏ trước. Chỉ số nào làm ô đỏ nhanh nhất chính là đòn bẩy nhạy nhất của bạn.
         </div>
       </div>

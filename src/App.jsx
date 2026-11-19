@@ -152,9 +152,9 @@ export default function App() {
           <nav aria-label="Chuyển bài" className="grid grid-cols-2 gap-3">
             {[prev, next].map((m, k) => m ? (
               <button key={m.metric_id} onClick={() => select(m.metric_id)}
-                className={`rounded-2xl border border-stone-200/80 bg-white p-3 transition hover:border-brand-500 sm:p-4 ${k ? 'text-right' : 'text-left'}`}>
+                className={`rounded-xl p-2 transition hover:bg-brand-50 ${k ? 'text-right' : 'text-left'}`}>
                 <p className="eyebrow text-muted">{k ? 'Bài tiếp →' : '← Bài trước'}</p>
-                <p className="mt-1 font-display font-extrabold text-ink">{m.code}</p>
+                <p className="mt-1 font-display font-extrabold text-brand-600">{m.code}</p>
                 <p className="truncate text-xs text-charcoal">{m.vi_name}</p>
               </button>
             ) : <span key={k} />)}

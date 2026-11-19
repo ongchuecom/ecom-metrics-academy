@@ -20,31 +20,31 @@ function SelfCheck({ cfg }) {
   ]
   const ok = Number.isFinite(beTrue) && v.roas >= beTrue
   return (
-    <div className="rounded-2xl bg-lemon p-4 text-navy-ink sm:p-5">
-      <p className="eyebrow">{cfg.title}</p>
+    <div className="rounded-2xl bg-stone-50 p-4 text-ink sm:p-5">
+      <p className="text-sm font-extrabold text-brand-600">{cfg.title}</p>
       <div className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3">
         {F.map(([k, label, unit]) => (
-          <label key={k} className="block rounded-xl bg-white px-3 py-2">
+          <label key={k} className="block rounded-xl bg-white px-3 py-2 ring-1 ring-stone-200">
             <span className="text-xs font-semibold text-charcoal">{label}</span>
             <div className="flex items-baseline gap-1">
               <input type="number" inputMode="decimal" step="any" value={v[k]} aria-label={label}
                 onChange={(e) => setV((s) => ({ ...s, [k]: e.target.value === '' ? 0 : Number(e.target.value) }))}
-                className="num w-full min-w-0 bg-transparent py-1 text-lg font-extrabold text-ink outline-none" />
+                className="num w-full min-w-0 bg-transparent py-0.5 text-base font-bold text-ink outline-none" />
               <span className="shrink-0 text-xs text-muted">{unit}</span>
             </div>
           </label>
         ))}
       </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl bg-white/70 px-3 py-2">
+        <div className="px-3 py-2">
           <p className="text-xs font-semibold text-charcoal">Hòa vốn chưa tính cố định</p>
           <p className="num text-xl font-black">{Number.isFinite(beVar) ? nf(beVar) : 'không thể'}</p>
         </div>
-        <div className="rounded-xl bg-white px-3 py-2 ring-2 ring-navy-ink/80">
+        <div className="rounded-xl bg-lemon px-3 py-2 text-navy-ink">
           <p className="text-xs font-semibold text-charcoal">ROAS hòa vốn thật</p>
           <p className="num text-2xl font-black">{Number.isFinite(beTrue) ? nf(beTrue) : 'không thể'}</p>
         </div>
-        <div className={`rounded-xl px-3 py-2 ${ok ? 'bg-white' : 'bg-peach'}`}>
+        <div className="px-3 py-2">
           <p className="text-xs font-semibold text-charcoal">Còn lại mỗi 100 nghìn doanh thu</p>
           <p className={`num text-xl font-black ${left >= 0 ? 'text-ok' : 'text-coral'}`}>{nf(left)} nghìn</p>
         </div>
@@ -70,7 +70,7 @@ export default function CaseStudy({ metric, onSelect }) {
           <div className="flex flex-wrap items-center gap-2 text-sm text-charcoal">
             Xem trước tình huống đã có:
             {others.map((k) => (
-              <button key={k} onClick={() => onSelect(k)} className="rounded-full bg-peach px-3 py-1.5 font-display font-bold text-coral hover:bg-coral hover:text-white">{metricById[k].code}</button>
+              <button key={k} onClick={() => onSelect(k)} className="rounded-full bg-brand-50 px-3 py-1.5 font-display font-bold text-brand-600 hover:bg-brand-100">{metricById[k].code}</button>
             ))}
           </div>
         )}
@@ -100,21 +100,21 @@ export default function CaseStudy({ metric, onSelect }) {
         </div>
       </div>
       <div className="flex flex-wrap gap-2 text-sm">
-        <a href={BASE + c.video} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-3 py-1.5 font-semibold text-body ring-1 ring-stone-200 hover:ring-brand-500">Mở video toàn màn hình ↗</a>
-        {c.srt && <a href={BASE + c.srt} download className="rounded-full bg-white px-3 py-1.5 font-semibold text-body ring-1 ring-stone-200 hover:ring-brand-500">Tải lời đọc (.srt)</a>}
+        <a href={BASE + c.video} target="_blank" rel="noopener noreferrer" className="rounded-full px-3 py-1.5 font-semibold text-brand-700 hover:bg-brand-50">Mở video toàn màn hình ↗</a>
+        {c.srt && <a href={BASE + c.srt} download className="rounded-full px-3 py-1.5 font-semibold text-brand-700 hover:bg-brand-50">Tải lời đọc (.srt)</a>}
       </div>
 
       {/* Playbook xử lý tình huống */}
-      <article className="space-y-4 rounded-3xl border border-stone-200/80 bg-white p-4 sm:p-6">
+      <article className="space-y-6 pt-2">
         <div>
-          <p className="eyebrow text-coral">Playbook</p>
-          <h3 className="mt-1 text-2xl font-black leading-tight">{pb.title}</h3>
+          <p className="eyebrow text-muted">Playbook</p>
+          <h3 className="mt-1 text-lg font-extrabold leading-tight text-ink">{pb.title}</h3>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <p className="font-display font-extrabold text-ink">Dấu hiệu</p>
             <ul className="mt-2 space-y-1.5 text-body">
-              {pb.signs.map((s) => <li key={s} className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral" />{s}</li>)}
+              {pb.signs.map((s) => <li key={s} className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />{s}</li>)}
             </ul>
           </div>
           <div>
@@ -129,12 +129,12 @@ export default function CaseStudy({ metric, onSelect }) {
           <p className="font-display font-extrabold text-ink">Ba việc làm ngay</p>
           <ol className="mt-2 space-y-2">
             {pb.actions.map((a, i) => (
-              <li key={a.title} className="flex gap-3 rounded-2xl bg-brand-50 p-3 sm:p-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 font-display font-black text-white">{i + 1}</span>
+              <li key={a.title} className="flex gap-3 border-b border-stone-100 py-3 last:border-0">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-50 font-display text-sm font-black text-brand-600">{i + 1}</span>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                     <p className="font-display font-extrabold text-ink">{a.title}</p>
-                    <p className="num font-black text-brand-700">{a.money}</p>
+                    <p className="num font-black text-ok">{a.money}</p>
                   </div>
                   <p className="mt-0.5 text-sm leading-relaxed text-body">{a.how}</p>
                 </div>
@@ -143,10 +143,10 @@ export default function CaseStudy({ metric, onSelect }) {
           </ol>
         </div>
 
-        <div className="rounded-2xl bg-peach p-3 sm:p-4">
-          <p className="font-display font-extrabold text-coral">Lỗi hay gặp</p>
+        <div>
+          <p className="font-display font-extrabold text-ink">Lỗi hay gặp</p>
           <ul className="mt-1.5 space-y-1 text-sm text-body">
-            {pb.mistakes.map((s) => <li key={s} className="flex gap-2"><span className="font-bold text-coral">×</span>{s}</li>)}
+            {pb.mistakes.map((s) => <li key={s} className="flex gap-2"><span className="font-bold text-brand-600">×</span>{s}</li>)}
           </ul>
         </div>
       </article>

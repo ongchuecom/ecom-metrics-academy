@@ -67,8 +67,8 @@ export default function PnLSimulator({ selected }) {
         </div>
 
         {/* Bố cục Hóa đơn (đã duyệt): thẻ trắng hơi nghiêng trên nền vàng chanh, dòng tổng to */}
-        <div className={`rounded-3xl bg-lemon p-4 sm:p-6 ${['fin_net_margin', 'fin_ebitda', 'fin_cm1', 'fin_cm2', 'fin_cm3'].includes(selected) ? 'ring-4 ring-brand-500/40' : ''}`}>
-          <p className="eyebrow px-1 text-navy-ink">Hóa đơn lãi lỗ · 1 tháng (giả lập)</p>
+        <div className={`rounded-3xl bg-stone-50 p-4 sm:p-6 ${['fin_net_margin', 'fin_ebitda', 'fin_cm1', 'fin_cm2', 'fin_cm3'].includes(selected) ? 'ring-4 ring-brand-500/40' : ''}`}>
+          <p className="eyebrow px-1 text-muted">Hóa đơn lãi lỗ · 1 tháng (giả lập)</p>
           <div className="mt-3 rotate-[-1deg] rounded-2xl bg-white px-4 py-4 shadow-[0_10px_30px_rgba(31,42,68,0.12)] sm:px-6">
             <div className="flex justify-between border-b border-dashed border-stone-300 pb-2 text-xs font-bold uppercase tracking-widest text-muted">
               <span>Khoản</span><span>Số tiền</span>
@@ -89,14 +89,14 @@ export default function PnLSimulator({ selected }) {
             </div>
             <p className="mt-1 text-right text-xs text-muted">Biên ròng {pct(r.netMarginPct)} · Ví dụ minh họa</p>
           </div>
-          <p className="mt-4 px-1 text-sm text-navy-ink">
+          <p className="mt-4 px-1 text-sm text-body">
             Lãi đơn đầu của khách mới:{' '}
             <span className={`num font-extrabold ${r.profitPerNewOrder >= 0 ? 'text-ok' : 'text-coral'}`}>{vnd(r.profitPerNewOrder)}</span>
             {r.profitPerNewOrder < 0 && r.ltvCac >= 1 && '. Lỗ đơn đầu nhưng có thể gỡ lại nếu khách mua lại đủ vòng đời.'}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-stone-200/80 bg-white p-4 text-body">
+        <div className="px-1 text-body">
           <p className="text-sm leading-relaxed">
             <span className="font-display font-extrabold text-brand-700">Thử ngay: </span>
             kéo <b>giá vốn</b> lên vài điểm và xem ROAS hòa vốn nhảy lên thế nào; tăng <b>số đơn vòng đời</b> để thấy CLV/CAC đổi màu;

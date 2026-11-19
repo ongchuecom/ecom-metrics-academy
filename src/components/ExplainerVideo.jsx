@@ -74,13 +74,13 @@ function Scene({ s, metric, n, total, onHomework }) {
   switch (s.id) {
     case 'hook':
       return (
-        <Frame bg="bg-forest text-white" dark n={n} total={total} label={`Khâu ${s.stageNo} · ${stage?.short || ''}`}>
-          <p className="mv-up font-display font-extrabold text-neon" style={{ ...fs(4), ...d(100) }}>Hiểu nhanh</p>
+        <Frame bg="bg-brand-50 text-ink" n={n} total={total} label={`Khâu ${s.stageNo} · ${stage?.short || ''}`}>
+          <p className="mv-up font-display font-extrabold text-brand-600" style={{ ...fs(4), ...d(100) }}>Hiểu nhanh</p>
           <p className="mv-pop font-display font-black leading-none" style={{ ...fs(metric.code.length > 10 ? 12 : 18), ...d(250) }}>{metric.code}</p>
-          <p className="mv-up mt-[2cqmin] font-semibold leading-snug text-white/90" style={{ ...fs(4), ...d(800) }}>{metric.vi_name}</p>
+          <p className="mv-up mt-[2cqmin] font-semibold leading-snug text-body" style={{ ...fs(4), ...d(800) }}>{metric.vi_name}</p>
           <div className="mt-[4cqmin] flex flex-wrap gap-[1.5cqmin]">
             {s.agenda.map((a, k) => (
-              <span key={a} className="mv-up rounded-full bg-white/15 font-semibold" style={{ padding: '1cqmin 2.4cqmin', ...fs(2.8), ...d(1300 + k * 220) }}>
+              <span key={a} className="mv-up rounded-full bg-white font-semibold text-body ring-1 ring-brand-500/30" style={{ padding: '1cqmin 2.4cqmin', ...fs(2.8), ...d(1300 + k * 220) }}>
                 {k + 1}. {a}
               </span>
             ))}
@@ -107,8 +107,8 @@ function Scene({ s, metric, n, total, onHomework }) {
       let html = ''
       try { html = katex.renderToString(metric.formula.latex, { displayMode: true, throwOnError: false, strict: false }) } catch { html = '' }
       return (
-        <Frame bg="bg-forest text-white" dark n={n} total={total} label="Công thức">
-          <div className="mv-pop rounded-[3cqmin] bg-white text-ink" style={{ padding: '4cqmin', ...d(200) }}>
+        <Frame bg="bg-white text-ink" n={n} total={total} label="Công thức">
+          <div className="mv-pop rounded-[3cqmin] bg-brand-50 text-ink" style={{ padding: '4cqmin', ...d(200) }}>
             <div style={fs(4.4)} dangerouslySetInnerHTML={{ __html: html }} />
           </div>
           <p className="mv-up mt-[4cqmin] font-semibold leading-snug" style={{ ...fs(3.6), ...d(1200) }}>{metric.formula.readable}</p>
@@ -117,21 +117,21 @@ function Scene({ s, metric, n, total, onHomework }) {
     }
     case 'example':
       return (
-        <Frame bg="bg-lime text-lime-ink" n={n} total={total} label="Ví dụ minh họa">
+        <Frame bg="bg-white text-ink" n={n} total={total} label="Ví dụ minh họa">
           <div className="grid items-center gap-[3cqmin] sm:grid-cols-[1fr_1fr]" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(40cqmin, 1fr))' }}>
             <div className="space-y-[1.6cqmin]">
               {s.inputs.map((i, k) => (
-                <div key={i.label} className="mv-left flex items-baseline justify-between gap-[2cqmin] rounded-[2cqmin] bg-white/70" style={{ padding: '1.6cqmin 2.6cqmin', ...d(200 + k * 700) }}>
+                <div key={i.label} className="mv-left flex items-baseline justify-between gap-[2cqmin] rounded-[2cqmin] bg-stone-50" style={{ padding: '1.6cqmin 2.6cqmin', ...d(200 + k * 700) }}>
                   <span className="font-semibold leading-tight" style={fs(2.9)}>{i.label}</span>
                   <span className="num shrink-0 font-extrabold" style={fs(3.4)}>{i.value}</span>
                 </div>
               ))}
             </div>
-            <div className="mv-pop rounded-[3cqmin] bg-white text-center" style={{ padding: '4cqmin', ...d(400 + s.inputs.length * 700) }}>
+            <div className="mv-pop rounded-[3cqmin] bg-lemon text-center text-navy-ink" style={{ padding: '4cqmin', ...d(400 + s.inputs.length * 700) }}>
               <p className="font-semibold text-charcoal" style={fs(3)}>{s.out.label}</p>
-              <p className={`num font-black leading-none ${s.out.warn ? 'text-coral' : 'text-brand-700'}`} style={fs(9)}>{s.out.value}</p>
+              <p className={`num font-black leading-none ${s.out.warn ? 'text-coral' : 'text-ink'}`} style={fs(9)}>{s.out.value}</p>
               {s.out.threshold && (
-                <p className={`mt-[1.5cqmin] font-bold ${s.out.warn ? 'text-coral' : 'text-brand-700'}`} style={fs(2.8)}>
+                <p className={`mt-[1.5cqmin] font-bold ${s.out.warn ? 'text-coral' : 'text-navy-ink'}`} style={fs(2.8)}>
                   {s.out.warn ? 'Vượt ngưỡng cảnh báo ' : 'Trong ngưỡng an toàn · cảnh báo khi '}{s.out.threshold}
                 </p>
               )}
@@ -143,15 +143,15 @@ function Scene({ s, metric, n, total, onHomework }) {
       const chip = (r, k, side) => {
         const t = metricById[r.metric_id]
         return (
-          <div key={r.metric_id} className={`${side === 'l' ? 'mv-left' : 'mv-right'} rounded-[2cqmin] border-l-[1.2cqmin] bg-white ${r.impact === 'inverse' ? 'border-coral' : 'border-brand-500'}`}
+          <div key={r.metric_id} className={`${side === 'l' ? 'mv-left' : 'mv-right'} rounded-[2cqmin] border-l-[1.2cqmin] bg-white ${r.impact === 'inverse' ? 'border-coral' : 'border-stone-400'} ring-1 ring-stone-200`}
             style={{ padding: '1.4cqmin 2.2cqmin', ...d((side === 'l' ? 300 : 2200) + k * 350) }}>
             <p className="font-display font-extrabold leading-tight text-ink" style={fs(3.4)}>{t?.code || r.metric_id}</p>
-            <p className={`font-bold ${r.impact === 'inverse' ? 'text-coral' : 'text-brand-700'}`} style={fs(2.4)}>{r.impact === 'inverse' ? 'Nghịch chiều' : 'Thuận chiều'}</p>
+            <p className={`font-bold ${r.impact === 'inverse' ? 'text-coral' : 'text-charcoal'}`} style={fs(2.4)}>{r.impact === 'inverse' ? 'Nghịch chiều' : 'Thuận chiều'}</p>
           </div>
         )
       }
       return (
-        <Frame bg="bg-brand-50 text-ink" n={n} total={total} label="Mạng lưới">
+        <Frame bg="bg-white text-ink" n={n} total={total} label="Mạng lưới">
           <div className="grid items-center gap-[2.5cqmin]" style={{ gridTemplateColumns: '1fr auto 1fr' }}>
             <div className="space-y-[1.5cqmin]">
               <p className="eyebrow text-charcoal" style={fs(2.2)}>Đầu vào</p>
@@ -170,10 +170,10 @@ function Scene({ s, metric, n, total, onHomework }) {
     }
     case 'close':
       return (
-        <Frame bg="bg-promo text-white" dark sign n={n} total={total} label="Chốt">
+        <Frame bg="bg-brand-50 text-ink" sign n={n} total={total} label="Chốt">
           {s.trade ? (
-            <div className="mv-up rounded-[3cqmin] bg-white text-ink" style={{ padding: '3.5cqmin', ...d(200) }}>
-              <p className="eyebrow text-coral" style={fs(2.6)}>Cẩn thận đánh đổi</p>
+            <div className="mv-up rounded-[3cqmin] bg-white text-ink ring-1 ring-stone-200" style={{ padding: '3.5cqmin', ...d(200) }}>
+              <p className="eyebrow text-brand-600" style={fs(2.6)}>Cẩn thận đánh đổi</p>
               <p className="mt-[1cqmin] font-display font-extrabold leading-snug" style={fs(4.2)}>{s.trade.note}</p>
             </div>
           ) : (
@@ -183,7 +183,7 @@ function Scene({ s, metric, n, total, onHomework }) {
           )}
           {s.hw && (
             <>
-              <p className="mv-up text-center font-display font-black text-marker" style={{ ...fs(5), ...d(1100) }} aria-hidden="true">↓</p>
+              <p className="mv-up text-center font-display font-black text-brand-600" style={{ ...fs(5), ...d(1100) }} aria-hidden="true">↓</p>
               <button onClick={onHomework} className="mv-up rounded-[3cqmin] bg-marker text-left text-navy-ink" style={{ padding: '3cqmin 3.5cqmin', ...d(1400) }}>
                 <p className="eyebrow" style={fs(2.4)}>Thử sức · Bài tập chẩn đoán</p>
                 <p className="font-display font-extrabold leading-snug" style={fs(4)}>{s.hw.replace(/^Bệnh án:\s*/, '')}</p>
@@ -311,9 +311,9 @@ export default function ExplainerVideo({ metric, onHomework }) {
           <iframe src={embed} title={metric.media?.video_title || `Video ${metric.code}`} className="h-full w-full" allow="autoplay; encrypted-media; fullscreen" allowFullScreen />
         </div>
       ) : (
-        <div ref={ref} className="overflow-hidden rounded-2xl border border-stone-200/80 bg-white">
+        <div ref={ref} className="overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200/70">
           <div className={`relative aspect-[4/5] w-full select-none sm:aspect-video ${playing ? '' : 'mv-paused'}`} style={{ containerType: 'size' }}>
-            <div key={`${metric.metric_id}-${i}-${run}`} className="absolute inset-0">
+            <div key={`${metric.metric_id}-${i}-${run}`} className={`absolute inset-0 ${!playing && !seen.current && i === 0 ? 'mv-static' : ''}`}>
               <Scene s={s} metric={metric} n={i + 1} total={scenes.length} onHomework={onHomework} />
             </div>
             {!playing && (

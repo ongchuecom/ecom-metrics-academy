@@ -2,7 +2,7 @@
 
 export function Card({ children, className = '', highlight = false }) {
   return (
-    <div className={`rounded-2xl border bg-white p-4 transition sm:p-5 ${highlight ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-stone-200/80'} ${className}`}>
+    <div className={`rounded-2xl bg-stone-50 p-4 transition sm:p-5 ${highlight ? 'ring-2 ring-brand-500/40' : ''} ${className}`}>
       {children}
     </div>
   )
