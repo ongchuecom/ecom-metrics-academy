@@ -1,4 +1,155 @@
 {
   "_huong_dan": "Chỉ số sinh thêm từ bài viết (xem .claude/skills/bai-viet-sinh-chi-so/SKILL.md). Cùng khuôn với pack gốc, thêm code_short, definition, review (draft|approved), sources. Sửa xong chạy npm run data:pack.",
-  "metrics": []
+  "metrics": [
+    {
+      "metric_id": "vn_fin_loss_revenue_share",
+      "code": "TY_LE_DOANH_THU_LO",
+      "code_short": "Doanh thu lỗ",
+      "name": "Tỷ lệ doanh thu lỗ (Doanh thu xấu)",
+      "definition": "Phần doanh thu đến từ những SKU, kênh hay chiến dịch có CM3 âm. Doanh thu này làm shop trông to hơn, nhưng mỗi đồng bán ra lại kéo lãi xuống.",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_07_ads_scaling"
+      ],
+      "formula_readable": "Doanh thu từ các SKU, kênh, chiến dịch có CM3 âm / Net Sales",
+      "formula_derived": "Revenue_Where_CM3_Negative / Net_Sales",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_mkt_cpa",
+            "impact": "direct_proportional",
+            "note": "CPA đội lên thì nhiều chiến dịch rơi xuống CM3 âm"
+          },
+          {
+            "metric_id": "vn_fin_promo_cost_ratio",
+            "impact": "direct_proportional",
+            "note": "Sale sâu, quà tặng dày thì nhiều SKU bán ra là lỗ"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "impact": "inverse_proportional",
+            "note": "Doanh thu lỗ càng nhiều, CM3 tổng càng mỏng"
+          },
+          {
+            "metric_id": "vn_fin_net_profit",
+            "impact": "inverse_proportional",
+            "note": "Cắt doanh thu lỗ thì doanh thu giảm nhưng lãi ròng tăng"
+          }
+        ],
+        "trade_offs": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Cắt doanh thu lỗ làm Net Sales tụt, báo cáo doanh số xấu đi dù lãi tốt lên"
+          }
+        ]
+      },
+      "review": "draft",
+      "sources": [
+        {
+          "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
+          "file": "data-src/articles/2026-11-19-ai-ecom.md"
+        }
+      ]
+    },
+    {
+      "metric_id": "vn_fin_reconciliation_gap",
+      "code": "TY_LE_TIEN_LECH_DOI_SOAT",
+      "code_short": "Tiền lệch sổ",
+      "name": "Tỷ lệ tiền lệch đối soát (Tiền thất thoát)",
+      "definition": "Phần tiền chênh giữa số sổ sách nói phải có và số thực có trong ngân hàng, ví sàn, tài khoản Ads, tiền COD, mà chưa ai giải thích được. Lệch là tiền đang rò ra ngoài.",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap",
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "Tổng khoản chênh chưa giải thích được sau đối soát (thẻ trả Ads, ví sàn, COD, ngân hàng) / Net Sales",
+      "formula_derived": "Unexplained_Variance / Net_Sales",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_pending_payout",
+            "impact": "direct_proportional",
+            "note": "Tiền treo ở nhiều ví, nhiều hãng COD thì càng dễ lệch mà không ai thấy"
+          },
+          {
+            "metric_id": "vn_ops_cod_ratio",
+            "impact": "direct_proportional",
+            "note": "Đơn COD nhiều thì tiền thu hộ phải khớp từng đơn, càng dễ hụt"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_profit",
+            "impact": "inverse_proportional",
+            "note": "Tiền lệch là khoản lãi biến mất khỏi túi"
+          },
+          {
+            "metric_id": "vn_fin_cash_runway",
+            "impact": "inverse_proportional",
+            "note": "Tiền mặt thật ít hơn sổ thì số tháng sống sót cũng ngắn hơn sổ"
+          }
+        ],
+        "trade_offs": []
+      },
+      "review": "draft",
+      "sources": [
+        {
+          "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
+          "file": "data-src/articles/2026-11-19-ai-ecom.md"
+        }
+      ]
+    },
+    {
+      "metric_id": "vn_fin_payback_period",
+      "code": "THOI_GIAN_HOAN_VON_DAU_TU",
+      "code_short": "Hoàn vốn đầu tư",
+      "name": "Thời gian hoàn vốn đầu tư (Payback Period)",
+      "definition": "Số tháng để một khoản đầu tư (AI agent, phần mềm, máy đóng gói, kho mới) trả lại đủ tiền đã bỏ ra, tính bằng lãi ròng tăng thêm mỗi tháng sau khi trừ chi phí duy trì.",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Sức khỏe Tài chính",
+      "playbook_refs": [
+        "pb_10_team_vs_automation",
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "Vốn đầu tư ban đầu / (Chi phí giảm được + Lãi tăng thêm − Chi phí duy trì) mỗi tháng",
+      "formula_derived": "Investment / (Monthly_Savings + Monthly_Extra_Profit - Monthly_Running_Cost)",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_opex_ratio",
+            "note": "Khoản đầu tư cắt được bao nhiêu định phí quyết định tiền lời mỗi tháng"
+          },
+          {
+            "metric_id": "vn_team_gp_per_staff",
+            "impact": "inverse_proportional",
+            "note": "Tự động hóa làm lãi gộp trên mỗi người tăng; tăng càng mạnh thì hoàn vốn càng nhanh"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cash_runway",
+            "impact": "inverse_proportional",
+            "note": "Hoàn vốn càng lâu, tiền mặt bị giam càng lâu, runway càng ngắn"
+          },
+          {
+            "metric_id": "vn_fin_net_profit",
+            "note": "Sau mốc hoàn vốn, phần lời mỗi tháng là lãi ròng thật"
+          }
+        ],
+        "trade_offs": []
+      },
+      "review": "draft",
+      "sources": [
+        {
+          "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
+          "file": "data-src/articles/2026-11-19-ai-ecom.md"
+        }
+      ]
+    }
+  ]
 }

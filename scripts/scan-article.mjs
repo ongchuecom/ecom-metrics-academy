@@ -11,6 +11,9 @@ const text = readFileSync(file || 0, 'utf8')
 const fold = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 const re = (term) => new RegExp(`(^|[^a-z0-9])${esc(fold(term))}(?=$|[^a-z0-9])`, 'g')
+// Viết tắt viết hoa (CAC, COD, SLA…) khớp đúng chữ hoa trên bài gốc, tránh "các" bỏ dấu thành "cac"
+const isAcronym = (t) => /^[A-Z0-9]{2,6}$/.test(t)
+const reAcr = (term) => new RegExp(`(^|[^A-Za-zÀ-ỹĐđ0-9])${esc(term)}(?=$|[^A-Za-zÀ-ỹĐđ0-9])`, 'g')
 
 const metrics = readdirSync('src/data/stages').sort().flatMap((f) => JSON.parse(readFileSync(`src/data/stages/${f}`, 'utf8')))
 const aliases = JSON.parse(readFileSync('data-src/aliases.json', 'utf8'))
@@ -34,7 +37,7 @@ for (const m of metrics) {
   let hits = 0, first = null, by = new Set()
   for (const term of termsOf(m)) {
     known.add(fold(term))
-    for (const x of F.matchAll(re(term))) { hits++; by.add(term); if (first == null) first = x.index + x[1].length }
+    for (const x of (isAcronym(term) ? text : F).matchAll(isAcronym(term) ? reAcr(term) : re(term))) { hits++; by.add(term); if (first == null) first = x.index + x[1].length }
   }
   if (hits) found.push({ metric_id: m.metric_id, code: m.code, slug: m.slug, hits, terms: [...by], context: snippet(first, 20) })
 }

@@ -1,63 +1,355 @@
 {
   "_huong_dan": "Tên gọi khác của từng chỉ số, dùng cho npm run scan:article để nhận ra khái niệm trong bài viết. Thêm thoải mái, không phân biệt hoa thường, có dấu hay không dấu đều được.",
-  "vn_prod_landed_cost": ["giá vốn", "giá nhập", "COGS", "cost of goods", "giá vốn hàng bán"],
-  "vn_prod_hero_sku": ["sản phẩm chủ lực", "SKU chủ lực", "hàng gánh team", "best seller"],
-  "vn_ops_dio": ["days inventory", "số ngày tồn kho", "vòng quay tồn kho", "inventory turnover"],
-  "vn_ops_dead_stock": ["hàng tồn", "tồn kho chết", "hàng chậm luân chuyển", "aged inventory"],
-  "vn_prod_defect_rate": ["hàng lỗi", "tỷ lệ lỗi", "QC"],
-  "vn_prod_packaging_cost": ["đóng gói", "bao bì", "packaging"],
-  "vn_prod_lead_time": ["thời gian nhập hàng", "thời gian sản xuất"],
-  "vn_ops_reorder_point": ["reorder", "tồn kho an toàn", "safety stock"],
-  "vn_fin_gmroi": ["lãi trên tồn kho"],
-  "vn_mkt_ctr": ["click through rate", "tỷ lệ click", "tỷ lệ nhấp"],
-  "vn_mkt_hook_rate": ["hook", "giữ chân 3 giây", "thumb stop"],
-  "vn_mkt_organic_vs_paid": ["organic", "doanh thu tự nhiên", "traffic tự nhiên"],
-  "vn_mkt_cpa": ["cost per acquisition", "cost per order", "CPO", "CAC", "chi phí 1 đơn", "chi phí mỗi đơn", "chi phí có đơn"],
-  "vn_sales_aov": ["average order value", "giá trị đơn", "giá trị trung bình đơn", "basket size"],
-  "vn_sales_pdp_cvr": ["CVR", "conversion rate", "tỷ lệ chuyển đổi", "tỷ lệ chốt"],
-  "vn_sales_voucher_dependency": ["voucher", "mã giảm giá", "coupon"],
-  "vn_ops_rto_rate": ["return to origin", "bom hàng", "hoàn hàng", "tỷ lệ hoàn", "đơn hoàn", "boom hàng"],
-  "vn_ops_cancel_rate": ["hủy đơn", "huỷ đơn", "cancel"],
-  "vn_ops_cost_per_return": ["chi phí hoàn", "phí hoàn", "ship 2 chiều"],
-  "vn_ops_cod_ratio": ["COD", "thu hộ", "ship cod", "chuyển khoản trước"],
-  "vn_ops_picking_error": ["đóng nhầm", "giao nhầm", "giao thiếu"],
-  "vn_ops_stockout_rate": ["đứt hàng", "hết hàng", "stockout", "out of stock"],
-  "vn_ops_resellable_return": ["hàng hoàn bán lại"],
-  "vn_ops_first_attempt_delivery": ["giao thành công", "giao lần đầu", "delivery success"],
-  "vn_ops_click_to_door": ["thời gian giao hàng", "giao hàng nhanh", "delivery time"],
-  "vn_ops_sla_breach": ["SLA", "giao trễ", "trễ hạn"],
-  "vn_ops_transit_damage": ["hư hỏng", "thất lạc", "vỡ hàng"],
-  "vn_ops_warehouse_cost_per_order": ["chi phí kho", "fulfillment cost", "phí fulfillment"],
-  "vn_ret_repeat_rate": ["mua lại", "khách quay lại", "repeat purchase", "retention", "returning customer"],
-  "vn_ret_clv": ["LTV", "lifetime value", "giá trị vòng đời", "vòng đời khách"],
-  "vn_ret_bad_review_resolution": ["đánh giá xấu", "review xấu", "1 sao", "đánh giá 1 sao"],
-  "vn_fin_net_sales": ["doanh thu thuần", "doanh thu thực", "GMV", "doanh số"],
-  "vn_fin_platform_fee": ["phí sàn", "phí cố định", "phí thanh toán", "commission", "hoa hồng sàn"],
-  "vn_fin_cm1": ["lãi gộp", "gross margin", "gross profit", "biên lãi gộp", "contribution margin"],
-  "vn_fin_cm2": ["CM2", "lãi sau phí sàn"],
-  "vn_fin_cm3": ["CM3", "lãi sau ads", "lợi nhuận sau quảng cáo"],
-  "vn_fin_tax_reserve": ["thuế", "thuế khoán", "thuế TMĐT", "khấu trừ thuế"],
-  "vn_fin_vat_input_ratio": ["hóa đơn đầu vào", "hoá đơn đầu vào", "VAT"],
-  "vn_fin_breakeven_roas": ["ROAS", "BE ROAS", "break even ROAS", "hòa vốn quảng cáo", "return on ad spend"],
-  "vn_fin_pending_payout": ["tiền treo", "tiền đối soát", "ví sàn", "tiền chưa về"],
-  "vn_fin_dso": ["thu tiền", "days sales outstanding"],
-  "vn_fin_dpo": ["nợ nhà cung cấp", "nợ xưởng", "công nợ", "days payable"],
-  "vn_fin_ccc": ["cash conversion cycle", "chu kỳ tiền mặt", "kẹt vốn", "vòng quay tiền"],
-  "vn_fin_breakeven_rev": ["điểm hòa vốn", "doanh thu hoà vốn", "break even"],
-  "vn_fin_opex_ratio": ["định phí", "chi phí cố định", "opex", "fixed cost"],
-  "vn_fin_net_profit": ["lãi ròng", "lợi nhuận ròng", "net profit", "lợi nhuận thực"],
-  "vn_fin_promo_cost_ratio": ["khuyến mãi", "quà tặng", "giảm giá", "flash sale"],
-  "vn_fin_platform_penalty": ["phạt sàn", "điểm phạt", "sao quả tạ"],
-  "vn_fin_cash_runway": ["runway", "sống sót", "cạn tiền", "burn rate"],
-  "vn_fin_working_capital_turnover": ["vốn lưu động", "working capital"],
-  "vn_team_chat_cvr": ["chốt đơn chat", "tỷ lệ chốt inbox", "inbox"],
-  "vn_team_frt": ["first response time", "thời gian phản hồi", "rep tin nhắn", "trả lời tin nhắn"],
-  "vn_team_live_gmv_hour": ["livestream", "doanh thu live", "GMV live"],
-  "vn_team_koc_return_rate": ["KOC", "KOL", "affiliate", "gửi mẫu", "seeding"],
-  "vn_team_pack_speed": ["năng suất đóng gói", "đơn mỗi ca"],
-  "vn_team_gp_per_staff": ["năng suất nhân sự", "lãi trên đầu người", "revenue per employee"],
-  "vn_team_live_gpm": ["GPM", "1000 lượt xem"],
-  "vn_team_live_cart_ctr": ["bấm giỏ", "giỏ hàng live", "click giỏ"],
-  "vn_team_creative_win_rate": ["creative", "video ads thắng", "content win", "test creative"],
-  "vn_team_rev_per_media_buyer": ["media buyer", "nhân sự ads", "người chạy ads"]
+  "vn_prod_landed_cost": [
+    "giá vốn",
+    "giá nhập",
+    "COGS",
+    "cost of goods",
+    "giá vốn hàng bán"
+  ],
+  "vn_prod_hero_sku": [
+    "sản phẩm chủ lực",
+    "SKU chủ lực",
+    "hàng gánh team",
+    "best seller"
+  ],
+  "vn_ops_dio": [
+    "days inventory",
+    "số ngày tồn kho",
+    "vòng quay tồn kho",
+    "inventory turnover"
+  ],
+  "vn_ops_dead_stock": [
+    "hàng tồn",
+    "tồn kho chết",
+    "hàng chậm luân chuyển",
+    "aged inventory"
+  ],
+  "vn_prod_defect_rate": [
+    "hàng lỗi",
+    "tỷ lệ lỗi",
+    "QC"
+  ],
+  "vn_prod_packaging_cost": [
+    "đóng gói",
+    "bao bì",
+    "packaging"
+  ],
+  "vn_prod_lead_time": [
+    "thời gian nhập hàng",
+    "thời gian sản xuất"
+  ],
+  "vn_ops_reorder_point": [
+    "reorder",
+    "tồn kho an toàn",
+    "safety stock"
+  ],
+  "vn_fin_gmroi": [
+    "lãi trên tồn kho"
+  ],
+  "vn_mkt_ctr": [
+    "click through rate",
+    "tỷ lệ click",
+    "tỷ lệ nhấp"
+  ],
+  "vn_mkt_hook_rate": [
+    "hook",
+    "giữ chân 3 giây",
+    "thumb stop"
+  ],
+  "vn_mkt_organic_vs_paid": [
+    "organic",
+    "doanh thu tự nhiên",
+    "traffic tự nhiên"
+  ],
+  "vn_mkt_cpa": [
+    "cost per acquisition",
+    "cost per order",
+    "CPO",
+    "CAC",
+    "chi phí 1 đơn",
+    "chi phí mỗi đơn",
+    "chi phí có đơn"
+  ],
+  "vn_sales_aov": [
+    "average order value",
+    "giá trị đơn",
+    "giá trị trung bình đơn",
+    "basket size"
+  ],
+  "vn_sales_pdp_cvr": [
+    "CVR",
+    "conversion rate",
+    "tỷ lệ chuyển đổi",
+    "tỷ lệ chốt"
+  ],
+  "vn_sales_voucher_dependency": [
+    "voucher",
+    "mã giảm giá",
+    "coupon"
+  ],
+  "vn_ops_rto_rate": [
+    "return to origin",
+    "bom hàng",
+    "hoàn hàng",
+    "tỷ lệ hoàn",
+    "đơn hoàn",
+    "boom hàng"
+  ],
+  "vn_ops_cancel_rate": [
+    "hủy đơn",
+    "huỷ đơn",
+    "cancel"
+  ],
+  "vn_ops_cost_per_return": [
+    "chi phí hoàn",
+    "phí hoàn",
+    "ship 2 chiều"
+  ],
+  "vn_ops_cod_ratio": [
+    "COD",
+    "thu hộ",
+    "ship cod",
+    "chuyển khoản trước"
+  ],
+  "vn_ops_picking_error": [
+    "đóng nhầm",
+    "giao nhầm",
+    "giao thiếu"
+  ],
+  "vn_ops_stockout_rate": [
+    "đứt hàng",
+    "hết hàng",
+    "stockout",
+    "out of stock"
+  ],
+  "vn_ops_resellable_return": [
+    "hàng hoàn bán lại"
+  ],
+  "vn_ops_first_attempt_delivery": [
+    "giao thành công",
+    "giao lần đầu",
+    "delivery success"
+  ],
+  "vn_ops_click_to_door": [
+    "thời gian giao hàng",
+    "giao hàng nhanh",
+    "delivery time"
+  ],
+  "vn_ops_sla_breach": [
+    "SLA",
+    "giao trễ",
+    "trễ hạn"
+  ],
+  "vn_ops_transit_damage": [
+    "hư hỏng",
+    "thất lạc",
+    "vỡ hàng"
+  ],
+  "vn_ops_warehouse_cost_per_order": [
+    "chi phí kho",
+    "fulfillment cost",
+    "phí fulfillment"
+  ],
+  "vn_ret_repeat_rate": [
+    "mua lại",
+    "khách quay lại",
+    "repeat purchase",
+    "retention",
+    "returning customer"
+  ],
+  "vn_ret_clv": [
+    "LTV",
+    "lifetime value",
+    "giá trị vòng đời",
+    "vòng đời khách"
+  ],
+  "vn_ret_bad_review_resolution": [
+    "đánh giá xấu",
+    "review xấu",
+    "1 sao",
+    "đánh giá 1 sao"
+  ],
+  "vn_fin_net_sales": [
+    "doanh thu thuần",
+    "doanh thu thực",
+    "GMV",
+    "doanh số"
+  ],
+  "vn_fin_platform_fee": [
+    "phí sàn",
+    "phí cố định",
+    "phí thanh toán",
+    "commission",
+    "hoa hồng sàn"
+  ],
+  "vn_fin_cm1": [
+    "lãi gộp",
+    "gross margin",
+    "gross profit",
+    "biên lãi gộp"
+  ],
+  "vn_fin_cm2": [
+    "CM2",
+    "lãi sau phí sàn"
+  ],
+  "vn_fin_cm3": [
+    "CM3",
+    "lãi sau ads",
+    "lợi nhuận sau quảng cáo"
+  ],
+  "vn_fin_tax_reserve": [
+    "thuế",
+    "thuế khoán",
+    "thuế TMĐT",
+    "khấu trừ thuế"
+  ],
+  "vn_fin_vat_input_ratio": [
+    "hóa đơn đầu vào",
+    "hoá đơn đầu vào",
+    "VAT"
+  ],
+  "vn_fin_breakeven_roas": [
+    "ROAS",
+    "BE ROAS",
+    "break even ROAS",
+    "hòa vốn quảng cáo",
+    "return on ad spend"
+  ],
+  "vn_fin_pending_payout": [
+    "tiền treo",
+    "tiền đối soát",
+    "ví sàn",
+    "tiền chưa về"
+  ],
+  "vn_fin_dso": [
+    "thu tiền",
+    "days sales outstanding"
+  ],
+  "vn_fin_dpo": [
+    "nợ nhà cung cấp",
+    "nợ xưởng",
+    "công nợ",
+    "days payable"
+  ],
+  "vn_fin_ccc": [
+    "cash conversion cycle",
+    "chu kỳ tiền mặt",
+    "kẹt vốn",
+    "vòng quay tiền"
+  ],
+  "vn_fin_breakeven_rev": [
+    "điểm hòa vốn",
+    "doanh thu hoà vốn",
+    "break even"
+  ],
+  "vn_fin_opex_ratio": [
+    "định phí",
+    "chi phí cố định",
+    "opex",
+    "fixed cost"
+  ],
+  "vn_fin_net_profit": [
+    "lãi ròng",
+    "lợi nhuận ròng",
+    "net profit",
+    "lợi nhuận thực",
+    "net margin",
+    "biên lãi ròng",
+    "biên lợi nhuận ròng"
+  ],
+  "vn_fin_promo_cost_ratio": [
+    "khuyến mãi",
+    "quà tặng",
+    "giảm giá",
+    "flash sale"
+  ],
+  "vn_fin_platform_penalty": [
+    "phạt sàn",
+    "điểm phạt",
+    "sao quả tạ"
+  ],
+  "vn_fin_cash_runway": [
+    "runway",
+    "sống sót",
+    "cạn tiền",
+    "burn rate"
+  ],
+  "vn_fin_working_capital_turnover": [
+    "vốn lưu động",
+    "working capital"
+  ],
+  "vn_team_chat_cvr": [
+    "chốt đơn chat",
+    "tỷ lệ chốt inbox",
+    "inbox"
+  ],
+  "vn_team_frt": [
+    "first response time",
+    "thời gian phản hồi",
+    "rep tin nhắn",
+    "trả lời tin nhắn"
+  ],
+  "vn_team_live_gmv_hour": [
+    "livestream",
+    "doanh thu live",
+    "GMV live"
+  ],
+  "vn_team_koc_return_rate": [
+    "KOC",
+    "KOL",
+    "affiliate",
+    "gửi mẫu",
+    "seeding"
+  ],
+  "vn_team_pack_speed": [
+    "năng suất đóng gói",
+    "đơn mỗi ca"
+  ],
+  "vn_team_gp_per_staff": [
+    "năng suất nhân sự",
+    "lãi trên đầu người",
+    "revenue per employee",
+    "hiệu suất nhân sự",
+    "giảm nhân sự",
+    "cắt giảm nhân sự"
+  ],
+  "vn_team_live_gpm": [
+    "GPM",
+    "1000 lượt xem"
+  ],
+  "vn_team_live_cart_ctr": [
+    "bấm giỏ",
+    "giỏ hàng live",
+    "click giỏ"
+  ],
+  "vn_team_creative_win_rate": [
+    "creative",
+    "video ads thắng",
+    "content win",
+    "test creative"
+  ],
+  "vn_team_rev_per_media_buyer": [
+    "media buyer",
+    "nhân sự ads",
+    "người chạy ads"
+  ],
+  "vn_fin_loss_revenue_share": [
+    "doanh thu xấu",
+    "doanh thu lỗ",
+    "SKU lỗ",
+    "chiến dịch lỗ"
+  ],
+  "vn_fin_reconciliation_gap": [
+    "thất thoát",
+    "lệch sổ",
+    "sai lệch tiền",
+    "tiền biến mất"
+  ],
+  "vn_fin_payback_period": [
+    "hoàn vốn",
+    "lấy lại vốn",
+    "payback",
+    "thu hồi vốn"
+  ]
 }

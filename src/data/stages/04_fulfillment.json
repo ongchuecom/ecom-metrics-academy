@@ -216,6 +216,11 @@
         {
           "metric_id": "vn_fin_dso",
           "note": "Tiền bị giam ở đơn vị vận chuyển chờ đối soát"
+        },
+        {
+          "metric_id": "vn_fin_reconciliation_gap",
+          "impact": "direct",
+          "note": "Đơn COD nhiều thì tiền thu hộ phải khớp từng đơn, càng dễ hụt"
         }
       ],
       "trade_offs": []

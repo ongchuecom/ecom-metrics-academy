@@ -35,6 +35,11 @@
         {
           "metric_id": "vn_fin_cm3",
           "note": "CPA vượt quá biên lãi CM2 sẽ gây lỗ trực tiếp"
+        },
+        {
+          "metric_id": "vn_fin_loss_revenue_share",
+          "impact": "direct",
+          "note": "CPA đội lên thì nhiều chiến dịch rơi xuống CM3 âm"
         }
       ],
       "trade_offs": []

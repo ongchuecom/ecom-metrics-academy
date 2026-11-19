@@ -179,6 +179,11 @@
         {
           "metric_id": "vn_fin_opex_ratio",
           "note": "Thước đo quyết định có nên tuyển thêm người hay không"
+        },
+        {
+          "metric_id": "vn_fin_payback_period",
+          "impact": "inverse",
+          "note": "Tự động hóa làm lãi gộp trên mỗi người tăng; tăng càng mạnh thì hoàn vốn càng nhanh"
         }
       ],
       "trade_offs": []

@@ -179,6 +179,11 @@
           "metric_id": "vn_fin_cm2",
           "impact": "direct",
           "note": "Lãi sau biến phí vận hành"
+        },
+        {
+          "metric_id": "vn_fin_loss_revenue_share",
+          "impact": "inverse",
+          "note": "Doanh thu lỗ càng nhiều, CM3 tổng càng mỏng"
         }
       ],
       "downstream_impacts": [
@@ -520,6 +525,11 @@
         {
           "metric_id": "vn_fin_dso",
           "note": "Nguyên nhân khiến báo cáo có lãi nhưng tài khoản cạn tiền mặt"
+        },
+        {
+          "metric_id": "vn_fin_reconciliation_gap",
+          "impact": "direct",
+          "note": "Tiền treo ở nhiều ví, nhiều hãng COD thì càng dễ lệch mà không ai thấy"
         }
       ],
       "trade_offs": []
@@ -694,6 +704,10 @@
         {
           "metric_id": "vn_fin_breakeven_rev",
           "note": "Quyết định điểm hòa vốn hàng tháng"
+        },
+        {
+          "metric_id": "vn_fin_payback_period",
+          "note": "Khoản đầu tư cắt được bao nhiêu định phí quyết định tiền lời mỗi tháng"
         }
       ],
       "trade_offs": []
@@ -729,6 +743,20 @@
           "metric_id": "vn_fin_tax_reserve",
           "impact": "inverse",
           "note": "Nghĩa vụ thuế"
+        },
+        {
+          "metric_id": "vn_fin_loss_revenue_share",
+          "impact": "inverse",
+          "note": "Cắt doanh thu lỗ thì doanh thu giảm nhưng lãi ròng tăng"
+        },
+        {
+          "metric_id": "vn_fin_reconciliation_gap",
+          "impact": "inverse",
+          "note": "Tiền lệch là khoản lãi biến mất khỏi túi"
+        },
+        {
+          "metric_id": "vn_fin_payback_period",
+          "note": "Sau mốc hoàn vốn, phần lời mỗi tháng là lãi ròng thật"
         }
       ],
       "downstream_impacts": [],
@@ -759,6 +787,11 @@
         {
           "metric_id": "vn_fin_cm2",
           "note": "Tặng quà tràn lan không kiểm soát sẽ ăn mòn biên lãi"
+        },
+        {
+          "metric_id": "vn_fin_loss_revenue_share",
+          "impact": "direct",
+          "note": "Sale sâu, quà tặng dày thì nhiều SKU bán ra là lỗ"
         }
       ],
       "trade_offs": []
@@ -823,6 +856,16 @@
           "metric_id": "vn_fin_ccc",
           "impact": "inverse",
           "note": "Kẹt vốn càng nặng thì lượng tiền mặt dự trữ càng mỏng"
+        },
+        {
+          "metric_id": "vn_fin_reconciliation_gap",
+          "impact": "inverse",
+          "note": "Tiền mặt thật ít hơn sổ thì số tháng sống sót cũng ngắn hơn sổ"
+        },
+        {
+          "metric_id": "vn_fin_payback_period",
+          "impact": "inverse",
+          "note": "Hoàn vốn càng lâu, tiền mặt bị giam càng lâu, runway càng ngắn"
         }
       ],
       "downstream_impacts": [],
@@ -928,6 +971,171 @@
     },
     "playbook_refs": [
       "pb_02_cashflow_trap"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_loss_revenue_share",
+    "slug": "doanh-thu-lo",
+    "code": "Doanh thu lỗ",
+    "pack_code": "TY_LE_DOANH_THU_LO",
+    "name": "",
+    "vi_name": "Tỷ lệ doanh thu lỗ (Doanh thu xấu)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Phần doanh thu đến từ những SKU, kênh hay chiến dịch có CM3 âm. Doanh thu này làm shop trông to hơn, nhưng mỗi đồng bán ra lại kéo lãi xuống.",
+    "formula": {
+      "readable": "Doanh thu từ các SKU, kênh, chiến dịch có CM3 âm / Net Sales",
+      "derived": "Revenue_Where_CM3_Negative / Net_Sales"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_mkt_cpa",
+          "impact": "direct",
+          "note": "CPA đội lên thì nhiều chiến dịch rơi xuống CM3 âm"
+        },
+        {
+          "metric_id": "vn_fin_promo_cost_ratio",
+          "impact": "direct",
+          "note": "Sale sâu, quà tặng dày thì nhiều SKU bán ra là lỗ"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm3",
+          "impact": "inverse",
+          "note": "Doanh thu lỗ càng nhiều, CM3 tổng càng mỏng"
+        },
+        {
+          "metric_id": "vn_fin_net_profit",
+          "impact": "inverse",
+          "note": "Cắt doanh thu lỗ thì doanh thu giảm nhưng lãi ròng tăng"
+        }
+      ],
+      "trade_offs": [
+        {
+          "metric_id": "vn_fin_net_sales",
+          "note": "Cắt doanh thu lỗ làm Net Sales tụt, báo cáo doanh số xấu đi dù lãi tốt lên"
+        }
+      ]
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality",
+      "pb_07_ads_scaling"
+    ],
+    "review": "draft",
+    "sources": [
+      {
+        "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
+        "file": "data-src/articles/2026-11-19-ai-ecom.md"
+      }
+    ]
+  },
+  {
+    "metric_id": "vn_fin_reconciliation_gap",
+    "slug": "tien-lech-so",
+    "code": "Tiền lệch sổ",
+    "pack_code": "TY_LE_TIEN_LECH_DOI_SOAT",
+    "name": "",
+    "vi_name": "Tỷ lệ tiền lệch đối soát (Tiền thất thoát)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Phần tiền chênh giữa số sổ sách nói phải có và số thực có trong ngân hàng, ví sàn, tài khoản Ads, tiền COD, mà chưa ai giải thích được. Lệch là tiền đang rò ra ngoài.",
+    "formula": {
+      "readable": "Tổng khoản chênh chưa giải thích được sau đối soát (thẻ trả Ads, ví sàn, COD, ngân hàng) / Net Sales",
+      "derived": "Unexplained_Variance / Net_Sales"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_pending_payout",
+          "impact": "direct",
+          "note": "Tiền treo ở nhiều ví, nhiều hãng COD thì càng dễ lệch mà không ai thấy"
+        },
+        {
+          "metric_id": "vn_ops_cod_ratio",
+          "impact": "direct",
+          "note": "Đơn COD nhiều thì tiền thu hộ phải khớp từng đơn, càng dễ hụt"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_net_profit",
+          "impact": "inverse",
+          "note": "Tiền lệch là khoản lãi biến mất khỏi túi"
+        },
+        {
+          "metric_id": "vn_fin_cash_runway",
+          "impact": "inverse",
+          "note": "Tiền mặt thật ít hơn sổ thì số tháng sống sót cũng ngắn hơn sổ"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap",
+      "pb_03_tax_and_opex"
+    ],
+    "review": "draft",
+    "sources": [
+      {
+        "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
+        "file": "data-src/articles/2026-11-19-ai-ecom.md"
+      }
+    ]
+  },
+  {
+    "metric_id": "vn_fin_payback_period",
+    "slug": "hoan-von-dau-tu",
+    "code": "Hoàn vốn đầu tư",
+    "pack_code": "THOI_GIAN_HOAN_VON_DAU_TU",
+    "name": "",
+    "vi_name": "Thời gian hoàn vốn đầu tư (Payback Period)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Sức khỏe Tài chính",
+    "definition": "Số tháng để một khoản đầu tư (AI agent, phần mềm, máy đóng gói, kho mới) trả lại đủ tiền đã bỏ ra, tính bằng lãi ròng tăng thêm mỗi tháng sau khi trừ chi phí duy trì.",
+    "formula": {
+      "readable": "Vốn đầu tư ban đầu / (Chi phí giảm được + Lãi tăng thêm − Chi phí duy trì) mỗi tháng",
+      "derived": "Investment / (Monthly_Savings + Monthly_Extra_Profit - Monthly_Running_Cost)"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_opex_ratio",
+          "note": "Khoản đầu tư cắt được bao nhiêu định phí quyết định tiền lời mỗi tháng"
+        },
+        {
+          "metric_id": "vn_team_gp_per_staff",
+          "impact": "inverse",
+          "note": "Tự động hóa làm lãi gộp trên mỗi người tăng; tăng càng mạnh thì hoàn vốn càng nhanh"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cash_runway",
+          "impact": "inverse",
+          "note": "Hoàn vốn càng lâu, tiền mặt bị giam càng lâu, runway càng ngắn"
+        },
+        {
+          "metric_id": "vn_fin_net_profit",
+          "note": "Sau mốc hoàn vốn, phần lời mỗi tháng là lãi ròng thật"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_03_tax_and_opex",
+      "pb_10_team_vs_automation"
+    ],
+    "review": "draft",
+    "sources": [
+      {
+        "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
+        "file": "data-src/articles/2026-11-19-ai-ecom.md"
+      }
     ]
   }
 ]

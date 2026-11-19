@@ -17,6 +17,7 @@
         "vn_ops_click_to_door",
         "vn_sales_voucher_dependency",
         "vn_fin_promo_cost_ratio",
+        "vn_fin_loss_revenue_share",
         "vn_prod_landed_cost",
         "vn_prod_packaging_cost",
         "vn_ops_cancel_rate",
@@ -67,6 +68,7 @@
         "vn_fin_gmroi",
         "vn_fin_cash_runway",
         "vn_fin_working_capital_turnover",
+        "vn_fin_reconciliation_gap",
         "vn_ops_cod_ratio"
       ],
       "core_correlation": "Tăng trưởng nóng rất dễ làm chủ shop chết trên đống tài sản vì tiền mặt bị hút hết vào 2 cái hố: hàng nằm trong kho và tiền COD/tiền sàn đang treo chờ đối soát. Chu kỳ kẹt vốn (CCC = Số ngày tồn kho + Số ngày chờ tiền về - Số ngày nợ xưởng) càng dài thì áp lực vay vốn càng lớn.",
@@ -109,6 +111,8 @@
         "vn_fin_net_profit",
         "vn_ops_warehouse_cost_per_order",
         "vn_fin_cash_runway",
+        "vn_fin_reconciliation_gap",
+        "vn_fin_payback_period",
         "vn_fin_cm3"
       ],
       "core_correlation": "Khi mở rộng quy mô, nếu không trích lập dự phòng thuế ngay từ đầu và để định phí (lương cứng, mặt bằng) phình to quá nhanh, toàn bộ phần lãi tích lũy cả năm sẽ bay sạch khi quyết toán thuế hoặc khi thị trường chững lại 1-2 tháng.",
@@ -274,7 +278,8 @@
         "vn_fin_breakeven_roas",
         "vn_sales_pdp_cvr",
         "vn_mkt_hook_rate",
-        "vn_team_creative_win_rate"
+        "vn_team_creative_win_rate",
+        "vn_fin_loss_revenue_share"
       ],
       "core_correlation": "CPA là kết quả trực tiếp của độ hấp dẫn mẫu quảng cáo (CTR) nhân với khả năng thuyết phục của trang bán hàng/tin nhắn (CVR). Cách duy nhất để scale tiền Ads quy mô lớn là kéo tăng giá trị trung bình đơn (AOV) để gánh được CPA cao.",
       "case_study": {
@@ -393,7 +398,8 @@
         "vn_team_frt",
         "vn_ops_warehouse_cost_per_order",
         "vn_team_creative_win_rate",
-        "vn_team_rev_per_media_buyer"
+        "vn_team_rev_per_media_buyer",
+        "vn_fin_payback_period"
       ],
       "core_correlation": "Nếu quy trình đang lộn xộn mà tuyển thêm nhân sự, bạn chỉ đang nhân bản sự kém hiệu quả và đẩy Tỷ lệ chi phí cố định lên cao. Chỉ cần thị trường chững lại 1 tháng, quỹ lương cứng sẽ bóp nghẹt dòng tiền.",
       "case_study": {

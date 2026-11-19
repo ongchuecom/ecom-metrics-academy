@@ -6700,5 +6700,374 @@
       "source": "Ecom Truyền Kỳ · Vận hành xuất sắc là bí mật của Tăng trưởng"
     },
     "remember": "Vốn quay càng nhiều vòng, càng ít phải vay. Nhìn số vòng, đừng chỉ nhìn doanh thu."
+  },
+  "vn_fin_loss_revenue_share": {
+    "subtitle": "Bao nhiêu phần doanh thu đang bán ra là lỗ?",
+    "intro": [
+      "**Doanh thu lỗ là phần doanh thu đến từ những dòng có CM3 âm.** Một dòng có thể là một SKU, một kênh hay một chiến dịch Ads. Ví dụ: shop doanh thu 3 tỷ, trong đó nhóm hàng sale sâu bán được 600tr nhưng CM3 âm 60tr. Doanh thu lỗ là 600 ÷ 3.000 = 20%.",
+      "CM3 tổng của shop vẫn dương, nên ít ai để ý. Nhưng 20% doanh thu đó đang ăn vào lãi của 80% còn lại. Shop to ra mà nghèo đi. Nhiều công ty khi rà lại bằng AI mới thấy: doanh thu không cần tăng, chỉ cần bỏ doanh thu xấu là Net margin đã lên."
+    ],
+    "tree": {
+      "title": "Doanh thu lỗ được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này về gần 0: sửa hoặc cắt các dòng CM3 âm. Đừng bơm thêm doanh thu tốt chỉ để tỷ lệ trông loãng ra.",
+      "expr": {
+        "label": "Doanh thu lỗ",
+        "eq": [
+          {
+            "label": "Doanh thu dòng CM3 âm",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Doanh thu 3 tỷ, 600tr là doanh thu lỗ",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "title": "CM3 từng nhóm hàng",
+        "items": [
+          [
+            "Nhóm A · bán 1.800tr",
+            180,
+            "keep"
+          ],
+          [
+            "Nhóm B · bán 600tr",
+            30
+          ],
+          [
+            "Nhóm C sale sâu · bán 600tr",
+            -60,
+            "loss"
+          ]
+        ]
+      },
+      "after": "CM3 cả shop 180 + 30 − 60 = 150tr, nhìn vẫn ổn. Riêng nhóm C bán 600tr mà âm 60tr. **Doanh thu lỗ = 600 ÷ 3.000 = 20%.**"
+    },
+    "sections": [
+      {
+        "title": "Cắt doanh thu lỗ thì sao?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Giữ nhóm C",
+            "Cắt nhóm C"
+          ],
+          "items": [
+            [
+              "Doanh thu",
+              3000,
+              2400
+            ],
+            [
+              "CM3",
+              150,
+              210
+            ],
+            [
+              "Lãi trước thuế (định phí 120tr)",
+              30,
+              90
+            ]
+          ]
+        },
+        "body": [
+          "Doanh thu giảm 20%, từ 3 tỷ còn 2,4 tỷ. Nhưng CM3 lên 210tr và lãi trước thuế từ 30tr thành **90tr, gấp 3**. Đó là lý do có công ty doanh thu không tăng mà Net margin vẫn tăng.",
+          "Trước khi cắt, hỏi một câu: dòng lỗ này có đang làm việc khác không, ví dụ dọn tồn hay kéo khách mới có CLV cao? Có thì giữ, nhưng đặt hạn mức và ngày dừng. Không thì cắt."
+        ]
+      },
+      {
+        "title": "Tìm doanh thu lỗ thế nào?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Tách P&L",
+              "Tách doanh thu theo SKU, theo kênh, theo chiến dịch Ads."
+            ],
+            [
+              "Tính CM3 từng dòng",
+              "Trừ giá vốn, phí sàn, ship, hoàn và Ads của đúng dòng đó."
+            ],
+            [
+              "Gắn cờ",
+              "Dòng nào CM3 âm 2 tháng liền thì đưa vào danh sách."
+            ],
+            [
+              "Sửa hoặc cắt",
+              "Tăng giá, giảm voucher, tắt chiến dịch; sửa không được thì cắt."
+            ]
+          ]
+        },
+        "body": [
+          "Việc tách và tính từng dòng hàng tháng rất mất công nếu làm tay. Đây là việc AI agent làm tốt: soi hết các dòng mỗi tuần, không bỏ sót. Còn quyết cắt hay giữ vẫn là việc của chủ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nhìn CM3 tổng dương rồi yên tâm, không tách từng dòng.",
+      "Giữ doanh thu lỗ vì sợ tụt doanh số báo cáo hay tụt hạng shop.",
+      "Cắt vội dòng đang lỗ có chủ đích (dọn tồn, kéo khách mới) mà không tính lại."
+    ],
+    "remember": "Doanh thu lỗ làm shop to ra nhưng nghèo đi. Cắt nó thì doanh thu giảm, lãi tăng."
+  },
+  "vn_fin_reconciliation_gap": {
+    "subtitle": "Tiền sổ sách nói có, sao trong tài khoản lại thiếu?",
+    "intro": [
+      "**Tiền lệch sổ là khoản chênh giữa số sổ sách nói phải có và số thực có trong tài khoản, mà chưa ai giải thích được.** Ví dụ: Net Sales 2 tỷ một tháng, đối soát ra lệch 40tr. Tỷ lệ tiền lệch sổ là 40 ÷ 2.000 = 2%.",
+      "Shop càng lớn càng nhiều chỗ tiền đi qua: vài chục tài khoản Ads, nhiều thẻ, ví sàn, tiền COD ở nhiều hãng vận chuyển. Kế toán khó nắm hết, và tiền cứ thế lệch rồi biến mất. Nhiều CEO chỉ thấy các khoản này khi cho AI soi từng dòng sao kê."
+    ],
+    "tree": {
+      "title": "Tiền lệch sổ được tạo ra từ đâu",
+      "note": "Mỗi khoản lệch đều phải về 0 hoặc có lời giải thích. Càng nhiều tài khoản không ai giữ danh sách thì khoản lệch càng lớn.",
+      "expr": {
+        "label": "Tiền lệch sổ",
+        "eq": [
+          {
+            "label": "Khoản chênh chưa giải thích",
+            "dir": "down",
+            "eq": [
+              {
+                "label": "Lệch Ads",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Lệch ví sàn",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Lệch COD",
+                "dir": "down"
+              }
+            ]
+          },
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Net Sales"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Net Sales 2 tỷ, lệch 40tr không ai biết",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Thẻ bị trừ nhiều hơn báo cáo Ads",
+            18,
+            "loss"
+          ],
+          [
+            "Ví sàn trừ không rõ lý do",
+            12,
+            "loss"
+          ],
+          [
+            "COD giao rồi chưa về đủ",
+            10,
+            "loss"
+          ],
+          [
+            "Lãi ròng tháng (Net margin 7%)",
+            140,
+            "keep"
+          ]
+        ]
+      },
+      "after": "18 + 12 + 10 = 40tr, tức **2% Net Sales**. Nghe nhỏ, nhưng so với lãi ròng 140tr thì đã mất gần 3/10 tiền lãi."
+    },
+    "sections": [
+      {
+        "title": "Đối soát thế nào để tiền không rò?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Lập danh sách",
+              "Mọi tài khoản tiền: ngân hàng, ví sàn, thẻ trả Ads, tài khoản Ads, COD từng hãng."
+            ],
+            [
+              "Khớp 3 cặp mỗi tuần",
+              "Thẻ bị trừ với chi tiêu trong trình quản lý Ads; ví sàn với báo cáo đơn; COD về với đơn giao thành công."
+            ],
+            [
+              "Ghi sổ lệch",
+              "Khoản chênh nào chưa giải thích được thì ghi lại, có người chịu trách nhiệm."
+            ],
+            [
+              "Đóng chỗ rò",
+              "Tắt tài khoản Ads, thẻ, tool không dùng; khiếu nại sàn và hãng vận chuyển."
+            ]
+          ]
+        },
+        "body": [
+          "Để kế toán đối soát cuối quý thì thường đã quá muộn để truy. Làm hàng tuần, mỗi khoản lệch còn nhỏ và còn nhớ được nguồn.",
+          "Việc soi sao kê từng dòng là việc AI agent làm giỏi, không mệt và không bỏ sót. Nhưng ai giữ danh sách tài khoản và ai chịu trách nhiệm từng khoản lệch thì chủ phải đặt ra."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ xem báo cáo trong trình quản lý Ads, không khớp với sao kê thẻ.",
+      "Để kế toán đối soát cuối quý, lúc đó không truy được nữa.",
+      "Mở nhiều tài khoản Ads, thẻ, ví mà không ai giữ danh sách."
+    ],
+    "remember": "Tiền không khớp sổ là tiền đang rò. Đối soát hàng tuần, khoản lệch nào cũng phải có tên người chịu."
+  },
+  "vn_fin_payback_period": {
+    "subtitle": "Bỏ tiền đầu tư thì bao lâu mới lấy lại vốn?",
+    "intro": [
+      "**Thời gian hoàn vốn là số tháng để một khoản đầu tư trả lại đủ tiền đã bỏ ra.** Ví dụ: bỏ 900tr xây bộ AI agent, mỗi tháng lãi ròng tăng thêm 75tr. Hoàn vốn sau 900 ÷ 75 = 12 tháng.",
+      "Thay người bằng AI, mua máy đóng gói, chuyển kho mới đều là bài toán này. Cái hay của AI là bắt mình trả tiền cho kết quả. Nhưng nếu chỉ tính tiền mua mà quên chi phí duy trì, và chỉ tính kịch bản đẹp, thì payback 12 tháng trên giấy dễ thành 2 năm ngoài đời."
+    ],
+    "tree": {
+      "title": "Thời gian hoàn vốn được tạo ra từ đâu",
+      "note": "Muốn hoàn vốn nhanh: vốn bỏ ra gọn, phần cắt được thật nhiều, và chi phí duy trì hàng tháng thấp.",
+      "expr": {
+        "label": "Hoàn vốn (tháng)",
+        "eq": [
+          {
+            "label": "Vốn đầu tư",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Lời thêm mỗi tháng",
+            "dir": "up",
+            "eq": [
+              {
+                "label": "Chi phí giảm được",
+                "dir": "up"
+              },
+              "+",
+              {
+                "label": "Lãi tăng thêm",
+                "dir": "up"
+              },
+              "−",
+              {
+                "label": "Chi phí duy trì",
+                "dir": "down"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Đầu tư 900tr, mỗi tháng lời thêm 75tr",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Lương giảm (8 người × 15tr)",
+            120,
+            "keep"
+          ],
+          [
+            "Tool, phần mềm cắt được",
+            15,
+            "keep"
+          ],
+          [
+            "Chi phí duy trì AI (API, người giám sát)",
+            -60,
+            "loss"
+          ],
+          [
+            "Lời thêm mỗi tháng",
+            75,
+            "focus"
+          ]
+        ]
+      },
+      "after": "120 + 15 − 60 = 75tr mỗi tháng. **900 ÷ 75 = 12 tháng** hoàn vốn. Từ tháng 13, 75tr mỗi tháng là lãi thật."
+    },
+    "sections": [
+      {
+        "title": "Tiền đầu tư lấy lại khi nào?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Tháng",
+          "unit": "tr",
+          "lossBelowZero": true,
+          "points": [
+            [
+              0,
+              -900
+            ],
+            [
+              6,
+              -450
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              18,
+              450
+            ],
+            [
+              24,
+              900
+            ]
+          ],
+          "threshold": {
+            "x": 12,
+            "label": "Hoàn vốn tháng 12"
+          }
+        },
+        "body": [
+          "Đường đi lên 75tr mỗi tháng, cắt mốc 0 ở tháng 12. Đó là kịch bản đẹp.",
+          "Thực tế 6 tháng đầu AI còn học và còn thử sai. Giả sử chỉ lời thêm 30tr/tháng: 6 tháng thu 180tr, 720tr còn lại cần thêm 720 ÷ 75 = 9,6 tháng. Tổng **gần 16 tháng**. Vì thế các công ty làm thật thường nói 1–2 năm mới lấy lại vốn lẫn lãi."
+        ]
+      },
+      {
+        "title": "Trước khi bỏ tiền, tính 4 bước",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Ghi rõ khoản lợi",
+              "Lương nào giảm, tool nào cắt, lãi nào tăng; cắt người phải cắt được cả định phí đi kèm."
+            ],
+            [
+              "Cộng chi phí duy trì",
+              "API, phần mềm, người giám sát, sửa lỗi hàng tháng."
+            ],
+            [
+              "Tính kịch bản xấu",
+              "Lợi chỉ bằng một nửa trong 6 tháng đầu thì hoàn vốn mấy tháng?"
+            ],
+            [
+              "So với Cash Runway",
+              "Kịch bản xấu dài hơn số tháng tiền mặt còn sống thì chia nhỏ khoản đầu tư."
+            ]
+          ]
+        },
+        "body": [
+          "Khoản đầu tư tốt mà làm shop hết tiền giữa chừng thì vẫn là khoản đầu tư hỏng."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ tính tiền mua tool, quên chi phí duy trì hàng tháng và người giám sát.",
+      "Tính payback theo kịch bản đẹp nhất.",
+      "Cắt người xong mà không cắt được văn phòng, máy móc, phần mềm đi kèm, lãi không tăng như kế hoạch."
+    ],
+    "remember": "Đầu tư nào cũng phải trả lời: bao nhiêu tháng lấy lại vốn, và shop có sống đủ lâu tới lúc đó không."
   }
 }
