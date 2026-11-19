@@ -5,7 +5,7 @@
       "metric_id": "vn_fin_loss_revenue_share",
       "code": "TY_LE_DOANH_THU_LO",
       "code_short": "Doanh thu lỗ",
-      "name": "Tỷ lệ doanh thu lỗ (Doanh thu xấu)",
+      "name": "Tỷ lệ doanh thu lỗ (Unprofitable revenue share)",
       "definition": "Phần doanh thu đến từ những SKU, kênh hay chiến dịch có CM3 âm. Doanh thu này làm shop trông to hơn, nhưng mỗi đồng bán ra lại kéo lãi xuống.",
       "stage": "06_Finance_UnitEconomics",
       "sub_group": "Phí Sàn & Lợi nhuận",
@@ -53,13 +53,17 @@
           "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
           "file": "data-src/articles/2026-11-19-ai-ecom.md"
         }
-      ]
+      ],
+      "basis": {
+        "type": "custom",
+        "note": "Chỉ số do Ecom Metrics Academy xây từ phân tích lãi theo SKU, kênh, khách hàng (product/channel profitability, đường cong whale curve trong kế toán quản trị). Đây không phải KPI có tên chung trong ngành."
+      }
     },
     {
       "metric_id": "vn_fin_reconciliation_gap",
-      "code": "TY_LE_TIEN_LECH_DOI_SOAT",
-      "code_short": "Tiền lệch sổ",
-      "name": "Tỷ lệ tiền lệch đối soát (Tiền thất thoát)",
+      "code": "CHENH_LECH_DOI_SOAT",
+      "code_short": "Chênh lệch đối soát",
+      "name": "Chênh lệch đối soát (Unreconciled variance)",
       "definition": "Phần tiền chênh giữa số sổ sách nói phải có và số thực có trong ngân hàng, ví sàn, tài khoản Ads, tiền COD, mà chưa ai giải thích được. Lệch là tiền đang rò ra ngoài.",
       "stage": "06_Finance_UnitEconomics",
       "sub_group": "Dòng tiền (Cashflow)",
@@ -102,7 +106,11 @@
           "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
           "file": "data-src/articles/2026-11-19-ai-ecom.md"
         }
-      ]
+      ],
+      "basis": {
+        "type": "custom",
+        "note": "Chỉ số do Ecom Metrics Academy xây từ nghiệp vụ đối soát (reconciliation) chuẩn của kế toán: khoản chênh chưa giải thích được đem chia Net Sales để theo dõi hàng tháng. Đây không phải KPI có tên chung trong ngành."
+      }
     },
     {
       "metric_id": "vn_fin_payback_period",
@@ -149,7 +157,11 @@
           "title": "AI Ecom (bài đăng giới thiệu event tổng kết 20.12)",
           "file": "data-src/articles/2026-11-19-ai-ecom.md"
         }
-      ]
+      ],
+      "basis": {
+        "type": "standard",
+        "note": "Khái niệm tài chính chuẩn (Payback Period). Bài dùng bản đơn giản, chưa tính giá trị tiền theo thời gian (discounted payback)."
+      }
     }
   ]
 }

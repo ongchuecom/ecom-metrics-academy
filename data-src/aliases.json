@@ -338,13 +338,18 @@
     "doanh thu xấu",
     "doanh thu lỗ",
     "SKU lỗ",
-    "chiến dịch lỗ"
+    "chiến dịch lỗ",
+    "unprofitable revenue",
+    "whale curve"
   ],
   "vn_fin_reconciliation_gap": [
     "thất thoát",
     "lệch sổ",
     "sai lệch tiền",
-    "tiền biến mất"
+    "tiền biến mất",
+    "chênh lệch đối soát",
+    "unreconciled",
+    "reconciliation"
   ],
   "vn_fin_payback_period": [
     "hoàn vốn",

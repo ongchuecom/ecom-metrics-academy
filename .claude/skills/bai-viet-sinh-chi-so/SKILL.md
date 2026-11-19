@@ -17,7 +17,7 @@ Web là trang tĩnh, nên việc đọc bài và viết bài mới do Claude là
 
 ## Bước 2. Lọc: khái niệm nào đáng thành chỉ số mới
 
-Khái niệm chỉ đáng thêm khi đạt **cả 4** điều kiện:
+Khái niệm chỉ đáng thêm khi đạt **cả 4** điều kiện đầu, rồi xét thêm điều kiện 5:
 
 1. **Đo được bằng số**, có công thức tính từ dữ liệu một shop TMĐT Việt Nam tự lấy được: Seller Center, trình quản lý quảng cáo, file kho, sổ sách.
 2. **Không trùng** chỉ số đã có, kể cả trùng dưới tên khác.
@@ -25,6 +25,14 @@ Khái niệm chỉ đáng thêm khi đạt **cả 4** điều kiện:
    - Nếu trùng, thêm tên gọi đó vào `data-src/aliases.json` thay vì tạo chỉ số mới.
 3. **Giúp ra quyết định**: nhìn số này thì chủ shop biết nên làm gì khác đi. Không lấy những khái niệm chỉ để biết cho vui.
 4. **Bài viết có ví dụ số, hoặc tự dựng được một ví dụ số hợp lý** cho shop Việt.
+5. **Có tên chuẩn hay tự xây?** Ưu tiên khái niệm có tên chung trong ngành, tức là tra được trong sách tài chính, kế toán quản trị hay marketing. Ví dụ: Payback Period, MER, nCAC.
+   - **Chuẩn:** dùng đúng tên ngành, kèm tên tiếng Anh trong ngoặc. Ghi `basis.type = "standard"`.
+   - **Tự xây:** khi chỉ số chỉ là cách mình đóng gói một phép phân tích chuẩn thành tỷ lệ, vẫn được thêm, nhưng phải:
+     - đặt tên mô tả sát nghĩa, kèm tên tiếng Anh gần nhất;
+     - ghi `basis.type = "custom"` và `basis.note` nói rõ chỉ số dựng từ phép phân tích chuẩn nào.
+
+     Web sẽ hiện dòng "Chỉ số tự xây" ngay dưới tiêu đề bài.
+   - Không tự bịa tên nghe như thuật ngữ ngành khi ngành không có tên đó.
 
 Khi không đạt thì bỏ qua và ghi lý do một dòng. Các trường hợp thường gặp:
 - Chiến thuật hoặc phương pháp (ví dụ "chạy ads theo phễu").
@@ -33,7 +41,7 @@ Khi không đạt thì bỏ qua và ghi lý do một dòng. Các trường hợp
 
 Báo kết quả cho người dùng bằng một bảng ba nhóm:
 - **Đã có**: chỉ số nào, kèm link `/chi-so/<slug>/`.
-- **Sinh thêm**: khái niệm nào, kèm lý do một dòng.
+- **Sinh thêm**: khái niệm nào, kèm lý do một dòng, kèm cột **Chuẩn / Tự xây** (tự xây thì ghi dựng từ phép phân tích nào).
 - **Bỏ qua**: khái niệm nào, kèm lý do.
 
 Sau đó làm luôn nhóm "Sinh thêm" mà không cần hỏi lại. Người dùng đã đồng ý cơ chế "thấy hợp lý thì sinh thêm". Bài mới luôn mang nhãn **Mới · đang duyệt** cho tới khi anh Tuấn duyệt.
@@ -60,6 +68,7 @@ Thêm một phần tử vào `metrics` trong `data-src/added-metrics.json`. Khô
     "trade_offs": []
   },
   "review": "draft",
+  "basis": { "type": "standard", "note": "Khái niệm chuẩn (tên tiếng Anh) hoặc: Chỉ số do Ecom Metrics Academy xây từ … Đây không phải KPI có tên chung trong ngành." },
   "sources": [{ "title": "Tiêu đề bài", "author": "Tên tác giả nếu có", "url": "https://… nếu có", "file": "data-src/articles/….md" }]
 }
 ```

@@ -36,6 +36,8 @@ export const playbookById = Object.fromEntries(playbooks.map((p) => [p.playbook_
 export const PACK_VERSION = pbData.version
 
 export const metricBySlug = Object.fromEntries(metricsMaster.map((m) => [m.slug, m]))
+// link cũ sau khi đổi tên chỉ số vẫn mở đúng bài
+for (const [old, now] of Object.entries({ 'tien-lech-so': 'chenh-lech-doi-soat' })) if (metricBySlug[now]) metricBySlug[old] = metricBySlug[now]
 export const playbookBySlug = Object.fromEntries(playbooks.map((p) => [p.slug, p]))
 
 // Lộ trình học từ đầu: đi từ tiền thật của 1 đơn tới dòng tiền

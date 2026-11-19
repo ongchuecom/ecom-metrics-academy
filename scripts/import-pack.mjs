@@ -70,6 +70,7 @@ for (const m of pack.metrics) {
   }
   if (m.review) out.review = m.review
   if (m.sources?.length) out.sources = m.sources
+  if (m.basis) out.basis = m.basis
   if (c.simulator) out.simulator = c.simulator
   if (c.diagnostic_homework) out.diagnostic_homework = c.diagnostic_homework
   byFile[st[1]].push(out)

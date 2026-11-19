@@ -71,6 +71,7 @@ for (const p of pbs) for (const x of p.linked_metrics) {
 const lessons = JSON.parse(readFileSync(join(dir, '../lessons.json'), 'utf8'))
 const treeIds = (n, out = []) => { if (n && typeof n === 'object') { if (n.id) out.push(n.id); (n.eq || []).forEach((c) => treeIds(c, out)) } return out }
 for (const m of all) if (!lessons[m.metric_id]) err(m.metric_id, 'chưa có bài đọc trong lessons.json')
+for (const m of all) if (m.basis && !['standard', 'custom'].includes(m.basis.type)) err(m.metric_id, 'basis.type phải là standard|custom')
 for (const m of all) if (m.review && !['draft', 'approved'].includes(m.review)) err(m.metric_id, `review phải là draft|approved`)
 for (const [id, L] of Object.entries(lessons)) {
   if (id.startsWith('_')) continue

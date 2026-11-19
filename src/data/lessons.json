@@ -6821,14 +6821,14 @@
   "vn_fin_reconciliation_gap": {
     "subtitle": "Tiền sổ sách nói có, sao trong tài khoản lại thiếu?",
     "intro": [
-      "**Tiền lệch sổ là khoản chênh giữa số sổ sách nói phải có và số thực có trong tài khoản, mà chưa ai giải thích được.** Ví dụ: Net Sales 2 tỷ một tháng, đối soát ra lệch 40tr. Tỷ lệ tiền lệch sổ là 40 ÷ 2.000 = 2%.",
+      "**Chênh lệch đối soát là khoản chênh giữa số sổ sách nói phải có và số thực có trong tài khoản, mà chưa ai giải thích được.** Ví dụ: Net Sales 2 tỷ một tháng, đối soát ra lệch 40tr. Tỷ lệ chênh lệch đối soát là 40 ÷ 2.000 = 2%.",
       "Shop càng lớn càng nhiều chỗ tiền đi qua: vài chục tài khoản Ads, nhiều thẻ, ví sàn, tiền COD ở nhiều hãng vận chuyển. Kế toán khó nắm hết, và tiền cứ thế lệch rồi biến mất. Nhiều CEO chỉ thấy các khoản này khi cho AI soi từng dòng sao kê."
     ],
     "tree": {
-      "title": "Tiền lệch sổ được tạo ra từ đâu",
+      "title": "Chênh lệch đối soát được tạo ra từ đâu",
       "note": "Mỗi khoản lệch đều phải về 0 hoặc có lời giải thích. Càng nhiều tài khoản không ai giữ danh sách thì khoản lệch càng lớn.",
       "expr": {
-        "label": "Tiền lệch sổ",
+        "label": "Chênh lệch đối soát",
         "eq": [
           {
             "label": "Khoản chênh chưa giải thích",

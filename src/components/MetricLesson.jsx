@@ -56,6 +56,9 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
           {metric.review === 'draft' && <span className="rounded-full bg-lemon px-2 py-0.5 text-[11px] font-bold text-navy-ink" title="Bài sinh thêm từ bài viết, Ông chú Ecom chưa duyệt">Mới · đang duyệt</span>}
         </div>
         {L?.subtitle && <p className="mt-1 text-base font-semibold text-charcoal">{L.subtitle}</p>}
+        {metric.basis?.type === 'custom' && (
+          <p className="mt-2 max-w-3xl rounded-lg bg-stone-50 px-3 py-2 text-xs leading-relaxed text-charcoal"><b className="text-ink">Chỉ số tự xây.</b> {metric.basis.note}</p>
+        )}
         <div className="prose-lesson mt-3 max-w-3xl">
           {(L?.intro || [metric.definition]).map((p, i) => <p key={i}><Rich text={p} /></p>)}
         </div>
@@ -136,7 +139,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
 
       {metric.sources?.length > 0 && (
         <p className="text-xs leading-relaxed text-muted">
-          Khái niệm rút ra từ bài viết: {metric.sources.map((x, i) => (
+          {metric.basis?.type === 'standard' && <>{metric.basis.note} </>}Khái niệm rút ra từ bài viết: {metric.sources.map((x, i) => (
             <span key={i}>{i > 0 && ' · '}{x.url ? <a href={x.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-700">{x.title}</a> : x.title}{x.author && ` (${x.author})`}</span>
           ))}
         </p>
