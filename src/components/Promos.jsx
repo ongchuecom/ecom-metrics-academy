@@ -18,6 +18,41 @@ function Cover({ item, i }) {
   )
 }
 
+// Trang chủ: thẻ sản phẩm có mô tả và nút đăng ký
+export function ProductCards() {
+  const { items } = site.promos
+  return (
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((it, i) => (
+        <article key={it.title} className="flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200">
+          {it.image ? (
+            <>
+              <div className="aspect-[16/9] overflow-hidden"><img src={it.image} alt={it.title} loading="lazy" className="h-full w-full object-cover" /></div>
+              <div className="px-4 pt-4">
+                <p className="eyebrow text-brand-600">{it.kind}</p>
+                <h3 className="mt-1 font-display text-lg font-extrabold leading-snug text-ink">{it.title}</h3>
+              </div>
+            </>
+          ) : (
+            // chưa có ảnh: dải màu gọn mang tên sản phẩm, không lặp lại tên bên dưới
+            <div className={`px-4 py-4 ${i === 0 ? 'book-band text-white' : 'bg-brand-50 text-brand-700'}`}>
+              <p className={`eyebrow ${i === 0 ? 'text-white/85' : ''}`}>{it.kind}</p>
+              <h3 className={`mt-1 font-display text-xl font-black uppercase leading-tight ${i === 0 ? "text-white" : "text-ink"}`}>{it.title}</h3>
+            </div>
+          )}
+          <div className="flex flex-1 flex-col p-4 pt-3">
+            {it.desc && <p className="flex-1 text-sm leading-relaxed text-charcoal">{it.desc}</p>}
+            <a href={it.url} target="_blank" rel="noopener noreferrer"
+              className="mt-4 self-start rounded-full bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white hover:bg-brand-700">
+              {it.cta || 'Xem chi tiết'} →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 export default function Promos({ compact = false }) {
   const { title, items } = site.promos
   // Trang bài học, Playbook: một dòng chữ gọn thay cho 3 bìa lớn

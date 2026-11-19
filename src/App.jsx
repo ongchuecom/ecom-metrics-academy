@@ -233,7 +233,7 @@ export default function App() {
             <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
           </div><Toc metric={metric} hasPractice={tabs.length > 0} /></div>)}
 
-          <Promos compact={route.type !== 'home'} />
+          {route.type !== 'home' && <Promos compact />}
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.

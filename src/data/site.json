@@ -19,23 +19,30 @@
     }
   ],
   "promos": {
-    "title": "Học sâu hơn cùng Ông chú Ecom",
+    "_huong_dan": "Sản phẩm của Ông chú Ecom hiện ở trang chủ (thẻ có nút đăng ký) và một dòng gọn cuối mỗi bài. desc: 1–2 câu. cta: chữ trên nút. url: link đăng ký. image: link ảnh bìa công khai, để trống thì tự dựng bìa.",
+    "title": "Sản phẩm của Ông chú Ecom",
     "items": [
       {
         "title": "Sách Ecom Truyền Kỳ",
         "kind": "Sách",
+        "desc": "Đúc kết từ ba năm làm việc cùng khoảng 50 công ty Ecom và hàng ngàn founder. Toàn bộ khái niệm trên trang này đi theo cuốn sách.",
+        "cta": "Đặt sách",
         "image": "",
         "url": "https://ongchuecom.com"
       },
       {
         "title": "Khóa đào tạo Ecom Truyền Kỳ",
         "kind": "Khóa học",
+        "desc": "Học cùng Ông chú Ecom, áp các khái niệm trong sách vào số liệu của chính shop mình.",
+        "cta": "Đăng ký khóa học",
         "image": "",
         "url": "https://ongchuecom.com"
       },
       {
-        "title": "The Ecom Founder OS",
+        "title": "VCCA",
         "kind": "Chương trình",
+        "desc": "",
+        "cta": "Đăng ký",
         "image": "",
         "url": "https://ongchuecom.com"
       }

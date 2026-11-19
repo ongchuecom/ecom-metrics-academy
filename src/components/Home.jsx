@@ -3,7 +3,10 @@ import lessons from '../data/lessons.json'
 import site from '../data/site.json'
 import { pbTitle } from './Playbooks.jsx'
 import LeadForm from './LeadForm.jsx'
+import { ProductCards } from './Promos.jsx'
 
+// Thuật ngữ gợi ý ở phần mở đầu: trộn tài chính, Ads, vận hành, khởi nghiệp
+const TERMS = ['vn_fin_cm2', 'vn_fin_breakeven_roas', 'vn_fin_ccc', 'vn_ops_rto_rate', 'vn_fin_opex_ratio', 'vn_ret_clv', 'vn_fin_cash_runway', 'vn_fin_payback_period', 'vn_ops_dead_stock', 'vn_mkt_hook_rate']
 const short = (p) => pbTitle(p).replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1]
 const H2 = ({ children, id }) => <h2 id={id} className="mb-3 flex scroll-mt-20 items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />{children}</h2>
@@ -69,53 +72,31 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             Ở đây mỗi khái niệm được giải thích bằng ví dụ số, biểu đồ và video bảng giảng, theo văn phong sách Ecom Truyền Kỳ: nói thẳng, có số, áp dụng được ngay.
             Chỗ nào chưa thông thì hỏi thẳng Ông chú Ecom.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <button onClick={onOpenHealth} className="rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Khám sức khỏe shop →</button>
-            <button onClick={() => onSelectMetric(LEARNING_PATH[0])} className="rounded-full bg-white px-5 py-2.5 font-display text-sm font-bold text-ink ring-1 ring-stone-200 hover:ring-brand-500">Học từ bài 1</button>
-            <a href="#ai-giai-dap" className="rounded-full px-3 py-2.5 text-sm font-semibold text-brand-700 hover:underline">Ai giải đáp cho mình?</a>
+          <div className="mt-5">
+            <p className="text-sm font-semibold text-charcoal">Bấm thử một khái niệm:</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {TERMS.filter((id) => metricById[id]).map((id) => (
+                <button key={id} onClick={() => onSelectMetric(id)} title={lessons[id]?.subtitle || metricById[id].vi_name}
+                  className="rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-ink ring-1 ring-stone-200 transition hover:bg-brand-50 hover:ring-brand-500">
+                  {metricById[id].code}
+                </button>
+              ))}
+              <button onClick={onSearch} className="rounded-full px-3 py-1.5 text-sm font-semibold text-brand-700 hover:underline">Tìm khái niệm khác →</button>
+            </div>
           </div>
-          <button onClick={onSearch} className="mt-5 flex w-full max-w-xl items-center gap-2 rounded-xl bg-white px-4 py-3 text-left text-sm text-muted ring-1 ring-stone-200 hover:ring-brand-500">
-            <svg viewBox="0 0 20 20" className="h-4 w-4 fill-none stroke-current" strokeWidth="2" aria-hidden="true"><circle cx="9" cy="9" r="6" /><path d="M13.5 13.5 17 17" strokeLinecap="round" /></svg>
-            Tìm chỉ số, khái niệm, tình huống… (ví dụ: “hoàn hàng”, “dòng tiền”)
-          </button>
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <button onClick={onOpenHealth} className="rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Khám sức khỏe shop →</button>
+            <a href="#ai-giai-dap" className="text-sm font-semibold text-brand-700 hover:underline">Ai giải đáp cho mình?</a>
+          </div>
         </div>
         <BoardPeek />
       </header>
 
-      {/* Có gì bên trong */}
-      <section aria-labelledby="ben-trong">
-        <H2 id="ben-trong">Đang có gì để học</H2>
-        <p className="-mt-1 mb-4 max-w-3xl text-sm leading-relaxed text-charcoal">Kho khái niệm được thêm dần, mảng đầu tiên là các chỉ số vận hành vì đó là chỗ nhiều shop mất tiền nhất. Các khái niệm mới được rút từ sách Ecom Truyền Kỳ và từ những bài viết hay, Ông chú Ecom duyệt rồi mới lên.</p>
-        <dl className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            [nM, 'khái niệm chỉ số', 'Từ giá vốn, phí sàn, CM1–CM3 tới ROAS hòa vốn, tồn kho, dòng tiền, đội ngũ. Đi theo 7 khâu của một doanh nghiệp Ecom.'],
-            [nP, 'Playbook tình huống', 'Doanh thu cao mà không lãi, lãi trên giấy mà hết tiền, vít Ads khi nào… mỗi Playbook có case, sai lầm hay gặp và việc cần làm.'],
-            ['1', 'bản khám sức khỏe shop', 'Điền P&L một tháng, nhận chẩn đoán từng tầng lãi và Playbook nên đọc trước.'],
-            ['10', 'bài tập chẩn đoán', 'Bệnh án shop thật, tự tính và tự quyết, sai thì có gợi ý.'],
-          ].map(([n, t, d]) => (
-            <div key={t} className="border-t-2 border-brand-500 pt-3">
-              <dt><span className="font-display text-3xl font-black text-ink">{n}</span> <span className="font-bold text-ink">{t}</span></dt>
-              <dd className="mt-1 text-sm leading-relaxed text-charcoal">{d}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* Dành cho ai */}
-      <section aria-labelledby="danh-cho-ai">
-        <H2 id="danh-cho-ai">Dành cho ai</H2>
-        <ul className="grid gap-3 sm:grid-cols-3">
-          {[
-            ['Người đang khởi nghiệp', 'Mới bắt đầu hoặc sắp bắt đầu làm Ecom. Cần hiểu đúng khái niệm trước khi bỏ tiền, khỏi phải trả học phí bằng tiền thật.'],
-            ['Chủ shop, founder đang vận hành', 'Doanh thu đều mà cuối tháng không thấy tiền, bộ máy phình ra, tiền kẹt. Cần biết vấn đề nằm ở đâu và sửa chỗ nào trước.'],
-            ['Đội ngũ và người mới vào nghề', 'Team Ads, vận hành, kế toán cần chung một cách hiểu và cách tính. Người mới đi theo lộ trình, mỗi bài năm phút đọc.'],
-          ].map(([t, d]) => (
-            <li key={t} className="rounded-2xl bg-stone-50 p-4">
-              <p className="font-display font-extrabold text-ink">{t}</p>
-              <p className="mt-1 text-sm leading-relaxed text-charcoal">{d}</p>
-            </li>
-          ))}
-        </ul>
+      {/* Sản phẩm của Ông chú Ecom */}
+      <section aria-labelledby="san-pham">
+        <H2 id="san-pham">Học sâu hơn cùng Ông chú Ecom</H2>
+        <p className="-mt-1 mb-4 max-w-3xl text-sm leading-relaxed text-charcoal">Trang này miễn phí và là phần nhập môn. Muốn đi sâu, có người kèm và có anh em cùng làm thì đăng ký các chương trình dưới đây.</p>
+        <ProductCards />
       </section>
 
       {/* Ai giải đáp */}
@@ -166,14 +147,32 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
         {hasForm && <div className="mt-6"><LeadForm source="trang-chu" /></div>}
       </section>
 
+      {/* Có gì bên trong */}
+      <section aria-labelledby="ben-trong">
+        <H2 id="ben-trong">Đang có gì để học</H2>
+        <p className="-mt-1 mb-4 max-w-3xl text-sm leading-relaxed text-charcoal">Kho khái niệm được thêm dần, mảng đầu tiên là các chỉ số vận hành vì đó là chỗ nhiều shop mất tiền nhất. Các khái niệm mới được rút từ sách Ecom Truyền Kỳ và từ những bài viết hay, Ông chú Ecom duyệt rồi mới lên.</p>
+        <dl className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            [nM, 'khái niệm chỉ số', 'Từ giá vốn, phí sàn, CM1–CM3 tới ROAS hòa vốn, tồn kho, dòng tiền, đội ngũ. Đi theo 7 khâu của một doanh nghiệp Ecom.'],
+            [nP, 'Playbook tình huống', 'Doanh thu cao mà không lãi, lãi trên giấy mà hết tiền, vít Ads khi nào… mỗi Playbook có case, sai lầm hay gặp và việc cần làm.'],
+            ['1', 'bản khám sức khỏe shop', 'Điền P&L một tháng, nhận chẩn đoán từng tầng lãi và Playbook nên đọc trước.'],
+            ['10', 'bài tập chẩn đoán', 'Bệnh án shop thật, tự tính và tự quyết, sai thì có gợi ý.'],
+          ].map(([n, t, d]) => (
+            <div key={t} className="border-t-2 border-brand-500 pt-3">
+              <dt><span className="font-display text-3xl font-black text-ink">{n}</span> <span className="font-bold text-ink">{t}</span></dt>
+              <dd className="mt-1 text-sm leading-relaxed text-charcoal">{d}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
       {/* Bắt đầu từ nỗi đau */}
       <section aria-labelledby="bat-dau">
         <H2 id="bat-dau">Shop anh đang gặp chuyện gì?</H2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-3">
           <Door strong eyebrow="Nhập số shop mình" title="Khám sức khỏe shop" text="Điền P&L một tháng, nhận chẩn đoán và Playbook nên đọc." onClick={onOpenHealth} />
           <Door eyebrow={`Playbook ${num(pb1)}`} title="Doanh thu cao mà không có lãi" text={pb1.summary} onClick={() => onOpenPlaybook(pb1.playbook_id)} />
           <Door eyebrow={`Playbook ${num(pb2)}`} title="Lãi trên giấy mà hết tiền" text={pb2.summary} onClick={() => onOpenPlaybook(pb2.playbook_id)} />
-          <Door eyebrow="Lộ trình 10 bài" title="Học từ đầu" text="Đi từ tiền thật của 1 đơn hàng tới dòng tiền, mỗi bài 5 phút đọc." onClick={() => onSelectMetric(LEARNING_PATH[0])} />
         </div>
       </section>
 
