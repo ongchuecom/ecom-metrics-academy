@@ -1,12 +1,15 @@
-// Tóm tắt góp ý từ repo riêng ecom-metrics-feedback (file feedback/YYYY-MM.jsonl, mỗi dòng một lượt).
+// Tóm tắt góp ý từ repo riêng ecom-metrics-feedback (file feedback/*.jsonl, mỗi ngày một file, mỗi dòng một lượt).
 // Dùng: npm run feedback:summary -- <thư-mục-repo-góp-ý> [--since 2026-11-19T00:00:00Z] [--json]
 // In điểm theo bài (mới và từ trước tới nay) và danh sách góp ý mới để AI rà soát (skill ra-soat-gop-y).
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 const args = process.argv.slice(2)
-const dir = args.find((a) => !a.startsWith('--')) || '../ecom-metrics-feedback'
-const since = args.includes('--since') ? new Date(args[args.indexOf('--since') + 1]) : new Date(Date.now() - 49 * 3600e3)
+const si = args.indexOf('--since')
+const since = si >= 0 ? new Date(args[si + 1]) : new Date(Date.now() - 49 * 3600e3)
+if (Number.isNaN(since.getTime())) { console.error('--since cần một mốc thời gian hợp lệ, ví dụ 2026-11-17T00:00:00Z'); process.exit(1) }
+// thư mục repo góp ý: đối số không bắt đầu bằng -- và không phải giá trị của --since
+const dir = args.find((a, i) => !a.startsWith('--') && !(si >= 0 && i === si + 1)) || '../ecom-metrics-feedback'
 const fdir = join(dir, 'feedback')
 if (!existsSync(fdir)) { console.log(`Chưa có góp ý nào (${fdir} chưa tồn tại).`); process.exit(0) }
 const rows = readdirSync(fdir).filter((f) => f.endsWith('.jsonl')).sort()

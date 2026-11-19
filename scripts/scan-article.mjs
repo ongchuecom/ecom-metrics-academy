@@ -6,7 +6,8 @@ import { readFileSync, readdirSync } from 'node:fs'
 const args = process.argv.slice(2)
 const asJson = args.includes('--json')
 const file = args.find((a) => !a.startsWith('--'))
-const text = readFileSync(file || 0, 'utf8')
+// chuẩn hóa NFC trước: bài gõ kiểu Unicode tổ hợp (NFD) sẽ làm lệch vị trí khi cắt trích đoạn
+const text = readFileSync(file || 0, 'utf8').normalize('NFC')
 
 const fold = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -49,13 +50,15 @@ const cand = new Map()
 const add = (term, idx, kind) => {
   const k = fold(term).trim()
   if (k.length < 2 || known.has(k)) return
+  // chỉ số đã biết kèm thêm một chữ ("tỷ lệ hoàn hàng cao") không phải khái niệm mới
+  if ([...known].some((x) => x.length > 4 && k.startsWith(x + ' ') && k.slice(x.length).trim().split(' ').length <= 1)) return
   const c = cand.get(k) || { term: term.trim(), kind, count: 0, context: snippet(idx, term.length) }
   c.count++; cand.set(k, c)
 }
 for (const x of text.matchAll(/\b[a-z]?[A-Z][A-Za-z]{0,2}[A-Z]{1,5}\d?\b/g)) add(x[0], x.index, 'viết tắt')
 for (const x of text.matchAll(/\b[A-Za-z]+(?: [A-Za-z]+)? (?:rate|period|ratio|margin|cost|value|time|score|index|share|velocity|turnover|payback)\b/gi)) add(x[0], x.index, 'thuật ngữ')
 for (const x of text.matchAll(/\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3}\b/g)) add(x[0], x.index, 'thuật ngữ')
-for (const t of TRIG) for (const x of F.matchAll(new RegExp(`(^|[^a-z0-9])(${t}(?: [a-z0-9]+){1,4}?)(?=[,.;:()\\n]| la | = | tang | giam | cua | tren |$)`, 'g'))) {
+for (const t of TRIG) for (const x of F.matchAll(new RegExp(`(^|[^a-z0-9])(${t}(?: [a-z0-9]+){1,4}?)(?=[,.;:()\\n]| = | (?:la|tang|giam|cua|tren)(?=[^a-z0-9]|$)|$)`, 'g'))) {
   const i = x.index + x[1].length
   add(text.slice(i, i + x[2].length), i, 'cụm chỉ số')
 }

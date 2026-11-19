@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import site from '../data/site.json'
+import { postJSON } from '../lib/api.js'
 
-// Cuối mỗi bài: chấm sao + góp ý ẩn danh (ghi vào Google Sheet qua integrations/sheet-receiver.gs) và nút chia sẻ.
+// Cuối mỗi bài: chấm sao + góp ý ẩn danh và nút chia sẻ. Góp ý đi qua integrations/sheet-receiver.gs,
+// được nối thành file JSONL trong repo riêng ongchuecom/ecom-metrics-feedback (không dùng Drive).
 // Chưa có endpoint thì phần chấm sao ẩn, nút chia sẻ vẫn hiện.
 const ENDPOINT = site.lead?.endpoint
 const KEY = 'ema-rated'
@@ -9,12 +11,7 @@ const readRated = () => { try { return JSON.parse(localStorage.getItem(KEY) || '
 const saveRated = (page, v) => { try { localStorage.setItem(KEY, JSON.stringify({ ...readRated(), [page]: v })) } catch { /* trình duyệt chặn lưu thì thôi */ } }
 const LABELS = ['', 'Khó hiểu', 'Còn rối', 'Tạm được', 'Dễ hiểu', 'Rất hữu ích']
 
-async function send(body) {
-  await fetch(ENDPOINT, {
-    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ type: 'feedback', device: window.matchMedia?.('(max-width: 640px)').matches ? 'điện thoại' : 'máy tính', ...body }),
-  })
-}
+const send = (body) => postJSON({ type: 'feedback', device: window.matchMedia?.('(max-width: 640px)').matches ? 'điện thoại' : 'máy tính', ...body })
 
 function Stars({ value, hover, onHover, onPick, disabled }) {
   return (
@@ -78,8 +75,10 @@ export default function PageFeedback({ page, title, shareText }) {
   // Mỗi trình duyệt chỉ gửi điểm sao của một bài một lần; đổi ý chấm lại thì chỉ đổi trên máy, không gửi thêm dòng
   const pick = async (n) => {
     const first = !readRated()[page]
-    setRating(n); saveRated(page, n); setState('rated')
-    if (first) try { await send({ page, title, rating: n, website: trap }) } catch { /* lỗi mạng: bỏ qua, không làm phiền người đọc */ }
+    setRating(n); setState('rated')
+    if (!first) { saveRated(page, n); return }
+    // chỉ ghi nhớ "đã chấm" khi máy chủ xác nhận đã lưu; lỗi thì lần chấm sau sẽ gửi lại
+    try { await send({ page, title, rating: n, website: trap }); saveRated(page, n) } catch { /* không làm phiền người đọc */ }
   }
   const submit = async (e) => {
     e.preventDefault()

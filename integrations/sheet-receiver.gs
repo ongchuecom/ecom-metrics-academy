@@ -2,7 +2,7 @@
  * Nhận dữ liệu từ Ecom Metrics Academy và ghi vào Google Sheet riêng tư. Có 2 loại:
  *  - Form "Để lại Zalo": ghi vào tab đầu của Sheet chứa script này ("A1demy · Zalo từ Ecom Metrics Academy").
  *  - Chấm sao và góp ý ẩn danh (type = "feedback"): KHÔNG lưu trên Drive. Mỗi lượt là một dòng JSON, nối vào
- *    file feedback/YYYY-MM.jsonl trong repo GitHub riêng tư FEEDBACK_REPO. AI rà soát mỗi 2 ngày đọc từ đó.
+ *    file feedback/YYYY-MM-DD.jsonl (mỗi ngày một file) trong repo GitHub riêng tư FEEDBACK_REPO. AI rà soát mỗi 2 ngày đọc từ đó.
  *
  * Cài đặt (5 phút, làm một lần; đã cài bản cũ thì dán đè rồi triển khai lại):
  * 1. Mở Google Sheet "A1demy · Zalo từ Ecom Metrics Academy" → Tiện ích mở rộng → Apps Script.
@@ -31,17 +31,20 @@ const FEEDBACK_REPO = 'ongchuecom/ecom-metrics-feedback'
 const safe = (s, n) => { s = String(s == null ? '' : s).slice(0, n); return /^[=+\-@]/.test(s) ? "'" + s : s }
 
 function doPost(e) {
-  const lock = LockService.getScriptLock()
-  lock.tryLock(10000)
   try {
     const d = JSON.parse((e && e.postData && e.postData.contents) || '{}')
     if (d.website) return out({ ok: true }) // ô bẫy chống bot: người thật không điền
-    return d.type === 'feedback' ? feedback(d) : lead(d)
+    return d.type === 'feedback' ? feedback(d) : withLock(() => lead(d))
   } catch (err) {
     return out({ ok: false, error: 'server' })
-  } finally {
-    lock.releaseLock()
   }
+}
+
+// Chạy fn khi giữ được khóa; không giữ được trong 10 giây thì báo bận thay vì chạy không khóa
+function withLock(fn) {
+  const lock = LockService.getScriptLock()
+  if (!lock.tryLock(10000)) return out({ ok: false, error: 'busy' })
+  try { return fn() } finally { lock.releaseLock() }
 }
 
 function lead(d) {
@@ -65,13 +68,23 @@ function feedback(d) {
   const comment = String(d.comment || '').trim().slice(0, 1000)
   if (!hasRating && !comment) return out({ ok: false, error: 'empty' })
   const cache = CacheService.getScriptCache()
-  // chống spam: tối đa 40 lượt mỗi phút cho cả trang, và bỏ bản gửi trùng trong 10 phút
-  const n = Number(cache.get('fb-min') || 0)
-  if (n >= 40) return out({ ok: false, error: 'busy' })
-  cache.put('fb-min', String(n + 1), 60)
   const key = 'fb-' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, [d.page, rating, comment].join('|')))
-  if (cache.get(key)) return out({ ok: true, dup: true })
-  cache.put(key, '1', 600)
+  // chống spam: bỏ bản gửi trùng trong 10 phút, và tối đa 40 lượt ghi mỗi phút (cửa sổ cố định theo phút).
+  // Chỉ phần đếm nằm trong khóa; gọi GitHub chậm thì để ngoài khóa, xung đột ghi đã có thử lại trong appendLine.
+  const gate = (() => {
+    const lock = LockService.getScriptLock()
+    if (!lock.tryLock(5000)) return 'busy'
+    try {
+      if (cache.get(key)) return 'dup'
+      const win = 'fb-min-' + Math.floor(Date.now() / 60000)
+      const n = Number(cache.get(win) || 0)
+      if (n >= 40) return 'busy'
+      cache.put(win, String(n + 1), 120)
+      return 'ok'
+    } finally { lock.releaseLock() }
+  })()
+  if (gate === 'dup') return out({ ok: true, dup: true })
+  if (gate === 'busy') return out({ ok: false, error: 'busy' })
   const ref = Number(d.rating_ref)
   const row = {
     t: new Date().toISOString(),
@@ -83,7 +96,10 @@ function feedback(d) {
     comment: comment || null,
     device: String(d.device || '').slice(0, 20),
   }
-  return out(appendLine('feedback/' + row.t.slice(0, 7) + '.jsonl', JSON.stringify(row)))
+  // mỗi ngày một file: file luôn nhỏ, ít xung đột ghi, không chạm giới hạn 1 MB của GitHub contents API
+  const res = appendLine('feedback/' + row.t.slice(0, 10) + '.jsonl', JSON.stringify(row))
+  if (res.ok) cache.put(key, '1', 600) // chỉ đánh dấu đã nhận khi ghi thành công, để gửi lại được nếu lỗi
+  return out(res)
 }
 
 // Nối một dòng vào file trong repo qua GitHub API (một commit nhỏ mỗi lượt; repo riêng nên không kích hoạt dựng web)
@@ -98,7 +114,14 @@ function appendLine(path, line) {
     if (cur.getResponseCode() === 200) {
       const j = JSON.parse(cur.getContentText())
       sha = j.sha
-      text = Utilities.newBlob(Utilities.base64Decode(j.content.replace(/\n/g, ''))).getDataAsString('UTF-8')
+      if (j.content) text = Utilities.newBlob(Utilities.base64Decode(j.content.replace(/\n/g, ''))).getDataAsString('UTF-8')
+      if (j.size > 0 && !text) {
+        // file lớn: API không trả nội dung base64, lấy bản thô; vẫn không có thì dừng, tuyệt đối không ghi đè
+        const raw = UrlFetchApp.fetch(url, { headers: Object.assign({}, headers, { Accept: 'application/vnd.github.raw' }), muteHttpExceptions: true })
+        if (raw.getResponseCode() !== 200) return { ok: false, error: 'github-raw-' + raw.getResponseCode() }
+        text = raw.getContentText('UTF-8')
+        if (!text) return { ok: false, error: 'empty-read' }
+      }
     } else if (cur.getResponseCode() !== 404) return { ok: false, error: 'github-' + cur.getResponseCode() }
     const body = { message: 'Góp ý mới', content: Utilities.base64Encode(text + line + '\n', Utilities.Charset.UTF_8) }
     if (sha) body.sha = sha

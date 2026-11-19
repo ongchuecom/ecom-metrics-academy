@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import site from '../data/site.json'
+import { postJSON } from '../lib/api.js'
 
 // Form để lại Zalo: gửi thẳng vào Google Sheet riêng tư qua Apps Script (integrations/sheet-receiver.gs).
 // Chưa cấu hình endpoint thì form không hiện.
@@ -25,10 +26,7 @@ export default function LeadForm({ source, summary, title, text, compact = false
     if (!consent) return setErr('Cần đánh dấu đồng ý để mình liên hệ qua Zalo.')
     setErr(''); setState('sending')
     try {
-      await fetch(ENDPOINT, {
-        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ ...f, zalo: normPhone(f.zalo), consent: true, source, page: window.location.pathname, summary: summary && attach ? summary : '' }),
-      })
+      await postJSON({ ...f, zalo: normPhone(f.zalo), consent: true, source, page: window.location.pathname, summary: summary && attach ? summary : '' })
       setState('done')
     } catch {
       setState('error')

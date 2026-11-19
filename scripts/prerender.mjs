@@ -23,7 +23,8 @@ function page(path, title, desc, body) {
     <meta property="og:type" content="article" /><meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(desc)}" /><meta property="og:url" content="${url}" /><meta property="og:locale" content="vi_VN" />
     <meta property="og:image" content="${SITE}og.png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />`
-  let html = tpl.replace(/<title>[\s\S]*?<\/title>/, head).replace(/<meta name="description"[^>]*>\s*/, '')
+  // bỏ mô tả chung của template TRƯỚC khi chèn mô tả riêng của trang (làm ngược lại sẽ xóa nhầm mô tả riêng)
+  let html = tpl.replace(/<meta name="description"[^>]*>\s*/, '').replace(/<title>[\s\S]*?<\/title>/, head)
   html = html.replace('<div id="root"></div>', `<div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6">${body}</main></div>`)
   mkdirSync(join(DIST, path), { recursive: true })
   writeFileSync(join(DIST, path, 'index.html'), html)

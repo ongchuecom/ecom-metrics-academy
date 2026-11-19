@@ -5,7 +5,7 @@ description: Rà soát chấm sao và góp ý ẩn danh của người đọc Ec
 
 # Rà soát góp ý
 
-Người đọc chấm 1–5 sao và gửi góp ý ẩn danh ở cuối mỗi bài chỉ số và mỗi Playbook (`src/components/PageFeedback.jsx`). Apps Script `integrations/sheet-receiver.gs` nối mỗi lượt thành một dòng JSON vào file `feedback/YYYY-MM.jsonl` trong repo **riêng tư** `ongchuecom/ecom-metrics-feedback`. Không dùng Google Drive.
+Người đọc chấm 1–5 sao và gửi góp ý ẩn danh ở cuối mỗi bài chỉ số và mỗi Playbook (`src/components/PageFeedback.jsx`). Apps Script `integrations/sheet-receiver.gs` nối mỗi lượt thành một dòng JSON vào file `feedback/YYYY-MM-DD.jsonl` (mỗi ngày một file) trong repo **riêng tư** `ongchuecom/ecom-metrics-feedback`. Không dùng Google Drive.
 
 Mỗi dòng có các trường:
 - `t`: thời điểm gửi, giờ UTC.
