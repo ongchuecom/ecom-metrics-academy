@@ -77,7 +77,11 @@ for (const m of pack.metrics) {
 }
 for (const [f, arr] of Object.entries(byFile)) writeFileSync(`src/data/stages/${f}`, JSON.stringify(arr, null, 2) + '\n')
 const pbSlug = (p) => uniq(slugify(p.playbook_id.match(/pb_(\d+)/)[1] + ' ' + p.title.replace(/^Playbook\s*\d+\s*:\s*/i, '').replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')))
-const playbooks = pack.playbooks.map((p) => ({ ...p, slug: pbSlug(p), linked_metrics: [...p2m[p.playbook_id]] }))
-writeFileSync('src/data/playbooks.json', JSON.stringify({ version: pack.version, description: pack.description, playbooks }, null, 2) + '\n')
+// Trắc nghiệm thực chiến và cấu hình xếp hạng (data-src/quizzes.json)
+const QUIZ = 'data-src/quizzes.json'
+const quizData = existsSync(QUIZ) ? JSON.parse(readFileSync(QUIZ, 'utf8')) : { quizzes: {} }
+const playbooks = pack.playbooks.map((p) => ({ ...p, slug: pbSlug(p), linked_metrics: [...p2m[p.playbook_id]], ...(quizData.quizzes[p.playbook_id] ? { quiz: quizData.quizzes[p.playbook_id] } : {}) }))
+for (const id of Object.keys(quizData.quizzes)) if (!pbIds.has(id)) warn.push(`quizzes.json: Playbook không tồn tại ${id}`)
+writeFileSync('src/data/playbooks.json', JSON.stringify({ version: pack.version, description: pack.description, gamification: quizData.gamification_config || null, playbooks }, null, 2) + '\n')
 console.log(`Đã nạp ${pack.metrics.length} chỉ số (${added.length} sinh thêm từ bài viết), ${playbooks.length} Playbook (${pack.version}).`)
 if (warn.length) console.log(warn.map((w) => '  · ' + w).join('\n'))

@@ -1,6 +1,37 @@
 {
   "version": "5.0_VN_60_Metrics_10_Playbooks_r1",
   "description": "Bộ 60 chỉ số vận hành thực chiến thuần Việt kèm trọn bộ 10 Playbook tình huống giả lập liên kết hai chiều",
+  "gamification": {
+    "total_questions": 30,
+    "points_per_question": 10,
+    "max_total_score": 300,
+    "ranks": [
+      {
+        "min_score": 0,
+        "max_score": 90,
+        "title": "Tập Sự Sàn TMĐT",
+        "badge": "bronze"
+      },
+      {
+        "min_score": 100,
+        "max_score": 190,
+        "title": "Chủ Shop Thực Chiến",
+        "badge": "silver"
+      },
+      {
+        "min_score": 200,
+        "max_score": 260,
+        "title": "Giám Đốc Vận Hành (COO)",
+        "badge": "gold"
+      },
+      {
+        "min_score": 270,
+        "max_score": 300,
+        "title": "Bậc Thầy Dòng Tiền & Lợi Nhuận",
+        "badge": "diamond"
+      }
+    ]
+  },
   "playbooks": [
     {
       "playbook_id": "pb_01_profit_reality",
@@ -52,7 +83,84 @@
         "Gọi xác nhận hoặc nhắn tin tự động lọc các đơn có lịch sử bom hàng cao trước khi đóng gói để ép RTO xuống dưới 6%.",
         "Gộp bán Combo 2-3 món để tăng giá trị đơn hàng, giảm tỷ trọng phí đóng gói và phí ship trên mỗi sản phẩm."
       ],
-      "slug": "01-phi-san-hoan-hang-lai-that"
+      "slug": "01-phi-san-hoan-hang-lai-that",
+      "quiz": [
+        {
+          "question_id": "q_pb01_01",
+          "question": "Shop của bạn bán sản phẩm giá 200.000đ. Sau khi trừ giá vốn (70.000đ), tổng phí sàn & Freeship Xtra (32.000đ), đóng gói & chi phí dự phòng hoàn hàng (18.000đ), lợi nhuận CM2 còn lại là 80.000đ/đơn. Vậy ROAS hòa vốn quảng cáo tối thiểu của bạn là bao nhiêu?",
+          "options": [
+            {
+              "id": "A",
+              "text": "2.0"
+            },
+            {
+              "id": "B",
+              "text": "2.5"
+            },
+            {
+              "id": "C",
+              "text": "2.85"
+            },
+            {
+              "id": "D",
+              "text": "3.2"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "Tỷ lệ CM2 = 80.000 / 200.000 = 40% (0.4). ROAS hòa vốn = 1 / 0.4 = 2.5. Nghĩa là phải chạy Ads đạt ROAS trên 2.5 mới bắt đầu có tiền bù định phí và bỏ túi."
+        },
+        {
+          "question_id": "q_pb01_02",
+          "question": "Chỉ số nào phản ánh chính xác số tiền tối đa bạn được phép chi cho quảng cáo (Ads) và booking KOC mà không bị lỗ biến phí trên từng đơn hàng?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Doanh thu hiển thị trên màn hình sàn (GMV)"
+            },
+            {
+              "id": "B",
+              "text": "Lãi gộp sau giá vốn (CM1)"
+            },
+            {
+              "id": "C",
+              "text": "Lãi gộp sau phí sàn, phí ship và chi phí hoàn hàng (CM2)"
+            },
+            {
+              "id": "D",
+              "text": "Lợi nhuận sau quảng cáo (CM3)"
+            }
+          ],
+          "correct_option": "C",
+          "points": 10,
+          "explanation": "CM2 là phần lãi còn lại sau khi đã trừ sạch giá vốn, phí sàn, phí vận chuyển và chi phí xử lý đơn hoàn. Toàn bộ ngân sách Ads chỉ được phép lấy từ CM2."
+        },
+        {
+          "question_id": "q_pb01_03",
+          "question": "Tỷ lệ hoàn hàng (RTO) của shop tăng từ 5% lên 15%. Ngoài việc mất doanh thu của 10% đơn bị hoàn thêm, chi phí nào dưới đây trực tiếp ăn mòn biên lãi của các đơn giao thành công?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phí ship chiều đi + phí ship hoàn + tiền hộp/xốp hư hỏng + công kiểm hàng nhập lại"
+            },
+            {
+              "id": "B",
+              "text": "Tiền thuê mặt bằng văn phòng cố định"
+            },
+            {
+              "id": "C",
+              "text": "Thuế thu nhập doanh nghiệp cuối năm"
+            },
+            {
+              "id": "D",
+              "text": "Phí duy trì tên miền website"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Mỗi đơn hoàn phát sinh chi phí chìm thực tế gồm cước vận chuyển 2 chiều, bao bì rách móp và nhân công xử lý, trừ thẳng vào CM2 của toàn shop."
+        }
+      ]
     },
     {
       "playbook_id": "pb_02_cashflow_trap",
@@ -97,7 +205,84 @@
         "Đặt quy tắc xả kho cứng: Mã nào quá 60 ngày không đạt tốc độ bán chuẩn thì lập tức chạy Flash Sale hoặc ghép quà tặng để thu hồi tiền mặt.",
         "Đàm phán công nợ gối đầu với xưởng (trả trước 50%, 50% còn lại thanh toán sau 15-30 ngày) để kéo giảm chu kỳ kẹt vốn."
       ],
-      "slug": "02-dong-tien-ket-von"
+      "slug": "02-dong-tien-ket-von",
+      "quiz": [
+        {
+          "question_id": "q_pb02_01",
+          "question": "Hàng nhập về nằm trong kho trung bình 50 ngày mới bán hết (DIO = 50), tiền đối soát từ sàn/COD mất 15 ngày mới về tài khoản (DSO = 15), và xưởng cho nợ gối đầu 20 ngày (DPO = 20). Chu kỳ kẹt vốn (Vòng quay tiền mặt - CCC) của shop là bao nhiêu ngày?",
+          "options": [
+            {
+              "id": "A",
+              "text": "85 ngày"
+            },
+            {
+              "id": "B",
+              "text": "45 ngày"
+            },
+            {
+              "id": "C",
+              "text": "55 ngày"
+            },
+            {
+              "id": "D",
+              "text": "35 ngày"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "CCC = DIO (50) + DSO (15) - DPO (20) = 45 ngày. Bỏ 1 đồng tiền mặt ra nhập hàng thì 45 ngày sau tiền mới quay về túi."
+        },
+        {
+          "question_id": "q_pb02_02",
+          "question": "Tại sao nhiều chủ shop báo cáo sổ sách mỗi tháng lãi ròng hơn 100 triệu nhưng tài khoản ngân hàng lúc nào cũng cạn tiền mặt?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Do tiền mặt đang bị hút hết vào hàng tồn kho chậm luân chuyển và tiền COD/ví sàn chưa đến kỳ đối soát"
+            },
+            {
+              "id": "B",
+              "text": "Do kế toán tính nhầm công thức doanh thu"
+            },
+            {
+              "id": "C",
+              "text": "Do chi phí điện nước văn phòng tăng đột biến"
+            },
+            {
+              "id": "D",
+              "text": "Do khách hàng chuyển khoản nhầm tài khoản"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Lợi nhuận kế toán ghi nhận ngay khi giao hàng thành công, nhưng tiền mặt thực tế chỉ về khi giải phóng được hàng tồn kho và rút được tiền đối soát từ sàn/đơn vị vận chuyển."
+        },
+        {
+          "question_id": "q_pb02_03",
+          "question": "Giải pháp nào giúp rút ngắn trực tiếp Vòng quay tiền mặt (CCC) mà không làm giảm doanh số?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ôm lô hàng thật lớn để lấy chiết khấu 5% từ xưởng"
+            },
+            {
+              "id": "B",
+              "text": "Đàm phán công nợ gối đầu với xưởng (tăng DPO) và xả nhanh hàng tồn quá 60 ngày (giảm DIO)"
+            },
+            {
+              "id": "C",
+              "text": "Chuyển toàn bộ đơn thanh toán trước sang thu hộ COD"
+            },
+            {
+              "id": "D",
+              "text": "Tắt toàn bộ quảng cáo để tiết kiệm chi phí"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "Tăng DPO (nợ nhà cung cấp) và giảm DIO (tốc độ xả kho) là 2 đòn bẩy mạnh nhất giúp giảm số ngày kẹt vốn."
+        }
+      ]
     },
     {
       "playbook_id": "pb_03_tax_and_opex",
@@ -141,7 +326,84 @@
         "Chuyển dần các mã hàng chủ lực sang nhập chính ngạch hoặc lấy từ nhà cung cấp xuất được hóa đơn đỏ để hợp thức hóa giá vốn.",
         "Giữ tỷ lệ chi phí cố định (OPEX) luôn dưới 12% - 15% doanh thu, ưu tiên trả lương theo hiệu suất (KPI/Hoa hồng)."
       ],
-      "slug": "03-thue-hoa-don-dau-vao-chi-phi-co-dinh"
+      "slug": "03-thue-hoa-don-dau-vao-chi-phi-co-dinh",
+      "quiz": [
+        {
+          "question_id": "q_pb03_01",
+          "question": "Shop có tổng chi phí cố định hàng tháng (lương cứng, mặt bằng, phần mềm) là 120 triệu. Tỷ lệ lợi nhuận sau quảng cáo (CM3) đạt 15% trên doanh thu thực thu. Doanh thu hòa vốn mỗi tháng của shop là bao nhiêu?",
+          "options": [
+            {
+              "id": "A",
+              "text": "600 triệu"
+            },
+            {
+              "id": "B",
+              "text": "800 triệu"
+            },
+            {
+              "id": "C",
+              "text": "1 tỷ"
+            },
+            {
+              "id": "D",
+              "text": "1,2 tỷ"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "Doanh thu hòa vốn = Định phí cố định (120 triệu) / Tỷ lệ CM3 (15%) = 800 triệu/tháng."
+        },
+        {
+          "question_id": "q_pb03_02",
+          "question": "Khoản nghĩa vụ thuế nào mà các chủ shop chạy quảng cáo Facebook/TikTok/Google thường xuyên bỏ quên khi tính giá thành, dẫn đến bị truy thu khi quyết toán?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thuế nhà thầu nước ngoài đối với chi phí quảng cáo xuyên biên giới"
+            },
+            {
+              "id": "B",
+              "text": "Thuế xuất nhập khẩu hàng nông sản"
+            },
+            {
+              "id": "C",
+              "text": "Thuế tiêu thụ đặc biệt"
+            },
+            {
+              "id": "D",
+              "text": "Thuế bảo vệ môi trường"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Chi phí chạy Ads trên các nền tảng nước ngoài phải kê khai và nộp thuế nhà thầu (GTGT + TNDN nhà thầu) thì mới được tính vào chi phí hợp lệ."
+        },
+        {
+          "question_id": "q_pb03_03",
+          "question": "Tỷ lệ chi phí cố định (OPEX) an toàn nên được duy trì ở mức nào so với doanh thu thực thu để shop không bị ngộp thở khi thị trường chững lại?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Dưới 12% – 15% doanh thu"
+            },
+            {
+              "id": "B",
+              "text": "Khoảng 30% – 35% doanh thu"
+            },
+            {
+              "id": "C",
+              "text": "Trên 40% doanh thu"
+            },
+            {
+              "id": "D",
+              "text": "Bằng 50% lãi gộp CM1"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Giữ định phí dưới 12%–15% doanh thu và chuyển dịch sang lương thưởng theo KPI/hoa hồng giúp bộ máy linh hoạt khi doanh số biến động."
+        }
+      ]
     },
     {
       "playbook_id": "pb_04_ops_efficiency",
@@ -184,7 +446,84 @@
         "Đặt SLA cứng cho trực page: Phản hồi dưới 2 phút trong giờ hành chính; dùng tin nhắn tự động giữ chân khách ngoài giờ.",
         "Bắt buộc quét mã vạch từng sản phẩm trước khi dán vận đơn để triệt tiêu chi phí đổi trả do lỗi kho."
       ],
-      "slug": "04-toi-uu-hieu-suat-kho-chot-don-doi-ngu"
+      "slug": "04-toi-uu-hieu-suat-kho-chot-don-doi-ngu",
+      "quiz": [
+        {
+          "question_id": "q_pb04_01",
+          "question": "Khi chạy quảng cáo tin nhắn (Messenger/Zalo), nếu Thời gian trả lời tin nhắn đầu tiên (FRT) kéo dài trên 5–10 phút, hệ quả trực tiếp nào sẽ xảy ra?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tỷ lệ chốt đơn qua chat (Chat-to-Order) tụt mạnh do khách thoát ra mua shop khác, làm đội chi phí CPA"
+            },
+            {
+              "id": "B",
+              "text": "Giá thầu CPM trên Facebook tự động giảm xuống"
+            },
+            {
+              "id": "C",
+              "text": "Tỷ lệ hàng tồn chết trong kho giảm đi"
+            },
+            {
+              "id": "D",
+              "text": "Phí sàn TMĐT được hoàn lại"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Khách nhắn tin trên mạng xã hội có hành vi mua sắm bốc đồng rất cao; chậm phản hồi quá 2–3 phút sẽ đánh mất khách vào tay đối thủ."
+        },
+        {
+          "question_id": "q_pb04_02",
+          "question": "Thước đo tài chính chuẩn xác nhất để chủ shop quyết định có nên tuyển thêm nhân sự mới hay không là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Lợi nhuận gộp trên mỗi nhân sự (CM1 / Tổng nhân sự)"
+            },
+            {
+              "id": "B",
+              "text": "Tổng số lượng đơn hàng đóng gói trong ngày"
+            },
+            {
+              "id": "C",
+              "text": "Số giờ làm thêm (OT) của nhân viên văn phòng"
+            },
+            {
+              "id": "D",
+              "text": "Số lượng chiến dịch quảng cáo đang bật"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Nếu Lợi nhuận gộp trên mỗi nhân sự đang giảm mà vẫn tuyển thêm người nghĩa là quy trình nội bộ đang bị nghẽn, tuyển thêm chỉ làm phình định phí."
+        },
+        {
+          "question_id": "q_pb04_03",
+          "question": "Mã hàng chủ lực đang chạy Ads thắng lớn nhưng bị đứt hàng (Stockout) 5 ngày do thủ kho báo nhập chậm. Thiệt hại lớn nhất là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phải tắt Ads ngang làm đứt gãy luồng phân phối thuật toán và rớt thứ hạng hiển thị trên sàn"
+            },
+            {
+              "id": "B",
+              "text": "Tiền thuê kho tháng đó tăng gấp đôi"
+            },
+            {
+              "id": "C",
+              "text": "Tỷ lệ hàng lỗi nhập xưởng tăng lên"
+            },
+            {
+              "id": "D",
+              "text": "Thời gian nợ nhà cung cấp bị rút ngắn"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Tắt chiến dịch Ads đang ngon hoặc để hết tồn kho trên sàn khiến shop mất toàn bộ đà tăng trưởng tự nhiên và tốn rất nhiều chi phí để kéo lại từ đầu."
+        }
+      ]
     },
     {
       "playbook_id": "pb_05_sourcing_and_deadstock",
@@ -225,7 +564,84 @@
         "Áp dụng công thức nhập hàng 'Test nhỏ – Bồi nhanh': Lô đầu chỉ nhập đủ bán trong 15-20 ngày để đo phản ứng thị trường.",
         "Luôn giữ mức tồn kho an toàn tối thiểu 10 ngày cho Top 20% mã hàng chủ lực để không bị tắt Ads giữa chừng vì hết hàng."
       ],
-      "slug": "05-chon-hang-nhap-lo-bay-ton-kho-cuoi-mua"
+      "slug": "05-chon-hang-nhap-lo-bay-ton-kho-cuoi-mua",
+      "quiz": [
+        {
+          "question_id": "q_pb05_01",
+          "question": "Xưởng báo giá nhập 100k/sp nếu lấy 200 cái, và giảm còn 85k/sp nếu ôm 1.000 cái. Trong trường hợp nào quyết định ôm 1.000 cái trở thành bẫy tài chính?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Khi tốc độ bán chậm khiến 40% lô hàng nằm tồn quá 90 ngày (Dead Stock) và phải thanh lý lỗ dưới giá vốn"
+            },
+            {
+              "id": "B",
+              "text": "Khi cả 1.000 cái bán hết sạch trong vòng 25 ngày"
+            },
+            {
+              "id": "C",
+              "text": "Khi xưởng cho nợ gối đầu 60 ngày không lãi suất"
+            },
+            {
+              "id": "D",
+              "text": "Khi sản phẩm là hàng tiêu dùng thiết yếu quanh năm không lỗi mốt"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Chiết khấu 15% giá nhập sẽ vô nghĩa nếu bạn bị chôn vốn vào hàng tồn chết cuối mùa và phải xả lỗ để thu hồi tiền mặt."
+        },
+        {
+          "question_id": "q_pb05_02",
+          "question": "Shop bán trung bình 30 sản phẩm/ngày, thời gian vận chuyển hàng từ xưởng về kho (Lead Time) mất 12 ngày, và muốn giữ tồn kho an toàn 8 ngày. Điểm báo nhập hàng (Reorder Point) là bao nhiêu sản phẩm?",
+          "options": [
+            {
+              "id": "A",
+              "text": "360 sản phẩm"
+            },
+            {
+              "id": "B",
+              "text": "600 sản phẩm"
+            },
+            {
+              "id": "C",
+              "text": "240 sản phẩm"
+            },
+            {
+              "id": "D",
+              "text": "450 sản phẩm"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "Reorder Point = (30 đơn/ngày × 12 ngày Lead Time) + (30 đơn/ngày × 8 ngày dự phòng) = 360 + 240 = 600 sản phẩm."
+        },
+        {
+          "question_id": "q_pb05_03",
+          "question": "Hệ số sinh lời trên vốn tồn kho (GMROI) nhỏ hơn 1.0 phản ánh điều gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Lãi gộp thu về trong kỳ còn thấp hơn cả số vốn đang nằm chết trong kho"
+            },
+            {
+              "id": "B",
+              "text": "Shop đang xoay vòng vốn cực kỳ hiệu quả"
+            },
+            {
+              "id": "C",
+              "text": "Tỷ lệ hoàn hàng đang ở mức 0%"
+            },
+            {
+              "id": "D",
+              "text": "Chi phí quảng cáo đang rẻ hơn mức trung bình ngành"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "GMROI = Tổng lãi gộp CM1 / Giá trị tồn kho trung bình. Dưới 1.0 nghĩa là ôm kho quá nặng so với khả năng sinh lời thực tế."
+        }
+      ]
     },
     {
       "playbook_id": "pb_06_livestream_and_koc",
@@ -265,7 +681,84 @@
         "Chỉ duyệt gửi mẫu miễn phí cho KOC có tỷ lệ ra đơn/đăng video thực tế trên 70% trong 30 ngày gần nhất.",
         "Đặt KPI Doanh thu mỗi giờ Live tối thiểu gấp 5 lần chi phí nhân sự + Ads của 1 giờ Live đó thì mới duy trì khung giờ."
       ],
-      "slug": "06-livestream-booking-koc"
+      "slug": "06-livestream-booking-koc",
+      "quiz": [
+        {
+          "question_id": "q_pb06_01",
+          "question": "Chỉ số nào trên TikTok Shop quyết định trực tiếp việc thuật toán có phân phối thêm lượng mắt xem tự nhiên (Traffic miễn phí) vào phiên Live hay không?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Doanh thu trên mỗi 1.000 lượt xem (GPM) và Tỷ lệ bấm giỏ hàng"
+            },
+            {
+              "id": "B",
+              "text": "Số lượng mẫu miễn phí đã gửi cho KOC trong tuần"
+            },
+            {
+              "id": "C",
+              "text": "Tỷ lệ hàng có hóa đơn đầu vào VAT"
+            },
+            {
+              "id": "D",
+              "text": "Thời gian nợ nhà cung cấp DPO"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Thuật toán sàn ưu tiên giữ chân người mua; phiên Live có GPM cao (ra nhiều đơn trên mỗi 1.000 lượt xem) sẽ được đẩy đề xuất mạnh mẽ."
+        },
+        {
+          "question_id": "q_pb06_02",
+          "question": "Shop gửi 100 mẫu sản phẩm (giá vốn + ship gửi đi = 100k/mẫu) cho KOC nhưng chỉ có 30 bạn trả clip. Thực tế mỗi clip thu về đang tốn bao nhiêu tiền chi phí mẫu?",
+          "options": [
+            {
+              "id": "A",
+              "text": "100.000đ/clip"
+            },
+            {
+              "id": "B",
+              "text": "333.333đ/clip"
+            },
+            {
+              "id": "C",
+              "text": "300.000đ/clip"
+            },
+            {
+              "id": "D",
+              "text": "0đ vì là hàng mẫu của shop"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "Tổng chi phí bỏ ra là 100 mẫu × 100k = 10 triệu đồng, chia cho 30 clip thực tế thu về = 333.333đ/clip (chưa tính hoa hồng Affiliate)."
+        },
+        {
+          "question_id": "q_pb06_03",
+          "question": "Khi tính lãi/lỗ của kênh Affiliate KOC trên sàn TMĐT, khoản chi phí nào bắt buộc phải cộng chung với hoa hồng KOC để tránh lỗ ngầm?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tổng phí sàn (phí cố định, thanh toán, Freeship Xtra, Voucher Xtra) và tỷ lệ hoàn hàng"
+            },
+            {
+              "id": "B",
+              "text": "Chi phí bảo trì máy chủ website"
+            },
+            {
+              "id": "C",
+              "text": "Chi phí tuyển dụng nhân sự kế toán"
+            },
+            {
+              "id": "D",
+              "text": "Tiền cọc thuê mặt bằng cửa hàng offline"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Hoa hồng KOC (15–20%) cộng với phí sàn (12–16%) có thể ngốn tới 30–36% giá bán; nếu biên lãi gộp dưới 40% thì càng nổ đơn Affiliate càng lỗ."
+        }
+      ]
     },
     {
       "playbook_id": "pb_07_ads_scaling",
@@ -306,7 +799,84 @@
         "Soi bệnh theo thứ tự: CTR thấp (< 1.5%) -> Sửa 3 giây đầu video; CTR cao nhưng CPA đắt -> Sửa trang đích và kịch bản chốt đơn.",
         "Muốn vít ngân sách Ads lên quy mô lớn, bắt buộc phải thiết kế gói Combo/Mua kèm để kéo AOV lên tối thiểu gấp 3 lần CPA."
       ],
-      "slug": "07-quang-cao-chuyen-doi"
+      "slug": "07-quang-cao-chuyen-doi",
+      "quiz": [
+        {
+          "question_id": "q_pb07_01",
+          "question": "Video quảng cáo mới chạy có Tỷ lệ giữ chân 3 giây đầu (Hook Rate) đạt 38% (rất tốt), nhưng Tỷ lệ nhấp (CTR) lại dưới 0.8% và không ra đơn. Bạn cần sửa phần nào trước?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Giữ nguyên 3 giây đầu, sửa lại phần nội dung thuyết phục giữa video và lời kêu gọi hành động (CTA) cuối video"
+            },
+            {
+              "id": "B",
+              "text": "Quay lại cảnh mở đầu 3 giây khác"
+            },
+            {
+              "id": "C",
+              "text": "Tăng gấp đôi ngân sách hàng ngày để ép máy học"
+            },
+            {
+              "id": "D",
+              "text": "Đổi đơn vị vận chuyển giao hàng"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Hook Rate cao chứng tỏ mở bài đã thu hút được người xem dừng lại, nhưng phần thân bài và CTA chưa đủ sức thuyết phục họ bấm vào link mua hàng."
+        },
+        {
+          "question_id": "q_pb07_02",
+          "question": "Khi vít ngân sách quảng cáo từ 2 triệu lên 10 triệu/ngày, chi phí trên mỗi đơn (CPA) thường tăng lên do mở rộng tệp khách. Giải pháp bền vững nhất để giữ ROAS có lãi là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thiết kế gói Combo / Mua kèm để kéo tăng Giá trị trung bình đơn (AOV)"
+            },
+            {
+              "id": "B",
+              "text": "Nhân bản 50 nhóm quảng cáo giống hệt nhau"
+            },
+            {
+              "id": "C",
+              "text": "Giảm giá bán sản phẩm xuống thấp hơn đối thủ"
+            },
+            {
+              "id": "D",
+              "text": "Tắt hết các chiến dịch vào cuối tuần"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Khi CPA tăng theo quy mô ngân sách, cách duy nhất để duy trì ROAS mục tiêu là tăng AOV trên mỗi đơn hàng chốt được."
+        },
+        {
+          "question_id": "q_pb07_03",
+          "question": "Tỷ lệ video quảng cáo thắng (Creative Win Rate) của team đạt 25% (test 20 video có 5 video đạt ROAS mục tiêu). Chỉ số này ảnh hưởng trực tiếp đến khâu nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Khả năng duy trì ngân sách scale ổn định và giảm chi phí test Ads lãng phí"
+            },
+            {
+              "id": "B",
+              "text": "Tỷ lệ hàng hoàn còn bán lại được trong kho"
+            },
+            {
+              "id": "C",
+              "text": "Thời gian đối soát tiền COD của bưu cục"
+            },
+            {
+              "id": "D",
+              "text": "Tỷ lệ hóa đơn đỏ đầu vào VAT"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Quảng cáo hiện đại phụ thuộc 70% vào nội dung (Creative); có tỷ lệ video thắng cao giúp hệ thống luôn có mẫu mới thay thế khi mẫu cũ bị bão hòa."
+        }
+      ]
     },
     {
       "playbook_id": "pb_08_retention_clv",
@@ -344,7 +914,84 @@
         "Đo Tỷ lệ khách quay lại mua lần 2 sau 30-60 ngày: Nếu dưới 15% với ngành tiêu dùng nhanh, phải xem lại ngay chất lượng sản phẩm.",
         "Cài quy trình nhắn tin chăm sóc đúng điểm rơi (ví dụ: hũ kem dùng 45 ngày thì ngày thứ 35 nhắn tin tặng mã Freeship nhắc mua lọ mới)."
       ],
-      "slug": "08-khach-quay-lai-gia-tri-vong-doi"
+      "slug": "08-khach-quay-lai-gia-tri-vong-doi",
+      "quiz": [
+        {
+          "question_id": "q_pb08_01",
+          "question": "Lãi gộp sau phí sàn & ship (CM2) mỗi đơn là 90.000đ. Trung bình mỗi khách hàng mua 2,2 lần trong vòng 12 tháng. Giá trị vòng đời khách hàng (CLV tính trên lãi gộp) là bao nhiêu?",
+          "options": [
+            {
+              "id": "A",
+              "text": "90.000đ"
+            },
+            {
+              "id": "B",
+              "text": "198.000đ"
+            },
+            {
+              "id": "C",
+              "text": "220.000đ"
+            },
+            {
+              "id": "D",
+              "text": "180.000đ"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "CLV (lãi gộp trọn đời) = 90.000đ × 2,2 lần = 198.000đ. Con số này giúp bạn tự tin chi tới 100.000đ để kéo 1 khách mới ở đơn đầu tiên."
+        },
+        {
+          "question_id": "q_pb08_02",
+          "question": "Làm thế nào để chủ shop bán trên sàn TMĐT (Shopee/TikTok) vẫn kéo được khách cũ quay lại mua lần 2 mà không tốn thêm tiền quảng cáo?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đặt thiệp cảm ơn kèm mã QR kích hoạt bảo hành/tích điểm/voucher đơn sau để đưa khách về Zalo OA hoặc kênh CSKH riêng"
+            },
+            {
+              "id": "B",
+              "text": "Gọi điện thoại làm phiền khách hàng mỗi ngày"
+            },
+            {
+              "id": "C",
+              "text": "Tăng giá bán niêm yết lên gấp đôi"
+            },
+            {
+              "id": "D",
+              "text": "Không thể làm được vì sàn đã ẩn số điện thoại khách"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Chuyển đổi khách mua trên sàn thành tệp khách hàng sở hữu (Owned Traffic) qua Zalo/tin nhắn chăm sóc là chìa khóa tăng tỷ lệ mua lại."
+        },
+        {
+          "question_id": "q_pb08_03",
+          "question": "Khi Tỷ lệ doanh thu tự nhiên & khách cũ quay lại tăng từ 15% lên 40%, lợi ích tài chính lớn nhất đối với toàn shop là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Lợi nhuận sau quảng cáo (CM3) tăng mạnh và shop không bị phụ thuộc sống chết vào giá thầu Ads"
+            },
+            {
+              "id": "B",
+              "text": "Thời gian vận chuyển hàng từ Trung Quốc về nhanh hơn"
+            },
+            {
+              "id": "C",
+              "text": "Thuế giá trị gia tăng (VAT) được miễn hoàn toàn"
+            },
+            {
+              "id": "D",
+              "text": "Không cần kiểm kho cuối tháng"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Đơn hàng tự nhiên và khách cũ quay lại có chi phí Marketing gần như bằng 0, giúp kéo biên lợi nhuận ròng của cả công ty lên cao."
+        }
+      ]
     },
     {
       "playbook_id": "pb_09_packing_and_reviews",
@@ -385,7 +1032,84 @@
         "Bắt buộc quay video đóng gói và quét mã vạch từng món trước khi dán vận đơn để có bằng chứng khiếu nại sàn khi tranh chấp.",
         "Gia cố bao bì đủ chắc để chịu được ít nhất 2 vòng vận chuyển đi – về mà hàng bên trong vẫn còn nguyên tem mác."
       ],
-      "slug": "09-dong-goi-doi-tra-danh-gia-sao"
+      "slug": "09-dong-goi-doi-tra-danh-gia-sao",
+      "quiz": [
+        {
+          "question_id": "q_pb09_01",
+          "question": "Ngoài việc tốn 2 lần cước ship đổi trả, hậu quả tai hại nhất của một đơn hàng đóng nhầm size/thiếu món là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Khách để lại đánh giá 1 sao ngay đầu trang sản phẩm, kéo tụt tỷ lệ chuyển đổi (CVR) của hàng ngàn khách vào xem sau đó"
+            },
+            {
+              "id": "B",
+              "text": "Tăng thời gian nợ nhà cung cấp DPO"
+            },
+            {
+              "id": "C",
+              "text": "Làm giảm giá vốn nhập kho thực tế"
+            },
+            {
+              "id": "D",
+              "text": "Tăng tỷ lệ giữ chân 3 giây đầu video"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Đánh giá 1 sao làm sụt giảm uy tín gian hàng, khiến chi phí quảng cáo (CPA) cho cùng sản phẩm đó tăng vọt ở những ngày tiếp theo."
+        },
+        {
+          "question_id": "q_pb09_02",
+          "question": "Thao tác bắt buộc tại bàn đóng gói để vừa triệt tiêu lỗi nhặt nhầm hàng, vừa thắng 100% khi khiếu nại sàn/đơn vị vận chuyển làm hỏng hàng là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quét mã vạch từng sản phẩm vào hệ thống và quay video toàn bộ quá trình đóng gói thấy rõ mã vận đơn"
+            },
+            {
+              "id": "B",
+              "text": "Dùng băng keo dán kín toàn bộ mặt mã vận đơn"
+            },
+            {
+              "id": "C",
+              "text": "Bỏ bớt xốp chống sốc để tiết kiệm chi phí"
+            },
+            {
+              "id": "D",
+              "text": "Chỉ cần nhân viên kho tự kiểm tra bằng mắt thường"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Máy quét mã vạch chặn đứng lỗi sai size/màu của con người, còn video đóng gói là bằng chứng thép duy nhất được sàn TMĐT chấp nhận khi đền bù."
+        },
+        {
+          "question_id": "q_pb09_03",
+          "question": "Tại sao việc gia cố hộp carton cứng cáp lại giúp giảm trực tiếp Chi phí thực tế cho 1 đơn hoàn?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Giúp tăng tỷ lệ hàng hoàn về còn nguyên hộp/tem mác để bán lại nguyên giá gốc thay vì phải thanh lý lỗ"
+            },
+            {
+              "id": "B",
+              "text": "Giúp đơn vị vận chuyển miễn phí hoàn hàng"
+            },
+            {
+              "id": "C",
+              "text": "Giúp giảm trọng lượng gói hàng xuống 0kg"
+            },
+            {
+              "id": "D",
+              "text": "Giúp khách hàng không thể bấm nút trả hàng"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Tỷ lệ hàng hoàn còn bán lại được (Resellable Return) càng cao thì thiệt hại trên mỗi đơn hoàn càng thấp."
+        }
+      ]
     },
     {
       "playbook_id": "pb_10_team_vs_automation",
@@ -426,7 +1150,84 @@
         "Chốt ngưỡng kỷ luật: Chỉ mở tuyển dụng nhân sự mới khi Lợi nhuận gộp trên mỗi nhân sự đạt tối thiểu gấp 3,5 - 4 lần mức lương trung bình của vị trí đó.",
         "Trước khi tuyển thêm người cho bất kỳ khâu nào, hãy hỏi: 'Việc này có thể giải quyết bằng mẫu câu trả lời sẵn, quy trình chuẩn (SOP) hoặc công cụ tự động hóa không?'."
       ],
-      "slug": "10-quyet-dinh-tuyen-nguoi-hay-tu-dong-hoa"
+      "slug": "10-quyet-dinh-tuyen-nguoi-hay-tu-dong-hoa",
+      "quiz": [
+        {
+          "question_id": "q_pb10_01",
+          "question": "Theo kỷ luật tài chính, chủ shop chỉ nên mở tuyển dụng thêm nhân sự mới khi chỉ số Lợi nhuận gộp trên mỗi nhân sự đạt tối thiểu bao nhiêu lần mức lương trung bình của vị trí đó?",
+          "options": [
+            {
+              "id": "A",
+              "text": "1,5 – 2 lần"
+            },
+            {
+              "id": "B",
+              "text": "3,5 – 4 lần"
+            },
+            {
+              "id": "C",
+              "text": "Bằng đúng 1 lần mức lương"
+            },
+            {
+              "id": "D",
+              "text": "Không cần quan tâm đến lợi nhuận gộp"
+            }
+          ],
+          "correct_option": "B",
+          "points": 10,
+          "explanation": "Lợi nhuận gộp (CM1) còn phải chi trả cho phí sàn, chi phí Ads, thuê mặt bằng, thuế và lợi nhuận ròng; do đó phải đạt gấp 3,5–4 lần quỹ lương nhân sự."
+        },
+        {
+          "question_id": "q_pb10_02",
+          "question": "Khi thấy đội ngũ trực page và kế toán kêu quá tải, hành động ưu tiên nào mang lại hiệu quả cao nhất trước khi quyết định tuyển thêm người?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chuẩn hóa quy trình (SOP), cài chatbot trả lời các câu hỏi lặp lại và dùng công cụ tự động đồng bộ đối soát đơn hàng"
+            },
+            {
+              "id": "B",
+              "text": "Tuyển gấp thêm 3 nhân sự mới vào làm ngay"
+            },
+            {
+              "id": "C",
+              "text": "Tăng lương cứng cho toàn bộ nhân viên lên 30%"
+            },
+            {
+              "id": "D",
+              "text": "Thuê văn phòng rộng gấp đôi"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Tự động hóa các tác vụ lặp đi lặp lại giúp tăng năng suất đội ngũ hiện tại mà không làm phình to chi phí cố định (OPEX)."
+        },
+        {
+          "question_id": "q_pb10_03",
+          "question": "Cơ chế trả lương nào phù hợp nhất cho các vị trí trực tiếp tạo ra doanh thu (Media Buyer chạy Ads, Host Live, Sales chốt đơn)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Lương cứng ở mức an toàn + Thưởng hoa hồng gắn chặt với Lợi nhuận sau quảng cáo (CM3)"
+            },
+            {
+              "id": "B",
+              "text": "100% lương cứng thật cao để nhân viên yên tâm làm việc"
+            },
+            {
+              "id": "C",
+              "text": "Thưởng theo tổng ngân sách quảng cáo đã tiêu hết"
+            },
+            {
+              "id": "D",
+              "text": "Thưởng theo tổng doanh thu ảo chưa trừ đơn hoàn"
+            }
+          ],
+          "correct_option": "A",
+          "points": 10,
+          "explanation": "Gắn thưởng với CM3 buộc đội ngũ phải tối ưu lợi nhuận thực tế thay vì chỉ chạy theo doanh số ảo hoặc đốt tiền Ads vô tội vạ."
+        }
+      ]
     }
   ]
 }

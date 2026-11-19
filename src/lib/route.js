@@ -3,6 +3,7 @@
 // /chi-so/<slug>         → bài chỉ số  (?tab=homework …)
 // /playbook/<slug>       → Playbook
 // /kham-suc-khoe         → công cụ khám sức khỏe shop
+// /bang-xep-hang         → bảng xếp hạng trắc nghiệm Playbook
 // Link cũ dạng #vn_fin_cm2 hoặc #pb_01_… vẫn mở được.
 import { metricById, playbookById, metricBySlug, playbookBySlug } from '../data/index.js'
 
@@ -12,6 +13,7 @@ export function href(r) {
   if (r.type === 'metric') return `${BASE}chi-so/${metricById[r.id].slug}/${r.tab && r.tab !== 'sim' ? `?tab=${r.tab}` : ''}`
   if (r.type === 'pb') return `${BASE}playbook/${playbookById[r.id].slug}/`
   if (r.type === 'health') return `${BASE}kham-suc-khoe/`
+  if (r.type === 'leaderboard') return `${BASE}bang-xep-hang/`
   return BASE
 }
 
@@ -29,5 +31,6 @@ export function parse(loc = window.location) {
   if (kind === 'chi-so' && metricBySlug[slug]) return { type: 'metric', id: metricBySlug[slug].metric_id, tab }
   if (kind === 'playbook' && playbookBySlug[slug]) return { type: 'pb', id: playbookBySlug[slug].playbook_id }
   if (kind === 'kham-suc-khoe') return { type: 'health' }
+  if (kind === 'bang-xep-hang') return { type: 'leaderboard' }
   return { type: 'home' }
 }

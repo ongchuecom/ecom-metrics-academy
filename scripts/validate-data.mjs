@@ -58,6 +58,25 @@ for (const m of all) {
 }
 // Playbook: liên kết hai chiều phải khớp
 const pbs = JSON.parse(readFileSync(join(dir, '../playbooks.json'), 'utf8')).playbooks
+// Trắc nghiệm: đủ phương án, đáp án đúng có thật, id câu không trùng; thang xếp hạng phủ kín từ 0 tới điểm tối đa
+const gam = JSON.parse(readFileSync(join(dir, '../playbooks.json'), 'utf8')).gamification
+const qids = new Set()
+let maxScore = 0
+for (const p of pbs) for (const q of p.quiz || []) {
+  if (qids.has(q.question_id)) err(p.playbook_id, `câu hỏi trùng id ${q.question_id}`)
+  qids.add(q.question_id)
+  if ((q.options || []).length < 2) err(q.question_id, 'cần ít nhất 2 phương án')
+  if (!(q.options || []).some((o) => o.id === q.correct_option)) err(q.question_id, `đáp án ${q.correct_option} không có trong phương án`)
+  if (!(q.points > 0)) err(q.question_id, 'points phải > 0')
+  if (!q.explanation) err(q.question_id, 'thiếu giải thích')
+  maxScore += q.points || 0
+}
+if (gam) {
+  if (gam.max_total_score !== maxScore) err('gamification', `max_total_score ${gam.max_total_score} khác tổng điểm các câu ${maxScore}`)
+  const ranks = [...gam.ranks].sort((a, b) => a.min_score - b.min_score)
+  if (ranks[0]?.min_score !== 0) err('gamification', 'cấp bậc thấp nhất phải bắt đầu từ 0')
+  for (let i = 1; i < ranks.length; i++) if (ranks[i].min_score > ranks[i - 1].max_score + (gam.points_per_question || 1)) err('gamification', `hở điểm giữa ${ranks[i - 1].title} và ${ranks[i].title}`)
+}
 const pbIds = new Set(pbs.map((p) => p.playbook_id))
 for (const m of all) for (const r of m.playbook_refs || []) {
   if (!pbIds.has(r)) err(m.metric_id, `playbook_refs trỏ tới Playbook không tồn tại: ${r}`)
@@ -93,4 +112,4 @@ if (errors.length) {
   console.error(`✗ ${errors.length} lỗi:\n` + errors.join('\n'))
   process.exit(1)
 }
-console.log(`✓ ${all.length} chỉ số hợp lệ · ${withSim} có simulator · ${withHw} có bài tập chẩn đoán · ${Object.keys(cases).filter((k) => !k.startsWith('_')).length} có tình huống thực tế · ${pbs.length} Playbook`)
+console.log(`✓ ${all.length} chỉ số hợp lệ · ${withSim} có simulator · ${withHw} có bài tập chẩn đoán · ${Object.keys(cases).filter((k) => !k.startsWith('_')).length} có tình huống thực tế · ${pbs.length} Playbook · ${qids.size} câu trắc nghiệm`)

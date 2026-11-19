@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { playbooks, playbookById, metricById, STAGES } from '../data/index.js'
 import LeadForm from './LeadForm.jsx'
 import PageFeedback from './PageFeedback.jsx'
+import PlaybookQuiz from './PlaybookQuiz.jsx'
 
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1] || ''
 // "Playbook 01: Bài toán …" → "Bài toán …"
@@ -34,7 +35,7 @@ export function PlaybookLinks({ metric, onOpen }) {
 }
 
 // Trang một Playbook
-export function PlaybookPage({ playbook: p, onSelectMetric, onOpen }) {
+export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeaderboard }) {
   const [done, setDone] = useState({})
   const idx = playbooks.findIndex((x) => x.playbook_id === p.playbook_id)
   const prev = playbooks[idx - 1], next = playbooks[idx + 1]
@@ -114,6 +115,8 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen }) {
           </ul>
         </section>
       </div>
+
+      <PlaybookQuiz key={`quiz-${p.playbook_id}`} playbook={p} onOpenLeaderboard={onOpenLeaderboard} />
 
       <PageFeedback key={p.playbook_id} page={p.playbook_id} title={`Playbook ${num(p)}: ${pbTitle(p)}`} shareText={p.summary} />
 

@@ -9,3 +9,12 @@ export async function postJSON(body) {
   if (!j.ok) throw new Error(j.error || 'server')
   return j
 }
+
+export const hasEndpoint = !!ENDPOINT
+
+export async function getJSON(params) {
+  const res = await fetch(`${ENDPOINT}?${new URLSearchParams(params)}`)
+  const j = await res.json().catch(() => ({}))
+  if (!j.ok) throw new Error(j.error || 'server')
+  return j
+}

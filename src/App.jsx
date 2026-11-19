@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { metricById, metricsMaster, playbookById, LEARNING_PATH } from './data/index.js'
 import { href, parse } from './lib/route.js'
 import { PlaybookPage } from './components/Playbooks.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import MetricLesson, { H2 } from './components/MetricLesson.jsx'
 import MetricSimulator from './components/MetricSimulator.jsx'
@@ -81,6 +82,7 @@ export default function App() {
   const openPlaybook = useCallback((id) => playbookById[id] && go({ type: 'pb', id }), [go])
   const openHome = useCallback(() => go({ type: 'home' }), [go])
   const openHealth = useCallback(() => go({ type: 'health' }), [go])
+  const openLeaderboard = useCallback(() => go({ type: 'leaderboard' }), [go])
   const setTab = useCallback((t) => go({ type: 'metric', id: route.id, tab: t }, { replace: true, scroll: false }), [go, route.id])
 
   // Link cũ dạng #id → đường dẫn mới; nút Back/Forward
@@ -94,7 +96,8 @@ export default function App() {
   useEffect(() => {
     document.title = route.type === 'metric' ? `${metric.code}: ${metric.vi_name} · ${TITLE}`
       : route.type === 'pb' ? `${playbookById[route.id].title} · ${TITLE}`
-      : route.type === 'health' ? `Khám sức khỏe shop · ${TITLE}` : `${TITLE} · Ông chú Ecom`
+      : route.type === 'health' ? `Khám sức khỏe shop · ${TITLE}`
+      : route.type === 'leaderboard' ? `Bảng xếp hạng trắc nghiệm · ${TITLE}` : `${TITLE} · Ông chú Ecom`
   }, [route, metric])
 
   // Phím tắt tìm kiếm: Ctrl/⌘ + K hoặc "/"
@@ -144,7 +147,10 @@ export default function App() {
           <button className="absolute inset-0 bg-ink/40" onClick={() => setDrawer(false)} aria-label="Đóng" />
           <div className="fade-up absolute inset-x-0 bottom-0 flex h-[88dvh] flex-col rounded-t-3xl bg-white pt-3">
             <div className="flex items-center justify-between px-4 pb-3">
-              <button onClick={openHome} className="font-display text-lg font-black text-ink">Trang chủ</button>
+              <span className="flex items-baseline gap-4">
+                <button onClick={openHome} className="font-display text-lg font-black text-ink">Trang chủ</button>
+                <button onClick={openLeaderboard} className="text-sm font-semibold text-brand-700">Bảng xếp hạng</button>
+              </span>
               <button onClick={() => setDrawer(false)} className="rounded-full bg-stone-100 px-3 py-1.5 text-sm font-semibold text-body">Đóng</button>
             </div>
             {side}
@@ -157,6 +163,7 @@ export default function App() {
           <Brand onHome={openHome} />
           <SearchButton onClick={() => setSearching(true)} />
           <button onClick={openHealth} className="w-full rounded-xl bg-white/15 px-3 py-2 text-left text-sm font-bold text-white hover:bg-white/25">Khám sức khỏe shop →</button>
+          <button onClick={openLeaderboard} className="w-full rounded-xl px-3 py-1 text-left text-sm font-semibold text-white/90 hover:text-white">Bảng xếp hạng trắc nghiệm →</button>
         </div>
         {side}
       </aside>
@@ -180,7 +187,8 @@ export default function App() {
             </div>
           )}
 
-          {route.type === 'pb' && <PlaybookPage playbook={playbookById[route.id]} onSelectMetric={select} onOpen={openPlaybook} />}
+          {route.type === 'pb' && <PlaybookPage playbook={playbookById[route.id]} onSelectMetric={select} onOpen={openPlaybook} onOpenLeaderboard={openLeaderboard} />}
+          {route.type === 'leaderboard' && <Leaderboard onOpenPlaybook={openPlaybook} />}
 
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
             {pathIdx >= 0 && (

@@ -72,6 +72,9 @@ for (const p of playbooks) {
 <h2>Chỉ số trong Playbook</h2><ul>${p.linked_metrics.map((id) => byId[id]).filter(Boolean).map((m) => `<li><a href="${SITE + mUrl(m)}">${esc(m.code)}: ${esc(m.vi_name)}</a></li>`).join('')}</ul>`
   urls.push(page(pUrl(p), `${p.title} · Ecom Metrics Academy`, cut(p.summary), body))
 }
+urls.push(page('bang-xep-hang/', 'Bảng xếp hạng trắc nghiệm thực chiến · Ecom Metrics Academy',
+  'Làm 3 câu trắc nghiệm thực chiến cuối mỗi Playbook, cộng điểm, lên cấp bậc từ Tập Sự Sàn TMĐT tới Bậc Thầy Dòng Tiền & Lợi Nhuận.',
+  '<h1>Bảng xếp hạng trắc nghiệm thực chiến</h1><p>Mỗi Playbook có 3 câu trắc nghiệm, chấm điểm ngay và có giải thích.</p>'))
 urls.push(page('kham-suc-khoe/', 'Khám sức khỏe shop: tính CM1, CM2, CM3, ROAS hòa vốn · Ecom Metrics Academy',
   'Nhập P&L một tháng của shop, tính Net Sales, CM1, CM2, CM3, lãi ròng, ROAS hòa vốn và nhận gợi ý Playbook nên đọc.',
   '<h1>Khám sức khỏe shop</h1><p>Nhập P&L một tháng của shop để tính Net Sales, CM1, CM2, CM3, lãi ròng, ROAS hòa vốn và nhận chẩn đoán.</p>'))
