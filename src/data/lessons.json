@@ -1921,7 +1921,7 @@
     ],
     "quote": {
       "text": "Doanh thu là số tiền của mình nhận về tài khoản, chứ không phải GMV (gross merchandise value)",
-      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày - chia sẻ từ Huân Vũ Trụ"
+      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày- từ xây Sản phẩm đến bán và đếm lãi - chia sẻ từ Huân Vũ Trụ"
     },
     "remember": "Doanh thu để khoe, Net Sales để tính lãi. Mọi phép tính lợi nhuận bắt đầu từ Net Sales."
   },
@@ -1929,7 +1929,7 @@
     "subtitle": "Sàn lấy đi bao nhiêu phần trăm doanh thu",
     "intro": [
       "**Tổng phí sàn là mọi khoản sàn trừ trên doanh thu thực thu: phí cố định, phí thanh toán, Freeship Xtra, Voucher Xtra và thuế sàn thu hộ.** Hiểu đơn giản: bán 100k thì sàn giữ lại bao nhiêu. Ví dụ đơn 200k bị trừ tổng 38k thì phí sàn là 19%.",
-      "Nhiều anh em chỉ nhớ phí cố định mà quên các gói Freeship, Voucher đã đăng ký. Cộng hết lại mới thấy sàn là khoản chi lớn thứ hai sau giá vốn. Trong bảng cost structure của sách Ecom Truyền Kỳ, chi phí nền tảng (sàn/ web/ payment) đã là 18%."
+      "Nhiều anh em chỉ nhớ phí cố định mà quên các gói Freeship, Voucher đã đăng ký. Cộng hết lại mới thấy phí sàn to gần ngang giá vốn. Trong bảng cost structure của sách Ecom Truyền Kỳ, chi phí nền tảng (sàn/ web/ payment) là 18%, giá vốn (Cogs) 20%."
     ],
     "tree": {
       "title": "Phí sàn được tạo ra từ đâu",
@@ -2185,7 +2185,7 @@
     ],
     "quote": {
       "text": "Phải có lãi gộp cao để có ngân sách để làm marketing, ads, promotion, hàng tặng, hàng hoàn, gói sàn",
-      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày - chia sẻ từ Huân Vũ Trụ"
+      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày- từ xây Sản phẩm đến bán và đếm lãi - chia sẻ từ Huân Vũ Trụ"
     },
     "remember": "CM1 là cái túi trả mọi chi phí phía sau. Túi mỏng thì bán càng nhiều càng mệt."
   },
@@ -2769,7 +2769,7 @@
     ],
     "quote": {
       "text": "Chi phí: phí sàn, ship, ads, commission, voucher, hàng, quà tặng, thuế….",
-      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày - chia sẻ từ Huân Vũ Trụ"
+      "source": "Ecom Truyền Kỳ · 15k đơn/ ngày- từ xây Sản phẩm đến bán và đếm lãi - chia sẻ từ Huân Vũ Trụ"
     },
     "remember": "Quà và voucher cũng là chi phí. Không kéo được đơn thì cắt."
   },
@@ -3430,5 +3430,2171 @@
       "source": "Ecom Truyền Kỳ · Những bài học nào cần khắc cốt ghi tâm?"
     },
     "remember": "Kho chậm thì sửa quy trình trước, tuyển người sau."
+  },
+  "vn_mkt_ctr": {
+    "subtitle": "Bao nhiêu người thấy quảng cáo mà bấm vào",
+    "intro": [
+      "**CTR (tỷ lệ nhấp) là số lượt bấm chia số lượt quảng cáo hiển thị.** Hiểu đơn giản: 100 người lướt qua quảng cáo, bao nhiêu người dừng lại bấm. 100.000 lượt hiển thị ra 400 click thì CTR = 0,4%.",
+      "Nhiều anh em thấy CTR thấp thì nghĩ chỉ là ít click. Thực tế tiền Ads tính theo lượt hiển thị (CPM), nên CTR thấp là trả tiền cho người không bấm. Ít click thì ít đơn, mà tiền vẫn mất y nguyên. Vậy nên CTR là cửa đầu tiên quyết định CPA rẻ hay đắt."
+    ],
+    "tree": {
+      "title": "CTR được tạo ra từ đâu",
+      "note": "Người xem phải dừng lại ở 3 giây đầu rồi mới bấm. Muốn CTR tăng thì Hook rate ↑ và lời mời bấm phải đủ hấp dẫn. CTR tăng thì CPA giảm.",
+      "expr": {
+        "label": "CTR",
+        "eq": [
+          {
+            "id": "vn_mkt_hook_rate",
+            "label": "Hook rate (giữ 3 giây đầu)",
+            "dir": "up"
+          },
+          "×",
+          {
+            "label": "Tỷ lệ bấm của người xem quá 3 giây",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Cùng 8tr Ads: CTR 0,4% và 1,6%",
+      "chart": {
+        "type": "compare",
+        "unit": "",
+        "labels": [
+          "CTR 0,4%",
+          "CTR 1,6%"
+        ],
+        "items": [
+          [
+            "Lượt click",
+            400,
+            1600
+          ],
+          [
+            "Đơn (CR 2%)",
+            8,
+            32
+          ]
+        ]
+      },
+      "after": "100.000 lượt hiển thị, CPM 80k, tiền Ads đều là 8tr. CTR 0,4% ra 8 đơn, **CPA 1tr/đơn**. Sửa 3 giây đầu cho CTR lên 1,6% thì ra 32 đơn, **CPA còn 250k**."
+    },
+    "sections": [
+      {
+        "title": "CTR tăng thì CPA giảm bao nhiêu?",
+        "chart": {
+          "type": "line",
+          "xLabel": "CTR (%)",
+          "unit": "k",
+          "points": [
+            [
+              0.4,
+              1000
+            ],
+            [
+              0.6,
+              666.67
+            ],
+            [
+              0.8,
+              500
+            ],
+            [
+              1,
+              400
+            ],
+            [
+              1.2,
+              333.33
+            ],
+            [
+              1.4,
+              285.71
+            ],
+            [
+              1.6,
+              250
+            ],
+            [
+              1.8,
+              222.22
+            ],
+            [
+              2,
+              200
+            ],
+            [
+              2.5,
+              160
+            ],
+            [
+              3,
+              133.33
+            ]
+          ],
+          "now": {
+            "x": 0.4,
+            "label": "CTR 0,4%: CPA 1tr"
+          }
+        },
+        "body": [
+          "Giữ nguyên CPM và CR, CTR gấp 4 thì CPA giảm còn 1/4. CTR nằm ở mẫu số của CPA nên đoạn đầu dốc nhất: kéo từ 0,4% lên 0,8% là CPA giảm một nửa, từ 1tr còn 500k.",
+          "CTR bao nhiêu là ổn thì đừng đi hỏi số ngành. So với chính các camp cũ của mình, cùng sản phẩm, cùng tệp. Camp nào CTR thấp hơn hẳn thì sửa hook, hình ảnh hoặc đổi tệp trước khi tăng tiền."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ nhìn CTR mà không đo tiếp tới đơn: CTR cao do giật tít, khách vào rồi bỏ đi.",
+      "Thấy CTR thấp thì tăng ngân sách cho thuật toán tự tối ưu.",
+      "Đem CTR quảng cáo này so với quảng cáo khác khác sản phẩm, khác tệp."
+    ],
+    "quote": {
+      "text": "Nhiều bạn hay tìm mình hỏi: anh ơi, CTR/ CPA/ CPO/ Margin/ COGs ngành này bao nhiêu, hoặc chi phí vận hành/ ship bao nhiêu là vừa….thực tế vẫn chỉ là các con số để tham khảo.",
+      "source": "Ecom Truyền Kỳ · Tài chính, Gọi vốn và M&A trong Ecom"
+    },
+    "remember": "CTR là cửa đầu của CPA. CTR gấp đôi, CPA giảm một nửa."
+  },
+  "vn_mkt_hook_rate": {
+    "subtitle": "3 giây đầu video có giữ được người xem",
+    "intro": [
+      "**Hook rate là tỷ lệ người xem video quảng cáo quá 3 giây đầu, chia tổng lượt hiển thị.** Hiểu đơn giản: 100 người lướt tới video, bao nhiêu người dừng tay. 100.000 lượt hiển thị, 15.000 người xem quá 3 giây thì Hook rate = 15%.",
+      "Nhiều anh em dồn công làm phần giữa video: quay đẹp, nói kỹ, chốt hay. Nhưng 3 giây đầu không giữ được người xem thì phần sau hay cỡ nào cũng không ai thấy. Người đã lướt qua thì không bấm, không mua, mà tiền hiển thị vẫn bị tính."
+    ],
+    "tree": {
+      "title": "Hook rate được tạo ra từ đâu",
+      "note": "Hook rate là tầng đầu tiên của CTR. Muốn Hook rate tăng thì 3 giây đầu phải đánh đúng nỗi đau hoặc điều tò mò của đúng tệp khách.",
+      "expr": {
+        "label": "Hook rate",
+        "eq": [
+          {
+            "label": "Lượt xem quá 3 giây",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Lượt hiển thị video"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Video A: Hook rate 15%, 6tr Ads",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Lượt hiển thị",
+            100000
+          ],
+          [
+            "Xem quá 3 giây",
+            15000
+          ],
+          [
+            "Bấm vào",
+            600
+          ],
+          [
+            "Đặt hàng",
+            12
+          ]
+        ]
+      },
+      "after": "**85% người xem đã lướt đi ngay 3 giây đầu.** CPM 60k nên 100.000 lượt hiển thị tốn 6tr, ra 12 đơn, CPA 500k."
+    },
+    "sections": [
+      {
+        "title": "Sửa 3 giây đầu thì được gì?",
+        "chart": {
+          "type": "compare",
+          "unit": "",
+          "labels": [
+            "Video A: Hook 15%",
+            "Video B: Hook 35%"
+          ],
+          "items": [
+            [
+              "Xem quá 3 giây",
+              15000,
+              35000
+            ],
+            [
+              "Lượt click",
+              600,
+              1400
+            ],
+            [
+              "Đơn",
+              12,
+              28
+            ]
+          ]
+        },
+        "body": [
+          "Video B giữ nguyên phần giữa và phần chốt, chỉ thay 3 giây đầu. Tỷ lệ bấm của người đã xem vẫn là 4%, CR vẫn 2%. Hook rate lên 35% thì CTR từ 0,6% lên 1,4%, đơn từ 12 lên 28, **CPA từ 500k còn khoảng 214k**.",
+          "Vậy nên khi test, quay một thân video rồi ghép 3–5 kiểu mở đầu khác nhau. Mở đầu nào giữ chân tốt thì giữ lại để scale, kiểu nào tụt thì bỏ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đo lượt xem và lượt thích, không tách riêng tỷ lệ giữ 3 giây đầu.",
+      "Mở đầu bằng logo, lời chào hoặc cảnh quay chậm, để ý chính ở giây thứ 10.",
+      "Hook giật gân không liên quan sản phẩm: giữ được người xem nhưng không ai bấm mua."
+    ],
+    "remember": "3 giây đầu không giữ được người xem thì phần sau hay cỡ nào cũng mất tiền."
+  },
+  "vn_mkt_organic_vs_paid": {
+    "subtitle": "Tắt Ads thì shop còn bao nhiêu doanh thu",
+    "intro": [
+      "**Tỷ lệ doanh thu tự nhiên là phần doanh thu đến từ khách tự tìm và khách cũ quay lại, không qua quảng cáo trả tiền.** Ví dụ: tháng này shop thu 500tr, trong đó 150tr đến từ khách tự tìm và khách cũ. Tỷ lệ tự nhiên = 150 ÷ 500 = 30%.",
+      "Ads ra đơn nhanh, nhưng mỗi đơn đều phải trả tiền. Mà CPA lúc thấp lúc cao, tài khoản có thể bị khoá bất kỳ lúc nào. Tỷ lệ tự nhiên cho biết nếu mai tắt Ads thì shop còn sống được bao nhiêu phần. Đây là chỉ số đo độ bền, không phải đo độ nhanh."
+    ],
+    "tree": {
+      "title": "Doanh thu tự nhiên được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này tăng thì kéo khách tự tìm (free traffic, kênh riêng, content) và kéo khách cũ quay lại mua.",
+      "expr": {
+        "label": "Tỷ lệ tự nhiên",
+        "eq": [
+          "(",
+          {
+            "label": "Doanh thu khách tự tìm",
+            "dir": "up"
+          },
+          "+",
+          {
+            "id": "vn_ret_repeat_rate",
+            "label": "Doanh thu khách cũ quay lại",
+            "dir": "up"
+          },
+          ")",
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Doanh thu thực thu"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 500tr doanh thu một tháng",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Từ Ads",
+            350
+          ],
+          [
+            "Khách tự tìm",
+            90,
+            "focus"
+          ],
+          [
+            "Khách cũ quay lại",
+            60,
+            "keep"
+          ]
+        ]
+      },
+      "after": "70% doanh thu vẫn phải mua bằng tiền Ads. **Chỉ 150tr là tiền shop tự đứng được** khi Ads có biến."
+    },
+    "sections": [
+      {
+        "title": "Cùng 500tr, shop nào sống khỏe hơn?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Shop A: tự nhiên 10%",
+            "Shop B: tự nhiên 40%"
+          ],
+          "items": [
+            [
+              "Tiền Ads mỗi tháng (ROAS 4)",
+              112.5,
+              75
+            ],
+            [
+              "Doanh thu còn lại nếu tắt Ads",
+              50,
+              200
+            ]
+          ]
+        },
+        "body": [
+          "Hai shop cùng doanh thu 500tr, cùng chạy ROAS 4. Shop A phải mua 450tr doanh thu bằng Ads, tốn 112,5tr. Shop B chỉ mua 300tr, tốn 75tr. Mỗi tháng B giữ thêm **37,5tr** tiền lãi. Tài khoản bị khoá, A còn 50tr, B còn 200tr.",
+          "Đừng nghĩ đơn tự nhiên là đơn dễ. Theo sách Ecom Truyền Kỳ, năm 2025 bên tác giả CR của organic là 2,1% còn Ads là 4%. Organic chuyển đổi kém hơn nhưng không tốn tiền mỗi click, làm đều thì cộng dồn. Vậy nên kết hợp cả 2 mới ngon."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Đẩy hết ngân sách vào Ads kéo khách mới, không dành đồng nào giữ khách cũ.",
+      "Tính nhầm đơn Ads (khách bấm quảng cáo rồi mới tìm shop) thành đơn tự nhiên.",
+      "Thấy organic CR thấp hơn Ads thì bỏ, trong khi nó là phần doanh thu không mất tiền mua."
+    ],
+    "quote": {
+      "text": "Giảm chi phí nền tảng: đẩy mạnh web + free traffic, đẩy mạnh bán lại khách cũ",
+      "source": "Ecom Truyền Kỳ · Những bài học nào cần khắc cốt ghi tâm?"
+    },
+    "remember": "Doanh thu tự nhiên là phần shop còn giữ được khi tắt Ads. Càng cao, càng bền."
+  },
+  "vn_mkt_cpa": {
+    "subtitle": "Mất bao nhiêu tiền Ads để có 1 đơn",
+    "intro": [
+      "**CPA là tiền quảng cáo bỏ ra để có 1 đơn hàng.** Hiểu đơn giản: tổng tiền Ads chia số đơn chốt được từ Ads. Chi 9tr Ads ra 30 đơn thì CPA = 300k.",
+      "Nhiều anh em chỉ nhìn ngân sách tiêu hết bao nhiêu, ra bao nhiêu đơn. Nhưng câu hỏi thật là: mỗi đơn còn bao nhiêu tiền để trả CPA? CPA phải thấp hơn phần lãi mỗi đơn sau giá vốn, phí sàn, ship, hoàn (CM2) thì Ads mới có lãi. Vượt qua là bán càng nhiều càng lỗ."
+    ],
+    "tree": {
+      "title": "CPA được tạo ra từ đâu",
+      "note": "CPA giảm khi CPM ↓, CTR ↑, CVR ↑. Ba con số nhân với nhau ở mẫu số, nên hai cái cùng tụt là CPA vọt lên rất nhanh.",
+      "expr": {
+        "label": "CPA",
+        "eq": [
+          {
+            "label": "CPM",
+            "dir": "down"
+          },
+          "÷ (1000 ×",
+          {
+            "id": "vn_mkt_ctr",
+            "label": "CTR",
+            "dir": "up"
+          },
+          "×",
+          {
+            "id": "vn_sales_pdp_cvr",
+            "label": "CVR",
+            "dir": "up"
+          },
+          ")"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Vít ngân sách gấp 3: CPA từ 93k lên 300k",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Lúc đầu (CPM 70k, CTR 2,5%, CR 3%)",
+            93.3,
+            "keep"
+          ],
+          [
+            "CPM lên 90k",
+            120
+          ],
+          [
+            "Thêm CTR tụt còn 1,5%",
+            200,
+            "focus"
+          ],
+          [
+            "Thêm CR tụt còn 2%",
+            300,
+            "loss"
+          ]
+        ]
+      },
+      "after": "CPM chỉ đẩy CPA từ 93k lên 120k. **CTR và CR cùng tụt mới là cú đấm chính**, kéo CPA lên 300k, gấp hơn 3 lần."
+    },
+    "sections": [
+      {
+        "title": "CPA bao nhiêu thì không lỗ?",
+        "chart": {
+          "type": "line",
+          "xLabel": "CPA (k)",
+          "unit": "k",
+          "points": [
+            [
+              60,
+              80
+            ],
+            [
+              80,
+              60
+            ],
+            [
+              100,
+              40
+            ],
+            [
+              120,
+              20
+            ],
+            [
+              140,
+              0
+            ],
+            [
+              160,
+              -20
+            ],
+            [
+              180,
+              -40
+            ],
+            [
+              200,
+              -60
+            ],
+            [
+              220,
+              -80
+            ],
+            [
+              250,
+              -110
+            ],
+            [
+              300,
+              -160
+            ]
+          ],
+          "threshold": {
+            "x": 140,
+            "label": "Không lỗ khi CPA dưới 140k"
+          },
+          "now": {
+            "x": 300,
+            "label": "Sau khi vít: lỗ 160k/đơn"
+          },
+          "lossBelowZero": true
+        },
+        "body": [
+          "Shop trên AOV 400k, CM2 còn 35%, tức 140k mỗi đơn. Đó là mức CPA tối đa. Lúc đầu CPA 93k, mỗi đơn còn khoảng 47k. Sau khi vít, CPA 300k, **mỗi đơn lỗ 160k**.",
+          "Vậy nên trước khi tăng tiền, phải chuẩn bị creative mới và trang bán hàng tốt hơn. Tăng ngân sách là đi vào tệp lạnh hơn, CTR và CR sẽ tụt. Tăng từng nấc, nhìn CPA từng ngày, chạm mức tối đa thì dừng."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy CPA của shop khác làm chuẩn, trong khi CM2 mỗi shop một khác.",
+      "So CPA với giá bán thay vì so với phần lãi CM2 mỗi đơn.",
+      "CPA tăng thì đổ cho CPM hoặc thuật toán, không soi CTR và CR."
+    ],
+    "quote": {
+      "text": "Chi phí quảng cáo để có được 1 khách hàng (CPA - cost per acquisition) không ổn định (lúc thấp lúc cao) và rất dễ bị sập nguồn (tài khoản bị khoá, ngân sách cạn kiệt, thuật toán thay đổi).",
+      "source": "Ecom Truyền Kỳ · 20 năm Martech Việt Nam"
+    },
+    "remember": "CPA phải thấp hơn lãi CM2 mỗi đơn. Vượt qua là càng bán càng lỗ."
+  },
+  "vn_sales_aov": {
+    "subtitle": "Mỗi đơn khách trả trung bình bao nhiêu",
+    "intro": [
+      "**AOV (giá trị đơn trung bình) là doanh thu thực thu chia số đơn giao thành công.** Hiểu đơn giản: trung bình mỗi đơn khách thật sự trả bao nhiêu tiền. Tháng thu 640tr từ 2.000 đơn giao thành công thì AOV = 320k.",
+      "Nhiều anh em chỉ lo kéo thêm đơn. Nhưng mỗi đơn đều tốn một khoản CPA, phí ship, đóng gói gần như cố định. Cùng 1 chi phí để có khách mà AOV tăng thì phần dư ra gần như là lãi. Tính AOV trên đơn giao thành công, không tính đơn huỷ, đơn hoàn."
+    ],
+    "tree": {
+      "title": "AOV được tạo ra từ đâu",
+      "note": "Muốn AOV tăng thì bán combo, mua kèm để tăng số món mỗi đơn, và bớt giảm giá sâu.",
+      "expr": {
+        "label": "AOV",
+        "eq": [
+          {
+            "label": "Giá trung bình mỗi món",
+            "dir": "up"
+          },
+          "×",
+          {
+            "label": "Số món mỗi đơn",
+            "dir": "up"
+          },
+          "−",
+          {
+            "id": "vn_sales_voucher_dependency",
+            "label": "Voucher, giảm giá mỗi đơn",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Shop phụ kiện: AOV 320k lên 400k nhờ combo",
+      "chart": {
+        "type": "compare",
+        "unit": "k",
+        "labels": [
+          "AOV 320k",
+          "AOV 400k"
+        ],
+        "items": [
+          [
+            "Lãi trước Ads (30%)",
+            96,
+            120
+          ],
+          [
+            "CPA",
+            96,
+            96
+          ],
+          [
+            "Lãi sau Ads",
+            0,
+            24
+          ]
+        ]
+      },
+      "after": "CPA giữ nguyên 96k. AOV 320k thì lãi trước Ads vừa đủ trả Ads, **hòa vốn**. AOV 400k thì mỗi đơn **còn 24k**, 2.000 đơn là 48tr/tháng. ROAS cũng từ 3,33 lên 4,17."
+    },
+    "sections": [
+      {
+        "title": "Tăng AOV thế nào cho lãi thật?",
+        "chart": {
+          "type": "line",
+          "xLabel": "AOV (k)",
+          "unit": "k",
+          "points": [
+            [
+              240,
+              -24
+            ],
+            [
+              280,
+              -12
+            ],
+            [
+              320,
+              0
+            ],
+            [
+              360,
+              12
+            ],
+            [
+              400,
+              24
+            ],
+            [
+              440,
+              36
+            ],
+            [
+              480,
+              48
+            ],
+            [
+              520,
+              60
+            ]
+          ],
+          "threshold": {
+            "x": 320,
+            "label": "Không lỗ từ AOV 320k"
+          },
+          "now": {
+            "x": 400,
+            "label": "Có combo: còn 24k/đơn"
+          },
+          "lossBelowZero": true
+        },
+        "body": [
+          "Đừng giảm 25% cho mọi đơn từ 2 sản phẩm. AOV tăng nhưng biên bị bào, lãi mỗi đơn có khi còn thấp hơn. Cách đúng: ghép sản phẩm chủ lực với một món giá vốn thấp, khách thấy đáng tiền, ưu đãi nhẹ cho cả combo.",
+          "Khi đó phần AOV tăng thêm gần như chuyển thẳng thành lãi. Đường trên chỉ đúng khi biên vẫn giữ 30%. Combo nào làm biên tụt thì phải tính lại."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính AOV trên cả đơn huỷ, đơn hoàn nên thấy cao hơn thực tế.",
+      "Tăng AOV bằng giảm giá sâu, AOV lên mà lãi mỗi đơn đi xuống.",
+      "Chỉ chạy Ads cho món lẻ giá thấp, AOV không đủ gánh CPA."
+    ],
+    "quote": {
+      "text": "Cùng 1 chi phí để có khách (CPA) mà AOV tăng thì có lãi. Khách quay lại mua nhiều lần thì LTV tăng --> lãi đậm",
+      "source": "Ecom Truyền Kỳ · Các cánh cửa go global"
+    },
+    "remember": "Cùng một CPA, AOV tăng thì có lãi. Tăng bằng combo, đừng tăng bằng giảm giá."
+  },
+  "vn_sales_pdp_cvr": {
+    "subtitle": "Khách vào xem rồi có mua không",
+    "intro": [
+      "**CVR trang sản phẩm là số đơn chia số lượt xem trang sản phẩm.** Hiểu đơn giản: 100 người vào xem, bao nhiêu người đặt mua. 50.000 lượt xem ra 600 đơn thì CVR = 1,2%.",
+      "Nhiều anh em thấy ít đơn là nghĩ tới tăng Ads để kéo thêm người. Nhưng người đã vào xem rồi mà không mua thì kéo thêm cũng chỉ trả tiền cho thêm người bỏ đi. Ảnh, giá, đánh giá sao, mô tả và bước thanh toán quyết định con số này. Mỗi phần trăm CVR tăng là CPA của toàn bộ ngân sách giảm theo."
+    ],
+    "tree": {
+      "title": "CVR được tạo ra từ đâu",
+      "note": "Muốn CVR tăng thì vá chỗ khách bỏ đi: ảnh bìa, giá, đánh giá xấu đầu trang, bước thanh toán rườm rà.",
+      "expr": {
+        "label": "CVR",
+        "eq": [
+          {
+            "label": "Số đơn đặt thành công",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Lượt xem trang sản phẩm"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Website 50.000 lượt xem, CVR 1,2%",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Xem trang sản phẩm",
+            50000
+          ],
+          [
+            "Thêm giỏ",
+            4000
+          ],
+          [
+            "Bắt đầu thanh toán",
+            1500
+          ],
+          [
+            "Đặt hàng",
+            600
+          ]
+        ]
+      },
+      "after": "Từ bắt đầu thanh toán tới đặt hàng **rớt 60%**. Lý do: bước thanh toán bắt khách tạo tài khoản. Đây là chỗ rò lớn nhất, vá ở đây rẻ hơn mua thêm traffic."
+    },
+    "sections": [
+      {
+        "title": "CVR tăng 0,3% đáng giá bao nhiêu?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "CVR 1,2%",
+            "CVR 1,5%"
+          ],
+          "items": [
+            [
+              "Doanh thu/tháng (AOV 400k)",
+              240,
+              300
+            ],
+            [
+              "Tiền Ads (giữ nguyên)",
+              60,
+              60
+            ]
+          ]
+        },
+        "body": [
+          "Cho mua không cần tài khoản, CVR lên 1,5%. Lượt xem và AOV giữ nguyên, đơn từ 600 lên 750, **doanh thu thêm 60tr/tháng mà không tốn thêm đồng Ads nào**. Nếu 60tr Ads mang về lượng xem đó thì CPA từ 100k còn 80k.",
+          "Theo sách Ecom Truyền Kỳ, năm 2025 bên tác giả CR organic là 2,1%, Ads là 4%, và các đội làm giỏi thì CR phải trên 5%. Vá xong chỗ rò này thì đo tiếp từng bước phễu, tìm chỗ rò tiếp theo rồi mới tăng Ads."
+        ]
+      }
+    ],
+    "mistakes": [
+      "CVR thấp mà vẫn vít Ads, trả tiền cho người vào rồi bỏ đi.",
+      "Chỉ nhìn CVR tổng, không tách từng bước xem khách rớt ở đâu.",
+      "Để đánh giá 1 sao nằm đầu trang mà không xử lý."
+    ],
+    "quote": {
+      "text": "Vì đã có khách quen, có review, có brand, nên khi sản phẩm phù hợp thì chuyển đổi rất cao.",
+      "source": "Ecom Truyền Kỳ · Chúng ta của hiện tại"
+    },
+    "remember": "Vá chỗ khách bỏ đi trước, rồi mới mua thêm traffic."
+  },
+  "vn_sales_voucher_dependency": {
+    "subtitle": "Tắt mã giảm giá thì còn bao nhiêu đơn",
+    "intro": [
+      "**Tỷ lệ phụ thuộc voucher là số đơn phải dùng mã giảm sâu của shop chia tổng số đơn.** Ví dụ: tháng 1.000 đơn, 700 đơn dùng mã giảm 20% thì tỷ lệ = 70%.",
+      "Nhiều anh em thấy tung mã là đơn nổ, tưởng mã là động cơ bán hàng. Thực tế mỗi mã là tiền lãi cắt ra trả cho khách. Tỷ lệ càng cao, biên lãi càng mỏng, và khách càng quen chờ giảm giá mới mua. Tới lúc tắt mã là đứng đơn."
+    ],
+    "tree": {
+      "title": "Tỷ lệ phụ thuộc voucher tính thế nào",
+      "note": "Muốn tỷ lệ này giảm thì khách phải mua vì sản phẩm, đánh giá, combo, chứ không phải vì mã.",
+      "expr": {
+        "label": "Phụ thuộc voucher",
+        "eq": [
+          {
+            "label": "Đơn dùng mã giảm sâu",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Tổng số đơn"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 1 đơn 200k dùng mã giảm 20%",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Voucher shop (20%)",
+            40,
+            "focus"
+          ],
+          [
+            "Giá vốn (Cogs)",
+            70
+          ],
+          [
+            "Ads",
+            40
+          ],
+          [
+            "Phí sàn (16% tiền khách trả)",
+            25.6
+          ],
+          [
+            "Ship, đóng gói",
+            15
+          ],
+          [
+            "Còn lại",
+            9.4,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Đơn không dùng mã còn 43k. Dùng mã giảm 40k thì **chỉ còn 9,4k, mất 78% tiền lãi** của đơn đó. 700 đơn dùng mã là 28tr tiền giảm giá mỗi tháng."
+    },
+    "sections": [
+      {
+        "title": "Tỷ lệ bao nhiêu thì đáng lo?",
+        "chart": {
+          "type": "line",
+          "xLabel": "% đơn dùng mã",
+          "unit": "tr",
+          "points": [
+            [
+              0,
+              43
+            ],
+            [
+              10,
+              39.64
+            ],
+            [
+              20,
+              36.28
+            ],
+            [
+              30,
+              32.92
+            ],
+            [
+              40,
+              29.56
+            ],
+            [
+              50,
+              26.2
+            ],
+            [
+              60,
+              22.84
+            ],
+            [
+              70,
+              19.48
+            ],
+            [
+              80,
+              16.12
+            ],
+            [
+              90,
+              12.76
+            ],
+            [
+              100,
+              9.4
+            ]
+          ],
+          "now": {
+            "x": 70,
+            "label": "Đang 70%: còn 19,48tr/tháng"
+          }
+        },
+        "body": [
+          "Cùng 1.000 đơn, không đơn nào dùng mã thì còn 43tr. 70% đơn dùng mã thì còn 19,48tr, **chưa tới một nửa**. Đây là giả sử mã không kéo thêm đơn. Nếu mã kéo thêm đơn mới thật thì phải cộng phần đó vào, nhưng phần lớn trường hợp là khách đằng nào cũng mua.",
+          "Theo sách Ecom Truyền Kỳ, cost structure lý tưởng thì giảm giá, chiết khấu < 15%. Muốn biết shop có nghiện mã không, tắt bớt mã trong 1 tuần rồi xem đơn rớt bao nhiêu."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nhìn đơn tăng khi tung mã mà không tính lại lãi mỗi đơn sau mã.",
+      "Quên rằng phí sàn tính trên tiền khách trả, giảm giá không giảm được giá vốn và Ads.",
+      "Tung mã liên tục đến mức khách không bao giờ mua giá gốc."
+    ],
+    "quote": {
+      "text": "Nghĩ rằng sàn chỉ bán được hàng giá rẻ và phải có voucher. Thực tế hàng gì cũng bán được.",
+      "source": "Ecom Truyền Kỳ · Những cơn sóng kiếm tiền. Bỏ lỡ thì tiếc nuối vô cùng"
+    },
+    "remember": "Mỗi voucher là tiền lãi cắt ra. Đơn chỉ chốt nhờ mã là đơn mượn lãi."
+  },
+  "vn_ret_repeat_rate": {
+    "subtitle": "Khách mua lần đầu có quay lại không",
+    "intro": [
+      "**Tỷ lệ mua lại là số khách quay lại đặt đơn thứ 2 chia tổng số khách đã mua lần đầu.** Ví dụ: 100 khách mua lần đầu, 34 người quay lại mua tiếp thì tỷ lệ mua lại = 34%.",
+      "Đơn đầu chạy Ads thường chỉ hòa vốn hoặc lãi rất mỏng, vì tiền kéo khách mới quá đắt. Tiền lời thật nằm ở đơn thứ 2, thứ 3, khi khách tự quay lại mà không tốn thêm tiền Ads. Khách quay lại mua nhiều lần thì LTV tăng, lãi đậm."
+    ],
+    "tree": {
+      "title": "Tỷ lệ mua lại tính thế nào",
+      "note": "Đơn đầu giao nhầm, hàng lỗi là khách một đi không trở lại. Muốn tỷ lệ này tăng thì sản phẩm phải tốt và shop phải giữ được liên lạc với khách.",
+      "expr": {
+        "label": "Tỷ lệ mua lại",
+        "eq": [
+          {
+            "label": "Khách quay lại mua đơn 2",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Khách đã mua lần đầu"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "100 khách mới của shop hạt dinh dưỡng, sau 90 ngày",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Đơn đầu (đã trừ 105k Ads/khách)",
+            0.5
+          ],
+          [
+            "Lần 2: 34 đơn × 78k",
+            2.65,
+            "focus"
+          ],
+          [
+            "Lần 3: 15 đơn × 78k",
+            1.17,
+            "focus"
+          ]
+        ]
+      },
+      "after": "AOV 280k, CM2 110k, Ads kéo 1 khách mới hết 105k: đơn đầu chỉ lãi 5k. Đơn quay lại trừ voucher 30k và 2k tin nhắn Zalo còn 78k. Tổng lãi 4,32tr, **88% nằm ở đơn quay lại**."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo khách quay lại?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo",
+              "Đếm bao nhiêu % khách quay lại mua lần 2 sau 30–60 ngày."
+            ],
+            [
+              "Soi đơn đầu",
+              "Tỷ lệ thấp thì xem lại chất lượng sản phẩm, giao nhầm, đóng gói."
+            ],
+            [
+              "Giữ liên lạc",
+              "Bỏ phiếu ưu đãi kèm mã QR kết bạn Zalo CSKH vào hộp hàng."
+            ],
+            [
+              "Nhắn đúng lúc",
+              "Hũ dùng 45 ngày thì ngày 35 nhắn tin nhắc mua."
+            ]
+          ]
+        },
+        "body": [
+          "Nếu chỉ 10% quay lại lần 2 và 4% lần 3, cùng 100 khách đó chỉ lãi khoảng 1,59tr. Tỷ lệ mua lại 34% làm tiền lãi gần gấp 3.",
+          "Theo sách Ecom Truyền Kỳ, xây được web ngon thì ads dưới 10% và retention rate trên 40%. Khách cũ càng nhiều, shop càng ít phải đi săn khách mới mỗi ngày."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Đổ 100% ngân sách vào tìm khách mới, không dành đồng nào giữ khách cũ.",
+      "Nghĩ bán trên sàn thì không chăm sóc lại được khách.",
+      "Thấy đơn đầu lãi mỏng thì cắt Ads, quên tính tiền lãi từ đơn quay lại."
+    ],
+    "quote": {
+      "text": "Cần phát triển được sản phẩm đủ nét và trải nghiệm đủ tốt để khách quay lại mua -->  Lifetime value, Margin cao, đó mới là lợi nhuận bền vững",
+      "source": "Ecom Truyền Kỳ · Khởi nghiệp tinh gọn"
+    },
+    "remember": "Đơn đầu để có khách. Lãi thật nằm ở đơn thứ 2, thứ 3."
+  },
+  "vn_ret_clv": {
+    "subtitle": "Một khách đáng giá bao nhiêu tiền lãi",
+    "intro": [
+      "**CLV (hay LTV) là tiền lãi trọn đời của 1 khách: lãi CM2 mỗi đơn nhân số lần mua trung bình trong 12 tháng.** Ví dụ: mỗi đơn còn 140k lãi CM2, khách mua 4 lần một năm thì CLV = 560k.",
+      "Nhiều anh em chỉ nhìn đơn đầu: kéo khách tốn 250k mà đơn chỉ lãi 140k là thấy lỗ, cắt Ads. Thực ra câu hỏi đúng là cả vòng đời khách mang về bao nhiêu. CLV cao thì shop dám bỏ nhiều tiền hơn đối thủ để có khách mới."
+    ],
+    "tree": {
+      "title": "CLV được tạo ra từ đâu",
+      "note": "Muốn CLV tăng thì AOV ↑, biên CM2 ↑ và khách quay lại mua nhiều lần hơn (tỷ lệ mua lại ↑).",
+      "expr": {
+        "label": "CLV",
+        "eq": [
+          {
+            "id": "vn_fin_cm2",
+            "label": "Lãi CM2 mỗi đơn",
+            "dir": "up",
+            "eq": [
+              {
+                "id": "vn_sales_aov",
+                "label": "AOV",
+                "dir": "up"
+              },
+              "×",
+              {
+                "label": "% CM2",
+                "dir": "up"
+              }
+            ]
+          },
+          "×",
+          {
+            "label": "Số lần mua trong 12 tháng",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Shop thực phẩm sạch: lãi trên 1 khách theo số lần mua",
+      "chart": {
+        "type": "line",
+        "xLabel": "Số lần mua",
+        "unit": "k",
+        "points": [
+          [
+            1,
+            -110
+          ],
+          [
+            1.5,
+            -40
+          ],
+          [
+            2,
+            30
+          ],
+          [
+            2.5,
+            100
+          ],
+          [
+            3,
+            170
+          ],
+          [
+            3.5,
+            240
+          ],
+          [
+            4,
+            310
+          ],
+          [
+            4.5,
+            380
+          ],
+          [
+            5,
+            450
+          ],
+          [
+            5.5,
+            520
+          ],
+          [
+            6,
+            590
+          ]
+        ],
+        "threshold": {
+          "x": 1.79,
+          "label": "Hoàn tiền kéo khách từ ~1,8 lần mua"
+        },
+        "now": {
+          "x": 4,
+          "label": "Mua 4 lần: lãi 310k"
+        },
+        "lossBelowZero": true
+      },
+      "after": "AOV 350k, CM2 40%, tiền kéo 1 khách mới (CAC) 250k. Đơn đầu **lỗ 110k**. Nhưng khách mua đủ 4 lần thì CLV 560k, trừ CAC còn **lãi 310k mỗi khách**."
+    },
+    "sections": [
+      {
+        "title": "CLV so với CAC thế nào là ổn?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "CAC thấp",
+            "CAC cao"
+          ],
+          "y": [
+            "CLV cao",
+            "CLV thấp"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Scale mạnh",
+                "text": "Mỗi khách lãi đậm, dám vít Ads hơn đối thủ.",
+                "tone": "good"
+              },
+              {
+                "title": "Lãi chậm",
+                "text": "Có lãi nhưng phải đủ tiền mặt chờ khách mua lại.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Lãi mỏng",
+                "text": "Đơn đầu ổn nhưng khách không quay lại. Sửa sản phẩm, CSKH.",
+                "tone": "mid"
+              },
+              {
+                "title": "Dừng lại",
+                "text": "Kéo khách đắt mà khách mua một lần. Càng chạy càng lỗ.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Theo sách Ecom Truyền Kỳ, CAC nên dưới 1/3 CLV, tức LTV:CAC tốt nhất trên 3:1. Shop trên mới đạt 560 ÷ 250 ≈ 2,24: vẫn lãi mỗi khách nhưng chưa dư nhiều.",
+          "Lỗ đơn đầu chấp nhận được khi chắc khách mua lại. Rủi ro nằm ở dòng tiền: tiền Ads trả ngay, lãi về rải rác cả năm. Vậy nên phải kéo khách mua lần 2 sớm và đủ tiền mặt để chờ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính CLV bằng doanh thu thay vì tiền lãi CM2.",
+      "Lấy số lần mua tưởng tượng, không đo từ dữ liệu khách thật.",
+      "Thấy CLV cao thì vít Ads, quên dòng tiền phải chờ cả năm mới thu về."
+    ],
+    "quote": {
+      "text": "Đích đến của kinh doanh là tăng LTV mà vẫn đảm bảo CPA/ LTV ở mức phù hợp.",
+      "source": "Ecom Truyền Kỳ · Các cánh cửa go global"
+    },
+    "remember": "Đơn đầu lỗ chưa chắc là lỗ. Tính lãi trên cả vòng đời khách, trừ đi tiền kéo khách."
+  },
+  "vn_ret_bad_review_resolution": {
+    "subtitle": "Đánh giá 1–2 sao có được gỡ không",
+    "intro": [
+      "**Tỷ lệ xử lý đánh giá xấu là số đánh giá 1–2 sao được CSKH liên hệ xử lý ổn và khách sửa lại, chia tổng đánh giá xấu.** Ví dụ: tháng có 50 đánh giá 1–2 sao, gỡ được 15 cái thì tỷ lệ = 30%.",
+      "Nhiều anh em coi đánh giá xấu là chuyện của CSKH, không liên quan tiền. Thực tế 1 đánh giá 1 sao nằm đầu trang được hàng ngàn khách đọc sau đó. Điểm sao tụt thì CVR tụt, CPA tăng, tiền Ads đội lên."
+    ],
+    "tree": {
+      "title": "Tỷ lệ xử lý đánh giá xấu tính thế nào",
+      "note": "Gỡ được đánh giá 1 sao đầu trang là cứu CVR của cả gian hàng.",
+      "expr": {
+        "label": "Tỷ lệ xử lý",
+        "eq": [
+          {
+            "label": "Đánh giá xấu đã xử lý, khách sửa lại",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Tổng đánh giá 1–2 sao"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "50 đánh giá xấu trong tháng đi đâu",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Đánh giá 1–2 sao",
+            50
+          ],
+          [
+            "CSKH liên hệ được",
+            35
+          ],
+          [
+            "Xử lý xong cho khách",
+            25
+          ],
+          [
+            "Khách sửa đánh giá",
+            15
+          ]
+        ]
+      },
+      "after": "15 khách liên hệ không được, 10 khách được liên hệ mà chưa xử lý xong. **Chỗ rò lớn nhất là chậm liên hệ**, khách đã quên hoặc đã đổi ý."
+    },
+    "sections": [
+      {
+        "title": "Xử lý đánh giá xấu thế nào?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Liên hệ ngay",
+              "Gọi, nhắn khách trong ngày có đánh giá xấu."
+            ],
+            [
+              "Hỏi rõ lỗi",
+              "Nhầm size, hàng lỗi, giao chậm hay mô tả sai."
+            ],
+            [
+              "Đền đúng lỗi",
+              "Đổi hàng, gửi bù hoặc hoàn tiền, shop chịu ship."
+            ],
+            [
+              "Nhờ sửa đánh giá",
+              "Chỉ nhờ khi khách đã thật sự hài lòng."
+            ],
+            [
+              "Sửa gốc",
+              "Ghi lỗi lại, sửa kho, đóng gói, mô tả."
+            ]
+          ]
+        },
+        "body": [
+          "Một shop giày có 40 khách hoàn hàng kèm 1 sao vì đóng nhầm size, điểm shop tụt từ 4,9 xuống 4,6 và chi phí Ads tuần sau tăng 18%. Shop đang chạy 50tr Ads mỗi tuần thì phải trả 59tr để ra cùng số đơn.",
+          "Gỡ đánh giá chỉ là chữa cháy. Lỗi nào lặp lại thì phải sửa ở kho, ở đóng gói. Không mua đánh giá, không ép khách sửa: khách mới đọc vẫn nhận ra."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Để đánh giá xấu nằm vài tuần mới liên hệ, khách đã không còn muốn nói chuyện.",
+      "Cãi tay đôi với khách ngay dưới đánh giá, khách mới đọc thấy còn tệ hơn.",
+      "Chỉ gỡ đánh giá mà không sửa lỗi gốc, tháng sau 1 sao lại về."
+    ],
+    "quote": {
+      "text": "Chỉ cần 1 khách không vui sẽ biến thành review 1 sao.",
+      "source": "Ecom Truyền Kỳ · Chương 3: 2023-2025: Thanh lọc để Chuẩn chỉ"
+    },
+    "remember": "1 sao đầu trang làm đắt cả ngân sách Ads. Liên hệ ngay, đền đúng lỗi, sửa tận gốc."
+  },
+  "vn_ops_first_attempt_delivery": {
+    "subtitle": "Bao nhiêu đơn giao được ngay lần đầu",
+    "intro": [
+      "**Tỷ lệ giao thành công lần đầu là phần trăm đơn shipper giao được ngay lần đi giao đầu tiên.** Ví dụ: 3.000 đơn đi giao, 2.400 đơn khách nhận ngay thì tỷ lệ = 80%.",
+      "Đơn không giao được lần đầu phải hẹn lần 2, lần 3. Mỗi lần hẹn là khách thêm thời gian nghĩ lại, đổi ý, mua chỗ khác. Vậy nên rớt lần đầu là con đường ngắn nhất dẫn tới bom hàng."
+    ],
+    "tree": {
+      "title": "Tỷ lệ giao lần đầu được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này tăng thì số điện thoại, địa chỉ phải đúng, và khách phải biết trước hôm nay hàng tới.",
+      "expr": {
+        "label": "Giao thành công lần đầu",
+        "eq": [
+          {
+            "label": "Đơn khách nhận ngay lần 1",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Tổng đơn đi giao"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "3.000 đơn, giao lần đầu được 80%",
+      "chart": {
+        "type": "bars",
+        "unit": "đơn",
+        "items": [
+          [
+            "Nhận ngay lần 1",
+            2400,
+            "keep"
+          ],
+          [
+            "Rớt lần 1, nhận ở lần 2–3",
+            360
+          ],
+          [
+            "Rớt lần 1, cuối cùng hoàn",
+            240,
+            "loss"
+          ]
+        ]
+      },
+      "after": "Giả sử 600 đơn rớt lần đầu thì 40% thành hoàn: **240 đơn quay đầu, RTO 8%**. Gần như toàn bộ đơn hoàn đến từ nhóm không giao được lần đầu."
+    },
+    "sections": [
+      {
+        "title": "Kéo tỷ lệ giao lần đầu lên thì được gì?",
+        "chart": {
+          "type": "compare",
+          "unit": "đơn",
+          "labels": [
+            "Lần đầu 80%",
+            "Lần đầu 90%"
+          ],
+          "items": [
+            [
+              "Đơn rớt lần đầu",
+              600,
+              300
+            ],
+            [
+              "Đơn hoàn",
+              240,
+              120
+            ]
+          ]
+        },
+        "body": [
+          "Lên 90% thì chỉ còn 300 đơn rớt, đơn hoàn còn 120, RTO về 4%. Với chi phí 60k mỗi đơn hoàn, mỗi tháng giữ lại **7,2tr**.",
+          "Cách làm: kiểm số điện thoại, địa chỉ ngay lúc xác nhận đơn. Nhắn khách khi hàng sắp tới. Ghi chú giờ khách tiện nhận cho shipper. Việc nhỏ nhưng đánh thẳng vào bom hàng."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nghĩ giao lần 2, lần 3 vẫn được nên không đo lần đầu.",
+      "Không kiểm số điện thoại, địa chỉ lúc xác nhận đơn.",
+      "Đổ hết lỗi cho shipper, không xem khách có được báo trước hay không."
+    ],
+    "quote": {
+      "text": "Vì Ecom cần nhanh, chính xác, chăm sóc và thu hộ nên shipper không khác gì 1 sale kiêm Cskh kiêm thủ quỹ của công ty.",
+      "source": "Ecom Truyền Kỳ · Shipper - từ xe ôm công nghệ tới nhà khai phá con đường tơ lụa"
+    },
+    "remember": "Đơn rớt lần đầu là đơn dễ thành hoàn nhất. Giao được ngay lần 1 là chặn bom hàng từ gốc."
+  },
+  "vn_ops_click_to_door": {
+    "subtitle": "Khách bấm đặt bao lâu thì nhận hàng",
+    "intro": [
+      "**Click-to-Door là số ngày trung bình từ lúc khách bấm đặt đến lúc nhận được hàng.** Ví dụ: khách đặt thứ Hai, thứ Sáu mới nhận thì Click-to-Door là 4 ngày.",
+      "Giao càng lâu, khách càng nguội. Với đơn COD, khách chưa trả đồng nào nên đổi ý rất dễ: thấy chỗ khác rẻ hơn, hoặc quên mất mình đã đặt. Vậy nên mỗi ngày chậm là thêm rủi ro bom hàng."
+    ],
+    "tree": {
+      "title": "Click-to-Door gồm những khúc nào",
+      "note": "Khúc vận chuyển phụ thuộc đơn vị giao và khoảng cách. Khúc trong kho thì shop tự sửa được ngay.",
+      "expr": {
+        "label": "Click-to-Door",
+        "eq": [
+          {
+            "label": "Chờ xác nhận",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Chờ đóng gói, bàn giao",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Vận chuyển",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Kho Hà Nội gửi khách Sài Gòn: 4,5 ngày",
+      "chart": {
+        "type": "bars",
+        "unit": "ngày",
+        "items": [
+          [
+            "Chờ xác nhận",
+            0.5
+          ],
+          [
+            "Chờ đóng gói, bàn giao",
+            1,
+            "focus"
+          ],
+          [
+            "Vận chuyển liên tỉnh",
+            3
+          ]
+        ]
+      },
+      "after": "1,5 ngày đầu nằm hoàn toàn trong tay shop. **Xác nhận và đóng ngay trong ngày** là Click-to-Door còn khoảng 3 ngày mà không tốn thêm đồng nào."
+    },
+    "sections": [
+      {
+        "title": "Làm sao rút ngắn Click-to-Door?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Xác nhận ngay",
+              "Nhắn tự động khi có đơn, không chờ gọi cuối ngày"
+            ],
+            [
+              "Đóng trước giờ cắt",
+              "Đơn về trước giờ lấy hàng thì đi ngay hôm đó"
+            ],
+            [
+              "Đặt hàng gần khách",
+              "Đơn nhiều ở miền nào thì cân nhắc kho ở miền đó"
+            ],
+            [
+              "So đơn vị giao",
+              "Đo số ngày thật theo từng tuyến, chọn bên nhanh hơn"
+            ]
+          ]
+        },
+        "body": [
+          "Đừng đo trung bình chung. Tách theo tuyến: nội thành, liên tỉnh, vùng xa. Tuyến nào vừa lâu vừa nhiều đơn hoàn thì sửa tuyến đó trước.",
+          "Khi khúc vận chuyển chưa rút được, ít nhất báo khách trước ngày dự kiến nhận. Khách biết hàng đang tới thì ít bỏ hơn."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đổ cho đơn vị vận chuyển, bỏ qua 1–2 ngày hàng nằm trong kho.",
+      "Đo trung bình chung, không tách theo tuyến nên không biết sửa ở đâu.",
+      "Không báo khách ngày nhận dự kiến, để khách tự chờ rồi nguội."
+    ],
+    "quote": {
+      "text": "Khách hàng đòi hỏi sản phẩm tốt trải nghiệm tuyệt chất lượng đỉnh nhưng giá phải rẻ giao hàng nhanh ưu đãi nhiều bảo hành lâu...",
+      "source": "Ecom Truyền Kỳ · 2025 có vị gì?"
+    },
+    "remember": "Mỗi ngày giao chậm là thêm một ngày khách đổi ý. Khúc trong kho thì sửa được ngay hôm nay."
+  },
+  "vn_ops_sla_breach": {
+    "subtitle": "Bao nhiêu đơn bàn giao trễ giờ sàn",
+    "intro": [
+      "**SLA Breach là phần trăm đơn bàn giao cho vận chuyển trễ hơn giờ sàn quy định.** Ví dụ: một ngày 400 đơn, 40 đơn bàn giao trễ thì SLA Breach = 10%.",
+      "Trễ không chỉ làm khách chờ lâu. Sàn tính điểm phạt vận hành, rớt nhãn giao nhanh, giảm hiển thị. Tiền phạt và lượt hiển thị mất đi là tiền mất oan hoàn toàn."
+    ],
+    "tree": {
+      "title": "Đơn trễ được tạo ra từ đâu",
+      "note": "Đơn trễ là phần kho không đóng kịp trước giờ cắt. Muốn giảm thì đóng sớm hơn hoặc đóng nhanh hơn: xem Năng suất đóng gói.",
+      "expr": {
+        "label": "SLA Breach",
+        "eq": [
+          {
+            "label": "Đơn bàn giao trễ",
+            "dir": "down",
+            "eq": [
+              {
+                "label": "Đơn phải giao trước giờ cắt"
+              },
+              "−",
+              {
+                "label": "Đơn kho đóng kịp",
+                "dir": "up"
+              }
+            ]
+          },
+          "÷",
+          {
+            "label": "Tổng đơn"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "400 đơn/ngày, 3 người đóng, mỗi người 20 đơn/giờ",
+      "chart": {
+        "type": "compare",
+        "unit": "đơn",
+        "labels": [
+          "Bắt đầu đóng 11h",
+          "Bắt đầu đóng 9h"
+        ],
+        "items": [
+          [
+            "Đóng kịp trước giờ cắt 17h",
+            360,
+            400
+          ],
+          [
+            "Bàn giao trễ",
+            40,
+            0
+          ]
+        ]
+      },
+      "after": "3 người × 20 đơn/giờ × 6 tiếng = 360 đơn, trễ 40 đơn (10%). Không cần tuyển thêm: **bắt đầu đóng từ 9h** là đủ sức 480 đơn."
+    },
+    "sections": [
+      {
+        "title": "Làm sao giữ SLA Breach gần 0?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Chia đợt",
+              "Đóng 2–3 đợt trong ngày, không dồn một lượt cuối ngày"
+            ],
+            [
+              "Đóng đơn gấp trước",
+              "Xếp đơn theo giờ cắt của từng sàn"
+            ],
+            [
+              "Quét mã vạch",
+              "Đóng nhanh mà không nhầm"
+            ],
+            [
+              "Báo động sớm",
+              "1 tiếng trước giờ cắt còn bao nhiêu đơn chưa đóng"
+            ]
+          ]
+        },
+        "body": [
+          "Ngày sale, đơn có thể gấp 3–5 lần ngày thường. Tính trước sức đóng của kho: số người × đơn mỗi giờ × số giờ. Thiếu thì thuê thời vụ hoặc bắt đầu sớm hơn, đừng đợi trễ rồi mới chữa.",
+          "Theo sách Ecom Truyền Kỳ, ở mức 10k đơn/ngày, huỷ hoàn do không đóng kịp tầm 5% là mất vài chục triệu mỗi ngày."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Dồn hết đơn đóng một lượt cuối ngày.",
+      "Không biết giờ cắt đơn của từng sàn, từng đơn vị vận chuyển.",
+      "Ngày sale vẫn giữ nguyên người và giờ làm như ngày thường."
+    ],
+    "quote": {
+      "text": "Tỉ lệ huỷ hoàn do không đóng kịp tầm 5% là mất toi vài chục triệu/ ngày",
+      "source": "Ecom Truyền Kỳ · Vận hành vài chục ngàn --> trăm ngàn đơn/ ngày có lãi như thế nào"
+    },
+    "remember": "Đơn trễ giờ sàn là tiền phạt và hiển thị mất oan. Tính sức đóng của kho trước giờ cắt."
+  },
+  "vn_ops_transit_damage": {
+    "subtitle": "Bao nhiêu kiện vỡ, ướt, mất trên đường",
+    "intro": [
+      "**Tỷ lệ hư hỏng, thất lạc là phần trăm kiện hàng bị vỡ, ướt hoặc mất trên đường giao.** Ví dụ: gửi 3.000 đơn đèn gốm, 60 kiện vỡ hoặc mất thì tỷ lệ = 2%.",
+      "Mỗi kiện hỏng là mất trắng tiền hàng, tiền ship, rồi còn phải gửi bù đơn mới. Nếu không có video đóng gói thì gần như không khiếu nại được, thất thoát này shop tự gánh hết."
+    ],
+    "tree": {
+      "title": "Tỷ lệ hư hỏng, thất lạc được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này giảm thì đóng gói chắc hơn, chọn đơn vị vận chuyển hợp với loại hàng, và quay video đóng gói để đòi bồi thường.",
+      "expr": {
+        "label": "Tỷ lệ hư hỏng, thất lạc",
+        "eq": [
+          "(",
+          {
+            "label": "Kiện vỡ, ướt",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Kiện thất lạc",
+            "dir": "down"
+          },
+          ")",
+          "÷",
+          {
+            "label": "Tổng đơn xuất"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Bóc 1 kiện đèn gốm bị vỡ",
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Giá vốn món hàng",
+            250,
+            "loss"
+          ],
+          [
+            "Ship lượt đầu",
+            30
+          ],
+          [
+            "Ship gửi bù đơn mới",
+            30,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Một kiện vỡ mất **310k**. 60 kiện mỗi tháng là **18,6tr** thất thoát, chưa kể khách bực mình để lại đánh giá xấu."
+    },
+    "sections": [
+      {
+        "title": "Có đáng bỏ thêm tiền đóng gói?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Đóng gói thường (2%)",
+            "Gia cố + video (0,5%)"
+          ],
+          "items": [
+            [
+              "Mất do hư hỏng, thất lạc",
+              18.6,
+              4.65
+            ],
+            [
+              "Tiền gia cố thêm (1,5k/đơn)",
+              0,
+              4.5
+            ]
+          ]
+        },
+        "body": [
+          "Gia cố chống sốc tốn thêm 1,5k/đơn, tức 4,5tr cho 3.000 đơn. Tỷ lệ vỡ, mất về 0,5% thì còn 15 kiện, mất 4,65tr. Tổng **9,15tr thay vì 18,6tr**.",
+          "Quay video lúc đóng gói để có bằng chứng khi khiếu nại bưu cục hoặc sàn. Hàng dễ vỡ thì đo tỷ lệ này theo từng đơn vị vận chuyển, bên nào vỡ nhiều thì đổi."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Không quay video đóng gói nên không đòi được bồi thường.",
+      "Tiết kiệm xốp chống sốc cho hàng dễ vỡ.",
+      "Chỉ tính tiền hàng hỏng, quên tiền ship gửi bù và đánh giá xấu."
+    ],
+    "quote": {
+      "text": "Tỉ lệ thất thoát 2% thì 200 đơn/ ngày nhân với giá vốn 50k/ đơn là mất toi 10tr/ ngày",
+      "source": "Ecom Truyền Kỳ · Vận hành vài chục ngàn --> trăm ngàn đơn/ ngày có lãi như thế nào"
+    },
+    "remember": "Kiện hỏng là mất trắng hàng, ship và cả ship gửi bù. Đóng chắc và quay video là rẻ nhất."
+  },
+  "vn_ops_warehouse_cost_per_order": {
+    "subtitle": "Mỗi đơn gánh bao nhiêu tiền kho",
+    "intro": [
+      "**Chi phí kho trên đơn là tiền thuê kho, điện nước, lương thủ kho và người đóng gói, chia cho số đơn xuất trong tháng.** Ví dụ: kho tốn 42tr/tháng, xuất 3.000 đơn thì mỗi đơn gánh 14k.",
+      "Đây là chi phí cố định. Đơn nhiều thì mỗi đơn gánh nhẹ, đơn ít thì gánh rất nặng. Nhiều anh em thuê kho to, tuyển đủ người trước, rồi đơn không lên kịp: mỗi đơn gánh gấp đôi, gấp ba."
+    ],
+    "tree": {
+      "title": "Chi phí kho trên đơn được tạo ra từ đâu",
+      "note": "Muốn chi phí này giảm thì tăng số đơn xuất mà không tăng kho, tăng người: sắp lại kho, tăng năng suất đóng gói.",
+      "expr": {
+        "label": "Chi phí kho / đơn",
+        "eq": [
+          "(",
+          {
+            "label": "Thuê kho",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Điện nước",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Lương thủ kho, đóng gói",
+            "dir": "down"
+          },
+          ")",
+          "÷",
+          {
+            "label": "Số đơn xuất",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Kho 42tr/tháng gồm những gì",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Thuê kho",
+            15
+          ],
+          [
+            "Điện nước",
+            3
+          ],
+          [
+            "Lương 3 người kho",
+            24,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Lương là khoản lớn nhất, hơn nửa chi phí kho. Vậy nên **năng suất mỗi người** quyết định chi phí kho trên đơn nhiều hơn tiền thuê."
+    },
+    "sections": [
+      {
+        "title": "Đơn tăng thì mỗi đơn gánh bao nhiêu?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Đơn xuất/tháng",
+          "unit": "k",
+          "points": [
+            [
+              1000,
+              42.0
+            ],
+            [
+              1500,
+              28.0
+            ],
+            [
+              2000,
+              21.0
+            ],
+            [
+              2500,
+              16.8
+            ],
+            [
+              3000,
+              14.0
+            ],
+            [
+              4000,
+              10.5
+            ],
+            [
+              5000,
+              8.4
+            ],
+            [
+              6000,
+              7.0
+            ]
+          ],
+          "now": {
+            "x": 3000,
+            "label": "Đang 3.000 đơn: 14k/đơn"
+          }
+        },
+        "body": [
+          "Giữ nguyên kho và 3 người: 1.500 đơn thì mỗi đơn gánh 28k, 6.000 đơn chỉ còn 7k. Cùng một cái kho, chi phí trên đơn chênh nhau 4 lần.",
+          "Đơn 250k mà kho ăn 14k là 5,6% doanh thu. Theo sách Ecom Truyền Kỳ, cả logistics nên dưới 11% doanh thu. Kho đã chiếm một nửa, phần còn lại cho giao vận rất mỏng."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Thuê kho to, tuyển đủ người trước khi đơn tăng.",
+      "Chỉ nhìn tiền thuê mặt bằng, bỏ qua lương kho là khoản lớn nhất.",
+      "Không chia ra từng đơn nên không biết kho đang ăn bao nhiêu % doanh thu."
+    ],
+    "quote": {
+      "text": "Giảm chi phí logistics: vận hành kho tối ưu hơn và tìm kiếm đối tác giao vận hiệu suất hơn",
+      "source": "Ecom Truyền Kỳ · Kiểm soát và Tối ưu Dòng tiền"
+    },
+    "remember": "Chi phí kho là cố định. Tăng đơn mà không tăng kho, tăng người thì mỗi đơn gánh nhẹ đi."
+  },
+  "vn_team_gp_per_staff": {
+    "subtitle": "Mỗi người trong công ty làm ra bao nhiêu lãi gộp",
+    "intro": [
+      "**Lãi gộp/nhân sự là lãi gộp sau giá vốn (CM1) chia cho tổng nhân sự toàn công ty.** Ví dụ: shop 12 người, doanh thu 1,2 tỷ/tháng, CM1 480tr. Vậy mỗi người làm ra 40tr lãi gộp.",
+      "Công ty đông người nhìn thì hoành tráng. Nhưng lương, văn phòng, bảo hiểm đều phải trả từ chỗ lãi gộp này. Tuyển thêm người mà chỉ số này **đi xuống** là bộ máy đang phình, chưa phải đang lớn."
+    ],
+    "tree": {
+      "title": "Lãi gộp/nhân sự được tạo ra từ đâu",
+      "note": "Muốn chỉ số này tăng thì CM1 phải tăng nhanh hơn số người. Bấm vào CM1 để xem nó đến từ đâu.",
+      "expr": {
+        "label": "Lãi gộp/nhân sự",
+        "eq": [
+          {
+            "id": "vn_fin_cm1",
+            "label": "CM1",
+            "dir": "up",
+            "eq": [
+              {
+                "id": "vn_fin_net_sales",
+                "label": "Doanh thu thực thu",
+                "dir": "up"
+              },
+              "−",
+              {
+                "label": "Giá vốn (Cogs)",
+                "dir": "down"
+              }
+            ]
+          },
+          "÷",
+          {
+            "label": "Tổng nhân sự"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "CM1 giữ 480tr, tuyển thêm người thì sao",
+      "chart": {
+        "type": "line",
+        "xLabel": "Số nhân sự",
+        "unit": "tr",
+        "points": [
+          [
+            10,
+            48.0
+          ],
+          [
+            11,
+            43.6
+          ],
+          [
+            12,
+            40.0
+          ],
+          [
+            13,
+            36.9
+          ],
+          [
+            14,
+            34.3
+          ],
+          [
+            15,
+            32.0
+          ],
+          [
+            16,
+            30.0
+          ],
+          [
+            17,
+            28.2
+          ],
+          [
+            18,
+            26.7
+          ],
+          [
+            19,
+            25.3
+          ],
+          [
+            20,
+            24.0
+          ]
+        ],
+        "threshold": {
+          "x": 17,
+          "label": "Tuyển thêm 5: còn 28,2tr/người"
+        },
+        "now": {
+          "x": 12,
+          "label": "12 người: 40tr/người"
+        }
+      },
+      "after": "Tuyển 5 người mà doanh thu chưa kịp tăng thì mỗi người chỉ còn 28,2tr. **Quỹ lương tăng ngay, doanh thu thì chưa chắc.**"
+    },
+    "sections": [
+      {
+        "title": "Khi nào thì nên tuyển thêm người?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Lãi gộp/người tăng",
+            "Lãi gộp/người giảm"
+          ],
+          "y": [
+            "Doanh thu tăng",
+            "Doanh thu đứng"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Tuyển được",
+                "text": "Người mới đang tạo ra tiền.",
+                "tone": "good"
+              },
+              {
+                "title": "Bộ máy phình",
+                "text": "Doanh thu lên nhưng người tăng nhanh hơn.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Tinh gọn",
+                "text": "Giữ người, tìm thêm kênh bán.",
+                "tone": "mid"
+              },
+              {
+                "title": "Báo động",
+                "text": "Dừng tuyển, rà lại từng vị trí.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Playbook 04: shop trên định tuyển thêm 5 người. Thay vào đó vá 3 lỗ hổng chat, kho, tồn kho. Doanh thu lên 1,65 tỷ với đúng 12 người, CM1 660tr, mỗi người **55tr**.",
+          "Mốc tham khảo: 1 sale lương 10tr thì nên đem về ít nhất 100tr doanh thu (tương ứng 50tr lãi gộp), theo sách Ecom Truyền Kỳ. Playbook 10 dùng luật: chỉ mở tuyển khi lãi gộp/nhân sự gấp 3,5–4 lần lương trung bình của vị trí đó."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nghĩ công ty đông người mới chuyên nghiệp.",
+      "Tuyển thêm người khi quy trình còn lộn xộn, nhân bản luôn sự kém hiệu quả.",
+      "Chỉ đếm nhân sự bộ phận bán hàng, bỏ quên kho, kế toán, admin."
+    ],
+    "quote": {
+      "text": "Như vậy không phải cứ đông nhân sự sẽ ngon. Vì công ty càng đông, càng phát sinh những người không rõ vai trò, hoặc những người không tạo ra doanh thu",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "Chỉ tuyển thêm khi lãi gộp mỗi người còn đang tăng. Giảm là bộ máy đang phình."
+  },
+  "vn_team_live_gpm": {
+    "subtitle": "Mỗi 1.000 lượt xem ra bao nhiêu tiền",
+    "intro": [
+      "**GPM là doanh thu tạo ra trên mỗi 1.000 lượt xem phiên Live hoặc video.** Ví dụ: phiên Live 20.000 lượt xem, ra 30tr GMV. GPM = 30tr ÷ 20.000 × 1.000 = 1,5tr.",
+      "Phiên đông người xem chưa chắc ra tiền. GPM bỏ qua chuyện to hay nhỏ, chỉ hỏi: **mỗi 1.000 người xem ra bao nhiêu tiền**. Nhờ vậy mới so được host với host, phiên với phiên, video với video."
+    ],
+    "tree": {
+      "title": "GPM được tạo ra từ đâu",
+      "note": "Muốn GPM tăng thì người xem phải bấm giỏ nhiều hơn, bấm rồi phải đặt hàng, và mỗi đơn phải to hơn (AOV).",
+      "expr": {
+        "label": "GPM",
+        "eq": [
+          "1.000 ×",
+          {
+            "id": "vn_team_live_cart_ctr",
+            "label": "Tỷ lệ bấm giỏ",
+            "dir": "up"
+          },
+          "×",
+          {
+            "label": "Tỷ lệ đặt sau khi bấm giỏ",
+            "dir": "up"
+          },
+          "×",
+          {
+            "id": "vn_sales_aov",
+            "label": "AOV",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Phiên 20.000 lượt xem ra 30tr",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Lượt xem",
+            20000
+          ],
+          [
+            "Bấm giỏ (5%)",
+            1000
+          ],
+          [
+            "Đặt hàng (12%)",
+            120
+          ]
+        ]
+      },
+      "after": "120 đơn × AOV 250k = 30tr. Tính ngược: 1.000 × 5% × 12% × 250k = **1,5tr cho mỗi 1.000 lượt xem**. Muốn kéo GPM, sửa từng tầng của phễu này."
+    },
+    "sections": [
+      {
+        "title": "Dùng GPM để so host thế nào?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Host A (40.000 xem)",
+            "Host B (15.000 xem)"
+          ],
+          "items": [
+            [
+              "GMV phiên",
+              40,
+              33
+            ],
+            [
+              "GPM",
+              1.0,
+              2.2
+            ]
+          ]
+        },
+        "body": [
+          "Host A kéo được nhiều người xem hơn gần 3 lần, GMV cao hơn. Nhưng mỗi 1.000 lượt xem, host B ra 2,2tr, host A chỉ 1tr. **Host B bán giỏi hơn**, host A giỏi giữ chân người xem.",
+          "Vậy nên đưa host B vào khung giờ đông người, còn host A thì tập lại phần chốt. Lượt xem có thể mua bằng Ads mồi, nhưng GPM thấp thì Ads mồi càng nhiều càng lỗ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "So GPM giữa hai sản phẩm giá chênh nhau quá xa, rồi kết luận host này giỏi hơn host kia.",
+      "Tính GPM bằng GMV gồm cả đơn sau này huỷ, hoàn.",
+      "Chỉ nhìn lượt xem phiên Live mà không chia ra tiền."
+    ],
+    "remember": "Đông người xem chưa chắc ra tiền. So host, so phiên bằng GPM."
+  },
+  "vn_team_live_cart_ctr": {
+    "subtitle": "Người xem Live có bấm vào giỏ không",
+    "intro": [
+      "**Tỷ lệ bấm giỏ Live là số lượt bấm vào giỏ hàng ghim chia cho số lượt xem phiên.** Ví dụ: phiên 10.000 lượt xem, có 300 lượt bấm giỏ thì tỷ lệ là 3%.",
+      "Người xem đông mà ít bấm giỏ là host đang **giải trí chứ chưa bán hàng**. Khách vui, ở lại xem lâu, nhưng không ai mở giỏ thì không ra đơn. Chỉ số này đo khả năng kêu gọi hành động (CTA) của host."
+    ],
+    "tree": {
+      "title": "Tỷ lệ bấm giỏ được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này tăng thì mỗi đoạn trong phiên phải có lý do để khách bấm giỏ: giá, quà, số lượng có hạn.",
+      "expr": {
+        "label": "Tỷ lệ bấm giỏ",
+        "eq": [
+          {
+            "label": "Lượt bấm giỏ ghim",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Lượt xem phiên"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Phiên 10.000 lượt xem, 300 lượt bấm giỏ (3%)",
+      "chart": {
+        "type": "bars",
+        "unit": "%",
+        "items": [
+          [
+            "Giao lưu, kể chuyện (5.000 xem)",
+            1.0
+          ],
+          [
+            "Demo sản phẩm (3.000 xem)",
+            4.0
+          ],
+          [
+            "Ghim giỏ + chốt ưu đãi (2.000 xem)",
+            6.5,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Đoạn giao lưu chiếm nửa phiên mà chỉ ra 50 lượt bấm. Đoạn chốt ưu đãi chỉ 2.000 xem mà ra 130. **Host nói chuyện vui chưa đủ, phải kêu khách bấm.**"
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo tỷ lệ bấm giỏ?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Ghim đúng lúc",
+              "Ghim sản phẩm ngay khi đang demo, không để tới cuối phiên."
+            ],
+            [
+              "Nói giá và lý do",
+              "Nói rõ giá, quà, vì sao mua hôm nay rẻ hơn."
+            ],
+            [
+              "Đếm ngược",
+              "Ưu đãi có thời hạn, có số lượng, đọc to còn bao nhiêu suất."
+            ],
+            [
+              "Chỉ đường",
+              "Nhắc khách bấm giỏ số mấy, chọn phân loại nào."
+            ]
+          ]
+        },
+        "body": [
+          "Cùng 10.000 lượt xem, khách bấm giỏ xong đặt 12%, AOV 250k. Bấm giỏ 3% thì ra 36 đơn, 9tr. Lên 6% là 72 đơn, **18tr, gấp đôi mà không cần thêm người xem**.",
+          "Tỷ lệ bấm giỏ kéo thẳng GPM. Vậy nên khi chấm host, đừng chỉ nhìn họ giữ chân người xem được bao lâu."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chấm host bằng số người xem, thời gian xem, không nhìn số lượt bấm giỏ.",
+      "Ghim giỏ từ đầu tới cuối phiên mà host không hề nhắc khách bấm.",
+      "Bấm giỏ cao nhưng đơn ít mà không soi lại giá, phân loại, ưu đãi trong giỏ."
+    ],
+    "remember": "Người xem không bấm giỏ thì không có đơn. Host phải kêu khách bấm."
+  },
+  "vn_team_creative_win_rate": {
+    "subtitle": "Bao nhiêu video làm ra thì thắng",
+    "intro": [
+      "**Creative Win Rate là số video Ads mới đạt ROAS mục tiêu chia cho tổng số video team làm ra.** Ví dụ: team làm 40 video trong tháng, 6 video chạy test đạt ROAS mục tiêu thì win rate = 15%.",
+      "Video thắng là thứ giữ cho tài khoản Ads scale được, vì video cũ sẽ mòn dần. Làm nhiều mà ít video thắng là đang **đốt tiền sản xuất và tiền test**. Chỉ số này đo năng lực thật của đội content."
+    ],
+    "tree": {
+      "title": "Creative Win Rate được tạo ra từ đâu",
+      "note": "Muốn win rate tăng thì phải có nhiều video đạt ROAS hơn trên cùng số video làm ra. Thường bắt đầu từ 3 giây đầu (Hook rate).",
+      "expr": {
+        "label": "Creative Win Rate",
+        "eq": [
+          {
+            "label": "Video đạt ROAS mục tiêu",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Tổng video làm ra"
+          },
+          "× 100%"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "40 video trong tháng, 6 video thắng",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Video làm ra",
+            40
+          ],
+          [
+            "Giữ được 3 giây đầu",
+            18
+          ],
+          [
+            "Đạt ROAS mục tiêu",
+            6
+          ]
+        ]
+      },
+      "after": "Mỗi video tốn 500k sản xuất + 1tr test, 40 video là 60tr. Chia cho 6 video thắng, **mỗi video thắng tốn 10tr**. Hơn nửa số video rơi ngay ở 3 giây đầu."
+    },
+    "sections": [
+      {
+        "title": "Làm sao tăng tỷ lệ video thắng?",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Làm nhiều video",
+            "Làm ít video"
+          ],
+          "y": [
+            "Win rate cao",
+            "Win rate thấp"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Cỗ máy creative",
+                "text": "Đủ video thắng để scale.",
+                "tone": "good"
+              },
+              {
+                "title": "Ít mà chất",
+                "text": "Tăng số lượng bằng template, AI.",
+                "tone": "mid"
+              }
+            ],
+            [
+              {
+                "title": "Đốt tiền sản xuất",
+                "text": "Sửa 3 giây đầu trước khi làm thêm.",
+                "tone": "mid"
+              },
+              {
+                "title": "Đoán mò",
+                "text": "Học lại từ video đã thắng.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Cùng 40 video, kéo win rate lên 25% là 10 video thắng, mỗi video thắng còn 6tr. Cách làm: lấy video đã thắng, giữ thông điệp, thay 3 giây đầu, thay người nói, thay bối cảnh.",
+          "Playbook 07: CTR dưới 1,5% thì sửa 3 giây đầu video; CTR cao mà CPA đắt thì sửa trang bán hàng và kịch bản chốt, đừng đổ lỗi cho video."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Đếm số video làm ra để thưởng team content, không đếm video thắng.",
+      "Test mỗi video vài trăm nghìn rồi kết luận thua quá sớm.",
+      "Video thua không ghi lại lý do, tháng sau lặp lại đúng lỗi đó."
+    ],
+    "quote": {
+      "text": "làm video vít ads trước đây cần 3 người: video editor, content, ads thì bây giờ cần 1 người + 3 tool AI, mà hiệu suất gấp mấy lần",
+      "source": "Ecom Truyền Kỳ · 96-97-98 Chinh phục biển lớn"
+    },
+    "remember": "Thưởng team content theo video thắng, không theo số video làm ra."
+  },
+  "vn_team_rev_per_media_buyer": {
+    "subtitle": "Mỗi người chạy Ads mang về bao nhiêu doanh thu",
+    "intro": [
+      "**Doanh thu/Media Buyer là doanh thu từ quảng cáo trong tháng chia cho số người trực tiếp cầm tài khoản Ads.** Ví dụ: 3 media buyer, cả tháng Ads ra 1,8 tỷ doanh thu. Mỗi người mang về 600tr.",
+      "Chỉ số này dùng để biết đội Ads có đang full việc không, trước khi tuyển thêm. Nhưng doanh thu không phải lãi. Người ra doanh thu to nhất **chưa chắc là người mang về nhiều tiền nhất**."
+    ],
+    "tree": {
+      "title": "Doanh thu/Media Buyer được tạo ra từ đâu",
+      "note": "Muốn chỉ số này tăng thì mỗi người phải cầm được ngân sách to hơn mà ROAS không tụt.",
+      "expr": {
+        "label": "Doanh thu/Media Buyer",
+        "eq": [
+          {
+            "label": "Doanh thu từ Ads",
+            "dir": "up",
+            "eq": [
+              {
+                "label": "Ngân sách Ads"
+              },
+              "×",
+              {
+                "label": "ROAS",
+                "dir": "up"
+              }
+            ]
+          },
+          "÷",
+          {
+            "label": "Số media buyer"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "3 buyer, 1,8 tỷ doanh thu, còn 45% trước Ads",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Doanh thu từ Ads",
+          "Lãi sau Ads"
+        ],
+        "items": [
+          [
+            "Buyer A (ROAS 2,5)",
+            800,
+            40.0
+          ],
+          [
+            "Buyer B (ROAS 4)",
+            600,
+            120.0
+          ],
+          [
+            "Buyer C (ROAS 3,2)",
+            400,
+            55.0
+          ]
+        ]
+      },
+      "after": "Buyer A ra doanh thu to nhất nhưng vít ở ROAS 2,5, chỉ còn 40tr. **Buyer B ra ít hơn mà lãi gấp 3.** Chấm theo doanh thu là thưởng nhầm người."
+    },
+    "sections": [
+      {
+        "title": "Khi nào nên tuyển thêm media buyer?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo từng người",
+              "Tách doanh thu và lãi sau Ads theo từng buyer, từng tháng."
+            ],
+            [
+              "Thử tăng ngân sách",
+              "Tăng ngân sách cho người giỏi nhất, xem ROAS còn giữ không."
+            ],
+            [
+              "Kiểm video thắng",
+              "Đủ video thắng để chạy chưa, hay buyer đang ngồi chờ creative."
+            ],
+            [
+              "Rồi mới tuyển",
+              "Người hiện tại full việc mà vẫn có lãi thì tuyển thêm."
+            ]
+          ]
+        },
+        "body": [
+          "Mô hình Ads có cái hay: người không cần tăng theo doanh số. Theo sách Ecom Truyền Kỳ, bán Amazon thì chỉ cần 3 người, tổng chi phí 50tr/ tháng, dù doanh số to hay nhỏ, vì chỉ cần tăng ngân sách Ads là doanh số tăng.",
+          "Vậy nên thu nhập buyer nên gắn với lãi sau Ads (CM3), không gắn với doanh thu. Playbook 10 cũng chỉ ra sai lầm: trả lương cứng quá cao cho người chạy Ads thay vì gắn thu nhập với CM3."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Thưởng buyer theo doanh thu, khuyến khích vít ngân sách bất chấp ROAS.",
+      "Tuyển thêm buyer khi người cũ còn đang ngồi chờ video mới để chạy.",
+      "Tính cả doanh thu tự nhiên (không qua Ads) vào doanh thu của buyer."
+    ],
+    "quote": {
+      "text": "Vì thế các team đều gọn nhưng doanh số có thể tăng đột biến. Cái nhức đầu nhất là dòng tiền: doanh số tăng đồng nghĩa với tiền Ads tăng, nên lợi nhuận sẽ nằm ở việc dùng đòn bẩy",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "Doanh thu mỗi buyer cho biết đội Ads có full việc không. Lãi sau Ads mới cho biết ai giỏi."
   }
 }
