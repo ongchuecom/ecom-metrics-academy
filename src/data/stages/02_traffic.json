@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_mkt_ctr",
+    "slug": "ctr",
     "code": "CTR",
     "pack_code": "TY_LE_NHAP_QUANG_CAO_CTR",
     "name": "",
@@ -115,6 +116,7 @@
   },
   {
     "metric_id": "vn_mkt_hook_rate",
+    "slug": "hook-rate",
     "code": "Hook Rate",
     "pack_code": "TY_LE_GIU_CHAN_3S_DAU",
     "name": "",
@@ -143,6 +145,7 @@
   },
   {
     "metric_id": "vn_mkt_organic_vs_paid",
+    "slug": "doanh-thu-tu-nhien",
     "code": "Doanh thu tự nhiên",
     "pack_code": "TY_LE_DOANH_THU_TU_NHIEN",
     "name": "",

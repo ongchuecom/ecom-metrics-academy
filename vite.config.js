@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: './',
+  base: '/ecom-metrics-academy/',
   build: { rollupOptions: { output: { manualChunks: { katex: ['katex'], react: ['react', 'react-dom'] } } } },
 })

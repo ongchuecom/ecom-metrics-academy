@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_ops_rto_rate",
+    "slug": "rto",
     "code": "RTO",
     "pack_code": "TY_LE_HOAN_HANG",
     "name": "",
@@ -121,6 +122,7 @@
   },
   {
     "metric_id": "vn_ops_cancel_rate",
+    "slug": "ty-le-huy-don",
     "code": "Tỷ lệ huỷ đơn",
     "pack_code": "TY_LE_HUY_DON",
     "name": "",
@@ -155,6 +157,7 @@
   },
   {
     "metric_id": "vn_ops_cost_per_return",
+    "slug": "chi-phi-1-don-hoan",
     "code": "Chi phí 1 đơn hoàn",
     "pack_code": "CHI_PHI_1_DON_HOAN",
     "name": "",
@@ -190,6 +193,7 @@
   },
   {
     "metric_id": "vn_ops_cod_ratio",
+    "slug": "ty-le-cod",
     "code": "Tỷ lệ COD",
     "pack_code": "TY_LE_DON_COD",
     "name": "",
@@ -222,6 +226,7 @@
   },
   {
     "metric_id": "vn_ops_picking_error",
+    "slug": "ty-le-dong-nham",
     "code": "Tỷ lệ đóng nhầm",
     "pack_code": "TY_LE_DONG_NHAM",
     "name": "",
@@ -257,6 +262,7 @@
   },
   {
     "metric_id": "vn_ops_stockout_rate",
+    "slug": "ty-le-dut-hang",
     "code": "Tỷ lệ đứt hàng",
     "pack_code": "TY_LE_DUT_HANG",
     "name": "",
@@ -292,6 +298,7 @@
   },
   {
     "metric_id": "vn_ops_resellable_return",
+    "slug": "hang-hoan-ban-lai-duoc",
     "code": "Hàng hoàn bán lại được",
     "pack_code": "HANG_HOAN_BAN_LAI_DUOC",
     "name": "",
@@ -321,6 +328,7 @@
   },
   {
     "metric_id": "vn_ops_first_attempt_delivery",
+    "slug": "giao-thanh-cong-lan-dau",
     "code": "Giao thành công lần đầu",
     "pack_code": "GIAO_THANH_CONG_LAN_DAU",
     "name": "",
@@ -349,6 +357,7 @@
   },
   {
     "metric_id": "vn_ops_click_to_door",
+    "slug": "click-to-door",
     "code": "Click-to-Door",
     "pack_code": "THOI_GIAN_GIAO_TOI_KHACH",
     "name": "",
@@ -377,6 +386,7 @@
   },
   {
     "metric_id": "vn_ops_sla_breach",
+    "slug": "sla-breach",
     "code": "SLA Breach",
     "pack_code": "TY_LE_GIAO_TRE_HAN_SAN",
     "name": "",
@@ -411,6 +421,7 @@
   },
   {
     "metric_id": "vn_ops_transit_damage",
+    "slug": "hu-hong-that-lac",
     "code": "Hư hỏng, thất lạc",
     "pack_code": "HANG_HU_HONG_THAT_LAC",
     "name": "",
@@ -439,6 +450,7 @@
   },
   {
     "metric_id": "vn_ops_warehouse_cost_per_order",
+    "slug": "chi-phi-kho-don",
     "code": "Chi phí kho / đơn",
     "pack_code": "CHI_PHI_KHO_TREN_DON",
     "name": "",

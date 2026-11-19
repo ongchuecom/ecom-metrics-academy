@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_ret_repeat_rate",
+    "slug": "ty-le-mua-lai",
     "code": "Tỷ lệ mua lại",
     "pack_code": "TY_LE_MUA_LAI_LAN_2",
     "name": "",
@@ -36,6 +37,7 @@
   },
   {
     "metric_id": "vn_ret_clv",
+    "slug": "clv",
     "code": "CLV",
     "pack_code": "GIA_TRI_VONG_DOI_KHACH_HANG_CLV",
     "name": "",
@@ -168,6 +170,7 @@
   },
   {
     "metric_id": "vn_ret_bad_review_resolution",
+    "slug": "xu-ly-danh-gia-xau",
     "code": "Xử lý đánh giá xấu",
     "pack_code": "TY_LE_XU_LY_DANH_GIA_XAU",
     "name": "",

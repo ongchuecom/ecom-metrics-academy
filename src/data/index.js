@@ -34,3 +34,12 @@ export const BENCHMARK_LABELS = {
 export const playbooks = pbData.playbooks
 export const playbookById = Object.fromEntries(playbooks.map((p) => [p.playbook_id, p]))
 export const PACK_VERSION = pbData.version
+
+export const metricBySlug = Object.fromEntries(metricsMaster.map((m) => [m.slug, m]))
+export const playbookBySlug = Object.fromEntries(playbooks.map((p) => [p.slug, p]))
+
+// Lộ trình học từ đầu: đi từ tiền thật của 1 đơn tới dòng tiền
+export const LEARNING_PATH = [
+  'vn_fin_net_sales', 'vn_fin_cm1', 'vn_fin_platform_fee', 'vn_fin_cm2', 'vn_fin_breakeven_roas',
+  'vn_mkt_cpa', 'vn_sales_aov', 'vn_fin_cm3', 'vn_fin_net_profit', 'vn_fin_ccc',
+]

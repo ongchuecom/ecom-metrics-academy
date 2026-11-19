@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_prod_landed_cost",
+    "slug": "landed-cost",
     "code": "Landed Cost",
     "pack_code": "GIA_VON_VE_KHO",
     "name": "",
@@ -34,6 +35,7 @@
   },
   {
     "metric_id": "vn_prod_hero_sku",
+    "slug": "hero-sku",
     "code": "Hero SKU",
     "pack_code": "HANG_CHU_LUC",
     "name": "",
@@ -62,6 +64,7 @@
   },
   {
     "metric_id": "vn_ops_dio",
+    "slug": "dio",
     "code": "DIO",
     "pack_code": "VONG_QUAY_TON_KHO",
     "name": "",
@@ -165,6 +168,7 @@
   },
   {
     "metric_id": "vn_ops_dead_stock",
+    "slug": "dead-stock",
     "code": "Dead Stock",
     "pack_code": "HANG_TON_CHET",
     "name": "",
@@ -200,6 +204,7 @@
   },
   {
     "metric_id": "vn_prod_defect_rate",
+    "slug": "defect-rate",
     "code": "Defect Rate",
     "pack_code": "HANG_LOI_XUONG",
     "name": "",
@@ -226,6 +231,7 @@
   },
   {
     "metric_id": "vn_prod_packaging_cost",
+    "slug": "chi-phi-dong-goi",
     "code": "Chi phí đóng gói",
     "pack_code": "CHI_PHI_DONG_GOI",
     "name": "",
@@ -255,6 +261,7 @@
   },
   {
     "metric_id": "vn_prod_lead_time",
+    "slug": "lead-time",
     "code": "Lead Time",
     "pack_code": "THOI_GIAN_HANG_VE_KHO",
     "name": "",
@@ -283,6 +290,7 @@
   },
   {
     "metric_id": "vn_ops_reorder_point",
+    "slug": "diem-bao-nhap",
     "code": "Điểm báo nhập",
     "pack_code": "DIEM_BAO_NHAP_HANG",
     "name": "",
@@ -318,6 +326,7 @@
   },
   {
     "metric_id": "vn_fin_gmroi",
+    "slug": "gmroi",
     "code": "GMROI",
     "pack_code": "HE_SO_SINH_LOI_TON_KHO_GMROI",
     "name": "",

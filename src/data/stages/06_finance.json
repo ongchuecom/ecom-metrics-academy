@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_fin_net_sales",
+    "slug": "net-sales",
     "code": "Net Sales",
     "pack_code": "DOANH_THU_THUC_THU",
     "name": "",
@@ -40,6 +41,7 @@
   },
   {
     "metric_id": "vn_fin_platform_fee",
+    "slug": "phi-san",
     "code": "Phí sàn",
     "pack_code": "TONG_PHI_SAN",
     "name": "",
@@ -69,6 +71,7 @@
   },
   {
     "metric_id": "vn_fin_cm1",
+    "slug": "cm1",
     "code": "CM1",
     "pack_code": "LAI_GOP_CM1",
     "name": "",
@@ -108,6 +111,7 @@
   },
   {
     "metric_id": "vn_fin_cm2",
+    "slug": "cm2",
     "code": "CM2",
     "pack_code": "LAI_GOP_SAU_SAN_SHIP_CM2",
     "name": "",
@@ -156,6 +160,7 @@
   },
   {
     "metric_id": "vn_fin_cm3",
+    "slug": "cm3",
     "code": "CM3",
     "pack_code": "LOI_NHUAN_SAU_ADS_CM3",
     "name": "",
@@ -299,6 +304,7 @@
   },
   {
     "metric_id": "vn_fin_tax_reserve",
+    "slug": "du-phong-thue",
     "code": "Dự phòng thuế",
     "pack_code": "DU_PHONG_THUE",
     "name": "",
@@ -333,6 +339,7 @@
   },
   {
     "metric_id": "vn_fin_vat_input_ratio",
+    "slug": "ty-le-hoa-don-dau-vao",
     "code": "Tỷ lệ hóa đơn đầu vào",
     "pack_code": "TY_LE_HOA_DON_DAU_VAO",
     "name": "",
@@ -361,6 +368,7 @@
   },
   {
     "metric_id": "vn_fin_breakeven_roas",
+    "slug": "roas-hoa-von",
     "code": "ROAS hòa vốn",
     "pack_code": "ROAS_HOA_VON",
     "name": "",
@@ -487,6 +495,7 @@
   },
   {
     "metric_id": "vn_fin_pending_payout",
+    "slug": "tien-ket-doi-soat",
     "code": "Tiền kẹt đối soát",
     "pack_code": "TIEN_KET_DOI_SOAT",
     "name": "",
@@ -521,6 +530,7 @@
   },
   {
     "metric_id": "vn_fin_dso",
+    "slug": "dso",
     "code": "DSO",
     "pack_code": "THOI_GIAN_THU_TIEN_DSO",
     "name": "",
@@ -555,6 +565,7 @@
   },
   {
     "metric_id": "vn_fin_dpo",
+    "slug": "dpo",
     "code": "DPO",
     "pack_code": "THOI_GIAN_NO_XUONG_DPO",
     "name": "",
@@ -583,6 +594,7 @@
   },
   {
     "metric_id": "vn_fin_ccc",
+    "slug": "ccc",
     "code": "CCC",
     "pack_code": "VONG_QUAY_TIEN_MAT_CCC",
     "name": "",
@@ -622,6 +634,7 @@
   },
   {
     "metric_id": "vn_fin_breakeven_rev",
+    "slug": "doanh-thu-hoa-von",
     "code": "Doanh thu hòa vốn",
     "pack_code": "DOANH_THU_HOA_VON",
     "name": "",
@@ -656,6 +669,7 @@
   },
   {
     "metric_id": "vn_fin_opex_ratio",
+    "slug": "ty-le-dinh-phi",
     "code": "Tỷ lệ định phí",
     "pack_code": "TY_LE_DINH_PHI",
     "name": "",
@@ -691,6 +705,7 @@
   },
   {
     "metric_id": "vn_fin_net_profit",
+    "slug": "lai-rong",
     "code": "Lãi ròng",
     "pack_code": "LOI_NHUAN_RONG_THUC",
     "name": "",
@@ -725,6 +740,7 @@
   },
   {
     "metric_id": "vn_fin_promo_cost_ratio",
+    "slug": "chi-phi-khuyen-mai",
     "code": "Chi phí khuyến mãi",
     "pack_code": "TY_LE_CHI_PHI_KHUYEN_MAI",
     "name": "",
@@ -753,6 +769,7 @@
   },
   {
     "metric_id": "vn_fin_platform_penalty",
+    "slug": "tien-phat-san",
     "code": "Tiền phạt sàn",
     "pack_code": "TY_LE_TIEN_PHAT_SAN",
     "name": "",
@@ -787,6 +804,7 @@
   },
   {
     "metric_id": "vn_fin_cash_runway",
+    "slug": "cash-runway",
     "code": "Cash Runway",
     "pack_code": "SO_THANG_SONG_SOT_RUNWAY",
     "name": "",
@@ -884,6 +902,7 @@
   },
   {
     "metric_id": "vn_fin_working_capital_turnover",
+    "slug": "vong-quay-von-luu-dong",
     "code": "Vòng quay vốn lưu động",
     "pack_code": "VONG_QUAY_VON_LUU_DONG",
     "name": "",

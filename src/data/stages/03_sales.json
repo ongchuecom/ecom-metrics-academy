@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_mkt_cpa",
+    "slug": "cpa",
     "code": "CPA",
     "pack_code": "CHI_PHI_1_DON_ADS_CPA",
     "name": "",
@@ -137,6 +138,7 @@
   },
   {
     "metric_id": "vn_sales_aov",
+    "slug": "aov",
     "code": "AOV",
     "pack_code": "GIA_TRI_TRUNG_BINH_DON_AOV",
     "name": "",
@@ -247,6 +249,7 @@
   },
   {
     "metric_id": "vn_sales_pdp_cvr",
+    "slug": "cvr-trang-san-pham",
     "code": "CVR trang sản phẩm",
     "pack_code": "TY_LE_CHOT_TRANG_SAN_PHAM",
     "name": "",
@@ -363,6 +366,7 @@
   },
   {
     "metric_id": "vn_sales_voucher_dependency",
+    "slug": "phu-thuoc-voucher",
     "code": "Phụ thuộc voucher",
     "pack_code": "TY_LE_DON_PHU_THUOC_VOUCHER",
     "name": "",

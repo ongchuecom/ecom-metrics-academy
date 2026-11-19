@@ -50,7 +50,8 @@
         "Luôn tính ROAS hòa vốn dựa trên CM2, tuyệt đối không tính trên giá bán niêm yết.",
         "Gọi xác nhận hoặc nhắn tin tự động lọc các đơn có lịch sử bom hàng cao trước khi đóng gói để ép RTO xuống dưới 6%.",
         "Gộp bán Combo 2-3 món để tăng giá trị đơn hàng, giảm tỷ trọng phí đóng gói và phí ship trên mỗi sản phẩm."
-      ]
+      ],
+      "slug": "01-phi-san-hoan-hang-lai-that"
     },
     {
       "playbook_id": "pb_02_cashflow_trap",
@@ -93,7 +94,8 @@
         "Tách riêng tài khoản nhận tiền đối soát sàn/COD và trích ngay tỷ lệ giá vốn + thuế sang một tài khoản riêng, không tiêu lẹm vào tiền xoay vòng.",
         "Đặt quy tắc xả kho cứng: Mã nào quá 60 ngày không đạt tốc độ bán chuẩn thì lập tức chạy Flash Sale hoặc ghép quà tặng để thu hồi tiền mặt.",
         "Đàm phán công nợ gối đầu với xưởng (trả trước 50%, 50% còn lại thanh toán sau 15-30 ngày) để kéo giảm chu kỳ kẹt vốn."
-      ]
+      ],
+      "slug": "02-dong-tien-ket-von"
     },
     {
       "playbook_id": "pb_03_tax_and_opex",
@@ -134,7 +136,8 @@
         "Trích cứng 5% - 7% doanh thu thực thu vào quỹ dự phòng thuế mỗi tháng trước khi chia lợi nhuận.",
         "Chuyển dần các mã hàng chủ lực sang nhập chính ngạch hoặc lấy từ nhà cung cấp xuất được hóa đơn đỏ để hợp thức hóa giá vốn.",
         "Giữ tỷ lệ chi phí cố định (OPEX) luôn dưới 12% - 15% doanh thu, ưu tiên trả lương theo hiệu suất (KPI/Hoa hồng)."
-      ]
+      ],
+      "slug": "03-thue-hoa-don-dau-vao-chi-phi-co-dinh"
     },
     {
       "playbook_id": "pb_04_ops_efficiency",
@@ -176,7 +179,8 @@
         "Đo Lợi nhuận gộp trên mỗi nhân sự hằng tháng: Chỉ tuyển thêm người khi chỉ số này đang tăng trưởng tốt.",
         "Đặt SLA cứng cho trực page: Phản hồi dưới 2 phút trong giờ hành chính; dùng tin nhắn tự động giữ chân khách ngoài giờ.",
         "Bắt buộc quét mã vạch từng sản phẩm trước khi dán vận đơn để triệt tiêu chi phí đổi trả do lỗi kho."
-      ]
+      ],
+      "slug": "04-toi-uu-hieu-suat-kho-chot-don-doi-ngu"
     },
     {
       "playbook_id": "pb_05_sourcing_and_deadstock",
@@ -216,7 +220,8 @@
       "action_checklist": [
         "Áp dụng công thức nhập hàng 'Test nhỏ – Bồi nhanh': Lô đầu chỉ nhập đủ bán trong 15-20 ngày để đo phản ứng thị trường.",
         "Luôn giữ mức tồn kho an toàn tối thiểu 10 ngày cho Top 20% mã hàng chủ lực để không bị tắt Ads giữa chừng vì hết hàng."
-      ]
+      ],
+      "slug": "05-chon-hang-nhap-lo-bay-ton-kho-cuoi-mua"
     },
     {
       "playbook_id": "pb_06_livestream_and_koc",
@@ -255,7 +260,8 @@
       "action_checklist": [
         "Chỉ duyệt gửi mẫu miễn phí cho KOC có tỷ lệ ra đơn/đăng video thực tế trên 70% trong 30 ngày gần nhất.",
         "Đặt KPI Doanh thu mỗi giờ Live tối thiểu gấp 5 lần chi phí nhân sự + Ads của 1 giờ Live đó thì mới duy trì khung giờ."
-      ]
+      ],
+      "slug": "06-livestream-booking-koc"
     },
     {
       "playbook_id": "pb_07_ads_scaling",
@@ -294,7 +300,8 @@
       "action_checklist": [
         "Soi bệnh theo thứ tự: CTR thấp (< 1.5%) -> Sửa 3 giây đầu video; CTR cao nhưng CPA đắt -> Sửa trang đích và kịch bản chốt đơn.",
         "Muốn vít ngân sách Ads lên quy mô lớn, bắt buộc phải thiết kế gói Combo/Mua kèm để kéo AOV lên tối thiểu gấp 3 lần CPA."
-      ]
+      ],
+      "slug": "07-quang-cao-chuyen-doi"
     },
     {
       "playbook_id": "pb_08_retention_clv",
@@ -331,7 +338,8 @@
       "action_checklist": [
         "Đo Tỷ lệ khách quay lại mua lần 2 sau 30-60 ngày: Nếu dưới 15% với ngành tiêu dùng nhanh, phải xem lại ngay chất lượng sản phẩm.",
         "Cài quy trình nhắn tin chăm sóc đúng điểm rơi (ví dụ: hũ kem dùng 45 ngày thì ngày thứ 35 nhắn tin tặng mã Freeship nhắc mua lọ mới)."
-      ]
+      ],
+      "slug": "08-khach-quay-lai-gia-tri-vong-doi"
     },
     {
       "playbook_id": "pb_09_packing_and_reviews",
@@ -371,7 +379,8 @@
       "action_checklist": [
         "Bắt buộc quay video đóng gói và quét mã vạch từng món trước khi dán vận đơn để có bằng chứng khiếu nại sàn khi tranh chấp.",
         "Gia cố bao bì đủ chắc để chịu được ít nhất 2 vòng vận chuyển đi – về mà hàng bên trong vẫn còn nguyên tem mác."
-      ]
+      ],
+      "slug": "09-dong-goi-doi-tra-danh-gia-sao"
     },
     {
       "playbook_id": "pb_10_team_vs_automation",
@@ -410,7 +419,8 @@
       "action_checklist": [
         "Chốt ngưỡng kỷ luật: Chỉ mở tuyển dụng nhân sự mới khi Lợi nhuận gộp trên mỗi nhân sự đạt tối thiểu gấp 3,5 - 4 lần mức lương trung bình của vị trí đó.",
         "Trước khi tuyển thêm người cho bất kỳ khâu nào, hãy hỏi: 'Việc này có thể giải quyết bằng mẫu câu trả lời sẵn, quy trình chuẩn (SOP) hoặc công cụ tự động hóa không?'."
-      ]
+      ],
+      "slug": "10-quyet-dinh-tuyen-nguoi-hay-tu-dong-hoa"
     }
   ]
 }

@@ -68,6 +68,16 @@ Mỗi chỉ số có các trường:
 
    Lệnh `npm run build` cũng tự chạy bước kiểm tra này.
 
+## Đường dẫn và SEO
+- Mỗi bài có link riêng:
+  - `/chi-so/<slug>/` cho chỉ số;
+  - `/playbook/<slug>/` cho Playbook;
+  - `/kham-suc-khoe/` cho công cụ khám sức khỏe;
+  - `/` cho trang chủ.
+- Link cũ dạng `#vn_fin_cm2` vẫn mở được và tự chuyển sang link mới.
+- Sau `vite build`, `scripts/prerender.mjs` tạo trang tĩnh cho 72 đường dẫn, kèm tiêu đề, mô tả và nội dung chữ để Google đọc. Script cũng sinh `sitemap.xml`, `robots.txt` và `404.html`.
+- Tìm kiếm chung (chỉ số và Playbook, gõ không dấu): bấm Ctrl+K hoặc `/`.
+
 ## Dữ liệu gốc: 60 chỉ số và 10 Playbook
 - File gốc: `data-src/vn_60_metrics_and_10_playbooks_pack.json`.
 - Phần bổ sung:

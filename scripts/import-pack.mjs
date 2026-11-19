@@ -19,6 +19,10 @@ const STAGE = {
   '07_Team_Productivity': ['07_team_operations', '07_team.json'],
 }
 const ids = new Set(pack.metrics.map((m) => m.metric_id))
+// slug tiếng Việt không dấu cho link riêng từng bài (SEO)
+const slugify = (x) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase().replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+const used = new Set()
+const uniq = (s) => { let k = s, i = 2; while (used.has(k)) k = `${s}-${i++}`; used.add(k); return k }
 const pbIds = new Set(pack.playbooks.map((p) => p.playbook_id))
 const warn = []
 
@@ -36,7 +40,7 @@ for (const m of pack.metrics) {
   const IMP = { direct_proportional: 'direct', inverse_proportional: 'inverse', direct: 'direct', inverse: 'inverse' }
   const rel = (arr = []) => arr.map((r) => ({ metric_id: r.metric_id, ...(IMP[r.impact] ? { impact: IMP[r.impact] } : {}), note: r.note }))
   const out = {
-    metric_id: m.metric_id, code: ex[0], pack_code: m.code, name: '', vi_name: m.name, stage: st[0], sub_group: m.sub_group,
+    metric_id: m.metric_id, slug: uniq(slugify(ex[0])), code: ex[0], pack_code: m.code, name: '', vi_name: m.name, stage: st[0], sub_group: m.sub_group,
     definition: ex[1],
     formula: { readable: m.formula_readable, derived: m.formula_derived },
     benchmarks: c.benchmarks || {},
@@ -48,7 +52,8 @@ for (const m of pack.metrics) {
   byFile[st[1]].push(out)
 }
 for (const [f, arr] of Object.entries(byFile)) writeFileSync(`src/data/stages/${f}`, JSON.stringify(arr, null, 2) + '\n')
-const playbooks = pack.playbooks.map((p) => ({ ...p, linked_metrics: [...p2m[p.playbook_id]] }))
+const pbSlug = (p) => uniq(slugify(p.playbook_id.match(/pb_(\d+)/)[1] + ' ' + p.title.replace(/^Playbook\s*\d+\s*:\s*/i, '').replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')))
+const playbooks = pack.playbooks.map((p) => ({ ...p, slug: pbSlug(p), linked_metrics: [...p2m[p.playbook_id]] }))
 writeFileSync('src/data/playbooks.json', JSON.stringify({ version: pack.version, description: pack.description, playbooks }, null, 2) + '\n')
 console.log(`Đã nạp ${pack.metrics.length} chỉ số, ${playbooks.length} Playbook (${pack.version}).`)
 if (warn.length) console.log(warn.map((w) => '  · ' + w).join('\n'))

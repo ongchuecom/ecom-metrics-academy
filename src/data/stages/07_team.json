@@ -1,6 +1,7 @@
 [
   {
     "metric_id": "vn_team_chat_cvr",
+    "slug": "chat-to-order",
     "code": "Chat-to-Order",
     "pack_code": "TY_LE_CHOT_DON_CHAT",
     "name": "",
@@ -35,6 +36,7 @@
   },
   {
     "metric_id": "vn_team_frt",
+    "slug": "frt",
     "code": "FRT",
     "pack_code": "THOI_GIAN_REP_TIN_NHAN",
     "name": "",
@@ -64,6 +66,7 @@
   },
   {
     "metric_id": "vn_team_live_gmv_hour",
+    "slug": "gmv-gio-live",
     "code": "GMV / giờ Live",
     "pack_code": "DOANH_THU_GIO_LIVE",
     "name": "",
@@ -92,6 +95,7 @@
   },
   {
     "metric_id": "vn_team_koc_return_rate",
+    "slug": "ty-le-koc-tra-clip",
     "code": "Tỷ lệ KOC trả clip",
     "pack_code": "TY_LE_KOC_TRA_CLIP",
     "name": "",
@@ -120,6 +124,7 @@
   },
   {
     "metric_id": "vn_team_pack_speed",
+    "slug": "nang-suat-dong-goi",
     "code": "Năng suất đóng gói",
     "pack_code": "NANG_SUAT_DONG_GOI",
     "name": "",
@@ -149,6 +154,7 @@
   },
   {
     "metric_id": "vn_team_gp_per_staff",
+    "slug": "lai-gop-nhan-su",
     "code": "Lãi gộp / nhân sự",
     "pack_code": "LAI_GOP_TREN_NHAN_SU",
     "name": "",
@@ -184,6 +190,7 @@
   },
   {
     "metric_id": "vn_team_live_gpm",
+    "slug": "gpm",
     "code": "GPM",
     "pack_code": "DOANH_THU_1000_LUOT_XEM_GPM",
     "name": "",
@@ -212,6 +219,7 @@
   },
   {
     "metric_id": "vn_team_live_cart_ctr",
+    "slug": "ty-le-bam-gio-live",
     "code": "Tỷ lệ bấm giỏ Live",
     "pack_code": "TY_LE_BAM_GIO_HANG_LIVE",
     "name": "",
@@ -240,6 +248,7 @@
   },
   {
     "metric_id": "vn_team_creative_win_rate",
+    "slug": "creative-win-rate",
     "code": "Creative Win Rate",
     "pack_code": "TY_LE_VIDEO_ADS_THANG",
     "name": "",
@@ -275,6 +284,7 @@
   },
   {
     "metric_id": "vn_team_rev_per_media_buyer",
+    "slug": "doanh-thu-media-buyer",
     "code": "Doanh thu / Media Buyer",
     "pack_code": "DOANH_THU_TREN_NHAN_SU_ADS",
     "name": "",
