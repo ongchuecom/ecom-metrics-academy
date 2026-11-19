@@ -4832,7 +4832,7 @@
         },
         "body": [
           "Ngày sale, đơn có thể gấp 3–5 lần ngày thường. Tính trước sức đóng của kho: số người × đơn mỗi giờ × số giờ. Thiếu thì thuê thời vụ hoặc bắt đầu sớm hơn, đừng đợi trễ rồi mới chữa.",
-          "Theo sách Ecom Truyền Kỳ, ở mức 10k đơn/ngày, huỷ hoàn do không đóng kịp tầm 5% là mất vài chục triệu mỗi ngày."
+          "Đo SLA Breach theo từng ngày, không chỉ trung bình tháng. Tháng trung bình 2% có thể giấu một ngày sale trễ 20%, và sàn phạt theo từng đơn trễ."
         ]
       }
     ],
@@ -5064,7 +5064,7 @@
     "remember": "Chi phí kho là cố định. Tăng đơn mà không tăng kho, tăng người thì mỗi đơn gánh nhẹ đi."
   },
   "vn_team_gp_per_staff": {
-    "subtitle": "Mỗi người trong công ty làm ra bao nhiêu lãi gộp",
+    "subtitle": "Mỗi người làm ra bao nhiêu lãi gộp",
     "intro": [
       "**Lãi gộp/nhân sự là lãi gộp sau giá vốn (CM1) chia cho tổng nhân sự toàn công ty.** Ví dụ: shop 12 người, doanh thu 1,2 tỷ/tháng, CM1 480tr. Vậy mỗi người làm ra 40tr lãi gộp.",
       "Công ty đông người nhìn thì hoành tráng. Nhưng lương, văn phòng, bảo hiểm đều phải trả từ chỗ lãi gộp này. Tuyển thêm người mà chỉ số này **đi xuống** là bộ máy đang phình, chưa phải đang lớn."
