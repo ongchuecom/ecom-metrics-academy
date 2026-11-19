@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { playbooks, playbookById, metricById, STAGES } from '../data/index.js'
+import LeadForm from './LeadForm.jsx'
 
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1] || ''
 // "Playbook 01: Bài toán …" → "Bài toán …"
@@ -112,6 +113,8 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen }) {
           </ul>
         </section>
       </div>
+
+      <LeadForm source={p.playbook_id} title="Shop anh đang gặp đúng tình huống này?" text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để cùng bóc số của shop." />
 
       <nav aria-label="Chuyển Playbook" className="grid grid-cols-2 gap-3 border-t border-stone-100 pt-4">
         {[prev, next].map((x, k) => x ? (

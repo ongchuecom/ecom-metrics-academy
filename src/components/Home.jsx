@@ -1,6 +1,7 @@
 import { metricById, metricsMaster, playbooks, playbookById, STAGES, LEARNING_PATH } from '../data/index.js'
 import lessons from '../data/lessons.json'
 import { pbTitle } from './Playbooks.jsx'
+import LeadForm from './LeadForm.jsx'
 
 const short = (p) => pbTitle(p).replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1]
@@ -75,6 +76,8 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
           ))}
         </ul>
       </section>
+
+      <LeadForm source="trang-chu" />
 
       <section>
         <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />{metricsMaster.length} chỉ số theo 7 khâu</h2>

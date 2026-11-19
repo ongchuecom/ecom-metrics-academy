@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { metricById, playbookById } from '../data/index.js'
 import { pbTitle } from './Playbooks.jsx'
+import LeadForm from './LeadForm.jsx'
 
 // Khám sức khỏe shop theo chuỗi Net Sales → CM1 → CM2 → CM3 → lãi ròng (cùng quy ước với 60 chỉ số và 10 Playbook).
 // Số mẫu là tình huống Playbook 01 (shop gia dụng 1 tỷ/tháng, ROAS 5 mà lỗ 25 triệu).
@@ -216,7 +217,10 @@ export default function ShopCheck({ onSelectMetric, onOpenPlaybook }) {
           )}
         </div>
       </div>
-      <p className="text-xs text-muted">Công cụ tính trên số anh nhập, không lưu lại và không gửi đi đâu. Kết quả chỉ để định hướng.</p>
+      {r && <LeadForm source="kham-suc-khoe" title="Muốn Ông chú Ecom xem giúp kết quả này?"
+        text="Để lại tên và số Zalo, mình nhắn riêng và gợi ý chỗ nên sửa trước."
+        summary={`DT hiển thị ${tr(r.x.revenue)} · Net Sales ${tr(r.net)} · CM2 ${tr(r.cm2)} (${nf(r.cm2Pct)}%) · CM3 ${tr(r.cm3)} · Lãi ròng ${tr(r.profit)} · ROAS ${nf(r.roas, 2)} / hòa vốn ${nf(r.beVar, 2)} / nuôi bộ máy ${nf(r.beFull, 2)} · RTO ${nf(r.x.rto)}% · Chẩn đoán: ${findings.map((x) => x.title).join('; ')}`} />}
+      <p className="text-xs text-muted">Công cụ tính trên số anh nhập. Số chỉ được gửi đi khi anh bấm "Gửi số Zalo" và chọn gửi kèm kết quả. Kết quả chỉ để định hướng.</p>
     </div>
   )
 }

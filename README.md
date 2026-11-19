@@ -78,6 +78,18 @@ Mỗi chỉ số có các trường:
 - Sau `vite build`, `scripts/prerender.mjs` tạo trang tĩnh cho 72 đường dẫn, kèm tiêu đề, mô tả và nội dung chữ để Google đọc. Script cũng sinh `sitemap.xml`, `robots.txt` và `404.html`.
 - Tìm kiếm chung (chỉ số và Playbook, gõ không dấu): bấm Ctrl+K hoặc `/`.
 
+## Thu số Zalo để tư vấn 1-1
+- Form "Để lại Zalo" xuất hiện ở trang chủ, cuối mỗi Playbook, cuối mỗi bài và sau kết quả khám sức khỏe.
+  Sau khám sức khỏe, người gửi có thể chọn gửi kèm kết quả.
+- Dữ liệu ghi thẳng vào một Google Sheet riêng tư qua Apps Script, không qua máy chủ nào khác:
+  1. mở Sheet → Tiện ích mở rộng → Apps Script;
+  2. dán `integrations/zalo-sheet.gs`;
+  3. triển khai dạng Ứng dụng web;
+  4. dán URL vào `lead.endpoint` trong `src/data/site.json`.
+
+  Để trống URL thì form không hiện.
+- Có kiểm số điện thoại Việt Nam, ô bẫy chống bot, chặn gửi trùng trong 10 phút, chặn chèn công thức vào Sheet và ô đồng ý lưu thông tin.
+
 ## Dữ liệu gốc: 60 chỉ số và 10 Playbook
 - File gốc: `data-src/vn_60_metrics_and_10_playbooks_pack.json`.
 - Phần bổ sung:

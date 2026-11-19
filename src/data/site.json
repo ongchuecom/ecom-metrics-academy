@@ -21,9 +21,28 @@
   "promos": {
     "title": "Học sâu hơn cùng Ông chú Ecom",
     "items": [
-      { "title": "Sách Ecom Truyền Kỳ", "kind": "Sách", "image": "", "url": "https://ongchuecom.com" },
-      { "title": "Khóa đào tạo Ecom Truyền Kỳ", "kind": "Khóa học", "image": "", "url": "https://ongchuecom.com" },
-      { "title": "The Ecom Founder OS", "kind": "Chương trình", "image": "", "url": "https://ongchuecom.com" }
+      {
+        "title": "Sách Ecom Truyền Kỳ",
+        "kind": "Sách",
+        "image": "",
+        "url": "https://ongchuecom.com"
+      },
+      {
+        "title": "Khóa đào tạo Ecom Truyền Kỳ",
+        "kind": "Khóa học",
+        "image": "",
+        "url": "https://ongchuecom.com"
+      },
+      {
+        "title": "The Ecom Founder OS",
+        "kind": "Chương trình",
+        "image": "",
+        "url": "https://ongchuecom.com"
+      }
     ]
+  },
+  "lead": {
+    "_huong_dan": "Dán URL ứng dụng web của Apps Script (integrations/zalo-sheet.gs) vào endpoint để bật form. Để trống thì form ẩn.",
+    "endpoint": ""
   }
 }

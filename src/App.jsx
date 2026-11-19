@@ -13,6 +13,7 @@ import Promos from './components/Promos.jsx'
 import CaseStudy from './components/CaseStudy.jsx'
 import Home from './components/Home.jsx'
 import SearchDialog, { SearchButton } from './components/SearchDialog.jsx'
+import LeadForm from './components/LeadForm.jsx'
 
 const TABS = [
   { id: 'sim', label: 'Giả lập', desc: 'Kéo thanh trượt, xem ngưỡng cảnh báo', need: 'simulator' },
@@ -194,6 +195,7 @@ export default function App() {
             </nav>
 
             <Resources metric={metric} />
+            <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
           </>)}
 
           <Promos />
