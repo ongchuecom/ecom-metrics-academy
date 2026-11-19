@@ -54,6 +54,7 @@ export default function Sidebar({ selected, onSelect, selectedPb, onOpenPlaybook
                       {active && <span className="absolute inset-y-1.5 left-0 w-1 rounded-full bg-brand-600" aria-hidden="true" />}
                       <span className="shrink-0 font-display text-sm font-extrabold">{m.code}</span>
                       <span className={`min-w-0 truncate text-xs ${active ? 'text-brand-800' : 'text-muted'}`}>{m.vi_name}</span>
+                      {m.review === 'draft' && <span className="shrink-0 self-center rounded bg-lemon px-1 text-[9px] font-bold uppercase text-navy-ink" title="Mới, đang duyệt">mới</span>}
                       {(m.simulator || m.diagnostic_homework) && (
                         <span className="ml-auto h-1.5 w-1.5 shrink-0 self-center rounded-full bg-brand-500" title="Có giả lập và bài tập" />
                       )}

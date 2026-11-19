@@ -53,6 +53,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
         <div className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h1 className="font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
           <span className="text-sm text-muted">{metric.vi_name}</span>
+          {metric.review === 'draft' && <span className="rounded-full bg-lemon px-2 py-0.5 text-[11px] font-bold text-navy-ink" title="Bài sinh thêm từ bài viết, Ông chú Ecom chưa duyệt">Mới · đang duyệt</span>}
         </div>
         {L?.subtitle && <p className="mt-1 text-base font-semibold text-charcoal">{L.subtitle}</p>}
         <div className="prose-lesson mt-3 max-w-3xl">
@@ -131,6 +132,14 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
           </dl>
           <p className="mt-1.5 text-xs text-muted">Chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.</p>
         </div>
+      )}
+
+      {metric.sources?.length > 0 && (
+        <p className="text-xs leading-relaxed text-muted">
+          Khái niệm rút ra từ bài viết: {metric.sources.map((x, i) => (
+            <span key={i}>{i > 0 && ' · '}{x.url ? <a href={x.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-700">{x.title}</a> : x.title}{x.author && ` (${x.author})`}</span>
+          ))}
+        </p>
       )}
 
       <section id="video" className="scroll-mt-20 pt-4">

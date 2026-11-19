@@ -2,12 +2,33 @@
 // Bổ sung: data-src/pack-extra.json (mã ngắn + định nghĩa), data-src/carry-over.json (giả lập, bài tập, số tham khảo giữ từ bản trước).
 // Liên kết chỉ số ↔ Playbook được hợp nhất hai chiều: chỉ số nhắc tới Playbook hoặc Playbook nhắc tới chỉ số đều tính.
 // Dùng: npm run data:pack [-- đường-dẫn-pack.json]
-import { readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
 const PACK = process.argv[2] || 'data-src/vn_60_metrics_and_10_playbooks_pack.json'
 const pack = JSON.parse(readFileSync(PACK, 'utf8'))
 const extra = JSON.parse(readFileSync('data-src/pack-extra.json', 'utf8'))
 const carry = JSON.parse(readFileSync('data-src/carry-over.json', 'utf8'))
+// Chỉ số sinh thêm từ bài viết (skill bai-viet-sinh-chi-so): cùng khuôn pack, kèm code_short, definition, review, sources
+const ADDED = 'data-src/added-metrics.json'
+const added = existsSync(ADDED) ? JSON.parse(readFileSync(ADDED, 'utf8')).metrics || [] : []
+for (const a of added) {
+  if (pack.metrics.some((m) => m.metric_id === a.metric_id)) throw new Error(`Trùng metric_id với pack: ${a.metric_id}`)
+  extra[a.metric_id] = [a.code_short, a.definition]
+  pack.metrics.push(a)
+  for (const ref of a.playbook_refs || []) pack.playbooks.find((p) => p.playbook_id === ref)?.linked_metrics.push(a.metric_id)
+}
+// Nối chiều ngược quan hệ: chỉ số mới kéo X thì X ghi nhận chỉ số mới là đầu vào, và ngược lại
+const byId = Object.fromEntries(pack.metrics.map((m) => [m.metric_id, m]))
+for (const a of added) {
+  const link = (target, key, rel) => {
+    const t = byId[target]; if (!t) return
+    t.relationships = t.relationships || {}
+    const arr = (t.relationships[key] = [...(t.relationships[key] || [])])
+    if (!arr.some((r) => r.metric_id === a.metric_id)) arr.push({ metric_id: a.metric_id, ...(rel.impact ? { impact: rel.impact } : {}), note: rel.note })
+  }
+  for (const r of a.relationships?.upstream_drivers || []) link(r.metric_id, 'downstream_impacts', r)
+  for (const r of a.relationships?.downstream_impacts || []) link(r.metric_id, 'upstream_drivers', r)
+}
 
 const STAGE = {
   '01_Product_RnD': ['01_product_rd', '01_product.json'],
@@ -47,6 +68,8 @@ for (const m of pack.metrics) {
     relationships: { upstream_drivers: rel(m.relationships?.upstream_drivers), downstream_impacts: rel(m.relationships?.downstream_impacts), trade_offs: (m.relationships?.trade_offs || []).map((r) => ({ metric_id: r.metric_id, note: r.note })) },
     playbook_refs: [...m2p[m.metric_id]].sort(),
   }
+  if (m.review) out.review = m.review
+  if (m.sources?.length) out.sources = m.sources
   if (c.simulator) out.simulator = c.simulator
   if (c.diagnostic_homework) out.diagnostic_homework = c.diagnostic_homework
   byFile[st[1]].push(out)
@@ -55,5 +78,5 @@ for (const [f, arr] of Object.entries(byFile)) writeFileSync(`src/data/stages/${
 const pbSlug = (p) => uniq(slugify(p.playbook_id.match(/pb_(\d+)/)[1] + ' ' + p.title.replace(/^Playbook\s*\d+\s*:\s*/i, '').replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')))
 const playbooks = pack.playbooks.map((p) => ({ ...p, slug: pbSlug(p), linked_metrics: [...p2m[p.playbook_id]] }))
 writeFileSync('src/data/playbooks.json', JSON.stringify({ version: pack.version, description: pack.description, playbooks }, null, 2) + '\n')
-console.log(`Đã nạp ${pack.metrics.length} chỉ số, ${playbooks.length} Playbook (${pack.version}).`)
+console.log(`Đã nạp ${pack.metrics.length} chỉ số (${added.length} sinh thêm từ bài viết), ${playbooks.length} Playbook (${pack.version}).`)
 if (warn.length) console.log(warn.map((w) => '  · ' + w).join('\n'))

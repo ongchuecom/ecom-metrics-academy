@@ -1,0 +1,4 @@
+{
+  "_huong_dan": "Chỉ số sinh thêm từ bài viết (xem .claude/skills/bai-viet-sinh-chi-so/SKILL.md). Cùng khuôn với pack gốc, thêm code_short, definition, review (draft|approved), sources. Sửa xong chạy npm run data:pack.",
+  "metrics": []
+}
