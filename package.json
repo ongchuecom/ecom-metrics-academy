@@ -13,7 +13,8 @@
     "prebuild": "node scripts/validate-data.mjs",
     "data:pack": "node scripts/import-pack.mjs",
     "postbuild": "node scripts/prerender.mjs",
-    "scan:article": "node scripts/scan-article.mjs"
+    "scan:article": "node scripts/scan-article.mjs",
+    "feedback:summary": "node scripts/feedback-summary.mjs"
   },
   "dependencies": {
     "katex": "^0.16.11",

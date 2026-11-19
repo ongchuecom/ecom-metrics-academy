@@ -1,8 +1,8 @@
 /**
  * Nhận dữ liệu từ Ecom Metrics Academy và ghi vào Google Sheet riêng tư. Có 2 loại:
  *  - Form "Để lại Zalo": ghi vào tab đầu của Sheet chứa script này ("A1demy · Zalo từ Ecom Metrics Academy").
- *  - Chấm sao và góp ý ẩn danh (type = "feedback"): ghi vào Sheet "A1demy · Góp ý Ecom Metrics Academy".
- *    Script tìm Sheet này theo tên trên Drive (tạo mới nếu chưa có). AI rà soát mỗi 2 ngày đọc từ đây.
+ *  - Chấm sao và góp ý ẩn danh (type = "feedback"): KHÔNG lưu trên Drive. Mỗi lượt là một dòng JSON, nối vào
+ *    file feedback/YYYY-MM.jsonl trong repo GitHub riêng tư FEEDBACK_REPO. AI rà soát mỗi 2 ngày đọc từ đó.
  *
  * Cài đặt (5 phút, làm một lần; đã cài bản cũ thì dán đè rồi triển khai lại):
  * 1. Mở Google Sheet "A1demy · Zalo từ Ecom Metrics Academy" → Tiện ích mở rộng → Apps Script.
@@ -10,16 +10,22 @@
  * 3. Triển khai → Tùy chọn triển khai mới → Loại: Ứng dụng web.
  *    - Thực thi với tư cách: Tôi
  *    - Người có quyền truy cập: Bất kỳ ai
- *    Bấm Triển khai, cấp quyền (có thêm quyền Drive để tìm Sheet góp ý), rồi sao chép "URL ứng dụng web"
+ *    Bấm Triển khai, cấp quyền, rồi sao chép "URL ứng dụng web"
  *    (dạng https://script.google.com/macros/s/…/exec).
  *    Nếu đã có triển khai cũ: Triển khai → Quản lý triển khai → sửa → Phiên bản: Mới, để giữ nguyên URL.
  * 4. Gửi URL đó cho Claude (hoặc dán vào "lead.endpoint" trong src/data/site.json) để bật form trên web.
  *
- * Sheet vẫn riêng tư: người gửi chỉ ghi thêm được dòng mới, không đọc được dữ liệu.
+ * 5. Bật lưu góp ý (làm một lần):
+ *    a. Tạo repo GitHub RIÊNG TƯ tên ecom-metrics-feedback trong tài khoản ongchuecom (để trống, không cần file).
+ *    b. GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token:
+ *       Repository access: Only select repositories → ecom-metrics-feedback; Permissions → Contents: Read and write.
+ *    c. Apps Script → Cài đặt dự án (bánh răng) → Thuộc tính tập lệnh → thêm GITHUB_TOKEN = token vừa tạo.
+ *       Token chỉ nằm trong Apps Script của anh, không dán vào chat hay repo.
+ *
+ * Sheet và repo góp ý vẫn riêng tư: người gửi chỉ ghi thêm được dòng mới, không đọc được dữ liệu.
  */
 const HEADERS = ['Thời gian', 'Tên gọi', 'Số Zalo', 'Bán ở đâu', 'Doanh thu tháng', 'Cần hỗ trợ', 'Trang gửi', 'Nguồn', 'Tóm tắt khám sức khỏe', 'Đồng ý liên hệ']
-const FEEDBACK_NAME = 'A1demy · Góp ý Ecom Metrics Academy'
-const FEEDBACK_HEADERS = ['Thời gian', 'Loại', 'Trang', 'Tên bài', 'Số sao', 'Góp ý', 'Thiết bị']
+const FEEDBACK_REPO = 'ongchuecom/ecom-metrics-feedback'
 
 // chặn chèn công thức vào Sheet (ô bắt đầu bằng = + - @)
 const safe = (s, n) => { s = String(s == null ? '' : s).slice(0, n); return /^[=+\-@]/.test(s) ? "'" + s : s }
@@ -66,24 +72,43 @@ function feedback(d) {
   const key = 'fb-' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, [d.page, rating, comment].join('|')))
   if (cache.get(key)) return out({ ok: true, dup: true })
   cache.put(key, '1', 600)
-  const sh = feedbackSheet()
-  if (sh.getLastRow() === 0) sh.appendRow(FEEDBACK_HEADERS)
   const ref = Number(d.rating_ref)
-  const kind = comment ? (hasRating ? 'Sao + góp ý' : ref >= 1 && ref <= 5 ? 'Góp ý (người này chấm ' + ref + ' sao)' : 'Góp ý') : 'Sao'
-  sh.appendRow([new Date(), kind, safe(d.page, 200), safe(d.title, 160),
-    hasRating ? rating : '', safe(comment, 1000), safe(d.device, 20)])
-  return out({ ok: true })
+  const row = {
+    t: new Date().toISOString(),
+    kind: comment ? (hasRating ? 'rating+comment' : 'comment') : 'rating',
+    page: String(d.page || '').slice(0, 120),
+    title: String(d.title || '').slice(0, 160),
+    rating: hasRating ? rating : null,
+    rating_ref: !hasRating && ref >= 1 && ref <= 5 ? ref : null, // sao người này đã chấm riêng, không tính lại vào trung bình
+    comment: comment || null,
+    device: String(d.device || '').slice(0, 20),
+  }
+  return out(appendLine('feedback/' + row.t.slice(0, 7) + '.jsonl', JSON.stringify(row)))
 }
 
-function feedbackSheet() {
-  const props = PropertiesService.getScriptProperties()
-  let id = props.getProperty('FEEDBACK_ID')
-  if (!id) {
-    const it = DriveApp.getFilesByName(FEEDBACK_NAME)
-    id = it.hasNext() ? it.next().getId() : SpreadsheetApp.create(FEEDBACK_NAME).getId()
-    props.setProperty('FEEDBACK_ID', id)
+// Nối một dòng vào file trong repo qua GitHub API (một commit nhỏ mỗi lượt; repo riêng nên không kích hoạt dựng web)
+function appendLine(path, line) {
+  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN')
+  if (!token) return { ok: false, error: 'no-token' }
+  const url = 'https://api.github.com/repos/' + FEEDBACK_REPO + '/contents/' + path
+  const headers = { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const cur = UrlFetchApp.fetch(url, { headers, muteHttpExceptions: true })
+    let sha = null, text = ''
+    if (cur.getResponseCode() === 200) {
+      const j = JSON.parse(cur.getContentText())
+      sha = j.sha
+      text = Utilities.newBlob(Utilities.base64Decode(j.content.replace(/\n/g, ''))).getDataAsString('UTF-8')
+    } else if (cur.getResponseCode() !== 404) return { ok: false, error: 'github-' + cur.getResponseCode() }
+    const body = { message: 'Góp ý mới', content: Utilities.base64Encode(text + line + '\n', Utilities.Charset.UTF_8) }
+    if (sha) body.sha = sha
+    const res = UrlFetchApp.fetch(url, { method: 'put', headers, payload: JSON.stringify(body), contentType: 'application/json', muteHttpExceptions: true })
+    const code = res.getResponseCode()
+    if (code === 200 || code === 201) return { ok: true }
+    if (code !== 409 && code !== 422) return { ok: false, error: 'github-' + code }
+    Utilities.sleep(400) // có lượt khác vừa ghi: đọc lại rồi thử lại
   }
-  return SpreadsheetApp.openById(id).getSheets()[0]
+  return { ok: false, error: 'conflict' }
 }
 
 function out(o) {
