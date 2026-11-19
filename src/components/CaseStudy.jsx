@@ -62,21 +62,7 @@ export default function CaseStudy({ metric, onSelect }) {
   const c = cases[metric.metric_id]
   const [play, setPlay] = useState(false)
   const others = useMemo(() => Object.keys(cases).filter((k) => !k.startsWith('_') && k !== metric.metric_id && metricById[k]), [metric.metric_id])
-  if (!c) {
-    return (
-      <section className="space-y-4">
-        <SectionTitle eyebrow="Tình huống thực tế" title={`Video tình huống cho ${metric.code} đang được dựng`} tone="orange" />
-        {others.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 text-sm text-charcoal">
-            Xem trước tình huống đã có:
-            {others.map((k) => (
-              <button key={k} onClick={() => onSelect(k)} className="rounded-full bg-brand-50 px-3 py-1.5 font-display font-bold text-brand-600 hover:bg-brand-100">{metricById[k].code}</button>
-            ))}
-          </div>
-        )}
-      </section>
-    )
-  }
+  if (!c) return null
   const pb = c.playbook
   return (
     <section id="tinh-huong" className="scroll-mt-20 space-y-5">

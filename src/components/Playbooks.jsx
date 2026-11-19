@@ -62,7 +62,7 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen }) {
               <div className="flex flex-wrap gap-2">
                 {g.items.map((m) => (
                   <button key={m.metric_id} onClick={() => onSelectMetric(m.metric_id)} title={m.definition}
-                    className="rounded-lg bg-white px-3 py-1.5 text-left ring-1 ring-stone-200 transition hover:bg-brand-50 hover:ring-brand-500">
+                    className="rounded-lg bg-stone-50 px-3 py-1.5 text-left transition hover:bg-brand-50">
                     <span className="block font-display text-sm font-extrabold text-ink">{m.code}</span>
                     <span className="block text-[11px] text-charcoal">{m.vi_name}</span>
                   </button>

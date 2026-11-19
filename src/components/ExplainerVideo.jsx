@@ -290,14 +290,14 @@ export default function ExplainerVideo({ metric, onHomework }) {
   return (
     <section aria-label={`Video giải thích ${metric.code}`} className="space-y-2">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex gap-1 rounded-full bg-stone-100 p-1 text-sm">
+        {embed ? <div className="flex gap-1 rounded-full bg-stone-100 p-1 text-sm">
           <button onClick={() => setMode('motion')} className={`rounded-full px-3 py-1 font-semibold ${mode === 'motion' ? 'bg-white text-ink shadow-sm' : 'text-charcoal'}`}>Video motion</button>
           <button onClick={() => { setMode('video'); setPlaying(false) }} disabled={!embed}
             className={`rounded-full px-3 py-1 font-semibold disabled:opacity-40 ${mode === 'video' ? 'bg-white text-ink shadow-sm' : 'text-charcoal'}`}
             title={embed ? '' : 'Chưa có video quay cho chỉ số này'}>
-            Video bài giảng{!embed && ' · sắp có'}
+            Video bài giảng
           </button>
-        </div>
+        </div> : <span />}
         {canSpeak && mode === 'motion' && (
           <label className="flex items-center gap-2 text-sm text-charcoal">
             <input type="checkbox" checked={voice} onChange={(e) => setVoice(e.target.checked)} className="h-4 w-4 accent-brand-600" />

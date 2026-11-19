@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
-import { stageById, BENCHMARK_LABELS, STAGES } from '../data/index.js'
+import { stageById, BENCHMARK_LABELS, STAGES, metricById } from '../data/index.js'
 import lessons from '../data/lessons.json'
 import ExplainerVideo from './ExplainerVideo.jsx'
 import MetricDependencyGraph from './MetricDependencyGraph.jsx'
@@ -33,14 +33,33 @@ export function H2({ children, id }) {
 // Thẻ nội dung trong bài
 function Box({ title, children, className = '' }) {
   return (
-    <section className={`rounded-2xl bg-white p-4 ring-1 ring-stone-200/70 sm:p-5 ${className}`}>
+    <section className={`rounded-2xl bg-stone-50 p-4 sm:p-5 ${className}`}>
       {title && <h3 className="mb-2.5 flex items-center gap-2 text-[15px] font-extrabold text-brand-600"><span className="h-3.5 w-1 rounded-full bg-brand-500" aria-hidden="true" />{title}</h3>}
       {children}
     </section>
   )
 }
 
+// Chỉ số liên quan dạng chữ gọn thay cho sơ đồ lớn
+function Related({ metric, onSelect }) {
+  const r = metric.relationships || {}
+  const rows = [['Bị kéo bởi', r.upstream_drivers], ['Kéo theo', r.downstream_impacts], ['Đánh đổi với', r.trade_offs]]
+    .map(([k, arr]) => [k, (arr || []).map((x) => metricById[x.metric_id]).filter(Boolean)]).filter(([, a]) => a.length)
+  if (!rows.length) return null
+  return (
+    <div className="space-y-1 text-sm">
+      {rows.map(([k, arr]) => (
+        <p key={k} className="text-charcoal">
+          <span className="mr-2 text-muted">{k}:</span>
+          {arr.map((m, i) => <span key={m.metric_id}>{i > 0 && <span className="text-muted"> · </span>}<button onClick={() => onSelect(m.metric_id)} className="font-semibold text-brand-700 hover:underline">{m.code}</button></span>)}
+        </p>
+      ))}
+    </div>
+  )
+}
+
 export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlaybook }) {
+  const [more, setMore] = useState(null)
   const stage = stageById[metric.stage]
   const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
   const L = lessons[metric.metric_id]
@@ -71,7 +90,6 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
         ) : (
           <p className="rounded-xl bg-brand-50 px-4 py-3 text-[15px] font-semibold leading-relaxed text-lime-ink">{metric.code} = {metric.formula.readable}</p>
         )}
-        {metric.formula.derived && <p className="mt-2 break-words font-mono text-[11px] text-muted">{metric.formula.derived}</p>}
         {L?.tree && <div className="mt-5 border-t border-stone-100 pt-4"><FormulaTree tree={L.tree} onSelect={onSelect} /></div>}
       </Box>
 
@@ -124,22 +142,24 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
         </div>
       )}
 
-      <div className="text-sm">
-        <p className="eyebrow text-muted">Số tham khảo</p>
-        {bench.length ? (
+      {bench.length > 0 && (
+        <div className="text-sm">
+          <p className="eyebrow text-muted">Số tham khảo</p>
           <dl className="mt-1 grid gap-x-8 sm:grid-cols-2">
             {bench.map(([k, v]) => <div key={k} className="flex flex-wrap justify-between gap-x-3 border-b border-dashed border-stone-200 py-1.5"><dt className="text-body">{BENCHMARK_LABELS[k] || k}</dt><dd className="num font-bold text-ink">{v}</dd></div>)}
           </dl>
-        ) : <p className="mt-1 text-charcoal">Chưa có số tham khảo đáng tin. So với chính số liệu các tháng trước của shop mình.</p>}
-        <p className="mt-1.5 text-xs text-muted">Chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.</p>
-      </div>
+          <p className="mt-1.5 text-xs text-muted">Chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.</p>
+        </div>
+      )}
 
-      <div className="pt-6">
-        <H2 id="video">Xem nhanh bằng video</H2>
-        <ExplainerVideo key={metric.metric_id} metric={metric} onHomework={onHomework} />
-      </div>
+      <Related metric={metric} onSelect={onSelect} />
 
-      <div className="pt-6"><MetricDependencyGraph metric={metric} onSelect={onSelect} /></div>
+      <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-stone-100 pt-4 text-sm font-semibold">
+        <button onClick={() => setMore((m) => (m === 'video' ? null : 'video'))} className="text-brand-700 hover:underline">{more === 'video' ? 'Ẩn video' : '▶ Xem video giải thích 1 phút'}</button>
+        <button onClick={() => setMore((m) => (m === 'graph' ? null : 'graph'))} className="text-brand-700 hover:underline">{more === 'graph' ? 'Ẩn sơ đồ' : 'Xem sơ đồ phụ thuộc'}</button>
+      </div>
+      {more === 'video' && <ExplainerVideo key={metric.metric_id} metric={metric} onHomework={onHomework} />}
+      {more === 'graph' && <MetricDependencyGraph metric={metric} onSelect={onSelect} />}
     </article>
   )
 }

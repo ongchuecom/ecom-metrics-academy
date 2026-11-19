@@ -96,7 +96,7 @@ function diagnose(r) {
 
 const LV = {
   nang: ['Nặng', 'bg-red-50', 'text-coral'],
-  'canh-bao': ['Cảnh báo', 'bg-brand-50', 'text-brand-700'],
+  'canh-bao': ['Cảnh báo', 'bg-stone-50', 'text-brand-700'],
   tot: ['Tốt', 'bg-stone-50', 'text-ok'],
 }
 
@@ -201,12 +201,12 @@ export default function ShopCheck({ onSelectMetric, onOpenPlaybook }) {
                         <span className="font-display font-extrabold text-ink">{x.title}</span>
                       </p>
                       <p className="mt-1.5 text-sm leading-relaxed text-body">{x.text}</p>
-                      <div className="mt-2 flex flex-wrap gap-1.5">
+                      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
                         {x.pbs.map((p) => playbookById[p] && (
-                          <button key={p} onClick={() => onOpenPlaybook(p)} className="rounded-full bg-brand-600 px-3 py-1 text-xs font-bold text-white hover:bg-brand-700">Đọc: {pbTitle(playbookById[p]).replace(/\s*\(.*\)\s*$/, '')}</button>
+                          <button key={p} onClick={() => onOpenPlaybook(p)} className="text-xs font-bold text-brand-700 hover:underline">Đọc Playbook {p.match(/pb_(\d+)/)[1]} →</button>
                         ))}
                         {x.metrics.map((m) => metricById[m] && (
-                          <button key={m} onClick={() => onSelectMetric(m)} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-700 ring-1 ring-brand-500/40 hover:bg-brand-50">Học {metricById[m].code}</button>
+                          <button key={m} onClick={() => onSelectMetric(m)} className="text-xs font-semibold text-charcoal hover:text-brand-700 hover:underline">Học {metricById[m].code}</button>
                         ))}
                       </div>
                     </li>

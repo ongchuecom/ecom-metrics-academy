@@ -18,8 +18,17 @@ function Cover({ item, i }) {
   )
 }
 
-export default function Promos() {
+export default function Promos({ compact = false }) {
   const { title, items } = site.promos
+  // Trang bài học, Playbook: một dòng chữ gọn thay cho 3 bìa lớn
+  if (compact) return (
+    <p className="border-t border-stone-100 pt-4 text-sm text-charcoal">
+      <span className="text-muted">Học sâu hơn cùng Ông chú Ecom: </span>
+      {items.map((it, i) => (
+        <span key={it.title}>{i > 0 && <span className="text-muted"> · </span>}<a href={it.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 hover:underline">{it.title}</a></span>
+      ))}
+    </p>
+  )
   return (
     <section aria-label={title} className="space-y-4">
       <SectionTitle eyebrow="Sách & khóa học" title={title} tone="orange" />

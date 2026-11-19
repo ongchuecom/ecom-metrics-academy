@@ -44,6 +44,8 @@ export function FormulaTree({ tree, onSelect }) {
 export function SpendBars({ bars }) {
   const [hover, setHover] = useState(null)
   const max = Math.max(...bars.items.map((x) => Math.abs(x[1])), 1e-9)
+  // chỉ tô cam khi đúng 1 mục là trọng tâm; nhiều mục thì để xám cho đỡ rối mắt
+  const oneFocus = bars.items.filter((x) => x[2] === 'focus').length === 1
   return (
     <figure>
       {bars.title && <figcaption className="text-sm font-bold text-ink">{bars.title}</figcaption>}
@@ -54,7 +56,7 @@ export function SpendBars({ bars }) {
             <span className="flex items-center gap-2">
               <span className="h-3 rounded-r-[4px] transition-opacity" style={{
                 width: `${Math.max(1.5, (Math.abs(v) / max) * 100)}%`,
-                background: kind === 'focus' ? '#F05025' : kind === 'keep' ? '#FFD200' : kind === 'loss' ? '#B42318' : '#D6D3D1',
+                background: kind === 'focus' ? (oneFocus ? '#F05025' : '#A8A29E') : kind === 'keep' ? '#FFD200' : kind === 'loss' ? '#B42318' : '#D6D3D1',
                 opacity: hover == null || hover === i ? 1 : 0.45,
               }} />
               <span className={`num shrink-0 font-bold ${v < 0 ? 'text-coral' : 'text-ink'}`}>{nf(v)}{un(bars.unit)}</span>

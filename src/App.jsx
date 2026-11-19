@@ -8,7 +8,6 @@ import MetricSimulator from './components/MetricSimulator.jsx'
 import DiagnosticHomework from './components/DiagnosticHomework.jsx'
 import ShopCheck from './components/ShopCheck.jsx'
 import Templates from './components/Templates.jsx'
-import Resources from './components/Resources.jsx'
 import Promos from './components/Promos.jsx'
 import CaseStudy from './components/CaseStudy.jsx'
 import Home from './components/Home.jsx'
@@ -18,8 +17,6 @@ import LeadForm from './components/LeadForm.jsx'
 const TABS = [
   { id: 'sim', label: 'Giả lập', desc: 'Kéo thanh trượt, xem ngưỡng cảnh báo', need: 'simulator' },
   { id: 'homework', label: 'Bài tập chẩn đoán', desc: 'Tính tay rồi ra quyết định', need: 'diagnostic_homework' },
-  { id: 'health', label: 'Khám sức khỏe shop', desc: 'Nhập P&L tháng, nhận chẩn đoán' },
-  { id: 'templates', label: 'Bảng tính mẫu', desc: 'P&L, unit economics tải về' },
 ]
 const tabsFor = (m) => TABS.filter((t) => !t.need || m?.[t.need])
 
@@ -147,6 +144,10 @@ export default function App() {
                 <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-charcoal">Điền P&L một tháng. Web tính Net Sales, CM1, CM2, CM3, lãi ròng, ROAS hòa vốn, rồi chỉ ra chỗ đang rò tiền và Playbook nên đọc.</p>
               </header>
               <ShopCheck onSelectMetric={select} onOpenPlaybook={openPlaybook} />
+              <details className="group pt-4">
+                <summary className="cursor-pointer text-sm font-semibold text-brand-700 hover:underline">Tải bảng tính mẫu P&L và unit economics</summary>
+                <div className="mt-4"><Templates /></div>
+              </details>
             </div>
           )}
 
@@ -165,23 +166,27 @@ export default function App() {
 
             <CaseStudy key={`case-${metric.metric_id}`} metric={metric} onSelect={select} />
 
-            <section id="thuc-hanh" className="scroll-mt-20 space-y-4">
-              <H2>Tự tay tính, tự ra quyết định</H2>
-              <div role="tablist" aria-label="Chế độ thực hành" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
-                {tabs.map((t) => (
-                  <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)} title={t.desc}
-                    className={`shrink-0 rounded-full px-4 py-2 font-display text-sm font-bold transition ${tab === t.id ? 'bg-brand-600 text-white' : 'bg-white text-brand-700 ring-1 ring-brand-500/60 hover:bg-brand-50'}`}>
-                    {t.label}
-                  </button>
-                ))}
-              </div>
-              <div role="tabpanel">
-                {tab === 'sim' && <MetricSimulator key={metric.metric_id} metric={metric} onSelect={select} />}
-                {tab === 'homework' && <DiagnosticHomework key={metric.metric_id} metric={metric} onSelect={select} />}
-                {tab === 'health' && <ShopCheck onSelectMetric={select} onOpenPlaybook={openPlaybook} />}
-                {tab === 'templates' && <Templates />}
-              </div>
-            </section>
+            {tabs.length > 0 && (
+              <section id="thuc-hanh" className="scroll-mt-20 space-y-4">
+                <H2>Tự tay tính</H2>
+                {tabs.length > 1 && (
+                  <div role="tablist" aria-label="Chế độ thực hành" className="flex gap-5 border-b border-stone-200 text-sm">
+                    {tabs.map((t) => (
+                      <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)} title={t.desc}
+                        className={`-mb-px border-b-2 pb-2 font-display font-bold transition ${tab === t.id ? 'border-brand-600 text-brand-700' : 'border-transparent text-charcoal hover:text-ink'}`}>
+                        {t.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div role="tabpanel">
+                  {tab === 'sim' && <MetricSimulator key={metric.metric_id} metric={metric} onSelect={select} />}
+                  {tab === 'homework' && <DiagnosticHomework key={metric.metric_id} metric={metric} onSelect={select} />}
+                </div>
+              </section>
+            )}
+
+            <p className="text-sm text-charcoal">Muốn tính {metric.code} bằng số của shop mình? <button onClick={openHealth} className="font-semibold text-brand-700 hover:underline">Khám sức khỏe shop →</button></p>
 
             <nav aria-label="Chuyển bài" className="grid grid-cols-2 gap-3">
               {[prev, next].map((m, k) => m ? (
@@ -194,11 +199,10 @@ export default function App() {
               ) : <span key={k} />)}
             </nav>
 
-            <Resources metric={metric} />
             <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
           </>)}
 
-          <Promos />
+          <Promos compact={route.type !== 'home'} />
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.

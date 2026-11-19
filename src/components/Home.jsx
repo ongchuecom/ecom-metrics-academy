@@ -79,25 +79,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
 
       <LeadForm source="trang-chu" />
 
-      <section>
-        <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />{metricsMaster.length} chỉ số theo 7 khâu</h2>
-        <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-          {STAGES.map((s, i) => {
-            const items = metricsMaster.filter((m) => m.stage === s.id)
-            return (
-              <div key={s.id}>
-                <p className="eyebrow text-muted">{i + 1} · {s.label} · {items.length}</p>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {items.map((m) => (
-                    <button key={m.metric_id} onClick={() => onSelectMetric(m.metric_id)} title={m.vi_name}
-                      className="rounded-lg bg-stone-50 px-2 py-1 font-display text-xs font-bold text-ink hover:bg-brand-50 hover:text-brand-700">{m.code}</button>
-                  ))}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </section>
+      <p className="text-sm text-charcoal">Cả {metricsMaster.length} chỉ số theo 7 khâu nằm ở mục lục bên trái (trên điện thoại: nút “Mục lục”), hoặc bấm Ctrl+K để tìm.</p>
     </div>
   )
 }
