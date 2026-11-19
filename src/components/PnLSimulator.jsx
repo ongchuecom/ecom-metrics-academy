@@ -57,17 +57,17 @@ export default function PnLSimulator({ selected }) {
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          <Stat ids={['sales_aov']} selected={selected} label="AOV" value={vnd(r.aov)} sub={`${num(r.totalOrders, 0)} đơn / tháng`} />
-          <Stat ids={['fin_cac', 'fin_paid_cac']} selected={selected} label="CAC" value={vnd(r.cac)} sub={`${num(r.newCustomers, 0)} khách mới từ ${num(r.clicks, 0)} lượt nhấp`} />
-          <Stat ids={['fin_roas', 'fin_breakeven_roas']} selected={selected} label="ROAS" value={num(r.roas)} tone={roasTone}
+          <Stat ids={['vn_sales_aov']} selected={selected} label="AOV" value={vnd(r.aov)} sub={`${num(r.totalOrders, 0)} đơn / tháng`} />
+          <Stat ids={['vn_mkt_cpa']} selected={selected} label="CAC" value={vnd(r.cac)} sub={`${num(r.newCustomers, 0)} khách mới từ ${num(r.clicks, 0)} lượt nhấp`} />
+          <Stat ids={['vn_fin_breakeven_roas']} selected={selected} label="ROAS" value={num(r.roas)} tone={roasTone}
             sub={`Hòa vốn: ${Number.isFinite(r.breakevenRoas) ? num(r.breakevenRoas) : 'không thể (biên ≤ 0)'}`} />
-          <Stat ids={['ret_clv']} selected={selected} label="CLV" value={vnd(r.clv)} sub={`Biên đóng góp ${pct(r.marginPct)}`} />
-          <Stat ids={['fin_ltv_cac']} selected={selected} label="CLV / CAC" value={num(r.ltvCac)} tone={ltvTone} sub="Mốc tham khảo: ≥ 3" />
-          <Stat ids={['fin_net_margin', 'fin_ebitda']} selected={selected} label="Lãi ròng / tháng" value={vnd(r.netProfit, true)} tone={r.netProfit >= 0 ? 'good' : 'bad'} sub={`Biên ròng ${pct(r.netMarginPct)}`} />
+          <Stat ids={['vn_ret_clv']} selected={selected} label="CLV" value={vnd(r.clv)} sub={`Biên đóng góp ${pct(r.marginPct)}`} />
+          <Stat ids={['vn_ret_repeat_rate']} selected={selected} label="CLV / CAC" value={num(r.ltvCac)} tone={ltvTone} sub="Mốc tham khảo: ≥ 3" />
+          <Stat ids={['vn_fin_net_profit']} selected={selected} label="Lãi ròng / tháng" value={vnd(r.netProfit, true)} tone={r.netProfit >= 0 ? 'good' : 'bad'} sub={`Biên ròng ${pct(r.netMarginPct)}`} />
         </div>
 
         {/* Bố cục Hóa đơn (đã duyệt): thẻ trắng hơi nghiêng trên nền vàng chanh, dòng tổng to */}
-        <div className={`rounded-3xl bg-stone-50 p-4 sm:p-6 ${['fin_net_margin', 'fin_ebitda', 'fin_cm1', 'fin_cm2', 'fin_cm3'].includes(selected) ? 'ring-4 ring-brand-500/40' : ''}`}>
+        <div className={`rounded-3xl bg-stone-50 p-4 sm:p-6 ${['vn_fin_net_profit', 'vn_fin_cm1', 'vn_fin_cm2', 'vn_fin_cm3', 'vn_fin_net_sales'].includes(selected) ? 'ring-4 ring-brand-500/40' : ''}`}>
           <p className="eyebrow px-1 text-muted">Hóa đơn lãi lỗ · 1 tháng (giả lập)</p>
           <div className="mt-3 rotate-[-1deg] rounded-2xl bg-white px-4 py-4 shadow-[0_10px_30px_rgba(31,42,68,0.12)] sm:px-6">
             <div className="flex justify-between border-b border-dashed border-stone-300 pb-2 text-xs font-bold uppercase tracking-widest text-muted">

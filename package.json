@@ -10,7 +10,8 @@
     "validate": "node scripts/validate-data.mjs",
     "data:import": "node scripts/csv-to-json.mjs",
     "data:export": "node scripts/json-to-csv.mjs",
-    "prebuild": "node scripts/validate-data.mjs"
+    "prebuild": "node scripts/validate-data.mjs",
+    "data:pack": "node scripts/import-pack.mjs"
   },
   "dependencies": {
     "katex": "^0.16.11",

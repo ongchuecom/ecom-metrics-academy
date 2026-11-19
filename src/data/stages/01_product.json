@@ -1,276 +1,349 @@
 [
   {
-    "metric_id": "prod_pmf_score",
-    "code": "PMF Score",
-    "name": "Product-Market Fit Score",
-    "vi_name": "Điểm phù hợp sản phẩm – thị trường",
-    "stage": "01_product_rd",
-    "sub_group": "Product Validation",
-    "definition": "Tỷ lệ khách hàng trả lời sẽ “rất thất vọng” nếu không còn được dùng sản phẩm (khảo sát kiểu Sean Ellis). Đo mức độ sản phẩm thực sự cần thiết với tệp khách mục tiêu.",
-    "formula": {
-      "readable": "PMF Score (%) = Số người trả lời “rất thất vọng” / Tổng số người trả lời × 100",
-      "latex": "\\text{PMF} = \\frac{\\text{Very disappointed}}{\\text{Respondents}} \\times 100\\%"
-    },
-    "benchmarks": {
-      "tham_khao": "Mốc thường được trích dẫn: ≥ 40% (Sean Ellis)"
-    },
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_rpr",
-          "impact": "direct",
-          "note": "Sản phẩm thật sự cần thiết thì khách quay lại mua nhiều hơn"
-        },
-        {
-          "metric_id": "ret_nps",
-          "impact": "direct",
-          "note": "Khách “không thể thiếu” sản phẩm thường sẵn lòng giới thiệu"
-        },
-        {
-          "metric_id": "sales_cr",
-          "impact": "direct",
-          "note": "Thông điệp đúng nhu cầu thật giúp chốt đơn dễ hơn"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "mkt_cpa",
-          "note": "Mở rộng sang tệp khách rộng hơn để scale thường kéo PMF Score xuống"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "prod_cogs",
-    "code": "COGS",
-    "name": "Cost of Goods Sold",
-    "vi_name": "Giá vốn hàng bán",
-    "stage": "01_product_rd",
-    "sub_group": "Cost Structure",
-    "definition": "Toàn bộ chi phí trực tiếp để có được hàng hóa đã bán: giá nhập hoặc giá sản xuất, cộng chi phí đưa hàng về kho. Thường được theo dõi dưới dạng % doanh thu.",
-    "formula": {
-      "readable": "COGS (%) = Giá vốn hàng đã bán / Doanh thu × 100",
-      "latex": "\\text{COGS\\%} = \\frac{\\text{COGS}}{\\text{Revenue}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "prod_landed_cost",
-          "impact": "direct",
-          "note": "Giá vốn về kho (landed cost) là thành phần chính của COGS"
-        },
-        {
-          "metric_id": "prod_defect_rate",
-          "impact": "direct",
-          "note": "Hàng lỗi phải bỏ hoặc đổi trả đẩy giá vốn thực tế lên"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "prod_gross_margin",
-          "impact": "inverse",
-          "note": "COGS càng cao, biên lãi gộp càng mỏng"
-        },
-        {
-          "metric_id": "fin_breakeven_roas",
-          "impact": "direct",
-          "note": "COGS cao làm ROAS hòa vốn tăng"
-        },
-        {
-          "metric_id": "fin_cm1",
-          "impact": "inverse",
-          "note": "COGS ăn trực tiếp vào lợi nhuận đóng góp"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "prod_defect_rate",
-          "note": "Ép giá nhà cung cấp quá sâu dễ đổi lấy chất lượng kém, tăng tỷ lệ lỗi"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "prod_landed_cost",
+    "metric_id": "vn_prod_landed_cost",
     "code": "Landed Cost",
-    "name": "Landed Cost",
-    "vi_name": "Giá vốn về kho",
+    "pack_code": "GIA_VON_VE_KHO",
+    "name": "",
+    "vi_name": "Giá vốn về tới kho (Giá nhập thực tế)",
     "stage": "01_product_rd",
-    "sub_group": "Cost Structure",
-    "definition": "Tổng chi phí để một đơn vị hàng nằm trong kho sẵn sàng bán: giá mua, vận chuyển quốc tế và nội địa, thuế nhập khẩu, phí thông quan, bảo hiểm.",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Giá vốn thật của 1 sản phẩm khi đã nằm trong kho: tiền trả xưởng cộng cước vận chuyển, thuế, phí bốc xếp. Đây mới là con số dùng để tính lãi, không phải giá xưởng báo.",
     "formula": {
-      "readable": "Landed Cost / đơn vị = (Giá mua + Vận chuyển + Thuế, phí nhập khẩu + Bảo hiểm) / Số lượng",
-      "latex": "\\text{Landed} = \\frac{\\text{Purchase} + \\text{Freight} + \\text{Duties} + \\text{Insurance}}{\\text{Units}}"
+      "readable": "Tiền trả xưởng + Cước vận chuyển Trung-Việt + Phí ủy thác/thuế nhập khẩu + Phí bốc xếp / Tổng số lượng nhập",
+      "derived": "(Factory_Cost + Shipping_Fee + Import_Tax + Handling_Fee) / Units"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "prod_cogs",
-          "impact": "direct",
-          "note": "Landed cost tăng kéo COGS tăng theo"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "ops_inventory_turnover",
-          "note": "Nhập lô lớn để giảm landed cost mỗi đơn vị lại làm hàng nằm kho lâu hơn"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "prod_gross_margin",
-    "code": "Gross Margin",
-    "name": "Gross Margin",
-    "vi_name": "Biên lãi gộp",
-    "stage": "01_product_rd",
-    "sub_group": "Cost Structure",
-    "definition": "Phần trăm doanh thu còn lại sau khi trừ giá vốn hàng bán. Là “dư địa” để trả phí sàn, vận chuyển, quảng cáo và chi phí cố định.",
-    "formula": {
-      "readable": "Gross Margin (%) = (Doanh thu − COGS) / Doanh thu × 100",
-      "latex": "\\text{GM} = \\frac{\\text{Revenue} - \\text{COGS}}{\\text{Revenue}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "prod_cogs",
-          "impact": "inverse",
-          "note": "Giá vốn giảm thì biên gộp tăng"
+          "metric_id": "vn_fin_cm1",
+          "note": "Quyết định trực tiếp lãi gộp sau giá vốn"
         },
         {
-          "metric_id": "sales_discount_rate",
-          "impact": "inverse",
-          "note": "Giảm giá sâu làm biên gộp trên đơn mỏng đi"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cm1",
-          "impact": "direct",
-          "note": "Biên gộp là tầng đầu tiên của lợi nhuận đóng góp"
-        },
-        {
-          "metric_id": "fin_breakeven_roas",
-          "impact": "inverse",
-          "note": "Biên càng dày, ROAS hòa vốn càng thấp"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "sales_cr",
-          "note": "Tăng giá để nới biên có thể làm giảm tỷ lệ chuyển đổi"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "prod_sku_concentration",
-    "code": "SKU Concentration",
-    "name": "SKU Concentration",
-    "vi_name": "Mức độ tập trung doanh thu theo SKU",
-    "stage": "01_product_rd",
-    "sub_group": "Assortment",
-    "definition": "Tỷ trọng doanh thu đến từ nhóm SKU bán chạy nhất (thường là top 20% SKU). Cho biết doanh nghiệp đang phụ thuộc vào ít mã hàng đến mức nào.",
-    "formula": {
-      "readable": "SKU Concentration (%) = Doanh thu từ top 20% SKU / Tổng doanh thu × 100",
-      "latex": "\\text{Conc} = \\frac{\\text{Revenue}_{\\text{top 20\\% SKU}}}{\\text{Revenue}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "ops_dead_stock",
-          "impact": "direct",
-          "note": "Nhiều SKU đuôi dài bán chậm dễ thành hàng tồn chết"
-        },
-        {
-          "metric_id": "ops_stockout_rate",
-          "impact": "direct",
-          "note": "Phụ thuộc vài SKU thì hết hàng một mã là hụt doanh thu lớn"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "sales_aov",
-          "note": "Thu gọn danh mục giúp vận hành nhẹ nhưng giảm cơ hội bán kèm, nâng AOV"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "prod_hero_ratio",
-    "code": "Hero Product Ratio",
-    "name": "Hero Product Ratio",
-    "vi_name": "Tỷ trọng sản phẩm chủ lực",
-    "stage": "01_product_rd",
-    "sub_group": "Assortment",
-    "definition": "Tỷ trọng doanh thu của các sản phẩm chủ lực (hero) – sản phẩm kéo khách mới và định vị thương hiệu.",
-    "formula": {
-      "readable": "Hero Ratio (%) = Doanh thu sản phẩm hero / Tổng doanh thu × 100",
-      "latex": "\\text{Hero} = \\frac{\\text{Revenue}_{\\text{hero}}}{\\text{Revenue}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "mkt_cpa",
-          "impact": "inverse",
-          "note": "Sản phẩm hero đã được kiểm chứng thường có CPA thấp hơn khi chạy quảng cáo"
-        },
-        {
-          "metric_id": "sales_bundle_attach",
-          "impact": "direct",
-          "note": "Hero là “đầu kéo” để bán kèm sản phẩm khác"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "prod_sku_concentration",
-          "note": "Dồn lực vào hero làm tăng rủi ro phụ thuộc một vài mã hàng"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "prod_defect_rate",
-    "code": "Defect Rate",
-    "name": "Defect Rate",
-    "vi_name": "Tỷ lệ hàng lỗi",
-    "stage": "01_product_rd",
-    "sub_group": "Quality",
-    "definition": "Tỷ lệ sản phẩm lỗi (do sản xuất, đóng gói hoặc vận chuyển) trên tổng số sản phẩm giao đi.",
-    "formula": {
-      "readable": "Defect Rate (%) = Số sản phẩm lỗi / Tổng số sản phẩm giao × 100",
-      "latex": "\\text{Defect} = \\frac{\\text{Defective units}}{\\text{Units shipped}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "prod_cogs",
-          "impact": "direct",
-          "note": "Hàng lỗi phải đổi trả, tiêu hủy làm giá vốn thực tế tăng"
-        },
-        {
-          "metric_id": "ret_csat",
-          "impact": "inverse",
-          "note": "Nhận hàng lỗi làm điểm hài lòng giảm mạnh"
-        },
-        {
-          "metric_id": "ops_rto_rate",
-          "impact": "direct",
-          "note": "Hàng lỗi tăng tỷ lệ hoàn trả"
+          "metric_id": "vn_fin_breakeven_roas",
+          "note": "Giá vốn cao đẩy điểm hòa vốn Ads lên cao"
         }
       ],
       "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality",
+      "pb_05_sourcing_and_deadstock"
+    ]
+  },
+  {
+    "metric_id": "vn_prod_hero_sku",
+    "code": "Hero SKU",
+    "pack_code": "HANG_CHU_LUC",
+    "name": "",
+    "vi_name": "Tỷ lệ hàng bán chủ lực (Hàng gánh doanh thu)",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Tỷ trọng doanh thu đến từ top 20% mã bán chạy nhất. Cho biết shop đang sống nhờ vài mã gánh team hay bán đều.",
+    "formula": {
+      "readable": "Doanh thu từ Top 20% mã hàng bán chạy nhất / Tổng doanh thu × 100%",
+      "derived": "(Top_20_SKU_Revenue / Total_Revenue) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_ops_stockout_rate",
+          "note": "Nếu mã chủ lực bị đứt hàng, doanh thu toàn shop sập ngay"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_05_sourcing_and_deadstock"
+    ]
+  },
+  {
+    "metric_id": "vn_ops_dio",
+    "code": "DIO",
+    "pack_code": "VONG_QUAY_TON_KHO",
+    "name": "",
+    "vi_name": "Vòng quay hàng tồn kho (Số ngày hàng nằm kho)",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Số ngày trung bình hàng nằm trong kho trước khi bán được. Hàng nằm kho bao nhiêu ngày thì tiền bị giam bấy nhiêu ngày.",
+    "formula": {
+      "readable": "(Giá trị tồn kho trung bình / Giá vốn hàng bán trong kỳ) × Số ngày trong kỳ",
+      "derived": "(Avg_Inventory_Value / COGS) * Period_Days"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_ccc",
+          "note": "Hàng nằm kho càng lâu thì chu kỳ kẹt vốn càng dài"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap",
+      "pb_05_sourcing_and_deadstock"
+    ],
+    "simulator": {
+      "title": "Tiền đang nằm trong kho bao lâu?",
+      "controls": [
+        {
+          "key": "annual_cogs",
+          "label": "Giá vốn hàng bán / năm",
+          "min": 500000000,
+          "max": 30000000000,
+          "step": 100000000,
+          "default": 6000000000,
+          "unit": "VND"
+        },
+        {
+          "key": "avg_inventory",
+          "label": "Tồn kho bình quân",
+          "min": 100000000,
+          "max": 10000000000,
+          "step": 50000000,
+          "default": 1500000000,
+          "unit": "VND"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "turnover",
+          "label": "Vòng quay / năm",
+          "formula_eval": "annual_cogs / avg_inventory",
+          "unit": "lần",
+          "warning_threshold": "< 4"
+        },
+        {
+          "key": "dio",
+          "label": "Số ngày tồn kho (DIO)",
+          "formula_eval": "365 / (annual_cogs / avg_inventory)",
+          "unit": "ngày",
+          "warning_threshold": "> 90"
+        }
+      ]
+    },
+    "diagnostic_homework": {
+      "title": "Bệnh án: Lãi trên giấy nhưng tiền nằm cả trong kho",
+      "scenario": "Doanh nghiệp có giá vốn hàng bán cả năm 6 tỷ đồng, tồn kho bình quân 1,5 tỷ đồng. Nhà cung cấp đang chào giá giảm 8% nếu nhập lô gấp đôi.",
+      "tasks": [
+        {
+          "task_id": "inv_t1",
+          "type": "numeric_input",
+          "question": "Số ngày tồn kho (DIO) hiện tại là bao nhiêu ngày?",
+          "correct_value": 91.25,
+          "tolerance": 1,
+          "unit": "ngày",
+          "hint": "Vòng quay = 6 tỷ / 1,5 tỷ. DIO = 365 / vòng quay.",
+          "explanation": "Vòng quay = 4 lần/năm → DIO = 365 / 4 ≈ 91 ngày: mỗi đồng nhập hàng mất khoảng 3 tháng mới quay về."
+        },
+        {
+          "task_id": "inv_t2",
+          "type": "strategic_decision",
+          "question": "Có nên nhận đề nghị nhập lô gấp đôi để được giảm 8%?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Có, vì giá vốn giảm 8% là lãi thêm chắc chắn.",
+              "is_correct": false,
+              "reason": "Nhập gấp đôi làm tồn kho bình quân tăng, DIO kéo dài và giam thêm tiền; rủi ro thành hàng chết nếu SKU bán chậm."
+            },
+            {
+              "id": "b",
+              "text": "Chỉ nhập lô lớn cho SKU bán nhanh, ổn định; SKU chậm thì nhập lô nhỏ và xả bớt hàng tồn trước.",
+              "is_correct": true,
+              "reason": "Phần giảm giá chỉ đáng khi hàng bán hết trong thời gian ngắn; tiền giam trong kho có chi phí cơ hội và rủi ro."
+            }
+          ]
+        }
+      ]
     }
+  },
+  {
+    "metric_id": "vn_ops_dead_stock",
+    "code": "Dead Stock",
+    "pack_code": "HANG_TON_CHET",
+    "name": "",
+    "vi_name": "Tỷ lệ hàng tồn chết (Hàng đọng vốn > 90 ngày)",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Phần trăm giá trị tồn kho không bán được đơn nào quá 90 ngày. Đây là tiền đã chết trong kho, càng để lâu càng mất giá.",
+    "formula": {
+      "readable": "Giá trị lô hàng không phát sinh đơn nào trên 90 ngày / Tổng giá trị tồn kho × 100%",
+      "derived": "(Dead_Stock_Value / Total_Inventory_Value) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_ops_dio",
+          "impact": "direct",
+          "note": "Vòng quay chậm sinh ra hàng tồn chết"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_ccc",
+          "note": "Hút cạn tiền mặt xoay vòng của chủ shop"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap",
+      "pb_05_sourcing_and_deadstock"
+    ]
+  },
+  {
+    "metric_id": "vn_prod_defect_rate",
+    "code": "Defect Rate",
+    "pack_code": "HANG_LOI_XUONG",
+    "name": "",
+    "vi_name": "Tỷ lệ hàng lỗi nhập xưởng",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Tỷ lệ hàng lỗi phát hiện khi kiểm hàng nhập kho (đường may, trầy xước, móp méo). Lỗi lọt qua kiểm kho sẽ thành đơn hoàn và đánh giá xấu.",
+    "formula": {
+      "readable": "Số lượng sản phẩm lỗi đường may, trầy xước, móp méo khi kiểm kho / Tổng số lượng nhập × 100%",
+      "derived": "(Defective_Units / Total_Received_Units) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_ops_rto_rate",
+          "note": "Lọt hàng lỗi tới tay khách làm tăng tỷ lệ hoàn trả"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": []
+  },
+  {
+    "metric_id": "vn_prod_packaging_cost",
+    "code": "Chi phí đóng gói",
+    "pack_code": "CHI_PHI_DONG_GOI",
+    "name": "",
+    "vi_name": "Chi phí đóng gói trên mỗi đơn",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Tiền hộp, xốp, băng keo, túi niêm phong và quà kèm chia cho số đơn xuất. Nghe nhỏ nhưng nhân lên hàng nghìn đơn là một khoản ăn thẳng vào lãi.",
+    "formula": {
+      "readable": "(Tiền hộp carton + xốp nổ + băng keo + túi niêm phong + quà tặng kèm) / Tổng số đơn xuất",
+      "derived": "Total_Packaging_And_Gift_Cost / Total_Shipped_Orders"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "note": "Trừ trực tiếp vào lợi nhuận gộp sau vận hành"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality",
+      "pb_09_packing_and_reviews"
+    ]
+  },
+  {
+    "metric_id": "vn_prod_lead_time",
+    "code": "Lead Time",
+    "pack_code": "THOI_GIAN_HANG_VE_KHO",
+    "name": "",
+    "vi_name": "Thời gian hàng về kho (Lead Time nhập hàng)",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Số ngày từ lúc chốt cọc xưởng đến khi hàng nằm trên kệ sẵn sàng bán. Lead time dài thì phải báo nhập sớm hơn, không thì đứt hàng.",
+    "formula": {
+      "readable": "Tổng số ngày từ lúc chốt cọc xưởng (Trung Quốc/Việt Nam) đến khi hàng nằm trên kệ sẵn sàng xuất bán",
+      "derived": "Stock_Ready_Date - Deposit_Paid_Date"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_ops_stockout_rate",
+          "note": "Lead time dài nhưng đặt hàng trễ sẽ gây đứt hàng giữa chừng"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_05_sourcing_and_deadstock"
+    ]
+  },
+  {
+    "metric_id": "vn_ops_reorder_point",
+    "code": "Điểm báo nhập",
+    "pack_code": "DIEM_BAO_NHAP_HANG",
+    "name": "",
+    "vi_name": "Điểm báo nhập hàng (Reorder Point)",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Mức tồn kho mà chạm tới là phải đặt hàng ngay: số bán mỗi ngày nhân số ngày hàng về, cộng tồn kho an toàn. Đặt đúng điểm này thì không đứt hàng, không ôm hàng thừa.",
+    "formula": {
+      "readable": "(Số đơn bán trung bình mỗi ngày × Số ngày hàng về kho) + Tồn kho an toàn dự phòng",
+      "derived": "(Avg_Daily_Unit_Sales * Lead_Time_Days) + Safety_Stock"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_prod_lead_time",
+          "impact": "direct",
+          "note": "Hàng về càng lâu thì mốc báo nhập phải đặt càng sớm"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_ops_stockout_rate",
+          "note": "Chốt chặn chống tắt Ads ngang vì hết hàng"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_04_ops_efficiency",
+      "pb_05_sourcing_and_deadstock"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_gmroi",
+    "code": "GMROI",
+    "pack_code": "HE_SO_SINH_LOI_TON_KHO_GMROI",
+    "name": "",
+    "vi_name": "Hệ số sinh lời trên vốn tồn kho (GMROI)",
+    "stage": "01_product_rd",
+    "sub_group": "Hàng hóa & Giá vốn",
+    "definition": "Mỗi đồng vốn nằm trong kho sinh ra bao nhiêu đồng lãi gộp CM1. Hai mã lãi gộp như nhau, mã nào quay vốn nhanh hơn thì GMROI cao hơn.",
+    "formula": {
+      "readable": "Tổng lãi gộp CM1 thu được trong kỳ / Giá trị tồn kho trung bình",
+      "derived": "Total_CM1 / Avg_Inventory_Cost"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_ops_dio",
+          "impact": "inverse",
+          "note": "Hàng quay vòng nhanh giúp 1 đồng vốn đẻ ra nhiều lãi gộp"
+        }
+      ],
+      "downstream_impacts": [],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap",
+      "pb_05_sourcing_and_deadstock"
+    ]
   }
 ]

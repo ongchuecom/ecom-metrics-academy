@@ -68,6 +68,15 @@ Mỗi chỉ số có các trường:
 
    Lệnh `npm run build` cũng tự chạy bước kiểm tra này.
 
+## Dữ liệu gốc: 60 chỉ số và 10 Playbook
+- File gốc: `data-src/vn_60_metrics_and_10_playbooks_pack.json`.
+- Phần bổ sung:
+  - `data-src/pack-extra.json`: mã ngắn hiển thị và định nghĩa từng chỉ số.
+  - `data-src/carry-over.json`: giả lập, bài tập, số tham khảo giữ từ bản trước.
+- Chạy `npm run data:pack` để sinh `src/data/stages/*.json` và `src/data/playbooks.json`.
+- Liên kết chỉ số ↔ Playbook được hợp nhất hai chiều: chỉ số nhắc tới Playbook, hoặc Playbook nhắc tới chỉ số, đều hiện ở cả hai phía.
+- `npm run validate` kiểm tra liên kết hai chiều khớp nhau.
+
 ## Video tình huống thực tế sau mỗi bài
 - Mỗi bài có mục **Tình huống thực tế**:
   - một video 16:9 dựng theo skill `a1demy-explainer-video`, phong cách Màn hình thật;

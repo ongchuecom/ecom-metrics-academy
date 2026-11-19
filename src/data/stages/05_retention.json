@@ -1,223 +1,72 @@
 [
   {
-    "metric_id": "ret_rpr",
-    "code": "RPR",
-    "name": "Repeat Purchase Rate",
-    "vi_name": "Tỷ lệ khách mua lại",
+    "metric_id": "vn_ret_repeat_rate",
+    "code": "Tỷ lệ mua lại",
+    "pack_code": "TY_LE_MUA_LAI_LAN_2",
+    "name": "",
+    "vi_name": "Tỷ lệ khách quay lại mua lần 2",
     "stage": "05_retention_lifecycle",
-    "sub_group": "Repeat Behavior",
-    "definition": "Tỷ lệ khách hàng đã mua từ 2 lần trở lên trên tổng số khách trong kỳ.",
+    "sub_group": "Giữ chân Khách hàng",
+    "definition": "Tỷ lệ khách đã mua lần đầu quay lại đặt đơn thứ 2. Khách quay lại mua nhiều lần thì LTV tăng, lãi đậm mà không tốn tiền đi săn khách mới.",
     "formula": {
-      "readable": "RPR (%) = Số khách mua ≥ 2 lần / Tổng số khách × 100",
-      "latex": "\\text{RPR} = \\frac{\\text{Customers with} \\geq 2 \\text{ orders}}{\\text{Customers}} \\times 100\\%"
+      "readable": "Số khách quay lại đặt đơn thứ 2 / Tổng số khách đã mua lần đầu × 100%",
+      "derived": "(Repeat_Customers / Total_First_Time_Customers) * 100"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "prod_pmf_score",
-          "impact": "direct",
-          "note": "Sản phẩm thật sự cần thiết thì khách quay lại"
-        },
-        {
-          "metric_id": "ret_csat",
-          "impact": "direct",
-          "note": "Khách hài lòng dễ mua lại"
+          "metric_id": "vn_ops_picking_error",
+          "impact": "inverse",
+          "note": "Giao nhầm hàng ở đơn 1 khiến khách một đi không trở lại"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "ret_purchase_frequency",
-          "impact": "direct",
-          "note": "Nhiều khách mua lại kéo tần suất mua trung bình lên"
-        },
-        {
-          "metric_id": "ret_clv",
-          "impact": "direct",
-          "note": "Mua lại là nguồn chính của CLV"
+          "metric_id": "vn_fin_cm3",
+          "note": "Đơn khách cũ quay lại không tốn tiền Ads kéo khách mới"
         }
       ],
       "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_purchase_frequency",
-    "code": "Purchase Frequency",
-    "name": "Purchase Frequency",
-    "vi_name": "Tần suất mua",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Repeat Behavior",
-    "definition": "Số đơn trung bình mỗi khách hàng trong một kỳ (thường là 12 tháng).",
-    "formula": {
-      "readable": "Purchase Frequency = Số đơn trong kỳ / Số khách hàng duy nhất trong kỳ",
-      "latex": "\\text{Frequency} = \\frac{\\text{Orders}}{\\text{Unique customers}}"
     },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "ret_rpr",
-          "impact": "direct",
-          "note": "Tỷ lệ mua lại cao kéo tần suất lên"
-        },
-        {
-          "metric_id": "ret_time_between",
-          "impact": "inverse",
-          "note": "Khoảng cách giữa hai lần mua càng ngắn, tần suất càng cao"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_clv",
-          "impact": "direct",
-          "note": "Tần suất là một thừa số của CLV"
-        }
-      ],
-      "trade_offs": []
-    }
+    "playbook_refs": [
+      "pb_08_retention_clv",
+      "pb_09_packing_and_reviews"
+    ]
   },
   {
-    "metric_id": "ret_cohort_retention",
-    "code": "Cohort Retention",
-    "name": "Cohort Retention (D30/D60/D90)",
-    "vi_name": "Tỷ lệ giữ chân theo nhóm khách",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Retention",
-    "definition": "Tỷ lệ khách của một nhóm (cùng tháng mua đầu tiên) quay lại mua sau 30, 60, 90 ngày.",
-    "formula": {
-      "readable": "Retention Dn (%) = Số khách của nhóm quay lại mua trong n ngày / Số khách ban đầu của nhóm × 100",
-      "latex": "\\text{Retention}_{D_n} = \\frac{\\text{Returning customers of cohort by day } n}{\\text{Cohort size}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_clv",
-          "impact": "direct",
-          "note": "Đường giữ chân càng cao, CLV càng lớn"
-        },
-        {
-          "metric_id": "ret_customer_churn",
-          "impact": "inverse",
-          "note": "Giữ chân tốt nghĩa là ít khách rời bỏ"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_customer_churn",
-    "code": "Customer Churn",
-    "name": "Customer Churn Rate",
-    "vi_name": "Tỷ lệ khách rời bỏ",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Retention",
-    "definition": "Tỷ lệ khách hàng ngừng mua (hoặc hủy gói) trong kỳ.",
-    "formula": {
-      "readable": "Churn (%) = Số khách rời bỏ trong kỳ / Số khách đầu kỳ × 100",
-      "latex": "\\text{Churn} = \\frac{\\text{Customers lost}}{\\text{Customers at start}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "ret_csat",
-          "impact": "inverse",
-          "note": "Hài lòng thấp làm khách rời bỏ"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_clv",
-          "impact": "inverse",
-          "note": "Churn cao rút ngắn vòng đời, CLV giảm"
-        },
-        {
-          "metric_id": "ret_revenue_churn",
-          "impact": "direct",
-          "note": "Mất khách kéo theo mất doanh thu định kỳ"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_revenue_churn",
-    "code": "Revenue Churn",
-    "name": "Revenue Churn Rate",
-    "vi_name": "Tỷ lệ mất doanh thu định kỳ",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Retention",
-    "definition": "Tỷ lệ doanh thu định kỳ (gói thuê bao, khách quen) bị mất trong kỳ do khách rời bỏ hoặc mua ít đi.",
-    "formula": {
-      "readable": "Revenue Churn (%) = Doanh thu định kỳ bị mất / Doanh thu định kỳ đầu kỳ × 100",
-      "latex": "\\text{Rev churn} = \\frac{\\text{Recurring revenue lost}}{\\text{Recurring revenue at start}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "ret_customer_churn",
-          "impact": "direct",
-          "note": "Khách rời bỏ kéo doanh thu định kỳ giảm"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_net_margin",
-          "impact": "inverse",
-          "note": "Phải chi thêm tiền tìm khách mới để bù doanh thu mất"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_clv",
+    "metric_id": "vn_ret_clv",
     "code": "CLV",
-    "name": "Customer Lifetime Value",
-    "vi_name": "Giá trị vòng đời khách hàng",
+    "pack_code": "GIA_TRI_VONG_DOI_KHACH_HANG_CLV",
+    "name": "",
+    "vi_name": "Giá trị vòng đời khách hàng (CLV / Lãi gộp trọn đời)",
     "stage": "05_retention_lifecycle",
-    "sub_group": "Customer Value",
-    "definition": "Lợi nhuận đóng góp mà một khách hàng mang lại trong suốt thời gian mua hàng. Là trần chi phí có thể bỏ ra để có một khách.",
+    "sub_group": "Giữ chân Khách hàng",
+    "definition": "Lãi trọn đời của 1 khách: lãi CM2 mỗi đơn nhân số lần mua trung bình trong 12 tháng. CLV cao thì shop dám bỏ nhiều tiền hơn để có khách mới.",
     "formula": {
-      "readable": "CLV = AOV × Số đơn trong vòng đời × Biên đóng góp",
-      "latex": "\\text{CLV} = \\text{AOV} \\times \\text{Orders per lifetime} \\times \\text{Contribution margin}"
+      "readable": "Lãi gộp trung bình mỗi đơn (CM2) × Số lần mua trung bình của 1 khách hàng trong 12 tháng",
+      "derived": "Avg_Order_CM2 * Avg_Purchase_Frequency_12M"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "sales_aov",
+          "metric_id": "vn_ret_repeat_rate",
           "impact": "direct",
-          "note": "AOV là một thừa số của CLV"
-        },
-        {
-          "metric_id": "ret_purchase_frequency",
-          "impact": "direct",
-          "note": "Mua nhiều lần hơn thì CLV lớn hơn"
-        },
-        {
-          "metric_id": "ret_customer_churn",
-          "impact": "inverse",
-          "note": "Khách rời đi sớm làm CLV giảm"
+          "note": "Khách quay lại mua nhiều lần giúp nhân đôi, nhân ba CLV"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "fin_ltv_cac",
-          "impact": "direct",
-          "note": "CLV là tử số của tỷ lệ LTV/CAC"
+          "metric_id": "vn_mkt_cpa",
+          "note": "CLV cao cho phép shop chấp nhận chi phí kéo khách mới (CAC) cao hơn đối thủ"
         }
       ],
-      "trade_offs": [
-        {
-          "metric_id": "fin_cac_payback",
-          "note": "Chấp nhận CAC cao vì CLV lớn thì phải chờ lâu hơn mới thu hồi được tiền"
-        }
-      ]
+      "trade_offs": []
     },
+    "playbook_refs": [
+      "pb_08_retention_clv"
+    ],
     "simulator": {
       "title": "Một khách hàng đáng giá bao nhiêu?",
       "controls": [
@@ -318,151 +167,31 @@
     }
   },
   {
-    "metric_id": "ret_time_between",
-    "code": "Time Between Purchases",
-    "name": "Time Between Purchases",
-    "vi_name": "Khoảng cách giữa hai lần mua",
+    "metric_id": "vn_ret_bad_review_resolution",
+    "code": "Xử lý đánh giá xấu",
+    "pack_code": "TY_LE_XU_LY_DANH_GIA_XAU",
+    "name": "",
+    "vi_name": "Tỷ lệ xử lý đánh giá xấu (1–2 sao)",
     "stage": "05_retention_lifecycle",
-    "sub_group": "Repeat Behavior",
-    "definition": "Số ngày trung bình giữa hai lần mua liên tiếp của cùng một khách.",
+    "sub_group": "Giữ chân Khách hàng",
+    "definition": "Tỷ lệ đánh giá 1–2 sao được CSKH liên hệ xử lý ổn và khách sửa lại đánh giá. Điểm sao tụt kéo CVR và chi phí Ads xấu theo.",
     "formula": {
-      "readable": "TBP = Tổng số ngày giữa các lần mua liên tiếp / Số lần mua lại",
-      "latex": "\\text{TBP} = \\frac{\\sum \\text{days between consecutive orders}}{\\text{Repeat orders}}"
+      "readable": "Số đánh giá 1–2 sao được CSKH liên hệ xử lý thỏa đáng và khách sửa lại đánh giá / Tổng đánh giá xấu × 100%",
+      "derived": "(Resolved_And_Updated_Bad_Reviews / Total_Bad_Reviews) * 100"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "ret_purchase_frequency",
-          "impact": "inverse",
-          "note": "Khoảng cách ngắn thì tần suất mua cao"
-        },
-        {
-          "metric_id": "fin_cac_payback",
-          "impact": "direct",
-          "note": "Khách mua lại chậm thì thời gian thu hồi CAC dài"
+          "metric_id": "vn_sales_pdp_cvr",
+          "note": "Gỡ được đánh giá 1 sao đầu trang giúp cứu tỷ lệ chuyển đổi toàn gian hàng"
         }
       ],
       "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_nps",
-    "code": "NPS",
-    "name": "Net Promoter Score",
-    "vi_name": "Chỉ số sẵn lòng giới thiệu",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Satisfaction",
-    "definition": "Đo mức độ khách sẵn lòng giới thiệu thương hiệu: tỷ lệ người chấm 9–10 trừ tỷ lệ người chấm 0–6 trên thang 0–10.",
-    "formula": {
-      "readable": "NPS = % Người ủng hộ (9–10) − % Người phản đối (0–6)",
-      "latex": "\\text{NPS} = \\%\\text{Promoters} - \\%\\text{Detractors}"
     },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "ret_csat",
-          "impact": "direct",
-          "note": "Trải nghiệm tốt tạo ra người ủng hộ"
-        },
-        {
-          "metric_id": "prod_pmf_score",
-          "impact": "direct",
-          "note": "Sản phẩm không thể thiếu thì khách sẵn lòng giới thiệu"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_k_factor",
-          "impact": "direct",
-          "note": "Nhiều người ủng hộ tạo ra nhiều lượt giới thiệu"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_csat",
-    "code": "CSAT",
-    "name": "Customer Satisfaction Score",
-    "vi_name": "Điểm hài lòng khách hàng",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Satisfaction",
-    "definition": "Tỷ lệ khách đánh giá hài lòng (thường 4–5 trên thang 5) sau một lần mua hoặc một lần được hỗ trợ.",
-    "formula": {
-      "readable": "CSAT (%) = Số đánh giá hài lòng (4–5) / Tổng số đánh giá × 100",
-      "latex": "\\text{CSAT} = \\frac{\\text{Satisfied responses}}{\\text{Responses}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "ops_otd",
-          "impact": "direct",
-          "note": "Giao đúng hẹn tăng hài lòng"
-        },
-        {
-          "metric_id": "prod_defect_rate",
-          "impact": "inverse",
-          "note": "Hàng lỗi làm hài lòng giảm"
-        },
-        {
-          "metric_id": "team_frt",
-          "impact": "inverse",
-          "note": "Phản hồi chậm làm khách bực bội"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_rpr",
-          "impact": "direct",
-          "note": "Khách hài lòng quay lại mua"
-        },
-        {
-          "metric_id": "ret_nps",
-          "impact": "direct",
-          "note": "Hài lòng là nền của sẵn lòng giới thiệu"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "ret_k_factor",
-    "code": "K-Factor",
-    "name": "Viral Coefficient",
-    "vi_name": "Hệ số lan truyền",
-    "stage": "05_retention_lifecycle",
-    "sub_group": "Referral",
-    "definition": "Số khách mới trung bình mà mỗi khách hiện tại mang về qua giới thiệu. K > 1 nghĩa là tăng trưởng tự lan truyền.",
-    "formula": {
-      "readable": "K-Factor = Số lời mời mỗi khách gửi × Tỷ lệ lời mời thành khách",
-      "latex": "K = \\text{Invites per user} \\times \\text{Invite conversion rate}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "ret_nps",
-          "impact": "direct",
-          "note": "Người ủng hộ là nguồn giới thiệu"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cac",
-          "impact": "inverse",
-          "note": "Khách đến từ giới thiệu kéo CAC tổng xuống"
-        },
-        {
-          "metric_id": "mkt_traffic_share",
-          "impact": "inverse",
-          "note": "Nhiều khách giới thiệu thì bớt phụ thuộc lưu lượng trả phí"
-        }
-      ],
-      "trade_offs": []
-    }
+    "playbook_refs": [
+      "pb_09_packing_and_reviews"
+    ]
   }
 ]

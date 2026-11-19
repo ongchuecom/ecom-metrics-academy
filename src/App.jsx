@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { metricById, metricsMaster, DEFAULT_METRIC_ID } from './data/index.js'
+import { metricById, metricsMaster, DEFAULT_METRIC_ID, playbookById } from './data/index.js'
+import { PlaybookPage } from './components/Playbooks.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import MetricLesson from './components/MetricLesson.jsx'
 import MetricSimulator from './components/MetricSimulator.jsx'
@@ -21,10 +22,11 @@ const TABS = [
 ]
 const TAB_IDS = TABS.map((t) => t.id)
 
-// URL dạng #fin_roas hoặc #fin_roas/homework để chia sẻ đúng bài
+// URL dạng #vn_fin_cm2, #vn_fin_cm2/homework, hoặc #pb_01_profit_reality cho Playbook
 function readHash() {
   const [id, tab] = decodeURIComponent(window.location.hash.slice(1)).split('/')
-  return { id: metricById[id] ? id : DEFAULT_METRIC_ID, tab: TAB_IDS.includes(tab) ? tab : null }
+  if (playbookById[id]) return { pb: id, id: null, tab: null }
+  return { pb: null, id: metricById[id] ? id : DEFAULT_METRIC_ID, tab: TAB_IDS.includes(tab) ? tab : null }
 }
 
 function Brand({ compact = false }) {
@@ -37,7 +39,8 @@ function Brand({ compact = false }) {
 }
 
 export default function App() {
-  const [selectedMetricId, setSelectedMetricId] = useState(() => readHash().id)
+  const [selectedMetricId, setSelectedMetricId] = useState(() => readHash().id || DEFAULT_METRIC_ID)
+  const [pbId, setPbId] = useState(() => readHash().pb)
   const [tab, setTab] = useState(() => readHash().tab || 'sim')
   const [drawer, setDrawer] = useState(false)
   const metric = metricById[selectedMetricId]
@@ -48,7 +51,8 @@ export default function App() {
   useEffect(() => {
     const onHash = () => {
       const h = readHash()
-      setSelectedMetricId(h.id)
+      setPbId(h.pb)
+      if (h.id) setSelectedMetricId(h.id)
       if (h.tab) setTab(h.tab)
     }
     window.addEventListener('hashchange', onHash)
@@ -56,10 +60,10 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const nextHash = `#${selectedMetricId}${tab !== 'sim' ? '/' + tab : ''}`
+    const nextHash = pbId ? `#${pbId}` : `#${selectedMetricId}${tab !== 'sim' ? '/' + tab : ''}`
     if (window.location.hash !== nextHash) window.history.replaceState(null, '', nextHash)
-    document.title = `${metric.code} · ${metric.vi_name} – Ecom Metrics Academy`
-  }, [selectedMetricId, tab, metric])
+    document.title = pbId ? `${playbookById[pbId].title} – Ecom Metrics Academy` : `${metric.code} · ${metric.vi_name} – Ecom Metrics Academy`
+  }, [selectedMetricId, tab, metric, pbId])
 
   // Khóa cuộn trang khi mở ngăn kéo trên mobile
   useEffect(() => {
@@ -72,10 +76,19 @@ export default function App() {
   const select = useCallback((id) => {
     if (!metricById[id]) return
     setSelectedMetricId(id)
+    setPbId(null)
     setDrawer(false)
     window.history.pushState(null, '', `#${id}${tab !== 'sim' ? '/' + tab : ''}`)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [tab])
+
+  const openPlaybook = useCallback((id) => {
+    if (!playbookById[id]) return
+    setPbId(id)
+    setDrawer(false)
+    window.history.pushState(null, '', `#${id}`)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
 
   const openHomework = useCallback(() => {
     setTab('homework')
@@ -89,7 +102,7 @@ export default function App() {
         <Brand compact />
         <button onClick={() => setDrawer(true)} className="flex shrink-0 items-center gap-2 rounded-full bg-white px-3.5 py-2 font-display text-sm font-bold text-brand-600" aria-expanded={drawer}>
           <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden="true"><path d="M3 5h14v2H3zM3 9h14v2H3zM3 13h14v2H3z" /></svg>
-          {metricsMaster.length} chỉ số
+          Chỉ số · Playbook
         </button>
       </header>
 
@@ -99,10 +112,10 @@ export default function App() {
           <button className="absolute inset-0 bg-ink/40" onClick={() => setDrawer(false)} aria-label="Đóng" />
           <div className="fade-up absolute inset-x-0 bottom-0 flex h-[88dvh] flex-col rounded-t-3xl bg-white pt-3">
             <div className="flex items-center justify-between px-4 pb-3">
-              <p className="font-display text-lg font-black text-ink">Chọn chỉ số</p>
+              <p className="font-display text-lg font-black text-ink">Chỉ số & Playbook</p>
               <button onClick={() => setDrawer(false)} className="rounded-full bg-stone-100 px-3 py-1.5 text-sm font-semibold text-body">Đóng</button>
             </div>
-            <Sidebar selected={selectedMetricId} onSelect={select} />
+            <Sidebar selected={pbId ? null : selectedMetricId} onSelect={select} selectedPb={pbId} onOpenPlaybook={openPlaybook} />
           </div>
         </div>
       )}
@@ -111,14 +124,17 @@ export default function App() {
       <aside className="hidden border-r border-stone-200/80 bg-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-72 lg:shrink-0 lg:flex-col">
         <div className="book-band mb-3 px-5 pb-4 pt-5">
           <Brand />
-          <p className="mt-2 text-xs text-white/85">{metricsMaster.length} chỉ số · 7 khâu vận hành</p>
+          <p className="mt-2 text-xs text-white/85">{metricsMaster.length} chỉ số · 10 Playbook · 7 khâu</p>
         </div>
-        <Sidebar selected={selectedMetricId} onSelect={select} />
+        <Sidebar selected={pbId ? null : selectedMetricId} onSelect={select} selectedPb={pbId} onOpenPlaybook={openPlaybook} />
       </aside>
 
       <main className="min-w-0 flex-1">
         <div className="mx-auto max-w-5xl space-y-10 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
-          <MetricLesson metric={metric} onSelect={select} onHomework={openHomework} />
+          {pbId ? (
+            <PlaybookPage playbook={playbookById[pbId]} onSelectMetric={select} onOpen={openPlaybook} />
+          ) : (<>
+          <MetricLesson metric={metric} onSelect={select} onHomework={openHomework} onOpenPlaybook={openPlaybook} />
 
           <CaseStudy key={`case-${selectedMetricId}`} metric={metric} onSelect={select} />
 
@@ -160,7 +176,9 @@ export default function App() {
             ) : <span key={k} />)}
           </nav>
 
-          <Resources metric={metric} />
+          </>)}
+
+          {!pbId && <Resources metric={metric} />}
           <Promos />
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">

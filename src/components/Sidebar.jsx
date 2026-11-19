@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react'
-import { metricsMaster, STAGES } from '../data/index.js'
+import { metricsMaster, STAGES, playbooks } from '../data/index.js'
+import { PlaybookNav } from './Playbooks.jsx'
 
 // Bỏ dấu tiếng Việt để tìm "loi nhuan" vẫn ra "Lợi nhuận"
 const fold = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
-const INDEX = metricsMaster.map((m) => ({ m, hay: fold([m.code, m.vi_name, m.name, m.metric_id].join(' ')) }))
+const INDEX = metricsMaster.map((m) => ({ m, hay: fold([m.code, m.vi_name, m.pack_code || '', m.metric_id].join(' ')) }))
 
-export default function Sidebar({ selected, onSelect, autoFocus = false }) {
+export default function Sidebar({ selected, onSelect, selectedPb, onOpenPlaybook, autoFocus = false }) {
+  const [view, setView] = useState(selectedPb ? 'pb' : 'metrics')
   const [q, setQ] = useState('')
   const [stage, setStage] = useState('all')
 
@@ -17,7 +19,19 @@ export default function Sidebar({ selected, onSelect, autoFocus = false }) {
   const total = groups.reduce((n, g) => n + g.items.length, 0)
 
   return (
-    <nav aria-label="Danh sách chỉ số" className="flex min-h-0 flex-1 flex-col">
+    <nav aria-label="Danh sách chỉ số và Playbook" className="flex min-h-0 flex-1 flex-col">
+      <div className="mx-3 mb-2 grid grid-cols-2 gap-1 rounded-full bg-stone-100 p-1 text-sm lg:mx-4" role="tablist">
+        {[['metrics', `Chỉ số · ${metricsMaster.length}`], ['pb', `Playbook · ${playbooks.length}`]].map(([k, l]) => (
+          <button key={k} role="tab" aria-selected={view === k} onClick={() => setView(k)}
+            className={`rounded-full py-1.5 font-display font-bold transition ${view === k ? 'bg-white text-brand-600 shadow-sm' : 'text-charcoal'}`}>{l}</button>
+        ))}
+      </div>
+      {view === 'pb' ? (
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-6 lg:px-4">
+          <p className="px-2 pb-2 text-xs leading-snug text-muted">Tình huống thực chiến, mỗi bài nối với các chỉ số liên quan.</p>
+          <PlaybookNav selected={selectedPb} onOpen={onOpenPlaybook} />
+        </div>
+      ) : (<>
       <div className="space-y-2 px-3 pb-2 lg:px-4">
         <label className="block">
           <span className="sr-only">Tìm chỉ số</span>
@@ -81,6 +95,7 @@ export default function Sidebar({ selected, onSelect, autoFocus = false }) {
           </div>
         ))}
       </div>
+      </>)}
     </nav>
   )
 }

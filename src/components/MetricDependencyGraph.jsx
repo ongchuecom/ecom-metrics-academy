@@ -5,6 +5,7 @@ import { SectionTitle } from './ui.jsx'
 const IMPACT = {
   direct: { label: 'Thuận chiều', sign: '↑ ↑', badge: 'bg-stone-100 text-ink ring-stone-300', edge: 'border-l-stone-400' },
   inverse: { label: 'Nghịch chiều', sign: '↑ ↓', badge: 'bg-coral/10 text-coral ring-coral/30', edge: 'border-l-coral' },
+  link: { label: 'Liên quan', sign: '↔', badge: 'bg-stone-100 text-charcoal ring-stone-200', edge: '' },
   trade: { label: 'Đánh đổi', sign: '⇄', badge: 'bg-marker text-navy-ink ring-amber-300', edge: 'border-l-marker' },
 }
 
@@ -76,7 +77,7 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
       <div className="py-1">
       <div className="grid items-center gap-2 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,0.8fr)_auto_minmax(0,1fr)] md:gap-3">
         <Column title="Đầu vào" hint="Chỉ số kéo chỉ số này lên/xuống" empty={up.length ? null : 'Chỉ số gốc, không phụ thuộc chỉ số nào trong hệ thống.'}>
-          {up.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind={r.impact} onSelect={onSelect} delay={i * 60} />)}
+          {up.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind={r.impact || 'link'} onSelect={onSelect} delay={i * 60} />)}
         </Column>
         <FlowArrow />
         <div key={metric.metric_id} className="fade-up rounded-2xl bg-white p-4 text-center ring-2 ring-brand-500">
@@ -87,7 +88,7 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
         <FlowArrow />
         <div className="min-w-0 space-y-4">
           <Column title="Đầu ra" hint="Chỉ số bị chỉ số này tác động" empty={down.length ? null : 'Chỉ số cuối chuỗi.'}>
-            {down.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind={r.impact} onSelect={onSelect} delay={i * 60} />)}
+            {down.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind={r.impact || 'link'} onSelect={onSelect} delay={i * 60} />)}
           </Column>
           {trade.length > 0 && (
             <Column title="Đánh đổi" hint="Tối ưu quá tay sẽ làm hỏng chỉ số khác">

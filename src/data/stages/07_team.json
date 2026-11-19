@@ -1,183 +1,304 @@
 [
   {
-    "metric_id": "team_revenue_per_employee",
-    "code": "Revenue/Employee",
-    "name": "Revenue per Employee",
-    "vi_name": "Doanh thu trên mỗi nhân sự",
+    "metric_id": "vn_team_chat_cvr",
+    "code": "Chat-to-Order",
+    "pack_code": "TY_LE_CHOT_DON_CHAT",
+    "name": "",
+    "vi_name": "Tỷ lệ chốt đơn qua tin nhắn (Chat-to-Order)",
     "stage": "07_team_operations",
-    "sub_group": "Team Productivity",
-    "definition": "Doanh thu bình quân mỗi nhân sự toàn thời gian (FTE) trong kỳ.",
+    "sub_group": "Hiệu suất Bán hàng",
+    "definition": "Tỷ lệ khách nhắn tin hỏi mua (Zalo, Messenger, TikTok chat) chốt thành đơn. Trả lời chậm, kịch bản kém là khách sang shop khác.",
     "formula": {
-      "readable": "Revenue/Employee = Doanh thu / Số nhân sự quy đổi toàn thời gian",
-      "latex": "\\text{Rev/FTE} = \\frac{\\text{Revenue}}{\\text{FTE}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_ebitda",
-          "impact": "direct",
-          "note": "Mỗi người tạo ra nhiều doanh thu hơn thì chi phí cố định nhẹ hơn"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "ret_csat",
-          "note": "Cắt người quá tay để tăng chỉ số có thể làm chất lượng phục vụ giảm"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "team_gp_per_employee",
-    "code": "Gross Profit/Employee",
-    "name": "Gross Profit per Employee",
-    "vi_name": "Lợi nhuận gộp trên mỗi nhân sự",
-    "stage": "07_team_operations",
-    "sub_group": "Team Productivity",
-    "definition": "Lợi nhuận gộp bình quân mỗi nhân sự. Phản ánh năng suất tốt hơn doanh thu/nhân sự khi biên lãi khác nhau.",
-    "formula": {
-      "readable": "GP/Employee = Lợi nhuận gộp / Số nhân sự quy đổi toàn thời gian",
-      "latex": "\\text{GP/FTE} = \\frac{\\text{Gross profit}}{\\text{FTE}}"
+      "readable": "Số đơn chốt thành công qua Zalo/Messenger/TikTok Chat / Tổng số khách nhắn tin hỏi mua × 100%",
+      "derived": "(Chat_Orders / Inbound_Leads) * 100"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "prod_gross_margin",
-          "impact": "direct",
-          "note": "Biên gộp dày làm chỉ số tăng"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_ebitda",
-          "impact": "direct",
-          "note": "Năng suất lợi nhuận cao giúp EBITDA tốt hơn"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "team_spend_per_marketer",
-    "code": "Spend/Marketer",
-    "name": "Marketing Spend per Marketer",
-    "vi_name": "Ngân sách quản lý trên mỗi người làm marketing",
-    "stage": "07_team_operations",
-    "sub_group": "Team Productivity",
-    "definition": "Ngân sách quảng cáo trung bình mỗi người làm marketing quản lý. Quá thấp là thừa người, quá cao dễ quản lý không xuể.",
-    "formula": {
-      "readable": "Spend/Marketer = Tổng ngân sách marketing / Số người làm marketing",
-      "latex": "\\text{Spend/Marketer} = \\frac{\\text{Marketing spend}}{\\text{Marketers}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cac",
-          "impact": "direct",
-          "note": "Chi phí nhân sự marketing là một phần của CAC tổng"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "mkt_creative_fatigue",
-          "note": "Một người ôm quá nhiều ngân sách thì ít thời gian làm creative mới, creative mỏi nhanh"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "team_cs_resolution_time",
-    "code": "CS Resolution Time",
-    "name": "Customer Service Resolution Time",
-    "vi_name": "Thời gian xử lý xong yêu cầu khách",
-    "stage": "07_team_operations",
-    "sub_group": "Customer Service",
-    "definition": "Thời gian trung bình từ khi khách gửi yêu cầu đến khi vấn đề được giải quyết xong.",
-    "formula": {
-      "readable": "Resolution Time = Tổng thời gian xử lý các yêu cầu / Số yêu cầu đã giải quyết",
-      "latex": "\\text{Resolution} = \\frac{\\sum \\text{time to resolve}}{\\text{Tickets resolved}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "ret_csat",
+          "metric_id": "vn_team_frt",
           "impact": "inverse",
-          "note": "Xử lý lâu làm hài lòng giảm"
-        },
+          "note": "Trả lời tin nhắn càng nhanh tỷ lệ chốt càng cao"
+        }
+      ],
+      "downstream_impacts": [
         {
-          "metric_id": "ret_customer_churn",
-          "impact": "direct",
-          "note": "Vấn đề kéo dài khiến khách rời bỏ"
+          "metric_id": "vn_fin_net_sales",
+          "note": "Tăng doanh thu mà không cần tăng tiền Ads"
         }
       ],
       "trade_offs": []
-    }
+    },
+    "playbook_refs": [
+      "pb_04_ops_efficiency"
+    ]
   },
   {
-    "metric_id": "team_frt",
+    "metric_id": "vn_team_frt",
     "code": "FRT",
-    "name": "First Response Time",
-    "vi_name": "Thời gian phản hồi đầu tiên",
+    "pack_code": "THOI_GIAN_REP_TIN_NHAN",
+    "name": "",
+    "vi_name": "Thời gian trả lời tin nhắn đầu tiên (FRT)",
     "stage": "07_team_operations",
-    "sub_group": "Customer Service",
-    "definition": "Thời gian trung bình từ khi khách nhắn đến khi nhận được câu trả lời đầu tiên.",
+    "sub_group": "Hiệu suất Bán hàng",
+    "definition": "Thời gian trung bình từ lúc khách nhắn đến khi nhận câu trả lời đầu tiên. Mỗi phút chờ là một phần khách bỏ đi mua chỗ khác.",
     "formula": {
-      "readable": "FRT = Tổng thời gian đến phản hồi đầu tiên / Số cuộc hội thoại",
-      "latex": "\\text{FRT} = \\frac{\\sum \\text{time to first reply}}{\\text{Conversations}}"
+      "readable": "Tổng thời gian chờ phản hồi tin nhắn đầu tiên / Tổng số khách nhắn tin (tính bằng phút/giây)",
+      "derived": "Total_First_Response_Minutes / Total_Conversations"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "ret_csat",
-          "impact": "inverse",
-          "note": "Phản hồi chậm làm hài lòng giảm"
-        },
-        {
-          "metric_id": "sales_cr",
-          "impact": "inverse",
-          "note": "Trả lời tin nhắn chậm làm mất đơn khi khách đang hỏi mua"
+          "metric_id": "vn_team_chat_cvr",
+          "note": "Trễ quá 3 phút là khách thoát ra mua shop khác"
         }
       ],
       "trade_offs": []
-    }
+    },
+    "playbook_refs": [
+      "pb_04_ops_efficiency",
+      "pb_10_team_vs_automation"
+    ]
   },
   {
-    "metric_id": "team_packing_speed",
-    "code": "Packing Speed",
-    "name": "Packing Speed per Staff",
-    "vi_name": "Tốc độ đóng gói mỗi nhân sự",
+    "metric_id": "vn_team_live_gmv_hour",
+    "code": "GMV / giờ Live",
+    "pack_code": "DOANH_THU_GIO_LIVE",
+    "name": "",
+    "vi_name": "Doanh thu mỗi giờ Livestream (GMV / Giờ Live)",
     "stage": "07_team_operations",
-    "sub_group": "Warehouse Productivity",
-    "definition": "Số đơn trung bình một nhân sự kho đóng gói được mỗi giờ (hoặc mỗi ca).",
+    "sub_group": "Hiệu suất Bán hàng",
+    "definition": "Doanh thu tạo ra trên mỗi giờ lên sóng livestream. So con số này với chi phí host, trợ live, Ads mồi để biết phòng Live có nuôi được chính nó không.",
     "formula": {
-      "readable": "Packing Speed = Số đơn đóng gói / (Số nhân sự × Số giờ làm)",
-      "latex": "\\text{Packing speed} = \\frac{\\text{Orders packed}}{\\text{Staff} \\times \\text{Hours}}"
+      "readable": "Tổng doanh thu phát sinh trong phiên Live / Tổng số giờ lên sóng",
+      "derived": "Total_Live_GMV / Live_Hours"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "ops_order_cycle_time",
-          "impact": "inverse",
-          "note": "Đóng gói nhanh rút ngắn thời gian xử lý đơn"
+          "metric_id": "vn_fin_net_sales",
+          "note": "Đo lường hiệu quả của từng Host Live và khung giờ"
         }
       ],
-      "trade_offs": [
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_06_livestream_and_koc"
+    ]
+  },
+  {
+    "metric_id": "vn_team_koc_return_rate",
+    "code": "Tỷ lệ KOC trả clip",
+    "pack_code": "TY_LE_KOC_TRA_CLIP",
+    "name": "",
+    "vi_name": "Tỷ lệ KOC nhận mẫu có trả video",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Bán hàng",
+    "definition": "Tỷ lệ KOC nhận mẫu miễn phí có trả video gắn giỏ hàng đúng hẹn. Mẫu gửi đi mà không có clip là mất trắng giá vốn và tiền ship.",
+    "formula": {
+      "readable": "Số KOC trả video gắn giỏ hàng đúng hẹn / Tổng số mẫu miễn phí đã gửi đi × 100%",
+      "derived": "(Completed_KOC_Videos / Total_Samples_Sent) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
         {
-          "metric_id": "prod_defect_rate",
-          "note": "Ép tốc độ quá cao dễ sinh sai sót, đóng nhầm, hư hỏng"
+          "metric_id": "vn_fin_cm3",
+          "note": "Gửi mẫu tràn lan không thu hồi được clip làm đội chi phí Marketing"
         }
-      ]
-    }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_06_livestream_and_koc"
+    ]
+  },
+  {
+    "metric_id": "vn_team_pack_speed",
+    "code": "Năng suất đóng gói",
+    "pack_code": "NANG_SUAT_DONG_GOI",
+    "name": "",
+    "vi_name": "Năng suất đóng gói kho (Đơn / Nhân sự / Ca)",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Vận hành",
+    "definition": "Số đơn đóng gói hoàn chỉnh trên mỗi nhân viên kho mỗi ca. Đo xem kho đang thiếu người hay thiếu quy trình, công cụ.",
+    "formula": {
+      "readable": "Tổng số đơn đóng gói hoàn chỉnh trong ngày / (Số nhân viên kho × Số ca làm việc)",
+      "derived": "Total_Packed_Orders / Warehouse_Staff_Shifts"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_ops_picking_error",
+          "note": "Cần cân bằng giữa tốc độ gói và độ chính xác"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_04_ops_efficiency",
+      "pb_10_team_vs_automation"
+    ]
+  },
+  {
+    "metric_id": "vn_team_gp_per_staff",
+    "code": "Lãi gộp / nhân sự",
+    "pack_code": "LAI_GOP_TREN_NHAN_SU",
+    "name": "",
+    "vi_name": "Lợi nhuận gộp trên mỗi nhân sự",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Đội ngũ",
+    "definition": "Lãi gộp sau giá vốn (CM1) chia cho tổng nhân sự toàn công ty. Tuyển thêm người mà chỉ số này đi xuống là bộ máy đang phình.",
+    "formula": {
+      "readable": "Tổng lãi gộp sau giá vốn (CM1) / Tổng số nhân sự toàn công ty",
+      "derived": "Total_CM1 / Total_Headcount"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_team_chat_cvr",
+          "impact": "direct",
+          "note": "Tối ưu quy trình giúp tăng doanh thu trên cùng định biên nhân sự"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_opex_ratio",
+          "note": "Thước đo quyết định có nên tuyển thêm người hay không"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_04_ops_efficiency",
+      "pb_10_team_vs_automation"
+    ]
+  },
+  {
+    "metric_id": "vn_team_live_gpm",
+    "code": "GPM",
+    "pack_code": "DOANH_THU_1000_LUOT_XEM_GPM",
+    "name": "",
+    "vi_name": "Doanh thu trên mỗi 1.000 lượt xem Live/Video (GPM)",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Bán hàng",
+    "definition": "Doanh thu tạo ra trên mỗi 1.000 lượt xem phiên Live hoặc video. Dùng để so hiệu quả giữa các phiên, các video, các host.",
+    "formula": {
+      "readable": "(Tổng doanh thu tạo ra / Tổng lượt xem phiên Live hoặc video) × 1.000",
+      "derived": "(Total_GMV / Total_Views) * 1000"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_team_live_gmv_hour",
+          "note": "Chỉ số quyết định thuật toán TikTok có đẩy thêm mắt xem miễn phí hay không"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_06_livestream_and_koc"
+    ]
+  },
+  {
+    "metric_id": "vn_team_live_cart_ctr",
+    "code": "Tỷ lệ bấm giỏ Live",
+    "pack_code": "TY_LE_BAM_GIO_HANG_LIVE",
+    "name": "",
+    "vi_name": "Tỷ lệ khách bấm giỏ hàng khi xem Live",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Bán hàng",
+    "definition": "Tỷ lệ người xem Live bấm vào giỏ hàng ghim sản phẩm. Người xem đông mà ít bấm giỏ là host đang giải trí chứ chưa bán hàng.",
+    "formula": {
+      "readable": "Số lượt khách bấm vào giỏ hàng ghim sản phẩm / Tổng số lượt xem phiên Live × 100%",
+      "derived": "(Product_Clicks_In_Live / Live_Views) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_team_live_gpm",
+          "note": "Đo khả năng kêu gọi hành động (CTA) của Host Live"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_06_livestream_and_koc"
+    ]
+  },
+  {
+    "metric_id": "vn_team_creative_win_rate",
+    "code": "Creative Win Rate",
+    "pack_code": "TY_LE_VIDEO_ADS_THANG",
+    "name": "",
+    "vi_name": "Tỷ lệ video quảng cáo thắng (Creative Win Rate)",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Đội ngũ",
+    "definition": "Tỷ lệ video quảng cáo mới đem test đạt ROAS mục tiêu. Đo năng lực đội content: làm nhiều mà ít video thắng là đang đốt tiền sản xuất.",
+    "formula": {
+      "readable": "Số video mới đem chạy test Ads đạt ROAS mục tiêu / Tổng số video team sản xuất ra × 100%",
+      "derived": "(Winning_Ad_Creatives / Total_Produced_Creatives) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_mkt_hook_rate",
+          "impact": "direct",
+          "note": "Tối ưu 3 giây đầu giúp tăng tỷ lệ video thắng"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_mkt_cpa",
+          "note": "Video thắng liên tục giúp duy trì ngân sách scale ổn định"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_07_ads_scaling",
+      "pb_10_team_vs_automation"
+    ]
+  },
+  {
+    "metric_id": "vn_team_rev_per_media_buyer",
+    "code": "Doanh thu / Media Buyer",
+    "pack_code": "DOANH_THU_TREN_NHAN_SU_ADS",
+    "name": "",
+    "vi_name": "Doanh thu trên mỗi nhân sự chạy Ads",
+    "stage": "07_team_operations",
+    "sub_group": "Hiệu suất Đội ngũ",
+    "definition": "Doanh thu từ quảng cáo trong tháng chia cho số người trực tiếp cầm tài khoản Ads. Đo năng suất đội chạy Ads trước khi quyết định tuyển thêm.",
+    "formula": {
+      "readable": "Tổng doanh thu từ quảng cáo trong tháng / Tổng số nhân sự Media Buyer trực tiếp cầm tài khoản",
+      "derived": "Total_Paid_Revenue / Media_Buyer_Headcount"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_team_gp_per_staff",
+          "note": "Đo năng suất thực tế của team Performance Marketing"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_10_team_vs_automation"
+    ]
   }
 ]

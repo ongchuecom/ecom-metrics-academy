@@ -6,6 +6,7 @@ import fulfillment from './stages/04_fulfillment.json'
 import retention from './stages/05_retention.json'
 import finance from './stages/06_finance.json'
 import team from './stages/07_team.json'
+import pbData from './playbooks.json'
 
 export const STAGES = [
   { id: '01_product_rd', short: 'Sản phẩm', label: 'Sản phẩm & R&D' },
@@ -20,7 +21,7 @@ export const STAGES = [
 export const metricsMaster = [...product, ...traffic, ...sales, ...fulfillment, ...retention, ...finance, ...team]
 export const metricById = Object.fromEntries(metricsMaster.map((m) => [m.metric_id, m]))
 export const stageById = Object.fromEntries(STAGES.map((s) => [s.id, s]))
-export const DEFAULT_METRIC_ID = 'fin_roas'
+export const DEFAULT_METRIC_ID = 'vn_fin_breakeven_roas'
 
 export const BENCHMARK_LABELS = {
   tiktok_vn: 'TikTok Shop VN',
@@ -28,3 +29,8 @@ export const BENCHMARK_LABELS = {
   d2c_us: 'D2C Mỹ',
   tham_khao: 'Mốc tham khảo',
 }
+
+// Playbook tình huống, liên kết hai chiều với chỉ số (đã hợp nhất khi nạp dữ liệu)
+export const playbooks = pbData.playbooks
+export const playbookById = Object.fromEntries(playbooks.map((p) => [p.playbook_id, p]))
+export const PACK_VERSION = pbData.version

@@ -1,0 +1,973 @@
+{
+ "vn_mkt_ctr": {
+  "from": [
+   "mkt_ctr"
+  ],
+  "benchmarks": {
+   "tiktok_vn": "1.2% - 2.5%",
+   "meta_vn": "1.5% - 3.0%",
+   "d2c_us": "1.0% - 2.0%"
+  },
+  "simulator": {
+   "title": "Mô phỏng tác động của CTR lên lưu lượng truy cập",
+   "controls": [
+    {
+     "key": "impressions",
+     "label": "Lượt hiển thị (Impressions)",
+     "min": 10000,
+     "max": 1000000,
+     "step": 10000,
+     "default": 100000,
+     "unit": "lượt"
+    },
+    {
+     "key": "ctr",
+     "label": "Tỷ lệ CTR",
+     "min": 0.2,
+     "max": 5,
+     "step": 0.1,
+     "default": 1.5,
+     "unit": "%"
+    },
+    {
+     "key": "cpm",
+     "label": "Chi phí CPM",
+     "min": 20000,
+     "max": 200000,
+     "step": 5000,
+     "default": 60000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "clicks",
+     "label": "Tổng lượt Click thu về",
+     "formula_eval": "impressions * (ctr / 100)",
+     "unit": "lượt"
+    },
+    {
+     "key": "cpc",
+     "label": "Chi phí mỗi Click (CPC)",
+     "formula_eval": "(impressions / 1000 * cpm) / (impressions * (ctr / 100))",
+     "unit": "VND",
+     "warning_threshold": "> 8000"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Quảng cáo cắn tiền nhưng không ra đơn",
+   "scenario": "Chiến dịch TikTok Ads chạy 100.000 lượt hiển thị với CPM = 80.000đ. Tuy nhiên CTR chỉ đạt 0.4% do 3 giây đầu video quá chậm. Tỷ lệ chuyển đổi trang đích (CR) hiện tại là 2%.",
+   "tasks": [
+    {
+     "task_id": "ctr_t1",
+     "type": "numeric_input",
+     "question": "Tính chi phí trên mỗi đơn hàng (CPA) hiện tại của chiến dịch này (đơn vị: VND):",
+     "correct_value": 1000000,
+     "tolerance": 10000,
+     "unit": "VND",
+     "hint": "Tổng tiền Ads = (100.000 / 1000) * 80.000. Số click = 100.000 * 0.4%. Số đơn = Số click * 2%.",
+     "explanation": "Tổng tiền Ads = 8.000.000đ. Số click = 400. Số đơn = 8 đơn => CPA = 8.000.000 / 8 = 1.000.000đ/đơn (Quá đắt!)."
+    },
+    {
+     "task_id": "ctr_t2",
+     "type": "strategic_decision",
+     "question": "Nếu đội Creative tối ưu lại 3 giây đầu (Hook) giúp CTR tăng từ 0.4% lên 1.6% (các yếu tố khác giữ nguyên), CPA sẽ giảm xuống còn bao nhiêu và bạn nên làm gì tiếp theo?",
+     "options": [
+      {
+       "id": "a",
+       "text": "CPA giảm còn 250.000đ. Tiếp tục nhân bản nhóm quảng cáo để scale ngân sách.",
+       "is_correct": true,
+       "reason": "CTR tăng gấp 4 lần sẽ kéo CPA giảm 4 lần (từ 1 triệu xuống 250k)."
+      },
+      {
+       "id": "b",
+       "text": "CPA giảm còn 500.000đ. Tắt chiến dịch vì vẫn lỗ.",
+       "is_correct": false,
+       "reason": "Tính sai tỷ lệ nghịch giữa CTR và CPA."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_mkt_cpa": {
+  "from": [
+   "mkt_cpa"
+  ],
+  "benchmarks": {
+   "tiktok_vn": "15% - 25% AOV",
+   "meta_vn": "20% - 30% AOV",
+   "d2c_us": "25% - 35% AOV"
+  },
+  "simulator": {
+   "title": "Bộ giải phẫu công thức CPA (Từ CPM, CTR, CR)",
+   "controls": [
+    {
+     "key": "cpm",
+     "label": "Giá thầu CPM",
+     "min": 20000,
+     "max": 250000,
+     "step": 5000,
+     "default": 80000,
+     "unit": "VND"
+    },
+    {
+     "key": "ctr",
+     "label": "Tỷ lệ nhấp CTR",
+     "min": 0.5,
+     "max": 5,
+     "step": 0.1,
+     "default": 2,
+     "unit": "%"
+    },
+    {
+     "key": "cr",
+     "label": "Tỷ lệ chuyển đổi CR",
+     "min": 0.5,
+     "max": 10,
+     "step": 0.2,
+     "default": 2.5,
+     "unit": "%"
+    },
+    {
+     "key": "aov",
+     "label": "Giá trị đơn hàng AOV",
+     "min": 100000,
+     "max": 1500000,
+     "step": 50000,
+     "default": 450000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "cpa",
+     "label": "Chi phí CPA / Đơn",
+     "formula_eval": "cpm / (1000 * (ctr / 100) * (cr / 100))",
+     "unit": "VND",
+     "warning_threshold": "> 150000"
+    },
+    {
+     "key": "implied_roas",
+     "label": "ROAS tương ứng (AOV / CPA)",
+     "formula_eval": "aov / (cpm / (1000 * (ctr / 100) * (cr / 100)))",
+     "unit": "x",
+     "warning_threshold": "< 3"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: CPA tăng gấp đôi sau 1 tuần chạy Scale",
+   "scenario": "Một shop thời trang đang chạy đều đặn với CPM = 70.000đ, CTR = 2.5%, CR = 3.0%. Tuần này chủ shop tăng ngân sách gấp 3 lần khiến CPM nhích lên 90.000đ, CTR tụt xuống 1.5% và CR giảm còn 2.0%.",
+   "tasks": [
+    {
+     "task_id": "cpa_t1",
+     "type": "numeric_input",
+     "question": "Tính mức CPA mới sau khi tăng ngân sách (đơn vị: VND):",
+     "correct_value": 300000,
+     "tolerance": 5000,
+     "unit": "VND",
+     "hint": "Áp dụng công thức: CPA = CPM / (1000 * CTR * CR). Nhớ đổi % ra số thập phân (1.5% = 0.015).",
+     "explanation": "CPA cũ = 70.000 / (1000 * 0.025 * 0.03) = 93.333đ. CPA mới = 90.000 / (1000 * 0.015 * 0.02) = 300.000đ (Tăng hơn 3.2 lần!)."
+    },
+    {
+     "task_id": "cpa_t2",
+     "type": "strategic_decision",
+     "question": "Nguyên nhân nào đóng góp lớn nhất khiến CPA vọt từ 93k lên 300k và cách xử lý đúng là gì?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Do CPM tăng nên cần đổi sang tài khoản quảng cáo mới để ép giá thầu.",
+       "is_correct": false,
+       "reason": "CPM chỉ tăng 28%, không phải nguyên nhân chính làm CPA tăng 320%."
+      },
+      {
+       "id": "b",
+       "text": "Do hiệu ứng cộng hưởng khi cả CTR (giảm 40%) và CR (giảm 33%) cùng rớt vì phân phối vào tệp lạnh. Cần bổ sung thêm Creative mới và tối ưu lại ưu đãi trang đích trước khi scale.",
+       "is_correct": true,
+       "reason": "Chính xác! Trong công thức nhân ở mẫu số, khi cả CTR và CR cùng giảm sẽ tạo ra cú sốc tăng giá CPA theo cấp số nhân."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_sales_pdp_cvr": {
+  "from": [
+   "sales_cr"
+  ],
+  "simulator": {
+   "title": "Mỗi 0,1% CR đáng giá bao nhiêu?",
+   "controls": [
+    {
+     "key": "sessions",
+     "label": "Lượt truy cập / tháng",
+     "min": 5000,
+     "max": 500000,
+     "step": 5000,
+     "default": 50000,
+     "unit": "lượt"
+    },
+    {
+     "key": "cr",
+     "label": "Tỷ lệ chuyển đổi CR",
+     "min": 0.2,
+     "max": 6,
+     "step": 0.1,
+     "default": 1.2,
+     "unit": "%"
+    },
+    {
+     "key": "aov",
+     "label": "AOV",
+     "min": 100000,
+     "max": 1500000,
+     "step": 10000,
+     "default": 400000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "orders",
+     "label": "Số đơn / tháng",
+     "formula_eval": "sessions * cr / 100",
+     "unit": "đơn"
+    },
+    {
+     "key": "revenue",
+     "label": "Doanh thu / tháng",
+     "formula_eval": "sessions * cr / 100 * aov",
+     "unit": "VND"
+    },
+    {
+     "key": "gain_per_01",
+     "label": "Doanh thu thêm khi CR tăng 0,1 điểm",
+     "formula_eval": "sessions * 0.001 * aov",
+     "unit": "VND"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Lưu lượng đều nhưng khách bỏ ở bước thanh toán",
+   "scenario": "Website nhận 50.000 lượt truy cập/tháng, CR 1,2%, AOV 400.000đ. Bước thanh toán đang bắt khách tạo tài khoản. Sau khi cho phép mua không cần tài khoản, CR tăng lên 1,5% (lưu lượng và AOV giữ nguyên).",
+   "tasks": [
+    {
+     "task_id": "cr_t1",
+     "type": "numeric_input",
+     "question": "Doanh thu mỗi tháng tăng thêm bao nhiêu (VND)?",
+     "correct_value": 60000000,
+     "tolerance": 500000,
+     "unit": "VND",
+     "hint": "Số đơn tăng thêm = 50.000 × (1,5% − 1,2%). Nhân với AOV.",
+     "explanation": "Đơn tăng thêm = 50.000 × 0,3% = 150 đơn. Doanh thu tăng = 150 × 400.000 = 60.000.000đ/tháng, không tốn thêm đồng quảng cáo nào."
+    },
+    {
+     "task_id": "cr_t2",
+     "type": "strategic_decision",
+     "question": "Trước khi tăng ngân sách quảng cáo, việc nào nên làm tiếp?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Tăng ngân sách quảng cáo gấp đôi ngay để tận dụng CR mới.",
+       "is_correct": false,
+       "reason": "Còn những điểm rò rỉ khác trong phễu; scale khi phễu còn thủng là trả tiền cho lượt truy cập bị lãng phí."
+      },
+      {
+       "id": "b",
+       "text": "Đo tỷ lệ rớt ở từng bước (xem sản phẩm → thêm giỏ → bắt đầu thanh toán → hoàn tất) để tìm và vá điểm rò rỉ lớn nhất tiếp theo.",
+       "is_correct": true,
+       "reason": "Mỗi điểm phần trăm CR tăng thêm làm giảm CPA của toàn bộ ngân sách; tối ưu phễu trước rồi scale sẽ rẻ hơn."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_sales_aov": {
+  "from": [
+   "sales_aov"
+  ],
+  "simulator": {
+   "title": "AOV gánh chi phí quảng cáo thế nào",
+   "controls": [
+    {
+     "key": "aov",
+     "label": "AOV",
+     "min": 100000,
+     "max": 1500000,
+     "step": 10000,
+     "default": 320000,
+     "unit": "VND"
+    },
+    {
+     "key": "cpa",
+     "label": "CPA (chi phí có 1 đơn)",
+     "min": 20000,
+     "max": 400000,
+     "step": 5000,
+     "default": 96000,
+     "unit": "VND"
+    },
+    {
+     "key": "margin",
+     "label": "Biên đóng góp trước Ads",
+     "min": 10,
+     "max": 70,
+     "step": 1,
+     "default": 45,
+     "unit": "%"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "roas",
+     "label": "ROAS = AOV / CPA",
+     "formula_eval": "aov / cpa",
+     "unit": "x"
+    },
+    {
+     "key": "profit_per_order",
+     "label": "Lãi mỗi đơn sau Ads",
+     "formula_eval": "aov * margin / 100 - cpa",
+     "unit": "VND",
+     "warning_threshold": "< 0"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Đơn nhiều mà vẫn không đủ trả tiền quảng cáo",
+   "scenario": "Shop phụ kiện bán 2.000 đơn/tháng, AOV 320.000đ, CPA 96.000đ, biên đóng góp trước quảng cáo 30%. Shop ra mắt combo nâng AOV thêm 25%, CPA giữ nguyên.",
+   "tasks": [
+    {
+     "task_id": "aov_t1",
+     "type": "numeric_input",
+     "question": "ROAS sau khi có combo là bao nhiêu (làm tròn 2 chữ số thập phân)?",
+     "correct_value": 4.17,
+     "tolerance": 0.03,
+     "unit": "x",
+     "hint": "AOV mới = 320.000 × 1,25. ROAS = AOV / CPA.",
+     "explanation": "AOV mới = 400.000đ. ROAS = 400.000 / 96.000 ≈ 4,17 (trước đó 3,33). Lãi mỗi đơn sau Ads: trước = 320.000 × 30% − 96.000 = 0đ (hòa vốn); sau = 400.000 × 30% − 96.000 = 24.000đ."
+    },
+    {
+     "task_id": "aov_t2",
+     "type": "strategic_decision",
+     "question": "Combo nên được thiết kế thế nào để AOV tăng mà lãi thật sự tăng?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Giảm giá 25% cho mọi đơn từ 2 sản phẩm để khách mua nhiều hơn.",
+       "is_correct": false,
+       "reason": "Giảm giá đều tay bào mòn biên; AOV tăng nhưng lãi mỗi đơn có thể còn thấp hơn."
+      },
+      {
+       "id": "b",
+       "text": "Ghép sản phẩm chủ lực với một món biên cao, giá trị cảm nhận lớn nhưng giá vốn thấp, ưu đãi nhẹ cho cả combo.",
+       "is_correct": true,
+       "reason": "Món bán kèm biên cao giúp phần AOV tăng thêm gần như chuyển thẳng thành lợi nhuận."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_ops_rto_rate": {
+  "from": [
+   "ops_rto_rate"
+  ],
+  "simulator": {
+   "title": "Hoàn hàng đang ăn mất bao nhiêu tiền?",
+   "controls": [
+    {
+     "key": "orders",
+     "label": "Số đơn gửi / tháng",
+     "min": 500,
+     "max": 30000,
+     "step": 100,
+     "default": 3000,
+     "unit": "đơn"
+    },
+    {
+     "key": "rto",
+     "label": "Tỷ lệ hoàn",
+     "min": 1,
+     "max": 40,
+     "step": 0.5,
+     "default": 15,
+     "unit": "%"
+    },
+    {
+     "key": "cost_per_rto",
+     "label": "Chi phí mỗi đơn hoàn (ship 2 chiều, đóng gói, hư hỏng)",
+     "min": 10000,
+     "max": 150000,
+     "step": 5000,
+     "default": 60000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "rto_orders",
+     "label": "Số đơn hoàn / tháng",
+     "formula_eval": "orders * rto / 100",
+     "unit": "đơn"
+    },
+    {
+     "key": "rto_cost",
+     "label": "Tiền mất do hoàn / tháng",
+     "formula_eval": "orders * rto / 100 * cost_per_rto",
+     "unit": "VND",
+     "warning_threshold": "> 20000000"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Đơn COD về nhiều nhưng tiền về ít",
+   "scenario": "Shop gửi 3.000 đơn COD/tháng, tỷ lệ hoàn 15%. Mỗi đơn hoàn mất 45.000đ phí ship hai chiều và 15.000đ đóng gói, hư hỏng.",
+   "tasks": [
+    {
+     "task_id": "rto_t1",
+     "type": "numeric_input",
+     "question": "Mỗi tháng shop mất bao nhiêu tiền vì đơn hoàn (VND)?",
+     "correct_value": 27000000,
+     "tolerance": 100000,
+     "unit": "VND",
+     "hint": "Số đơn hoàn = 3.000 × 15%. Chi phí mỗi đơn hoàn = 45.000 + 15.000.",
+     "explanation": "450 đơn hoàn × 60.000đ = 27.000.000đ/tháng, chưa tính tiền quảng cáo đã chi cho 450 đơn này."
+    },
+    {
+     "task_id": "rto_t2",
+     "type": "strategic_decision",
+     "question": "Cách giảm hoàn hàng nào hợp lý nhất?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Tắt COD hoàn toàn, chỉ nhận chuyển khoản trước.",
+       "is_correct": false,
+       "reason": "Giảm hoàn ngay nhưng mất một phần lớn khách quen trả tiền khi nhận; doanh thu có thể giảm nhiều hơn khoản tiết kiệm."
+      },
+      {
+       "id": "b",
+       "text": "Gọi hoặc nhắn xác nhận đơn trước khi gửi, ưu đãi nhỏ cho khách chuyển khoản trước, chặn số điện thoại có lịch sử bom hàng.",
+       "is_correct": true,
+       "reason": "Lọc đơn rủi ro mà vẫn giữ COD cho khách thật; cắt phần lớn chi phí hoàn với chi phí thấp."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_ops_dio": {
+  "from": [
+   "ops_inventory_turnover"
+  ],
+  "simulator": {
+   "title": "Tiền đang nằm trong kho bao lâu?",
+   "controls": [
+    {
+     "key": "annual_cogs",
+     "label": "Giá vốn hàng bán / năm",
+     "min": 500000000,
+     "max": 30000000000,
+     "step": 100000000,
+     "default": 6000000000,
+     "unit": "VND"
+    },
+    {
+     "key": "avg_inventory",
+     "label": "Tồn kho bình quân",
+     "min": 100000000,
+     "max": 10000000000,
+     "step": 50000000,
+     "default": 1500000000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "turnover",
+     "label": "Vòng quay / năm",
+     "formula_eval": "annual_cogs / avg_inventory",
+     "unit": "lần",
+     "warning_threshold": "< 4"
+    },
+    {
+     "key": "dio",
+     "label": "Số ngày tồn kho (DIO)",
+     "formula_eval": "365 / (annual_cogs / avg_inventory)",
+     "unit": "ngày",
+     "warning_threshold": "> 90"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Lãi trên giấy nhưng tiền nằm cả trong kho",
+   "scenario": "Doanh nghiệp có giá vốn hàng bán cả năm 6 tỷ đồng, tồn kho bình quân 1,5 tỷ đồng. Nhà cung cấp đang chào giá giảm 8% nếu nhập lô gấp đôi.",
+   "tasks": [
+    {
+     "task_id": "inv_t1",
+     "type": "numeric_input",
+     "question": "Số ngày tồn kho (DIO) hiện tại là bao nhiêu ngày?",
+     "correct_value": 91.25,
+     "tolerance": 1,
+     "unit": "ngày",
+     "hint": "Vòng quay = 6 tỷ / 1,5 tỷ. DIO = 365 / vòng quay.",
+     "explanation": "Vòng quay = 4 lần/năm → DIO = 365 / 4 ≈ 91 ngày: mỗi đồng nhập hàng mất khoảng 3 tháng mới quay về."
+    },
+    {
+     "task_id": "inv_t2",
+     "type": "strategic_decision",
+     "question": "Có nên nhận đề nghị nhập lô gấp đôi để được giảm 8%?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Có, vì giá vốn giảm 8% là lãi thêm chắc chắn.",
+       "is_correct": false,
+       "reason": "Nhập gấp đôi làm tồn kho bình quân tăng, DIO kéo dài và giam thêm tiền; rủi ro thành hàng chết nếu SKU bán chậm."
+      },
+      {
+       "id": "b",
+       "text": "Chỉ nhập lô lớn cho SKU bán nhanh, ổn định; SKU chậm thì nhập lô nhỏ và xả bớt hàng tồn trước.",
+       "is_correct": true,
+       "reason": "Phần giảm giá chỉ đáng khi hàng bán hết trong thời gian ngắn; tiền giam trong kho có chi phí cơ hội và rủi ro."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_ret_clv": {
+  "from": [
+   "ret_clv"
+  ],
+  "simulator": {
+   "title": "Một khách hàng đáng giá bao nhiêu?",
+   "controls": [
+    {
+     "key": "aov",
+     "label": "AOV",
+     "min": 100000,
+     "max": 1500000,
+     "step": 10000,
+     "default": 350000,
+     "unit": "VND"
+    },
+    {
+     "key": "orders_life",
+     "label": "Số đơn trong vòng đời",
+     "min": 1,
+     "max": 12,
+     "step": 0.5,
+     "default": 4,
+     "unit": "lần"
+    },
+    {
+     "key": "margin",
+     "label": "Biên đóng góp",
+     "min": 10,
+     "max": 70,
+     "step": 1,
+     "default": 40,
+     "unit": "%"
+    },
+    {
+     "key": "cac",
+     "label": "CAC",
+     "min": 20000,
+     "max": 800000,
+     "step": 10000,
+     "default": 250000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "clv",
+     "label": "CLV",
+     "formula_eval": "aov * orders_life * margin / 100",
+     "unit": "VND"
+    },
+    {
+     "key": "ltv_cac",
+     "label": "LTV / CAC",
+     "formula_eval": "aov * orders_life * margin / 100 / cac",
+     "unit": "x",
+     "warning_threshold": "< 3"
+    },
+    {
+     "key": "first_order",
+     "label": "Lãi đơn đầu sau CAC",
+     "formula_eval": "aov * margin / 100 - cac",
+     "unit": "VND",
+     "warning_threshold": "< 0"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Lỗ ngay đơn đầu – có nên dừng quảng cáo?",
+   "scenario": "Shop thực phẩm sạch có AOV 350.000đ, biên đóng góp 40%, khách mua trung bình 4 lần trong vòng đời. CAC hiện là 250.000đ.",
+   "tasks": [
+    {
+     "task_id": "clv_t1",
+     "type": "numeric_input",
+     "question": "Tính CLV của một khách (VND):",
+     "correct_value": 560000,
+     "tolerance": 5000,
+     "unit": "VND",
+     "hint": "CLV = AOV × số đơn vòng đời × biên đóng góp.",
+     "explanation": "CLV = 350.000 × 4 × 40% = 560.000đ. Đơn đầu chỉ mang về 140.000đ lãi đóng góp, thấp hơn CAC 250.000đ, nhưng cả vòng đời thì lãi 310.000đ mỗi khách."
+    },
+    {
+     "task_id": "clv_t2",
+     "type": "strategic_decision",
+     "question": "Quyết định nào hợp lý?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Dừng quảng cáo vì đơn đầu lỗ 110.000đ.",
+       "is_correct": false,
+       "reason": "Nhìn từng đơn sẽ bỏ lỡ giá trị vòng đời; LTV/CAC = 2,24 vẫn có lãi trên mỗi khách."
+      },
+      {
+       "id": "b",
+       "text": "Tiếp tục nhưng có kế hoạch kéo khách mua lần 2 sớm (chăm sóc sau mua, ưu đãi lần 2) và đảm bảo đủ tiền mặt chờ thu hồi CAC.",
+       "is_correct": true,
+       "reason": "Lỗ đơn đầu chấp nhận được khi chắc chắn khách mua lại; rủi ro nằm ở dòng tiền trong thời gian chờ."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_fin_cm3": {
+  "from": [
+   "fin_cm2"
+  ],
+  "simulator": {
+   "title": "Bóc tách lợi nhuận CM1 → CM2 → CM3",
+   "controls": [
+    {
+     "key": "revenue",
+     "label": "Doanh thu / tháng",
+     "min": 100000000,
+     "max": 5000000000,
+     "step": 50000000,
+     "default": 1000000000,
+     "unit": "VND"
+    },
+    {
+     "key": "cogs_pct",
+     "label": "Giá vốn",
+     "min": 10,
+     "max": 70,
+     "step": 1,
+     "default": 38,
+     "unit": "%"
+    },
+    {
+     "key": "var_pct",
+     "label": "Phí sàn, ship, đóng gói, hoàn",
+     "min": 5,
+     "max": 40,
+     "step": 1,
+     "default": 20,
+     "unit": "%"
+    },
+    {
+     "key": "ads",
+     "label": "Tiền chạy Ads",
+     "min": 0,
+     "max": 1000000000,
+     "step": 10000000,
+     "default": 300000000,
+     "unit": "VND"
+    },
+    {
+     "key": "other_mkt",
+     "label": "Booking KOC, affiliate",
+     "min": 0,
+     "max": 300000000,
+     "step": 5000000,
+     "default": 50000000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "cm1",
+     "label": "CM1 (sau giá vốn)",
+     "formula_eval": "revenue * (1 - cogs_pct / 100)",
+     "unit": "VND"
+    },
+    {
+     "key": "cm2",
+     "label": "CM2 (sau phí sàn, ship, hoàn)",
+     "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100)",
+     "unit": "VND"
+    },
+    {
+     "key": "cm3",
+     "label": "CM3 (sau Ads, KOC)",
+     "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100) - ads - other_mkt",
+     "unit": "VND",
+     "warning_threshold": "< 0"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Doanh thu tỷ đồng nhưng không còn tiền trả lương",
+   "scenario": "Doanh thu thực thu tháng 1 tỷ đồng. Giá vốn 380 triệu, phí sàn + ship + hoàn 200 triệu, Ads 300 triệu, booking KOC và affiliate 50 triệu. Chi phí cố định 120 triệu.",
+   "tasks": [
+    {
+     "task_id": "cm3_t1",
+     "type": "numeric_input",
+     "question": "Tính CM3 (VND):",
+     "correct_value": 70000000,
+     "tolerance": 1000000,
+     "unit": "VND",
+     "hint": "CM1 = Doanh thu − giá vốn. CM2 = CM1 − phí sàn, ship, hoàn. CM3 = CM2 − Ads − KOC.",
+     "explanation": "CM1 = 1.000 − 380 = 620 triệu. CM2 = 620 − 200 = 420 triệu. CM3 = 420 − 300 − 50 = 70 triệu, không đủ trả 120 triệu chi phí cố định → lỗ 50 triệu."
+    },
+    {
+     "task_id": "cm3_t2",
+     "type": "strategic_decision",
+     "question": "Nên ưu tiên tác động vào tầng nào trước?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Cắt chi phí cố định 50 triệu để hòa vốn.",
+       "is_correct": false,
+       "reason": "Có thể cần, nhưng không chữa gốc: CM2 chỉ 12% doanh thu nên mỗi lần scale vẫn rất mỏng."
+      },
+      {
+       "id": "b",
+       "text": "Tăng CM2: quảng cáo đang ngốn 30% doanh thu trong khi CM1 là 42%; tối ưu CPA, tăng AOV và giảm hoàn hàng để kéo tỷ trọng quảng cáo xuống.",
+       "is_correct": true,
+       "reason": "CM2 dày lên thì cả chi phí marketing khác và chi phí cố định đều được gánh bền vững khi doanh thu tăng."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_fin_cash_runway": {
+  "from": [
+   "fin_cash_runway"
+  ],
+  "simulator": {
+   "title": "Còn bao nhiêu tháng trước khi hết tiền?",
+   "controls": [
+    {
+     "key": "cash",
+     "label": "Tiền mặt hiện có",
+     "min": 50000000,
+     "max": 10000000000,
+     "step": 50000000,
+     "default": 900000000,
+     "unit": "VND"
+    },
+    {
+     "key": "burn",
+     "label": "Net burn / tháng",
+     "min": 10000000,
+     "max": 1000000000,
+     "step": 5000000,
+     "default": 150000000,
+     "unit": "VND"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "runway",
+     "label": "Đường băng tiền mặt",
+     "formula_eval": "cash / burn",
+     "unit": "tháng",
+     "warning_threshold": "< 6"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Còn tiền nhưng không còn thời gian",
+   "scenario": "Doanh nghiệp có 900 triệu tiền mặt, mỗi tháng đốt ròng 150 triệu. Kế hoạch gọi vốn thường mất 6–9 tháng.",
+   "tasks": [
+    {
+     "task_id": "runway_t1",
+     "type": "numeric_input",
+     "question": "Đường băng tiền mặt còn bao nhiêu tháng?",
+     "correct_value": 6,
+     "tolerance": 0.1,
+     "unit": "tháng",
+     "hint": "Runway = Tiền mặt / Net burn mỗi tháng.",
+     "explanation": "900 / 150 = 6 tháng, ngắn hơn thời gian gọi vốn dự kiến: rủi ro hết tiền giữa chừng."
+    },
+    {
+     "task_id": "runway_t2",
+     "type": "strategic_decision",
+     "question": "Ưu tiên hành động nào?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Vay nóng để giữ nguyên tốc độ tăng trưởng trong lúc gọi vốn.",
+       "is_correct": false,
+       "reason": "Vay nóng thêm chi phí lãi, đường băng còn ngắn hơn nếu gọi vốn không như kỳ vọng."
+      },
+      {
+       "id": "b",
+       "text": "Giảm burn ngay: cắt chi phí cố định không tạo doanh thu, xả hàng tồn, thu hồi công nợ; kéo đường băng lên ít nhất 12 tháng rồi mới gọi vốn.",
+       "is_correct": true,
+       "reason": "Đường băng dài giúp doanh nghiệp chủ động khi đàm phán, không phải gọi vốn trong thế bị động."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_fin_breakeven_roas": {
+  "from": [
+   "fin_roas"
+  ],
+  "simulator": {
+   "title": "Kiểm tra sức khỏe ROAS so với Điểm hòa vốn (Break-even)",
+   "controls": [
+    {
+     "key": "ad_spend",
+     "label": "Ngân sách Ads",
+     "min": 10000000,
+     "max": 500000000,
+     "step": 10000000,
+     "default": 100000000,
+     "unit": "VND"
+    },
+    {
+     "key": "roas",
+     "label": "ROAS thực tế",
+     "min": 1,
+     "max": 8,
+     "step": 0.1,
+     "default": 3.2,
+     "unit": "x"
+    },
+    {
+     "key": "cogs_pct",
+     "label": "Giá vốn COGS (%)",
+     "min": 15,
+     "max": 70,
+     "step": 5,
+     "default": 35,
+     "unit": "%"
+    },
+    {
+     "key": "fee_rto_pct",
+     "label": "Phí sàn + Hoàn hàng (%)",
+     "min": 5,
+     "max": 35,
+     "step": 1,
+     "default": 20,
+     "unit": "%"
+    }
+   ],
+   "outputs": [
+    {
+     "key": "breakeven_roas",
+     "label": "ROAS Hòa vốn tối thiểu",
+     "formula_eval": "1 / (1 - (cogs_pct + fee_rto_pct) / 100)",
+     "unit": "x"
+    },
+    {
+     "key": "cm2_profit",
+     "label": "Lợi nhuận sau Ads (CM2)",
+     "formula_eval": "(ad_spend * roas) * (1 - (cogs_pct + fee_rto_pct) / 100) - ad_spend",
+     "unit": "VND",
+     "warning_threshold": "< 0"
+    }
+   ]
+  },
+  "diagnostic_homework": {
+   "title": "Bệnh án: Doanh thu 1.5 tỷ/tháng trên TikTok nhưng âm dòng tiền",
+   "scenario": "Shop mỹ phẩm đạt doanh thu 1.5 tỷ VNĐ/tháng với chi phí TikTok Ads là 468.750.000 VNĐ (ROAS = 3.2x). Giá vốn COGS chiếm 35%, phí sàn & thanh toán chiếm 14%, tổn thất do hoàn hàng (RTO 12%) chiếm 5% doanh thu. Chi phí cố định (lương, kho) là 180 triệu/tháng.",
+   "tasks": [
+    {
+     "task_id": "roas_t1",
+     "type": "numeric_input",
+     "question": "Tính ROAS Hòa vốn (Break-even ROAS) thực tế của shop (làm tròn 2 chữ số thập phân):",
+     "correct_value": 2.17,
+     "tolerance": 0.05,
+     "unit": "x",
+     "hint": "Tổng chi phí biến đổi trên mỗi đơn = 35% + 14% + 5% = 54%. Biên lãi gộp còn lại = 46%. Lấy 1 / 0.46.",
+     "explanation": "Biên lãi gộp trước Ads = 100% - 54% = 46%. ROAS hòa vốn = 1 / 0.46 = 2.17x. Ở mức ROAS 3.2x, shop lãi gộp sau Ads là 221.25 triệu; trừ 180 triệu chi phí cố định chỉ còn 41.25 triệu lãi trên sổ sách. Nếu shop còn phải ứng tiền nhập hàng gối đầu cho tháng sau, khoản lãi mỏng này không đủ bù và dòng tiền mặt dễ bị âm."
+    },
+    {
+     "task_id": "roas_t2",
+     "type": "strategic_decision",
+     "question": "Đâu là đòn bẩy an toàn và nhanh nhất để giải cứu dòng tiền trong 30 ngày tới mà không làm sụt giảm đơn hàng?",
+     "options": [
+      {
+       "id": "a",
+       "text": "Tăng giá bán niêm yết thêm 20% trên toàn bộ sản phẩm.",
+       "is_correct": false,
+       "reason": "Tăng giá đột ngột trên sàn sẽ làm rớt tỷ lệ chuyển đổi (CR) nghiêm trọng."
+      },
+      {
+       "id": "b",
+       "text": "Siết quy trình xác nhận đơn để kéo tỷ lệ hoàn (RTO) từ 12% xuống 4%, đồng thời tạo Combo tăng giá trị đơn hàng (AOV) thêm 20%.",
+       "is_correct": true,
+       "reason": "Giảm RTO giúp tiết kiệm trực tiếp chi phí ship 2 chiều và giải phóng tiền mặt bị giam; tăng AOV giúp giảm tỷ trọng chi phí cố định trên từng đơn."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "vn_prod_landed_cost": {
+  "from": [
+   "prod_landed_cost"
+  ]
+ },
+ "vn_prod_defect_rate": {
+  "from": [
+   "prod_defect_rate"
+  ]
+ },
+ "vn_mkt_hook_rate": {
+  "from": [
+   "mkt_hook_rate"
+  ]
+ },
+ "vn_ops_stockout_rate": {
+  "from": [
+   "ops_stockout_rate"
+  ]
+ },
+ "vn_ops_dead_stock": {
+  "from": [
+   "ops_dead_stock"
+  ]
+ },
+ "vn_team_frt": {
+  "from": [
+   "team_frt"
+  ]
+ },
+ "vn_ret_repeat_rate": {
+  "from": [
+   "ret_rpr"
+  ]
+ },
+ "vn_team_pack_speed": {
+  "from": [
+   "team_packing_speed"
+  ]
+ },
+ "vn_team_gp_per_staff": {
+  "from": [
+   "team_gp_per_employee"
+  ]
+ },
+ "vn_prod_hero_sku": {
+  "from": [
+   "prod_hero_ratio"
+  ]
+ }
+}

@@ -5,7 +5,8 @@ import { stageById, BENCHMARK_LABELS, STAGES } from '../data/index.js'
 import lessons from '../data/lessons.json'
 import ExplainerVideo from './ExplainerVideo.jsx'
 import MetricDependencyGraph from './MetricDependencyGraph.jsx'
-import { FormulaTree, SpendBars, RoasCurve } from './LessonVisuals.jsx'
+import { FormulaTree, Chart } from './LessonVisuals.jsx'
+import { PlaybookLinks } from './Playbooks.jsx'
 
 // **đậm** → <b>
 export function Rich({ text }) {
@@ -39,12 +40,11 @@ function Box({ title, children, className = '' }) {
   )
 }
 
-export default function MetricLesson({ metric, onSelect, onHomework }) {
+export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlaybook }) {
   const stage = stageById[metric.stage]
   const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
   const L = lessons[metric.metric_id]
   const bench = Object.entries(metric.benchmarks || {}).filter(([, v]) => v)
-  const V = L?.visuals
   const [first, ...rest] = L?.sections || []
   return (
     <article className="space-y-4">
@@ -52,7 +52,7 @@ export default function MetricLesson({ metric, onSelect, onHomework }) {
         <p className="eyebrow text-brand-600">Khâu {stageNo} · {stage?.label}</p>
         <div className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h1 className="font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
-          <span className="text-sm text-muted">{metric.vi_name} · {metric.name}</span>
+          <span className="text-sm text-muted">{metric.vi_name}</span>
         </div>
         {L?.subtitle && <p className="mt-1 text-base font-semibold text-charcoal">{L.subtitle}</p>}
         <div className="prose-lesson mt-3 max-w-3xl">
@@ -60,32 +60,32 @@ export default function MetricLesson({ metric, onSelect, onHomework }) {
         </div>
       </header>
 
+      <PlaybookLinks metric={metric} onOpen={onOpenPlaybook} />
+
       <Box title="Công thức">
-        <div className="rounded-xl bg-brand-50 px-3 py-2"><Latex src={metric.formula.latex} /></div>
-        <p className="mt-2 text-sm leading-relaxed text-lime-ink">{metric.formula.readable}</p>
-        {V?.tree && <div className="mt-5 border-t border-stone-100 pt-4"><FormulaTree tree={V.tree} onSelect={onSelect} /></div>}
+        {metric.formula.latex ? (
+          <>
+            <div className="rounded-xl bg-brand-50 px-3 py-2"><Latex src={metric.formula.latex} /></div>
+            <p className="mt-2 text-sm leading-relaxed text-lime-ink">{metric.formula.readable}</p>
+          </>
+        ) : (
+          <p className="rounded-xl bg-brand-50 px-4 py-3 text-[15px] font-semibold leading-relaxed text-lime-ink">{metric.code} = {metric.formula.readable}</p>
+        )}
+        {metric.formula.derived && <p className="mt-2 break-words font-mono text-[11px] text-muted">{metric.formula.derived}</p>}
+        {L?.tree && <div className="mt-5 border-t border-stone-100 pt-4"><FormulaTree tree={L.tree} onSelect={onSelect} /></div>}
       </Box>
 
       {(L?.breakdown || first) && (
         <div className="grid gap-4 md:grid-cols-2">
           {L?.breakdown && (
             <Box title={L.breakdown.title}>
-              {V?.bars ? <SpendBars bars={{ ...V.bars, title: '' }} /> : (
-                <table className="w-full text-sm"><tbody>
-                  {L.breakdown.rows.map(([k, v]) => (
-                    <tr key={k} className="border-b border-dashed border-stone-200">
-                      <td className="py-1.5 text-body">{k}</td>
-                      <td className={`num py-1.5 text-right font-bold ${v.startsWith('−') ? 'text-coral' : 'text-ink'}`}>{v}</td>
-                    </tr>
-                  ))}
-                </tbody></table>
-              )}
+              <Chart c={L.breakdown.chart} />
               {L.breakdown.after && <p className="mt-3 text-sm leading-relaxed text-body"><Rich text={L.breakdown.after} /></p>}
             </Box>
           )}
           {first && (
             <Box title={first.title}>
-              {V?.curve && <RoasCurve c={{ ...V.curve, title: '' }} />}
+              <Chart c={first.chart} />
               <div className="prose-lesson mt-2">{first.body.map((p, i) => <p key={i}><Rich text={p} /></p>)}</div>
             </Box>
           )}
@@ -94,6 +94,7 @@ export default function MetricLesson({ metric, onSelect, onHomework }) {
 
       {rest.map((s) => (
         <Box key={s.title} title={s.title}>
+          {s.chart && <div className="mb-3"><Chart c={s.chart} /></div>}
           <div className="prose-lesson">{s.body.map((p, i) => <p key={i}><Rich text={p} /></p>)}</div>
         </Box>
       ))}

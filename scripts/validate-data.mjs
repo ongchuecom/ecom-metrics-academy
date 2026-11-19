@@ -22,14 +22,14 @@ for (const m of all) {
 }
 for (const m of all) {
   const id = m.metric_id
-  for (const k of ['metric_id', 'code', 'name', 'vi_name', 'stage', 'sub_group', 'definition']) if (!m[k]) err(id, `thiếu trường ${k}`)
+  for (const k of ['metric_id', 'code', 'vi_name', 'stage', 'sub_group', 'definition']) if (!m[k]) err(id, `thiếu trường ${k}`)
   if (!STAGES.includes(m.stage)) err(id, `stage không hợp lệ: ${m.stage}`)
-  if (!m.formula?.readable || !m.formula?.latex) err(id, 'thiếu formula.readable hoặc formula.latex')
+  if (!m.formula?.readable) err(id, 'thiếu formula.readable')
   const rel = m.relationships || {}
   for (const k of ['upstream_drivers', 'downstream_impacts', 'trade_offs']) {
     for (const r of rel[k] || []) {
       if (!ids.has(r.metric_id)) err(id, `${k} trỏ tới id không tồn tại: ${r.metric_id}`)
-      if (k !== 'trade_offs' && !['direct', 'inverse'].includes(r.impact)) err(id, `${k}.${r.metric_id}: impact phải là direct|inverse`)
+      if (k !== 'trade_offs' && r.impact && !['direct', 'inverse'].includes(r.impact)) err(id, `${k}.${r.metric_id}: impact phải là direct|inverse`)
     }
   }
   if (m.media?.video_url && !/^https:\/\//.test(m.media.video_url)) err(id, 'media.video_url phải là link https')
@@ -56,6 +56,25 @@ for (const m of all) {
     }
   }
 }
+// Playbook: liên kết hai chiều phải khớp
+const pbs = JSON.parse(readFileSync(join(dir, '../playbooks.json'), 'utf8')).playbooks
+const pbIds = new Set(pbs.map((p) => p.playbook_id))
+for (const m of all) for (const r of m.playbook_refs || []) {
+  if (!pbIds.has(r)) err(m.metric_id, `playbook_refs trỏ tới Playbook không tồn tại: ${r}`)
+  else if (!pbs.find((p) => p.playbook_id === r).linked_metrics.includes(m.metric_id)) err(m.metric_id, `${r} chưa liên kết ngược lại chỉ số này`)
+}
+for (const p of pbs) for (const x of p.linked_metrics) {
+  if (!ids.has(x)) err(p.playbook_id, `linked_metrics trỏ tới chỉ số không tồn tại: ${x}`)
+  else if (!(all.find((m) => m.metric_id === x).playbook_refs || []).includes(p.playbook_id)) err(p.playbook_id, `${x} chưa liên kết ngược lại Playbook này`)
+}
+// Bài đọc (lessons.json): id phải tồn tại, id trong cây công thức phải tồn tại
+const lessons = JSON.parse(readFileSync(join(dir, '../lessons.json'), 'utf8'))
+const treeIds = (n, out = []) => { if (n && typeof n === 'object') { if (n.id) out.push(n.id); (n.eq || []).forEach((c) => treeIds(c, out)) } return out }
+for (const [id, L] of Object.entries(lessons)) {
+  if (id.startsWith('_')) continue
+  if (!ids.has(id)) err(id, 'lessons.json: metric_id không tồn tại')
+  for (const t of treeIds(L.tree?.expr)) if (!ids.has(t)) err(id, `lessons.json: cây công thức trỏ tới id không tồn tại ${t}`)
+}
 // Tình huống thực tế (cases.json): id phải tồn tại, file video/poster/srt phải có trong public/
 import { existsSync } from 'node:fs'
 const cases = JSON.parse(readFileSync(join(dir, '../cases.json'), 'utf8'))
@@ -71,4 +90,4 @@ if (errors.length) {
   console.error(`✗ ${errors.length} lỗi:\n` + errors.join('\n'))
   process.exit(1)
 }
-console.log(`✓ ${all.length} chỉ số hợp lệ · ${withSim} có simulator · ${withHw} có bài tập chẩn đoán · ${Object.keys(cases).filter((k) => !k.startsWith('_')).length} có tình huống thực tế`)
+console.log(`✓ ${all.length} chỉ số hợp lệ · ${withSim} có simulator · ${withHw} có bài tập chẩn đoán · ${Object.keys(cases).filter((k) => !k.startsWith('_')).length} có tình huống thực tế · ${pbs.length} Playbook`)

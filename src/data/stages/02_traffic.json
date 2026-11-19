@@ -1,92 +1,16 @@
 [
   {
-    "metric_id": "mkt_cpm",
-    "code": "CPM",
-    "name": "Cost Per Mille",
-    "vi_name": "Chi phí cho 1.000 lượt hiển thị",
-    "stage": "02_traffic_acquisition",
-    "sub_group": "Paid Ads Cost",
-    "definition": "Số tiền quảng cáo phải trả để quảng cáo được hiển thị 1.000 lần. Phản ánh mức độ cạnh tranh giá thầu và chất lượng phân phối.",
-    "formula": {
-      "readable": "CPM = Chi phí Ads / Số lượt hiển thị × 1.000",
-      "latex": "\\text{CPM} = \\frac{\\text{Ad spend}}{\\text{Impressions}} \\times 1000"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "mkt_ad_frequency",
-          "impact": "direct",
-          "note": "Tần suất cao, tệp bão hòa thường đẩy giá phân phối lên"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "mkt_cpc",
-          "impact": "direct",
-          "note": "CPM tăng thì CPC tăng nếu CTR giữ nguyên"
-        },
-        {
-          "metric_id": "mkt_cpa",
-          "impact": "direct",
-          "note": "Giá thầu hiển thị tăng đẩy CPA tăng tương ứng"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "mkt_ctr",
-          "note": "Nhắm tệp hẹp, chất lượng cao thường CPM đắt hơn nhưng CTR tốt hơn"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "mkt_cpc",
-    "code": "CPC",
-    "name": "Cost Per Click",
-    "vi_name": "Chi phí mỗi lượt nhấp",
-    "stage": "02_traffic_acquisition",
-    "sub_group": "Paid Ads Cost",
-    "definition": "Chi phí trung bình cho mỗi lượt nhấp vào quảng cáo.",
-    "formula": {
-      "readable": "CPC = Chi phí Ads / Số lượt nhấp = CPM / (1.000 × CTR)",
-      "latex": "\\text{CPC} = \\frac{\\text{Ad spend}}{\\text{Clicks}} = \\frac{\\text{CPM}}{1000 \\times \\text{CTR}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "mkt_cpm",
-          "impact": "direct",
-          "note": "CPM tăng kéo CPC tăng"
-        },
-        {
-          "metric_id": "mkt_ctr",
-          "impact": "inverse",
-          "note": "CTR tăng giúp giảm chi phí mỗi lượt nhấp"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "mkt_cpa",
-          "impact": "direct",
-          "note": "CPC là đầu vào trực tiếp của CPA (CPA = CPC / CR)"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "mkt_ctr",
+    "metric_id": "vn_mkt_ctr",
     "code": "CTR",
-    "name": "Click-Through Rate",
-    "vi_name": "Tỷ lệ nhấp quảng cáo",
+    "pack_code": "TY_LE_NHAP_QUANG_CAO_CTR",
+    "name": "",
+    "vi_name": "Tỷ lệ nhấp quảng cáo (CTR)",
     "stage": "02_traffic_acquisition",
-    "sub_group": "Creative & Ad Engagement",
-    "definition": "Tỷ lệ phần trăm người dùng nhấp vào quảng cáo trên tổng số lần quảng cáo hiển thị.",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Tỷ lệ người bấm vào quảng cáo trên tổng số lần quảng cáo hiển thị. CTR thấp thường là do hook, hình ảnh hoặc sai tệp.",
     "formula": {
-      "readable": "CTR (%) = (Tổng số lượt nhấp / Tổng số lượt hiển thị) × 100",
-      "latex": "\\text{CTR} = \\frac{\\text{Clicks}}{\\text{Impressions}} \\times 100\\%"
+      "readable": "Số lượt bấm vào quảng cáo / Tổng số lượt hiển thị quảng cáo × 100%",
+      "derived": "(Ad_Clicks / Ad_Impressions) * 100"
     },
     "benchmarks": {
       "tiktok_vn": "1.2% - 2.5%",
@@ -94,37 +18,18 @@
       "d2c_us": "1.0% - 2.0%"
     },
     "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "mkt_hook_rate",
-          "impact": "direct",
-          "note": "3 giây đầu video hấp dẫn kéo CTR tăng mạnh"
-        },
-        {
-          "metric_id": "mkt_ad_frequency",
-          "impact": "inverse",
-          "note": "Tần suất lặp quá cao (>3.5) gây mỏi quảng cáo, làm giảm CTR"
-        }
-      ],
+      "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "mkt_cpc",
-          "impact": "inverse",
-          "note": "CTR tăng giúp giảm chi phí trên mỗi lượt nhấp (CPC)"
-        },
-        {
-          "metric_id": "mkt_cpa",
-          "impact": "inverse",
-          "note": "CTR cao giúp hạ giá thành thu hút đơn hàng (CPA)"
+          "metric_id": "vn_mkt_cpa",
+          "note": "Video/hình ảnh kém hấp dẫn làm CTR thấp và đẩy giá thầu lên cao"
         }
       ],
-      "trade_offs": [
-        {
-          "metric_id": "sales_cr",
-          "note": "Giật tít câu view để kéo CTR quá cao nhưng sai tệp sẽ làm rớt tỷ lệ chốt đơn (CR) ở trang đích"
-        }
-      ]
+      "trade_offs": []
     },
+    "playbook_refs": [
+      "pb_07_ads_scaling"
+    ],
     "simulator": {
       "title": "Mô phỏng tác động của CTR lên lưu lượng truy cập",
       "controls": [
@@ -209,322 +114,65 @@
     }
   },
   {
-    "metric_id": "mkt_hook_rate",
+    "metric_id": "vn_mkt_hook_rate",
     "code": "Hook Rate",
-    "name": "Hook Rate (3s)",
-    "vi_name": "Tỷ lệ giữ chân 3 giây đầu",
+    "pack_code": "TY_LE_GIU_CHAN_3S_DAU",
+    "name": "",
+    "vi_name": "Tỷ lệ giữ chân 3 giây đầu video (Hook Rate)",
     "stage": "02_traffic_acquisition",
-    "sub_group": "Creative & Ad Engagement",
-    "definition": "Tỷ lệ lượt hiển thị video quảng cáo được xem ít nhất 3 giây. Đo sức hút của câu mở đầu (hook).",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Tỷ lệ người xem video quảng cáo quá 3 giây đầu. 3 giây đầu không giữ được người xem thì phần sau hay cỡ nào cũng không ai thấy.",
     "formula": {
-      "readable": "Hook Rate (%) = Lượt xem ≥ 3 giây / Số lượt hiển thị × 100",
-      "latex": "\\text{Hook} = \\frac{\\text{3s views}}{\\text{Impressions}} \\times 100\\%"
+      "readable": "Số người xem video quảng cáo hoặc TikTok quá 3 giây đầu tiên / Tổng số lượt hiển thị × 100%",
+      "derived": "(Three_Second_Video_Views / Video_Impressions) * 100"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "mkt_ctr",
-          "impact": "direct",
-          "note": "Hook tốt kéo nhiều người xem tiếp và nhấp hơn"
-        },
-        {
-          "metric_id": "mkt_hold_rate",
-          "impact": "direct",
-          "note": "Giữ được 3 giây đầu là điều kiện để giữ đến giây 15"
+          "metric_id": "vn_mkt_ctr",
+          "note": "3 giây đầu không giữ được chân người xem thì không ai bấm mua hàng"
         }
       ],
       "trade_offs": []
-    }
+    },
+    "playbook_refs": [
+      "pb_07_ads_scaling"
+    ]
   },
   {
-    "metric_id": "mkt_hold_rate",
-    "code": "Hold Rate",
-    "name": "Hold Rate (15s)",
-    "vi_name": "Tỷ lệ xem đến giây 15",
+    "metric_id": "vn_mkt_organic_vs_paid",
+    "code": "Doanh thu tự nhiên",
+    "pack_code": "TY_LE_DOANH_THU_TU_NHIEN",
+    "name": "",
+    "vi_name": "Tỷ lệ doanh thu tự nhiên vs Quảng cáo",
     "stage": "02_traffic_acquisition",
-    "sub_group": "Creative & Ad Engagement",
-    "definition": "Tỷ lệ người đã xem 3 giây tiếp tục xem đến giây thứ 15. Đo sức giữ chân của phần thân video.",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Phần trăm doanh thu đến từ khách tự tìm, khách cũ quay lại, không qua quảng cáo trả tiền. Tỷ lệ này càng cao, shop càng ít phụ thuộc Ads.",
     "formula": {
-      "readable": "Hold Rate (%) = Lượt xem ≥ 15 giây / Lượt xem ≥ 3 giây × 100",
-      "latex": "\\text{Hold} = \\frac{\\text{15s views}}{\\text{3s views}} \\times 100\\%"
+      "readable": "Doanh thu từ khách tự tìm kiếm, khách cũ quay lại / Tổng doanh thu thực thu × 100%",
+      "derived": "(Organic_And_Repeat_Sales / Net_Sales) * 100"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "mkt_hook_rate",
+          "metric_id": "vn_ret_repeat_rate",
           "impact": "direct",
-          "note": "Phải qua được 3 giây đầu mới có lượt xem đến giây 15"
+          "note": "Khách cũ quay lại giúp giảm lệ thuộc vào tiền Ads"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "mkt_ctr",
-          "impact": "direct",
-          "note": "Người xem đủ lâu để hiểu sản phẩm thì dễ nhấp hơn"
-        },
-        {
-          "metric_id": "sales_cr",
-          "impact": "direct",
-          "note": "Xem đủ thông tin trước khi nhấp giúp tăng tỷ lệ chốt đơn"
+          "metric_id": "vn_fin_cm3",
+          "note": "Tỷ trọng tự nhiên càng cao thì biên lợi nhuận ròng càng bền vững"
         }
       ],
       "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "mkt_traffic_share",
-    "code": "Traffic Share",
-    "name": "Paid / Organic Traffic Share",
-    "vi_name": "Tỷ trọng lưu lượng trả phí / tự nhiên",
-    "stage": "02_traffic_acquisition",
-    "sub_group": "Traffic Mix",
-    "definition": "Tỷ trọng lượt truy cập đến từ quảng cáo trả phí so với tổng lưu lượng. Đo mức phụ thuộc vào quảng cáo.",
-    "formula": {
-      "readable": "Paid Share (%) = Lượt truy cập từ Ads / Tổng lượt truy cập × 100",
-      "latex": "\\text{Paid share} = \\frac{\\text{Paid sessions}}{\\text{Total sessions}} \\times 100\\%"
     },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_mer",
-          "impact": "inverse",
-          "note": "Càng phụ thuộc lưu lượng trả phí, hiệu suất marketing tổng (MER) càng khó cao"
-        },
-        {
-          "metric_id": "fin_cac",
-          "impact": "direct",
-          "note": "Tỷ trọng trả phí cao kéo CAC tổng (blended) lên"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "ret_rpr",
-          "note": "Đầu tư kênh tự nhiên và khách quay lại giúp giảm phụ thuộc Ads nhưng cần thời gian"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "mkt_ad_frequency",
-    "code": "Ad Frequency",
-    "name": "Ad Frequency",
-    "vi_name": "Tần suất hiển thị quảng cáo",
-    "stage": "02_traffic_acquisition",
-    "sub_group": "Paid Ads Delivery",
-    "definition": "Số lần trung bình một người nhìn thấy cùng một quảng cáo trong một khoảng thời gian.",
-    "formula": {
-      "readable": "Frequency = Số lượt hiển thị / Số người tiếp cận (Reach)",
-      "latex": "\\text{Frequency} = \\frac{\\text{Impressions}}{\\text{Reach}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "mkt_ctr",
-          "impact": "inverse",
-          "note": "Tần suất lặp quá cao (>3.5) gây mỏi quảng cáo, làm giảm CTR"
-        },
-        {
-          "metric_id": "mkt_creative_fatigue",
-          "impact": "direct",
-          "note": "Tần suất càng cao, creative càng nhanh mỏi"
-        },
-        {
-          "metric_id": "mkt_cpm",
-          "impact": "direct",
-          "note": "Tệp bão hòa thường làm giá phân phối tăng"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "mkt_creative_fatigue",
-    "code": "Creative Fatigue",
-    "name": "Creative Fatigue Rate",
-    "vi_name": "Tốc độ mỏi creative",
-    "stage": "02_traffic_acquisition",
-    "sub_group": "Creative & Ad Engagement",
-    "definition": "Mức suy giảm hiệu quả (thường là CTR) của một creative theo thời gian chạy. Dùng để quyết định khi nào thay creative mới.",
-    "formula": {
-      "readable": "Fatigue (%) = (CTR tuần đầu − CTR hiện tại) / CTR tuần đầu × 100",
-      "latex": "\\text{Fatigue} = \\frac{\\text{CTR}_{\\text{week 1}} - \\text{CTR}_{\\text{now}}}{\\text{CTR}_{\\text{week 1}}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "mkt_ad_frequency",
-          "impact": "direct",
-          "note": "Tần suất cao làm creative mỏi nhanh"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "mkt_ctr",
-          "impact": "inverse",
-          "note": "Creative mỏi thì CTR giảm"
-        },
-        {
-          "metric_id": "mkt_cpa",
-          "impact": "direct",
-          "note": "CTR giảm do mỏi creative đẩy CPA lên"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "mkt_cpa",
-    "code": "CPA",
-    "name": "Cost Per Acquisition",
-    "vi_name": "Chi phí trên mỗi chuyển đổi / đơn hàng",
-    "stage": "02_traffic_acquisition",
-    "sub_group": "Paid Ads Efficiency",
-    "definition": "Chi phí quảng cáo trung bình phải bỏ ra để có được một đơn hàng thành công (hoặc một hành động chuyển đổi mục tiêu).",
-    "formula": {
-      "readable": "CPA = Tổng chi phí Ads / Tổng số đơn hàng = CPM / (1000 × CTR × CR)",
-      "latex": "\\text{CPA} = \\frac{\\text{CPM}}{1000 \\times \\text{CTR} \\times \\text{CR}}"
-    },
-    "benchmarks": {
-      "tiktok_vn": "15% - 25% AOV",
-      "meta_vn": "20% - 30% AOV",
-      "d2c_us": "25% - 35% AOV"
-    },
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "mkt_cpm",
-          "impact": "direct",
-          "note": "Giá thầu hiển thị tăng đẩy CPA tăng tương ứng"
-        },
-        {
-          "metric_id": "mkt_ctr",
-          "impact": "inverse",
-          "note": "CTR giảm do content kém làm CPA đội lên"
-        },
-        {
-          "metric_id": "sales_cr",
-          "impact": "inverse",
-          "note": "Tỷ lệ chốt đơn tại trang đích/livestream thấp làm CPA tăng vọt"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cac",
-          "impact": "direct",
-          "note": "CPA của khách mua lần đầu chính là thành phần lõi cấu thành CAC"
-        },
-        {
-          "metric_id": "fin_roas",
-          "impact": "inverse",
-          "note": "CPA tăng làm giảm hiệu quả ROAS (ROAS = AOV / CPA)"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "sales_aov",
-          "note": "Có thể chấp nhận CPA cao hơn nếu bán được các gói Combo có AOV lớn"
-        }
-      ]
-    },
-    "simulator": {
-      "title": "Bộ giải phẫu công thức CPA (Từ CPM, CTR, CR)",
-      "controls": [
-        {
-          "key": "cpm",
-          "label": "Giá thầu CPM",
-          "min": 20000,
-          "max": 250000,
-          "step": 5000,
-          "default": 80000,
-          "unit": "VND"
-        },
-        {
-          "key": "ctr",
-          "label": "Tỷ lệ nhấp CTR",
-          "min": 0.5,
-          "max": 5,
-          "step": 0.1,
-          "default": 2,
-          "unit": "%"
-        },
-        {
-          "key": "cr",
-          "label": "Tỷ lệ chuyển đổi CR",
-          "min": 0.5,
-          "max": 10,
-          "step": 0.2,
-          "default": 2.5,
-          "unit": "%"
-        },
-        {
-          "key": "aov",
-          "label": "Giá trị đơn hàng AOV",
-          "min": 100000,
-          "max": 1500000,
-          "step": 50000,
-          "default": 450000,
-          "unit": "VND"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "cpa",
-          "label": "Chi phí CPA / Đơn",
-          "formula_eval": "cpm / (1000 * (ctr / 100) * (cr / 100))",
-          "unit": "VND",
-          "warning_threshold": "> 150000"
-        },
-        {
-          "key": "implied_roas",
-          "label": "ROAS tương ứng (AOV / CPA)",
-          "formula_eval": "aov / (cpm / (1000 * (ctr / 100) * (cr / 100)))",
-          "unit": "x",
-          "warning_threshold": "< 3"
-        }
-      ]
-    },
-    "diagnostic_homework": {
-      "title": "Bệnh án: CPA tăng gấp đôi sau 1 tuần chạy Scale",
-      "scenario": "Một shop thời trang đang chạy đều đặn với CPM = 70.000đ, CTR = 2.5%, CR = 3.0%. Tuần này chủ shop tăng ngân sách gấp 3 lần khiến CPM nhích lên 90.000đ, CTR tụt xuống 1.5% và CR giảm còn 2.0%.",
-      "tasks": [
-        {
-          "task_id": "cpa_t1",
-          "type": "numeric_input",
-          "question": "Tính mức CPA mới sau khi tăng ngân sách (đơn vị: VND):",
-          "correct_value": 300000,
-          "tolerance": 5000,
-          "unit": "VND",
-          "hint": "Áp dụng công thức: CPA = CPM / (1000 * CTR * CR). Nhớ đổi % ra số thập phân (1.5% = 0.015).",
-          "explanation": "CPA cũ = 70.000 / (1000 * 0.025 * 0.03) = 93.333đ. CPA mới = 90.000 / (1000 * 0.015 * 0.02) = 300.000đ (Tăng hơn 3.2 lần!)."
-        },
-        {
-          "task_id": "cpa_t2",
-          "type": "strategic_decision",
-          "question": "Nguyên nhân nào đóng góp lớn nhất khiến CPA vọt từ 93k lên 300k và cách xử lý đúng là gì?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Do CPM tăng nên cần đổi sang tài khoản quảng cáo mới để ép giá thầu.",
-              "is_correct": false,
-              "reason": "CPM chỉ tăng 28%, không phải nguyên nhân chính làm CPA tăng 320%."
-            },
-            {
-              "id": "b",
-              "text": "Do hiệu ứng cộng hưởng khi cả CTR (giảm 40%) và CR (giảm 33%) cùng rớt vì phân phối vào tệp lạnh. Cần bổ sung thêm Creative mới và tối ưu lại ưu đãi trang đích trước khi scale.",
-              "is_correct": true,
-              "reason": "Chính xác! Trong công thức nhân ở mẫu số, khi cả CTR và CR cùng giảm sẽ tạo ra cú sốc tăng giá CPA theo cấp số nhân."
-            }
-          ]
-        }
-      ]
-    }
+    "playbook_refs": [
+      "pb_08_retention_clv"
+    ]
   }
 ]

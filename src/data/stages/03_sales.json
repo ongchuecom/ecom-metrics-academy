@@ -1,54 +1,278 @@
 [
   {
-    "metric_id": "sales_cr",
-    "code": "CR",
-    "name": "Conversion Rate",
-    "vi_name": "Tỷ lệ chuyển đổi",
+    "metric_id": "vn_mkt_cpa",
+    "code": "CPA",
+    "pack_code": "CHI_PHI_1_DON_ADS_CPA",
+    "name": "",
+    "vi_name": "Chi phí quảng cáo trên mỗi đơn hàng (CPA)",
     "stage": "03_conversion_sales",
-    "sub_group": "Funnel Conversion",
-    "definition": "Tỷ lệ lượt truy cập (hoặc lượt nhấp) tạo ra đơn hàng. Đo hiệu quả của trang bán, livestream hoặc trang sản phẩm.",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Tiền quảng cáo bỏ ra để có 1 đơn hàng. CPA phải thấp hơn phần lãi mỗi đơn (theo CM2) thì Ads mới có lãi.",
     "formula": {
-      "readable": "CR (%) = Số đơn hàng / Số lượt truy cập × 100",
-      "latex": "\\text{CR} = \\frac{\\text{Orders}}{\\text{Sessions}} \\times 100\\%"
+      "readable": "Tổng tiền chi cho quảng cáo / Tổng số đơn hàng chốt được từ quảng cáo",
+      "derived": "Total_Ad_Spend / Ad_Attributed_Orders"
     },
-    "benchmarks": {},
+    "benchmarks": {
+      "tiktok_vn": "15% - 25% AOV",
+      "meta_vn": "20% - 30% AOV",
+      "d2c_us": "25% - 35% AOV"
+    },
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "sales_atc_rate",
-          "impact": "direct",
-          "note": "Nhiều người thêm vào giỏ hơn thì nhiều đơn hơn"
-        },
-        {
-          "metric_id": "sales_car",
+          "metric_id": "vn_mkt_ctr",
           "impact": "inverse",
-          "note": "Tỷ lệ bỏ giỏ cao làm CR giảm"
+          "note": "CTR cao giúp giảm giá mỗi lượt nhấp"
         },
         {
-          "metric_id": "mkt_hold_rate",
-          "impact": "direct",
-          "note": "Khách xem đủ thông tin trước khi vào trang chốt đơn tốt hơn"
+          "metric_id": "vn_team_chat_cvr",
+          "impact": "inverse",
+          "note": "Chốt đơn tốt giúp giảm chi phí trên mỗi đơn"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "mkt_cpa",
-          "impact": "inverse",
-          "note": "CR tăng giúp CPA giảm tương ứng"
-        },
-        {
-          "metric_id": "fin_roas",
-          "impact": "direct",
-          "note": "Cùng lưu lượng, CR cao hơn cho nhiều doanh thu hơn"
+          "metric_id": "vn_fin_cm3",
+          "note": "CPA vượt quá biên lãi CM2 sẽ gây lỗ trực tiếp"
         }
       ],
-      "trade_offs": [
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_07_ads_scaling",
+      "pb_08_retention_clv"
+    ],
+    "simulator": {
+      "title": "Bộ giải phẫu công thức CPA (Từ CPM, CTR, CR)",
+      "controls": [
         {
-          "metric_id": "sales_discount_rate",
-          "note": "Giảm giá sâu kéo CR lên nhưng bào mòn biên lãi"
+          "key": "cpm",
+          "label": "Giá thầu CPM",
+          "min": 20000,
+          "max": 250000,
+          "step": 5000,
+          "default": 80000,
+          "unit": "VND"
+        },
+        {
+          "key": "ctr",
+          "label": "Tỷ lệ nhấp CTR",
+          "min": 0.5,
+          "max": 5,
+          "step": 0.1,
+          "default": 2,
+          "unit": "%"
+        },
+        {
+          "key": "cr",
+          "label": "Tỷ lệ chuyển đổi CR",
+          "min": 0.5,
+          "max": 10,
+          "step": 0.2,
+          "default": 2.5,
+          "unit": "%"
+        },
+        {
+          "key": "aov",
+          "label": "Giá trị đơn hàng AOV",
+          "min": 100000,
+          "max": 1500000,
+          "step": 50000,
+          "default": 450000,
+          "unit": "VND"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "cpa",
+          "label": "Chi phí CPA / Đơn",
+          "formula_eval": "cpm / (1000 * (ctr / 100) * (cr / 100))",
+          "unit": "VND",
+          "warning_threshold": "> 150000"
+        },
+        {
+          "key": "implied_roas",
+          "label": "ROAS tương ứng (AOV / CPA)",
+          "formula_eval": "aov / (cpm / (1000 * (ctr / 100) * (cr / 100)))",
+          "unit": "x",
+          "warning_threshold": "< 3"
         }
       ]
     },
+    "diagnostic_homework": {
+      "title": "Bệnh án: CPA tăng gấp đôi sau 1 tuần chạy Scale",
+      "scenario": "Một shop thời trang đang chạy đều đặn với CPM = 70.000đ, CTR = 2.5%, CR = 3.0%. Tuần này chủ shop tăng ngân sách gấp 3 lần khiến CPM nhích lên 90.000đ, CTR tụt xuống 1.5% và CR giảm còn 2.0%.",
+      "tasks": [
+        {
+          "task_id": "cpa_t1",
+          "type": "numeric_input",
+          "question": "Tính mức CPA mới sau khi tăng ngân sách (đơn vị: VND):",
+          "correct_value": 300000,
+          "tolerance": 5000,
+          "unit": "VND",
+          "hint": "Áp dụng công thức: CPA = CPM / (1000 * CTR * CR). Nhớ đổi % ra số thập phân (1.5% = 0.015).",
+          "explanation": "CPA cũ = 70.000 / (1000 * 0.025 * 0.03) = 93.333đ. CPA mới = 90.000 / (1000 * 0.015 * 0.02) = 300.000đ (Tăng hơn 3.2 lần!)."
+        },
+        {
+          "task_id": "cpa_t2",
+          "type": "strategic_decision",
+          "question": "Nguyên nhân nào đóng góp lớn nhất khiến CPA vọt từ 93k lên 300k và cách xử lý đúng là gì?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Do CPM tăng nên cần đổi sang tài khoản quảng cáo mới để ép giá thầu.",
+              "is_correct": false,
+              "reason": "CPM chỉ tăng 28%, không phải nguyên nhân chính làm CPA tăng 320%."
+            },
+            {
+              "id": "b",
+              "text": "Do hiệu ứng cộng hưởng khi cả CTR (giảm 40%) và CR (giảm 33%) cùng rớt vì phân phối vào tệp lạnh. Cần bổ sung thêm Creative mới và tối ưu lại ưu đãi trang đích trước khi scale.",
+              "is_correct": true,
+              "reason": "Chính xác! Trong công thức nhân ở mẫu số, khi cả CTR và CR cùng giảm sẽ tạo ra cú sốc tăng giá CPA theo cấp số nhân."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "vn_sales_aov",
+    "code": "AOV",
+    "pack_code": "GIA_TRI_TRUNG_BINH_DON_AOV",
+    "name": "",
+    "vi_name": "Giá trị trung bình mỗi đơn hàng (AOV)",
+    "stage": "03_conversion_sales",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Giá trị trung bình mỗi đơn giao thành công, tính trên doanh thu thực thu. Cùng 1 chi phí để có khách (CPA) mà AOV tăng thì có lãi.",
+    "formula": {
+      "readable": "Tổng doanh thu thực thu / Tổng số đơn hàng giao thành công",
+      "derived": "Net_Sales / Delivered_Orders"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "note": "Gộp combo tăng AOV giúp gánh chi phí Ads và phí ship tốt hơn"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_07_ads_scaling"
+    ],
+    "simulator": {
+      "title": "AOV gánh chi phí quảng cáo thế nào",
+      "controls": [
+        {
+          "key": "aov",
+          "label": "AOV",
+          "min": 100000,
+          "max": 1500000,
+          "step": 10000,
+          "default": 320000,
+          "unit": "VND"
+        },
+        {
+          "key": "cpa",
+          "label": "CPA (chi phí có 1 đơn)",
+          "min": 20000,
+          "max": 400000,
+          "step": 5000,
+          "default": 96000,
+          "unit": "VND"
+        },
+        {
+          "key": "margin",
+          "label": "Biên đóng góp trước Ads",
+          "min": 10,
+          "max": 70,
+          "step": 1,
+          "default": 45,
+          "unit": "%"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "roas",
+          "label": "ROAS = AOV / CPA",
+          "formula_eval": "aov / cpa",
+          "unit": "x"
+        },
+        {
+          "key": "profit_per_order",
+          "label": "Lãi mỗi đơn sau Ads",
+          "formula_eval": "aov * margin / 100 - cpa",
+          "unit": "VND",
+          "warning_threshold": "< 0"
+        }
+      ]
+    },
+    "diagnostic_homework": {
+      "title": "Bệnh án: Đơn nhiều mà vẫn không đủ trả tiền quảng cáo",
+      "scenario": "Shop phụ kiện bán 2.000 đơn/tháng, AOV 320.000đ, CPA 96.000đ, biên đóng góp trước quảng cáo 30%. Shop ra mắt combo nâng AOV thêm 25%, CPA giữ nguyên.",
+      "tasks": [
+        {
+          "task_id": "aov_t1",
+          "type": "numeric_input",
+          "question": "ROAS sau khi có combo là bao nhiêu (làm tròn 2 chữ số thập phân)?",
+          "correct_value": 4.17,
+          "tolerance": 0.03,
+          "unit": "x",
+          "hint": "AOV mới = 320.000 × 1,25. ROAS = AOV / CPA.",
+          "explanation": "AOV mới = 400.000đ. ROAS = 400.000 / 96.000 ≈ 4,17 (trước đó 3,33). Lãi mỗi đơn sau Ads: trước = 320.000 × 30% − 96.000 = 0đ (hòa vốn); sau = 400.000 × 30% − 96.000 = 24.000đ."
+        },
+        {
+          "task_id": "aov_t2",
+          "type": "strategic_decision",
+          "question": "Combo nên được thiết kế thế nào để AOV tăng mà lãi thật sự tăng?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Giảm giá 25% cho mọi đơn từ 2 sản phẩm để khách mua nhiều hơn.",
+              "is_correct": false,
+              "reason": "Giảm giá đều tay bào mòn biên; AOV tăng nhưng lãi mỗi đơn có thể còn thấp hơn."
+            },
+            {
+              "id": "b",
+              "text": "Ghép sản phẩm chủ lực với một món biên cao, giá trị cảm nhận lớn nhưng giá vốn thấp, ưu đãi nhẹ cho cả combo.",
+              "is_correct": true,
+              "reason": "Món bán kèm biên cao giúp phần AOV tăng thêm gần như chuyển thẳng thành lợi nhuận."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "metric_id": "vn_sales_pdp_cvr",
+    "code": "CVR trang sản phẩm",
+    "pack_code": "TY_LE_CHOT_TRANG_SAN_PHAM",
+    "name": "",
+    "vi_name": "Tỷ lệ chốt đơn trên trang sản phẩm (CVR sàn/web)",
+    "stage": "03_conversion_sales",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Tỷ lệ lượt xem trang sản phẩm chốt thành đơn. Ảnh, giá, đánh giá và mô tả trên trang quyết định con số này.",
+    "formula": {
+      "readable": "Số đơn đặt hàng thành công / Tổng số lượt khách bấm vào xem trang sản phẩm × 100%",
+      "derived": "(Completed_Orders / Product_Page_Views) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_mkt_cpa",
+          "note": "Ảnh bìa đẹp, đánh giá sao cao giúp tăng CVR và kéo giảm chi phí Ads"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_07_ads_scaling",
+      "pb_09_packing_and_reviews"
+    ],
     "simulator": {
       "title": "Mỗi 0,1% CR đáng giá bao nhiêu?",
       "controls": [
@@ -138,334 +362,31 @@
     }
   },
   {
-    "metric_id": "sales_atc_rate",
-    "code": "ATC Rate",
-    "name": "Add-to-Cart Rate",
-    "vi_name": "Tỷ lệ thêm vào giỏ",
+    "metric_id": "vn_sales_voucher_dependency",
+    "code": "Phụ thuộc voucher",
+    "pack_code": "TY_LE_DON_PHU_THUOC_VOUCHER",
+    "name": "",
+    "vi_name": "Tỷ lệ đơn hàng phụ thuộc mã giảm giá",
     "stage": "03_conversion_sales",
-    "sub_group": "Funnel Conversion",
-    "definition": "Tỷ lệ lượt truy cập có thêm ít nhất một sản phẩm vào giỏ hàng. Đo sức hấp dẫn của trang sản phẩm và giá.",
+    "sub_group": "Quảng cáo & Chuyển đổi",
+    "definition": "Tỷ lệ đơn phải dùng mã giảm giá sâu của shop mới chốt. Càng phụ thuộc voucher, biên lãi càng mỏng và khách càng quen chờ giảm giá.",
     "formula": {
-      "readable": "ATC Rate (%) = Lượt truy cập có thêm vào giỏ / Tổng lượt truy cập × 100",
-      "latex": "\\text{ATC} = \\frac{\\text{Sessions with add-to-cart}}{\\text{Sessions}} \\times 100\\%"
+      "readable": "Số đơn hàng sử dụng mã giảm giá sâu của shop / Tổng số đơn hàng × 100%",
+      "derived": "(Discounted_Orders / Total_Orders) * 100"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [],
       "downstream_impacts": [
         {
-          "metric_id": "sales_ic_rate",
-          "impact": "direct",
-          "note": "Nhiều giỏ hàng hơn thì nhiều lượt bắt đầu thanh toán hơn"
-        },
-        {
-          "metric_id": "sales_cr",
-          "impact": "direct",
-          "note": "ATC là bước đầu của phễu chốt đơn"
+          "metric_id": "vn_fin_net_sales",
+          "note": "Cảnh báo shop bị nghiện khuyến mãi, tắt mã là đứng đơn"
         }
       ],
       "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "sales_ic_rate",
-    "code": "IC Rate",
-    "name": "Initiate Checkout Rate",
-    "vi_name": "Tỷ lệ bắt đầu thanh toán",
-    "stage": "03_conversion_sales",
-    "sub_group": "Funnel Conversion",
-    "definition": "Tỷ lệ lượt truy cập bước vào trang thanh toán. Khoảng cách giữa ATC và IC cho biết khách do dự ở giỏ hàng (phí ship, mã giảm giá…).",
-    "formula": {
-      "readable": "IC Rate (%) = Lượt bắt đầu thanh toán / Tổng lượt truy cập × 100",
-      "latex": "\\text{IC} = \\frac{\\text{Checkouts initiated}}{\\text{Sessions}} \\times 100\\%"
     },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "sales_atc_rate",
-          "impact": "direct",
-          "note": "Không có giỏ hàng thì không có bước thanh toán"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "sales_cr",
-          "impact": "direct",
-          "note": "IC cao và ít rớt ở bước cuối thì CR cao"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "sales_car",
-    "code": "CAR",
-    "name": "Cart Abandonment Rate",
-    "vi_name": "Tỷ lệ bỏ giỏ hàng",
-    "stage": "03_conversion_sales",
-    "sub_group": "Funnel Conversion",
-    "definition": "Tỷ lệ giỏ hàng được tạo nhưng không hoàn tất đơn. Lý do thường gặp: phí vận chuyển bất ngờ, thủ tục rườm rà, thiếu phương thức thanh toán.",
-    "formula": {
-      "readable": "CAR (%) = (1 − Số đơn hoàn tất / Số giỏ hàng được tạo) × 100",
-      "latex": "\\text{CAR} = \\left(1 - \\frac{\\text{Orders}}{\\text{Carts created}}\\right) \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "sales_cr",
-          "impact": "inverse",
-          "note": "Bỏ giỏ càng nhiều, CR càng thấp"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "sales_discount_rate",
-          "note": "Gửi mã giảm giá cứu giỏ hàng giúp giảm CAR nhưng tập cho khách thói quen chờ giảm giá"
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "sales_aov",
-    "code": "AOV",
-    "name": "Average Order Value",
-    "vi_name": "Giá trị đơn hàng trung bình",
-    "stage": "03_conversion_sales",
-    "sub_group": "Basket Size",
-    "definition": "Doanh thu trung bình trên mỗi đơn hàng. Quyết định mỗi lần tốn tiền kéo khách về, doanh nghiệp thu lại được bao nhiêu.",
-    "formula": {
-      "readable": "AOV = Doanh thu / Số đơn hàng",
-      "latex": "\\text{AOV} = \\frac{\\text{Revenue}}{\\text{Orders}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "sales_upt",
-          "impact": "direct",
-          "note": "Khách mua nhiều sản phẩm hơn mỗi đơn thì AOV tăng"
-        },
-        {
-          "metric_id": "sales_bundle_attach",
-          "impact": "direct",
-          "note": "Bán kèm combo nâng giá trị đơn"
-        },
-        {
-          "metric_id": "sales_discount_rate",
-          "impact": "inverse",
-          "note": "Giảm giá sâu làm AOV thực thu giảm"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_roas",
-          "impact": "direct",
-          "note": "Tăng giá trị đơn hàng giúp ROAS tăng ngay lập tức"
-        },
-        {
-          "metric_id": "ret_clv",
-          "impact": "direct",
-          "note": "AOV là một thừa số của CLV"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "sales_cr",
-          "note": "Đẩy AOV quá cao (đơn tối thiểu, combo bắt buộc) có thể làm giảm tỷ lệ chốt đơn"
-        }
-      ]
-    },
-    "simulator": {
-      "title": "AOV gánh chi phí quảng cáo thế nào",
-      "controls": [
-        {
-          "key": "aov",
-          "label": "AOV",
-          "min": 100000,
-          "max": 1500000,
-          "step": 10000,
-          "default": 320000,
-          "unit": "VND"
-        },
-        {
-          "key": "cpa",
-          "label": "CPA (chi phí có 1 đơn)",
-          "min": 20000,
-          "max": 400000,
-          "step": 5000,
-          "default": 96000,
-          "unit": "VND"
-        },
-        {
-          "key": "margin",
-          "label": "Biên đóng góp trước Ads",
-          "min": 10,
-          "max": 70,
-          "step": 1,
-          "default": 45,
-          "unit": "%"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "roas",
-          "label": "ROAS = AOV / CPA",
-          "formula_eval": "aov / cpa",
-          "unit": "x"
-        },
-        {
-          "key": "profit_per_order",
-          "label": "Lãi mỗi đơn sau Ads",
-          "formula_eval": "aov * margin / 100 - cpa",
-          "unit": "VND",
-          "warning_threshold": "< 0"
-        }
-      ]
-    },
-    "diagnostic_homework": {
-      "title": "Bệnh án: Đơn nhiều mà vẫn không đủ trả tiền quảng cáo",
-      "scenario": "Shop phụ kiện bán 2.000 đơn/tháng, AOV 320.000đ, CPA 96.000đ, biên đóng góp trước quảng cáo 30%. Shop ra mắt combo nâng AOV thêm 25%, CPA giữ nguyên.",
-      "tasks": [
-        {
-          "task_id": "aov_t1",
-          "type": "numeric_input",
-          "question": "ROAS sau khi có combo là bao nhiêu (làm tròn 2 chữ số thập phân)?",
-          "correct_value": 4.17,
-          "tolerance": 0.03,
-          "unit": "x",
-          "hint": "AOV mới = 320.000 × 1,25. ROAS = AOV / CPA.",
-          "explanation": "AOV mới = 400.000đ. ROAS = 400.000 / 96.000 ≈ 4,17 (trước đó 3,33). Lãi mỗi đơn sau Ads: trước = 320.000 × 30% − 96.000 = 0đ (hòa vốn); sau = 400.000 × 30% − 96.000 = 24.000đ."
-        },
-        {
-          "task_id": "aov_t2",
-          "type": "strategic_decision",
-          "question": "Combo nên được thiết kế thế nào để AOV tăng mà lãi thật sự tăng?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Giảm giá 25% cho mọi đơn từ 2 sản phẩm để khách mua nhiều hơn.",
-              "is_correct": false,
-              "reason": "Giảm giá đều tay bào mòn biên; AOV tăng nhưng lãi mỗi đơn có thể còn thấp hơn."
-            },
-            {
-              "id": "b",
-              "text": "Ghép sản phẩm chủ lực với một món biên cao, giá trị cảm nhận lớn nhưng giá vốn thấp, ưu đãi nhẹ cho cả combo.",
-              "is_correct": true,
-              "reason": "Món bán kèm biên cao giúp phần AOV tăng thêm gần như chuyển thẳng thành lợi nhuận."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "sales_upt",
-    "code": "UPT",
-    "name": "Units Per Transaction",
-    "vi_name": "Số sản phẩm mỗi đơn",
-    "stage": "03_conversion_sales",
-    "sub_group": "Basket Size",
-    "definition": "Số lượng sản phẩm trung bình trong mỗi đơn hàng.",
-    "formula": {
-      "readable": "UPT = Tổng số sản phẩm bán ra / Số đơn hàng",
-      "latex": "\\text{UPT} = \\frac{\\text{Units sold}}{\\text{Orders}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "sales_bundle_attach",
-          "impact": "direct",
-          "note": "Bán kèm thành công làm tăng số món mỗi đơn"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "sales_aov",
-          "impact": "direct",
-          "note": "UPT tăng kéo AOV tăng"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "sales_bundle_attach",
-    "code": "Bundle Attach Rate",
-    "name": "Bundle Attach Rate",
-    "vi_name": "Tỷ lệ bán kèm thành công",
-    "stage": "03_conversion_sales",
-    "sub_group": "Basket Size",
-    "definition": "Tỷ lệ đơn hàng có kèm sản phẩm bổ sung hoặc combo được gợi ý.",
-    "formula": {
-      "readable": "Attach Rate (%) = Số đơn có bán kèm / Tổng số đơn × 100",
-      "latex": "\\text{Attach} = \\frac{\\text{Orders with add-on}}{\\text{Orders}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "prod_hero_ratio",
-          "impact": "direct",
-          "note": "Sản phẩm hero là “đầu kéo” để gợi ý mua kèm"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "sales_upt",
-          "impact": "direct",
-          "note": "Bán kèm làm tăng số sản phẩm mỗi đơn"
-        },
-        {
-          "metric_id": "sales_aov",
-          "impact": "direct",
-          "note": "Bán kèm nâng giá trị đơn"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "sales_discount_rate",
-    "code": "Discount Rate",
-    "name": "Discount Rate",
-    "vi_name": "Tỷ lệ giảm giá",
-    "stage": "03_conversion_sales",
-    "sub_group": "Pricing",
-    "definition": "Tổng giá trị giảm giá (mã giảm, khuyến mãi, trợ giá) so với doanh thu theo giá niêm yết.",
-    "formula": {
-      "readable": "Discount Rate (%) = Tổng giá trị giảm giá / Doanh thu theo giá niêm yết × 100",
-      "latex": "\\text{Discount} = \\frac{\\text{Total discounts}}{\\text{Gross revenue at list price}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [],
-      "downstream_impacts": [
-        {
-          "metric_id": "prod_gross_margin",
-          "impact": "inverse",
-          "note": "Giảm giá trực tiếp làm mỏng biên gộp"
-        },
-        {
-          "metric_id": "sales_aov",
-          "impact": "inverse",
-          "note": "Giảm giá làm giá trị thực thu mỗi đơn giảm"
-        },
-        {
-          "metric_id": "sales_cr",
-          "impact": "direct",
-          "note": "Giảm giá thường kéo tỷ lệ chuyển đổi lên"
-        }
-      ],
-      "trade_offs": [
-        {
-          "metric_id": "fin_net_margin",
-          "note": "Chạy khuyến mãi sâu kéo doanh số và ROAS nhưng có thể làm âm biên lợi nhuận ròng"
-        }
-      ]
-    }
+    "playbook_refs": [
+      "pb_01_profit_reality"
+    ]
   }
 ]

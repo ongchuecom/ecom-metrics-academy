@@ -1,327 +1,296 @@
 [
   {
-    "metric_id": "fin_cac",
-    "code": "CAC",
-    "name": "Customer Acquisition Cost (Blended)",
-    "vi_name": "Chi phí có một khách mới (tổng hợp)",
+    "metric_id": "vn_fin_net_sales",
+    "code": "Net Sales",
+    "pack_code": "DOANH_THU_THUC_THU",
+    "name": "",
+    "vi_name": "Doanh thu thực thu (Net Sales)",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Acquisition Economics",
-    "definition": "Tổng chi phí marketing và bán hàng (quảng cáo, KOL, khuyến mãi khách mới, nhân sự marketing…) chia cho số khách mới trong kỳ.",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Doanh thu thực thu: doanh thu hiển thị trên sàn trừ voucher shop tự giảm, đơn huỷ, đơn hoàn. Doanh thu là thứ rất dễ khoe, Net Sales mới là tiền thật đi vào P&L.",
     "formula": {
-      "readable": "CAC (Blended) = Tổng chi phí marketing & bán hàng / Số khách hàng mới",
-      "latex": "\\text{CAC} = \\frac{\\text{Total S\\&M cost}}{\\text{New customers}}"
+      "readable": "Doanh thu hiển thị trên báo cáo - Voucher shop tự giảm - Đơn hủy - Đơn hoàn",
+      "derived": "Gross_Sales - Shop_Vouchers - Canceled_Sales - Returned_Sales"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "mkt_cpa",
-          "impact": "direct",
-          "note": "CPA của khách mua lần đầu là phần lõi của CAC"
-        },
-        {
-          "metric_id": "mkt_traffic_share",
-          "impact": "direct",
-          "note": "Phụ thuộc lưu lượng trả phí kéo CAC tổng lên"
-        },
-        {
-          "metric_id": "ret_k_factor",
+          "metric_id": "vn_ops_rto_rate",
           "impact": "inverse",
-          "note": "Khách đến từ giới thiệu giúp CAC giảm"
+          "note": "Hoàn hàng cao làm hụt doanh thu thực thu"
+        },
+        {
+          "metric_id": "vn_ops_cancel_rate",
+          "impact": "inverse",
+          "note": "Hủy đơn trước giao"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "fin_ltv_cac",
-          "impact": "inverse",
-          "note": "CAC là mẫu số của LTV/CAC"
-        },
-        {
-          "metric_id": "fin_cac_payback",
-          "impact": "direct",
-          "note": "CAC cao thì cần lâu hơn để thu hồi"
+          "metric_id": "vn_fin_cm1",
+          "note": "Cơ sở tính toán mọi tầng lợi nhuận phía sau"
         }
       ],
       "trade_offs": []
-    }
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality"
+    ]
   },
   {
-    "metric_id": "fin_paid_cac",
-    "code": "Paid CAC",
-    "name": "Paid Customer Acquisition Cost",
-    "vi_name": "CAC từ kênh trả phí",
+    "metric_id": "vn_fin_platform_fee",
+    "code": "Phí sàn",
+    "pack_code": "TONG_PHI_SAN",
+    "name": "",
+    "vi_name": "Tổng phí sàn TMĐT (%)",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Acquisition Economics",
-    "definition": "Chi phí quảng cáo trả phí chia cho số khách mới đến từ kênh trả phí. Tách riêng để không bị khách tự nhiên “làm đẹp” số liệu.",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Tổng phí sàn (phí cố định, phí thanh toán, Freeship Xtra, Voucher Xtra, thuế sàn thu hộ) tính theo % doanh thu thực thu. Phí sàn tăng 1–2% là Net margin mỏng đi thấy rõ.",
     "formula": {
-      "readable": "Paid CAC = Chi phí quảng cáo / Số khách mới từ kênh trả phí",
-      "latex": "\\text{Paid CAC} = \\frac{\\text{Paid media spend}}{\\text{New customers from paid}}"
+      "readable": "(Phí cố định + Phí thanh toán + Freeship Xtra + Voucher Xtra + Thuế sàn thu hộ) / Doanh thu thực thu × 100%",
+      "derived": "(Fixed_Fee + Payment_Fee + Freeship_Extra + Voucher_Extra + Withheld_Tax) / Net_Sales * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "note": "Phí sàn tăng trực tiếp bóp nghẹt ngân sách chạy Ads"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality",
+      "pb_06_livestream_and_koc"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_cm1",
+    "code": "CM1",
+    "pack_code": "LAI_GOP_CM1",
+    "name": "",
+    "vi_name": "Lãi gộp sau giá vốn (CM1)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Lãi gộp sau giá vốn: doanh thu thực thu trừ giá vốn của các đơn giao thành công. Tầng lãi đầu tiên, chưa trừ phí sàn, ship hay Ads.",
+    "formula": {
+      "readable": "Doanh thu thực thu (Net Sales) - Tổng giá vốn hàng bán đã giao thành công",
+      "derived": "Net_Sales - Delivered_COGS"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "mkt_cpa",
+          "metric_id": "vn_prod_landed_cost",
+          "impact": "inverse",
+          "note": "Giá vốn nhập kho"
+        },
+        {
+          "metric_id": "vn_fin_net_sales",
           "impact": "direct",
-          "note": "CPA đơn đầu của khách mới cấu thành Paid CAC"
+          "note": "Doanh thu thực tế"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "fin_cac",
-          "impact": "direct",
-          "note": "Paid CAC là phần lớn của CAC tổng hợp"
+          "metric_id": "vn_fin_cm2",
+          "note": "Lớp đệm đầu tiên của lợi nhuận"
         }
       ],
       "trade_offs": []
-    }
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality"
+    ]
   },
   {
-    "metric_id": "fin_ltv_cac",
-    "code": "LTV/CAC",
-    "name": "LTV to CAC Ratio",
-    "vi_name": "Tỷ lệ giá trị vòng đời trên chi phí có khách",
+    "metric_id": "vn_fin_cm2",
+    "code": "CM2",
+    "pack_code": "LAI_GOP_SAU_SAN_SHIP_CM2",
+    "name": "",
+    "vi_name": "Lãi gộp sau phí sàn & ship (CM2)",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Acquisition Economics",
-    "definition": "Mỗi đồng chi để có một khách mới mang lại bao nhiêu đồng lợi nhuận đóng góp trong vòng đời khách đó.",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Lãi sau phí sàn và ship: CM1 trừ phí sàn, ship shop bù, đóng gói, chi phí đơn hoàn. Đây là phần tiền còn lại để đem đi chạy Ads.",
     "formula": {
-      "readable": "LTV/CAC = CLV / CAC",
-      "latex": "\\frac{\\text{LTV}}{\\text{CAC}} = \\frac{\\text{CLV}}{\\text{CAC}}"
+      "readable": "CM1 - Tổng phí sàn - Phí ship shop bù - Chi phí đóng gói - Chi phí xử lý đơn hoàn",
+      "derived": "CM1 - Platform_Fees - Seller_Shipping - Packaging_Cost - Return_Costs"
     },
-    "benchmarks": {
-      "tham_khao": "< 1: lỗ trên mỗi khách · 1–3: cần cải thiện · ≥ 3: thường được coi là lành mạnh"
-    },
+    "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "ret_clv",
+          "metric_id": "vn_fin_cm1",
           "impact": "direct",
-          "note": "CLV tăng thì tỷ lệ tăng"
+          "note": "Lãi gộp gốc"
         },
         {
-          "metric_id": "fin_cac",
+          "metric_id": "vn_fin_platform_fee",
           "impact": "inverse",
-          "note": "CAC tăng thì tỷ lệ giảm"
+          "note": "Phí sàn"
+        },
+        {
+          "metric_id": "vn_ops_cost_per_return",
+          "impact": "inverse",
+          "note": "Thiệt hại đơn hoàn"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "fin_net_margin",
-          "impact": "direct",
-          "note": "Tỷ lệ cao nghĩa là tăng trưởng có lãi"
+          "metric_id": "vn_fin_cm3",
+          "note": "Số tiền tối đa được phép chi cho quảng cáo"
+        },
+        {
+          "metric_id": "vn_fin_breakeven_roas",
+          "note": "Quyết định điểm hòa vốn quảng cáo"
         }
       ],
-      "trade_offs": [
-        {
-          "metric_id": "fin_cac_payback",
-          "note": "LTV/CAC đẹp nhưng nếu khách mua lại chậm thì dòng tiền vẫn căng"
-        }
-      ]
+      "trade_offs": []
     },
+    "playbook_refs": [
+      "pb_01_profit_reality"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_cm3",
+    "code": "CM3",
+    "pack_code": "LOI_NHUAN_SAU_ADS_CM3",
+    "name": "",
+    "vi_name": "Lợi nhuận sau quảng cáo (CM3)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Lợi nhuận sau quảng cáo: CM2 trừ tiền Ads và tiền booking KOC, affiliate. CM3 phải đủ trả lương, kho, văn phòng thì shop mới có lãi thật.",
+    "formula": {
+      "readable": "CM2 - Tổng tiền chạy Ads (FB/TikTok/Shopee) - Tiền booking KOC/Affiliate",
+      "derived": "CM2 - Ad_Spend - Affiliate_And_KOC_Cost"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "impact": "direct",
+          "note": "Lãi sau biến phí vận hành"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_net_profit",
+          "note": "Tiền thật còn lại để nuôi bộ máy cố định và đóng thuế"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality",
+      "pb_03_tax_and_opex",
+      "pb_06_livestream_and_koc",
+      "pb_08_retention_clv"
+    ],
     "simulator": {
-      "title": "Có nên tăng ngân sách tìm khách mới?",
+      "title": "Bóc tách lợi nhuận CM1 → CM2 → CM3",
       "controls": [
         {
-          "key": "clv",
-          "label": "CLV",
-          "min": 100000,
-          "max": 3000000,
-          "step": 10000,
-          "default": 600000,
+          "key": "revenue",
+          "label": "Doanh thu / tháng",
+          "min": 100000000,
+          "max": 5000000000,
+          "step": 50000000,
+          "default": 1000000000,
           "unit": "VND"
         },
         {
-          "key": "spend",
-          "label": "Chi phí marketing / tháng",
-          "min": 10000000,
-          "max": 1000000000,
-          "step": 5000000,
-          "default": 120000000,
-          "unit": "VND"
-        },
-        {
-          "key": "new_customers",
-          "label": "Khách mới / tháng",
-          "min": 50,
-          "max": 10000,
-          "step": 50,
-          "default": 800,
-          "unit": "khách"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "cac",
-          "label": "CAC",
-          "formula_eval": "spend / new_customers",
-          "unit": "VND"
-        },
-        {
-          "key": "ratio",
-          "label": "LTV / CAC",
-          "formula_eval": "clv / (spend / new_customers)",
-          "unit": "x",
-          "warning_threshold": "< 3"
-        }
-      ]
-    },
-    "diagnostic_homework": {
-      "title": "Bệnh án: Đang có lãi nhưng sợ tăng ngân sách",
-      "scenario": "Shop có CLV 600.000đ. Tháng này chi 120 triệu cho marketing và có 800 khách mới.",
-      "tasks": [
-        {
-          "task_id": "ltv_t1",
-          "type": "numeric_input",
-          "question": "Tỷ lệ LTV/CAC là bao nhiêu?",
-          "correct_value": 4,
-          "tolerance": 0.05,
-          "unit": "x",
-          "hint": "CAC = 120.000.000 / 800. LTV/CAC = CLV / CAC.",
-          "explanation": "CAC = 150.000đ → LTV/CAC = 600.000 / 150.000 = 4,0: mỗi đồng tìm khách mang về 4 đồng lợi nhuận đóng góp."
-        },
-        {
-          "task_id": "ltv_t2",
-          "type": "strategic_decision",
-          "question": "Nên làm gì với ngân sách tháng sau?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Cắt bớt quảng cáo để giữ lãi tháng này.",
-              "is_correct": false,
-              "reason": "Với LTV/CAC = 4, cắt quảng cáo là bỏ lỡ tăng trưởng có lãi."
-            },
-            {
-              "id": "b",
-              "text": "Tăng ngân sách từng bước và theo dõi CAC biên (CAC của phần ngân sách tăng thêm); dừng tăng khi tỷ lệ tiến về khoảng 3.",
-              "is_correct": true,
-              "reason": "CAC thường tăng khi scale; theo dõi CAC biên giúp tăng trưởng mà không phá vỡ kinh tế đơn vị."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "fin_cac_payback",
-    "code": "CAC Payback",
-    "name": "CAC Payback Period",
-    "vi_name": "Thời gian thu hồi CAC",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Acquisition Economics",
-    "definition": "Số tháng cần để lợi nhuận đóng góp từ một khách bù lại chi phí có khách đó.",
-    "formula": {
-      "readable": "CAC Payback (tháng) = CAC / Lợi nhuận đóng góp mỗi khách mỗi tháng",
-      "latex": "\\text{Payback} = \\frac{\\text{CAC}}{\\text{Contribution per customer per month}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "fin_cac",
-          "impact": "direct",
-          "note": "CAC cao thì thu hồi lâu"
-        },
-        {
-          "metric_id": "ret_time_between",
-          "impact": "direct",
-          "note": "Khách mua lại chậm làm thời gian thu hồi kéo dài"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cash_runway",
-          "impact": "inverse",
-          "note": "Thu hồi CAC chậm thì tăng trưởng càng nhanh càng đốt tiền mặt"
-        }
-      ],
-      "trade_offs": []
-    },
-    "simulator": {
-      "title": "Bao lâu thì hoàn vốn một khách?",
-      "controls": [
-        {
-          "key": "cac",
-          "label": "CAC",
-          "min": 20000,
-          "max": 1000000,
-          "step": 10000,
-          "default": 300000,
-          "unit": "VND"
-        },
-        {
-          "key": "aov",
-          "label": "AOV",
-          "min": 100000,
-          "max": 1500000,
-          "step": 10000,
-          "default": 400000,
-          "unit": "VND"
-        },
-        {
-          "key": "margin",
-          "label": "Biên đóng góp",
+          "key": "cogs_pct",
+          "label": "Giá vốn",
           "min": 10,
           "max": 70,
           "step": 1,
-          "default": 30,
+          "default": 38,
           "unit": "%"
         },
         {
-          "key": "months_between",
-          "label": "Số tháng giữa hai lần mua",
-          "min": 0.5,
-          "max": 12,
-          "step": 0.5,
-          "default": 2,
-          "unit": "tháng"
+          "key": "var_pct",
+          "label": "Phí sàn, ship, đóng gói, hoàn",
+          "min": 5,
+          "max": 40,
+          "step": 1,
+          "default": 20,
+          "unit": "%"
+        },
+        {
+          "key": "ads",
+          "label": "Tiền chạy Ads",
+          "min": 0,
+          "max": 1000000000,
+          "step": 10000000,
+          "default": 300000000,
+          "unit": "VND"
+        },
+        {
+          "key": "other_mkt",
+          "label": "Booking KOC, affiliate",
+          "min": 0,
+          "max": 300000000,
+          "step": 5000000,
+          "default": 50000000,
+          "unit": "VND"
         }
       ],
       "outputs": [
         {
-          "key": "monthly_contribution",
-          "label": "Lãi đóng góp mỗi khách / tháng",
-          "formula_eval": "aov * margin / 100 / months_between",
+          "key": "cm1",
+          "label": "CM1 (sau giá vốn)",
+          "formula_eval": "revenue * (1 - cogs_pct / 100)",
           "unit": "VND"
         },
         {
-          "key": "payback",
-          "label": "Thời gian thu hồi CAC",
-          "formula_eval": "cac / (aov * margin / 100 / months_between)",
-          "unit": "tháng",
-          "warning_threshold": "> 6"
+          "key": "cm2",
+          "label": "CM2 (sau phí sàn, ship, hoàn)",
+          "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100)",
+          "unit": "VND"
+        },
+        {
+          "key": "cm3",
+          "label": "CM3 (sau Ads, KOC)",
+          "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100) - ads - other_mkt",
+          "unit": "VND",
+          "warning_threshold": "< 0"
         }
       ]
     },
     "diagnostic_homework": {
-      "title": "Bệnh án: Tăng trưởng nhanh mà tài khoản cạn dần",
-      "scenario": "CAC = 300.000đ. AOV 400.000đ, biên đóng góp 30%. Khách mua đều đặn mỗi 2 tháng một lần.",
+      "title": "Bệnh án: Doanh thu tỷ đồng nhưng không còn tiền trả lương",
+      "scenario": "Doanh thu thực thu tháng 1 tỷ đồng. Giá vốn 380 triệu, phí sàn + ship + hoàn 200 triệu, Ads 300 triệu, booking KOC và affiliate 50 triệu. Chi phí cố định 120 triệu.",
       "tasks": [
         {
-          "task_id": "payback_t1",
+          "task_id": "cm3_t1",
           "type": "numeric_input",
-          "question": "Mất bao nhiêu tháng để thu hồi CAC?",
-          "correct_value": 5,
-          "tolerance": 0.1,
-          "unit": "tháng",
-          "hint": "Lãi đóng góp mỗi đơn = 400.000 × 30%. Chia cho 2 để ra lãi mỗi tháng.",
-          "explanation": "Lãi mỗi đơn 120.000đ → 60.000đ/tháng → 300.000 / 60.000 = 5 tháng. Mỗi khách mới giam 300.000đ trong 5 tháng."
+          "question": "Tính CM3 (VND):",
+          "correct_value": 70000000,
+          "tolerance": 1000000,
+          "unit": "VND",
+          "hint": "CM1 = Doanh thu − giá vốn. CM2 = CM1 − phí sàn, ship, hoàn. CM3 = CM2 − Ads − KOC.",
+          "explanation": "CM1 = 1.000 − 380 = 620 triệu. CM2 = 620 − 200 = 420 triệu. CM3 = 420 − 300 − 50 = 70 triệu, không đủ trả 120 triệu chi phí cố định → lỗ 50 triệu."
         },
         {
-          "task_id": "payback_t2",
+          "task_id": "cm3_t2",
           "type": "strategic_decision",
-          "question": "Muốn tăng gấp 3 số khách mới mỗi tháng, cần lưu ý gì?",
+          "question": "Nên ưu tiên tác động vào tầng nào trước?",
           "options": [
             {
               "id": "a",
-              "text": "Scale ngay vì cuối cùng khách nào cũng hoàn vốn.",
+              "text": "Cắt chi phí cố định 50 triệu để hòa vốn.",
               "is_correct": false,
-              "reason": "Mỗi tháng phải ứng thêm CAC cho số khách gấp 3, trong khi tiền về sau 5 tháng; dòng tiền có thể cạn trước khi thu hồi."
+              "reason": "Có thể cần, nhưng không chữa gốc: CM2 chỉ 12% doanh thu nên mỗi lần scale vẫn rất mỏng."
             },
             {
               "id": "b",
-              "text": "Tính trước vốn lưu động cần ứng trong 5 tháng, đồng thời rút ngắn thời gian thu hồi (ưu đãi lần 2 sớm, gói định kỳ, tăng biên).",
+              "text": "Tăng CM2: quảng cáo đang ngốn 30% doanh thu trong khi CM1 là 42%; tối ưu CPA, tăng AOV và giảm hoàn hàng để kéo tỷ trọng quảng cáo xuống.",
               "is_correct": true,
-              "reason": "Thời gian thu hồi quyết định tốc độ tăng trưởng mà dòng tiền chịu được."
+              "reason": "CM2 dày lên thì cả chi phí marketing khác và chi phí cố định đều được gánh bền vững khi doanh thu tăng."
             }
           ]
         }
@@ -329,55 +298,101 @@
     }
   },
   {
-    "metric_id": "fin_roas",
-    "code": "ROAS",
-    "name": "Return on Ad Spend",
-    "vi_name": "Tỷ suất doanh thu trên chi phí quảng cáo",
+    "metric_id": "vn_fin_tax_reserve",
+    "code": "Dự phòng thuế",
+    "pack_code": "DU_PHONG_THUE",
+    "name": "",
+    "vi_name": "Tỷ lệ dự phòng Thuế",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Marketing Profitability",
-    "definition": "Đo lường tổng doanh thu gộp thu về trên mỗi đồng chi tiêu trực tiếp cho quảng cáo.",
+    "sub_group": "Thuế & Tuân thủ",
+    "definition": "Phần trăm doanh thu thực thu cần để riêng cho thuế (GTGT, TNDN hoặc hộ kinh doanh, thuế nhà thầu quảng cáo). Không để riêng từ đầu thì cuối năm dễ đứt vốn.",
     "formula": {
-      "readable": "ROAS = Doanh thu từ Ads / Chi phí Ads = AOV / CPA",
-      "latex": "\\text{ROAS} = \\frac{\\text{Revenue}_{\\text{ads}}}{\\text{Cost}_{\\text{ads}}} = \\frac{\\text{AOV}}{\\text{CPA}}"
+      "readable": "(Thuế GTGT + Thuế TNDN/Hộ kinh doanh + Thuế nhà thầu quảng cáo) / Doanh thu thực thu × 100%",
+      "derived": "(VAT + Corporate_Or_Household_Tax + Ad_Contractor_Tax) / Net_Sales * 100"
     },
-    "benchmarks": {
-      "tiktok_vn": "3.0x - 4.5x",
-      "meta_vn": "3.5x - 5.0x",
-      "d2c_us": "2.5x - 4.0x",
-      "tham_khao": "4–6x trở lên, tùy ngành (sách Ecom Truyền Kỳ)"
-    },
+    "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "sales_aov",
-          "impact": "direct",
-          "note": "Tăng giá trị đơn hàng giúp ROAS tăng ngay lập tức"
-        },
-        {
-          "metric_id": "mkt_cpa",
+          "metric_id": "vn_fin_vat_input_ratio",
           "impact": "inverse",
-          "note": "Giảm chi phí chốt đơn giúp cải thiện ROAS"
+          "note": "Thiếu hóa đơn đầu vào làm tăng số thuế phải nộp"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "fin_cm2",
-          "impact": "direct",
-          "note": "ROAS phải lớn hơn Break-even ROAS thì lợi nhuận đóng góp (CM2) mới dương"
-        },
-        {
-          "metric_id": "fin_mer",
-          "impact": "direct",
-          "note": "Đóng góp vào hiệu suất Marketing tổng thể toàn doanh nghiệp"
+          "metric_id": "vn_fin_net_profit",
+          "note": "Không trích trước sẽ làm bay sạch lãi cuối năm khi quyết toán"
         }
       ],
-      "trade_offs": [
-        {
-          "metric_id": "fin_net_margin",
-          "note": "Chạy khuyến mãi giảm giá sâu có thể kéo ROAS lên cao nhưng lại làm âm Net Profit Margin"
-        }
-      ]
+      "trade_offs": []
     },
+    "playbook_refs": [
+      "pb_03_tax_and_opex"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_vat_input_ratio",
+    "code": "Tỷ lệ hóa đơn đầu vào",
+    "pack_code": "TY_LE_HOA_DON_DAU_VAO",
+    "name": "",
+    "vi_name": "Tỷ lệ hàng có hóa đơn đầu vào (VAT)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Thuế & Tuân thủ",
+    "definition": "Phần trăm giá trị hàng nhập có hóa đơn đỏ (VAT) hợp lệ. Thiếu hóa đơn đầu vào thì chi phí không được trừ khi tính thuế, lãi trên giấy cao hơn lãi thật.",
+    "formula": {
+      "readable": "Giá trị hàng nhập có hóa đơn đỏ (VAT) hợp lệ / Tổng giá trị hàng nhập trong kỳ × 100%",
+      "derived": "(VAT_Invoiced_Purchases / Total_Purchases) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_tax_reserve",
+          "note": "Quyết định rủi ro xuất toán chi phí và mức thuế phải đóng"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_03_tax_and_opex"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_breakeven_roas",
+    "code": "ROAS hòa vốn",
+    "pack_code": "ROAS_HOA_VON",
+    "name": "",
+    "vi_name": "ROAS hòa vốn (Điểm hòa vốn quảng cáo)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Mức ROAS tối thiểu để tiền Ads không ăn lỗ, tính bằng 1 chia tỷ lệ CM2 trên doanh thu. ROAS thấp hơn mức này thì chạy càng nhiều càng lỗ.",
+    "formula": {
+      "readable": "1 / Tỷ lệ lợi nhuận CM2 (%)",
+      "derived": "1 / (CM2 / Net_Sales)"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "impact": "inverse",
+          "note": "Biên lãi CM2 càng mỏng thì ROAS hòa vốn càng phải cao"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm3",
+          "note": "Chạy dưới ngưỡng này nghĩa là càng vít Ads càng lỗ"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality",
+      "pb_07_ads_scaling"
+    ],
     "simulator": {
       "title": "Kiểm tra sức khỏe ROAS so với Điểm hòa vốn (Break-even)",
       "controls": [
@@ -471,433 +486,334 @@
     }
   },
   {
-    "metric_id": "fin_breakeven_roas",
-    "code": "Break-even ROAS",
-    "name": "Break-even ROAS",
-    "vi_name": "ROAS hòa vốn",
+    "metric_id": "vn_fin_pending_payout",
+    "code": "Tiền kẹt đối soát",
+    "pack_code": "TIEN_KET_DOI_SOAT",
+    "name": "",
+    "vi_name": "Tiền đang kẹt đối soát (Tiền treo ví / COD chưa về)",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Marketing Profitability",
-    "definition": "Mức ROAS tối thiểu để doanh thu từ quảng cáo vừa đủ bù giá vốn, chi phí biến đổi và chính tiền quảng cáo (lợi nhuận sau Ads = 0).",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Tổng tiền của đơn đang giao, tiền trên ví sàn chờ đối soát và tiền COD bưu cục chưa chuyển. Lãi trên sổ sách nhưng tiền này chưa tiêu được.",
     "formula": {
-      "readable": "Break-even ROAS = 1 / Biên đóng góp trước Ads = 1 / (1 − COGS% − Chi phí biến đổi%)",
-      "latex": "\\text{BE ROAS} = \\frac{1}{1 - \\text{COGS\\%} - \\text{Variable cost\\%}}"
+      "readable": "Tổng tiền các đơn đang giao + Tiền nằm trên ví sàn chờ đối soát + Tiền COD bưu cục chưa chuyển khoản",
+      "derived": "In_Transit_COD + Marketplace_Escrow_Balance + Carrier_Pending_COD"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "prod_cogs",
+          "metric_id": "vn_ops_cod_ratio",
           "impact": "direct",
-          "note": "Giá vốn cao đẩy ROAS hòa vốn lên"
+          "note": "Bán COD nhiều làm tăng lượng tiền treo"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_dso",
+          "note": "Nguyên nhân khiến báo cáo có lãi nhưng tài khoản cạn tiền mặt"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_dso",
+    "code": "DSO",
+    "pack_code": "THOI_GIAN_THU_TIEN_DSO",
+    "name": "",
+    "vi_name": "Thời gian thu tiền về túi (DSO)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Số ngày trung bình từ lúc xuất đơn khỏi kho đến khi tiền về tài khoản ngân hàng. Bán sàn và COD thì DSO thường dài hơn anh em nghĩ.",
+    "formula": {
+      "readable": "Số ngày trung bình từ lúc xuất đơn khỏi kho đến khi tiền ting ting về tài khoản ngân hàng",
+      "derived": "(Avg_Accounts_Receivable / Net_Credit_Sales) * Period_Days"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_pending_payout",
+          "impact": "direct",
+          "note": "Thời gian đối soát của sàn và hãng vận chuyển"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_ccc",
+          "note": "Kéo dài chu kỳ kẹt vốn của doanh nghiệp"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_dpo",
+    "code": "DPO",
+    "pack_code": "THOI_GIAN_NO_XUONG_DPO",
+    "name": "",
+    "vi_name": "Thời gian nợ nhà cung cấp (DPO)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Số ngày trung bình được xưởng hay nhà cung cấp cho nợ trước khi phải trả tiền. DPO càng dài, shop càng ít phải ứng tiền túi.",
+    "formula": {
+      "readable": "Số ngày trung bình được xưởng/nhà cung cấp cho nợ gối đầu trước khi phải thanh toán",
+      "derived": "(Avg_Accounts_Payable / COGS) * Period_Days"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_ccc",
+          "note": "Đàm phán nợ gối đầu tốt giúp giảm áp lực vốn tự có"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_ccc",
+    "code": "CCC",
+    "pack_code": "VONG_QUAY_TIEN_MAT_CCC",
+    "name": "",
+    "vi_name": "Vòng quay tiền mặt (Chu kỳ kẹt vốn - CCC)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Vòng quay tiền mặt: số ngày hàng nằm kho cộng số ngày chờ tiền về, trừ số ngày được nợ xưởng. Đó là số ngày 1 đồng bỏ ra nhập hàng bị giam trước khi quay về túi.",
+    "formula": {
+      "readable": "Số ngày hàng nằm kho (DIO) + Số ngày chờ tiền về (DSO) - Số ngày được nợ xưởng (DPO)",
+      "derived": "DIO + DSO - DPO"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_ops_dio",
+          "impact": "direct",
+          "note": "Tồn kho lâu"
         },
         {
-          "metric_id": "prod_gross_margin",
+          "metric_id": "vn_fin_dso",
+          "impact": "direct",
+          "note": "Tiền sàn/COD về chậm"
+        },
+        {
+          "metric_id": "vn_fin_dpo",
           "impact": "inverse",
-          "note": "Biên dày giúp ROAS hòa vốn thấp"
-        },
-        {
-          "metric_id": "ops_rto_rate",
-          "impact": "direct",
-          "note": "Chi phí hoàn làm mỏng biên, ROAS hòa vốn tăng"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cm2",
-          "impact": "direct",
-          "note": "ROAS thực tế phải vượt mức này thì CM2 mới dương"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "fin_mer",
-    "code": "MER",
-    "name": "Marketing Efficiency Ratio",
-    "vi_name": "Hiệu suất marketing tổng",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Marketing Profitability",
-    "definition": "Tổng doanh thu của doanh nghiệp chia cho tổng chi phí marketing (mọi kênh). Không phụ thuộc cách nền tảng quảng cáo ghi nhận đơn.",
-    "formula": {
-      "readable": "MER = Tổng doanh thu / Tổng chi phí marketing",
-      "latex": "\\text{MER} = \\frac{\\text{Total revenue}}{\\text{Total marketing spend}}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "fin_roas",
-          "impact": "direct",
-          "note": "ROAS các kênh trả phí đóng góp vào MER"
-        },
-        {
-          "metric_id": "mkt_traffic_share",
-          "impact": "inverse",
-          "note": "Doanh thu tự nhiên cao giúp MER tốt hơn"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_net_margin",
-          "impact": "direct",
-          "note": "MER cao nghĩa là marketing tạo ra nhiều doanh thu trên mỗi đồng"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "fin_cm1",
-    "code": "CM1",
-    "name": "Contribution Margin 1",
-    "vi_name": "Lợi nhuận đóng góp cấp 1 (trước quảng cáo)",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Contribution Margin",
-    "definition": "Doanh thu trừ giá vốn và các chi phí biến đổi theo đơn (phí sàn, thanh toán, vận chuyển, hoàn hàng). Cách chia CM1/CM2/CM3 khác nhau giữa các tài liệu; app dùng quy ước: CM1 trước quảng cáo, CM2 sau quảng cáo, CM3 sau mọi chi phí marketing.",
-    "formula": {
-      "readable": "CM1 = Doanh thu − Giá vốn − Chi phí biến đổi theo đơn",
-      "latex": "\\text{CM1} = \\text{Revenue} - \\text{COGS} - \\text{Variable costs}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "prod_gross_margin",
-          "impact": "direct",
-          "note": "Biên gộp là tầng đầu của CM1"
-        },
-        {
-          "metric_id": "ops_rto_rate",
-          "impact": "inverse",
-          "note": "Hoàn hàng làm CM1 giảm"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cm2",
-          "impact": "direct",
-          "note": "CM2 = CM1 − chi phí quảng cáo"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "fin_cm2",
-    "code": "CM2",
-    "name": "Contribution Margin 2",
-    "vi_name": "Lợi nhuận đóng góp cấp 2 (sau quảng cáo)",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Contribution Margin",
-    "definition": "CM1 trừ chi phí quảng cáo trực tiếp. Cho biết hoạt động bán hàng có quảng cáo có tự nuôi được hay không.",
-    "formula": {
-      "readable": "CM2 = CM1 − Chi phí quảng cáo trực tiếp",
-      "latex": "\\text{CM2} = \\text{CM1} - \\text{Ad spend}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "fin_cm1",
-          "impact": "direct",
-          "note": "CM1 là điểm xuất phát của CM2"
-        },
-        {
-          "metric_id": "fin_roas",
-          "impact": "direct",
-          "note": "ROAS vượt mức hòa vốn càng nhiều, CM2 càng dương"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_cm3",
-          "impact": "direct",
-          "note": "CM3 = CM2 − chi phí marketing khác"
-        }
-      ],
-      "trade_offs": []
-    },
-    "simulator": {
-      "title": "Bóc tách lợi nhuận đóng góp CM1 → CM2 → CM3",
-      "controls": [
-        {
-          "key": "revenue",
-          "label": "Doanh thu / tháng",
-          "min": 100000000,
-          "max": 5000000000,
-          "step": 50000000,
-          "default": 1000000000,
-          "unit": "VND"
-        },
-        {
-          "key": "cogs_pct",
-          "label": "Giá vốn",
-          "min": 10,
-          "max": 70,
-          "step": 1,
-          "default": 38,
-          "unit": "%"
-        },
-        {
-          "key": "var_pct",
-          "label": "Chi phí biến đổi (phí sàn, ship, hoàn)",
-          "min": 5,
-          "max": 40,
-          "step": 1,
-          "default": 20,
-          "unit": "%"
-        },
-        {
-          "key": "ads",
-          "label": "Chi phí quảng cáo",
-          "min": 0,
-          "max": 1000000000,
-          "step": 10000000,
-          "default": 300000000,
-          "unit": "VND"
-        },
-        {
-          "key": "other_mkt",
-          "label": "Marketing khác (KOL, công cụ…)",
-          "min": 0,
-          "max": 300000000,
-          "step": 5000000,
-          "default": 50000000,
-          "unit": "VND"
-        }
-      ],
-      "outputs": [
-        {
-          "key": "cm1",
-          "label": "CM1 (trước quảng cáo)",
-          "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100)",
-          "unit": "VND"
-        },
-        {
-          "key": "cm2",
-          "label": "CM2 (sau quảng cáo)",
-          "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100) - ads",
-          "unit": "VND",
-          "warning_threshold": "< 0"
-        },
-        {
-          "key": "cm3",
-          "label": "CM3 (sau mọi chi phí marketing)",
-          "formula_eval": "revenue * (1 - (cogs_pct + var_pct) / 100) - ads - other_mkt",
-          "unit": "VND",
-          "warning_threshold": "< 0"
-        }
-      ]
-    },
-    "diagnostic_homework": {
-      "title": "Bệnh án: Doanh thu tỷ đồng nhưng không còn tiền trả lương",
-      "scenario": "Doanh thu tháng 1 tỷ đồng. Giá vốn 380 triệu, phí sàn + vận chuyển + hoàn 200 triệu, quảng cáo 300 triệu, marketing khác (KOL, công cụ) 50 triệu. Chi phí cố định 120 triệu.",
-      "tasks": [
-        {
-          "task_id": "cm2_t1",
-          "type": "numeric_input",
-          "question": "Tính CM2 (VND):",
-          "correct_value": 120000000,
-          "tolerance": 1000000,
-          "unit": "VND",
-          "hint": "CM1 = Doanh thu − giá vốn − chi phí biến đổi. CM2 = CM1 − quảng cáo.",
-          "explanation": "CM1 = 1.000 − 380 − 200 = 420 triệu. CM2 = 420 − 300 = 120 triệu. CM3 = 120 − 50 = 70 triệu, không đủ trả 120 triệu chi phí cố định → lỗ 50 triệu."
-        },
-        {
-          "task_id": "cm2_t2",
-          "type": "strategic_decision",
-          "question": "Nên ưu tiên tác động vào tầng nào trước?",
-          "options": [
-            {
-              "id": "a",
-              "text": "Cắt chi phí cố định 50 triệu để hòa vốn.",
-              "is_correct": false,
-              "reason": "Có thể cần, nhưng không chữa gốc: CM2 chỉ 12% doanh thu nên mỗi lần scale vẫn rất mỏng."
-            },
-            {
-              "id": "b",
-              "text": "Tăng CM2: quảng cáo đang ngốn 30% doanh thu trong khi CM1 là 42%; tối ưu CPA, tăng AOV và giảm hoàn hàng để kéo tỷ trọng quảng cáo xuống.",
-              "is_correct": true,
-              "reason": "CM2 dày lên thì cả chi phí marketing khác và chi phí cố định đều được gánh bền vững khi doanh thu tăng."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "metric_id": "fin_cm3",
-    "code": "CM3",
-    "name": "Contribution Margin 3",
-    "vi_name": "Lợi nhuận đóng góp cấp 3",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Contribution Margin",
-    "definition": "CM2 trừ các chi phí marketing khác (KOL, affiliate, xây thương hiệu, công cụ). Phần còn lại để trả chi phí cố định và tạo lợi nhuận.",
-    "formula": {
-      "readable": "CM3 = CM2 − Chi phí marketing khác",
-      "latex": "\\text{CM3} = \\text{CM2} - \\text{Other marketing}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "fin_cm2",
-          "impact": "direct",
-          "note": "CM3 xuất phát từ CM2"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_ebitda",
-          "impact": "direct",
-          "note": "EBITDA = CM3 − chi phí cố định vận hành"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "fin_ebitda",
-    "code": "EBITDA",
-    "name": "Earnings Before Interest, Taxes, Depreciation & Amortization",
-    "vi_name": "Lợi nhuận trước lãi vay, thuế và khấu hao",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Profitability",
-    "definition": "Lợi nhuận từ hoạt động kinh doanh cốt lõi trước lãi vay, thuế, khấu hao. Gần với khả năng tạo tiền của hoạt động vận hành.",
-    "formula": {
-      "readable": "EBITDA = CM3 − Chi phí cố định vận hành (lương, mặt bằng, phần mềm…)",
-      "latex": "\\text{EBITDA} = \\text{CM3} - \\text{Fixed operating costs}"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "fin_cm3",
-          "impact": "direct",
-          "note": "CM3 là nguồn trả chi phí cố định"
-        },
-        {
-          "metric_id": "team_revenue_per_employee",
-          "impact": "direct",
-          "note": "Bộ máy hiệu quả giúp chi phí cố định nhẹ so với doanh thu"
-        }
-      ],
-      "downstream_impacts": [
-        {
-          "metric_id": "fin_net_margin",
-          "impact": "direct",
-          "note": "EBITDA trừ lãi vay, thuế, khấu hao ra lợi nhuận ròng"
-        },
-        {
-          "metric_id": "fin_burn_rate",
-          "impact": "inverse",
-          "note": "EBITDA âm thường đồng nghĩa với đốt tiền"
-        }
-      ],
-      "trade_offs": []
-    }
-  },
-  {
-    "metric_id": "fin_net_margin",
-    "code": "Net Profit Margin",
-    "name": "Net Profit Margin",
-    "vi_name": "Biên lợi nhuận ròng",
-    "stage": "06_finance_unit_econ",
-    "sub_group": "Profitability",
-    "definition": "Phần trăm doanh thu còn lại thành lợi nhuận sau tất cả chi phí, lãi vay và thuế.",
-    "formula": {
-      "readable": "Net Margin (%) = Lợi nhuận ròng / Doanh thu × 100",
-      "latex": "\\text{Net margin} = \\frac{\\text{Net profit}}{\\text{Revenue}} \\times 100\\%"
-    },
-    "benchmarks": {},
-    "relationships": {
-      "upstream_drivers": [
-        {
-          "metric_id": "fin_ebitda",
-          "impact": "direct",
-          "note": "EBITDA là phần chính của lợi nhuận ròng"
-        },
-        {
-          "metric_id": "sales_discount_rate",
-          "impact": "inverse",
-          "note": "Giảm giá sâu bào mòn lợi nhuận ròng"
+          "note": "Công nợ xưởng"
         }
       ],
       "downstream_impacts": [],
-      "trade_offs": [
-        {
-          "metric_id": "fin_roas",
-          "note": "Chạy khuyến mãi sâu kéo ROAS lên nhưng có thể làm âm biên ròng"
-        }
-      ]
-    }
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap"
+    ]
   },
   {
-    "metric_id": "fin_burn_rate",
-    "code": "Burn Rate",
-    "name": "Burn Rate",
-    "vi_name": "Tốc độ đốt tiền",
+    "metric_id": "vn_fin_breakeven_rev",
+    "code": "Doanh thu hòa vốn",
+    "pack_code": "DOANH_THU_HOA_VON",
+    "name": "",
+    "vi_name": "Doanh thu hòa vốn mỗi tháng",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Cash",
-    "definition": "Lượng tiền mặt giảm đi trung bình mỗi tháng (dòng tiền ra trừ dòng tiền vào).",
+    "sub_group": "Sức khỏe Tài chính",
+    "definition": "Doanh thu tối thiểu mỗi tháng để CM3 vừa đủ trả chi phí cố định (lương cứng, mặt bằng, điện nước). Dưới mức này là tháng đó lỗ.",
     "formula": {
-      "readable": "Net Burn / tháng = Tiền mặt đầu kỳ − Tiền mặt cuối kỳ (tính trung bình theo tháng)",
-      "latex": "\\text{Burn} = \\frac{\\text{Cash}_{\\text{start}} - \\text{Cash}_{\\text{end}}}{\\text{Months}}"
+      "readable": "Tổng chi phí cố định hàng tháng (Lương cứng, mặt bằng, điện nước) / Tỷ lệ CM3 (%)",
+      "derived": "Fixed_OPEX / (CM3 / Net_Sales)"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "fin_ebitda",
-          "impact": "inverse",
-          "note": "EBITDA âm làm tốc độ đốt tiền tăng"
+          "metric_id": "vn_fin_opex_ratio",
+          "impact": "direct",
+          "note": "Định phí càng cao thì áp lực doanh số hòa vốn càng lớn"
         }
       ],
       "downstream_impacts": [
         {
-          "metric_id": "fin_cash_runway",
-          "impact": "inverse",
-          "note": "Đốt càng nhanh, đường băng càng ngắn"
+          "metric_id": "vn_fin_net_profit",
+          "note": "Vượt qua mốc này mới bắt đầu có lãi ròng thực sự"
         }
       ],
       "trade_offs": []
-    }
+    },
+    "playbook_refs": [
+      "pb_03_tax_and_opex"
+    ]
   },
   {
-    "metric_id": "fin_cash_runway",
+    "metric_id": "vn_fin_opex_ratio",
+    "code": "Tỷ lệ định phí",
+    "pack_code": "TY_LE_DINH_PHI",
+    "name": "",
+    "vi_name": "Tỷ lệ chi phí cố định (Định phí / Doanh thu)",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Sức khỏe Tài chính",
+    "definition": "Phần trăm doanh thu thực thu dùng để trả chi phí cố định: lương cứng, thuê kho, mặt bằng, phần mềm. Bộ máy phình nhanh hơn doanh thu thì tỷ lệ này ăn hết lãi.",
+    "formula": {
+      "readable": "Tổng lương cứng văn phòng + Thuê kho/mặt bằng + Phần mềm / Doanh thu thực thu × 100%",
+      "derived": "(Fixed_OPEX / Net_Sales) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_team_gp_per_staff",
+          "impact": "inverse",
+          "note": "Năng suất đội ngũ cao giúp giữ tỷ lệ định phí gọn nhẹ"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_breakeven_rev",
+          "note": "Quyết định điểm hòa vốn hàng tháng"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_03_tax_and_opex",
+      "pb_10_team_vs_automation"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_net_profit",
+    "code": "Lãi ròng",
+    "pack_code": "LOI_NHUAN_RONG_THUC",
+    "name": "",
+    "vi_name": "Lợi nhuận ròng thực bỏ túi",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Sức khỏe Tài chính",
+    "definition": "Lợi nhuận thực bỏ túi: CM3 trừ định phí và khoản dự phòng thuế. Đây là con số cuối cùng của P&L, không phải doanh thu hay ROAS.",
+    "formula": {
+      "readable": "Lợi nhuận sau Ads (CM3) - Tổng định phí cố định (OPEX) - Khoản dự phòng thuế",
+      "derived": "CM3 - Fixed_OPEX - Tax_Reserve"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_cm3",
+          "impact": "direct",
+          "note": "Lãi sau Ads"
+        },
+        {
+          "metric_id": "vn_fin_tax_reserve",
+          "impact": "inverse",
+          "note": "Nghĩa vụ thuế"
+        }
+      ],
+      "downstream_impacts": [],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_03_tax_and_opex"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_promo_cost_ratio",
+    "code": "Chi phí khuyến mãi",
+    "pack_code": "TY_LE_CHI_PHI_KHUYEN_MAI",
+    "name": "",
+    "vi_name": "Tỷ lệ chi phí khuyến mãi & quà tặng",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Giá vốn quà tặng kèm cộng voucher shop tự tung ra, tính theo % doanh thu thực thu. Khuyến mãi không đo là khoản rò lớn nhất mà anh em ít để ý.",
+    "formula": {
+      "readable": "(Giá vốn hàng tặng kèm + Giá trị voucher shop tự tung ra) / Doanh thu thực thu × 100%",
+      "derived": "((Free_Gift_COGS + Shop_Vouchers) / Net_Sales) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "note": "Tặng quà tràn lan không kiểm soát sẽ ăn mòn biên lãi"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_01_profit_reality"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_platform_penalty",
+    "code": "Tiền phạt sàn",
+    "pack_code": "TY_LE_TIEN_PHAT_SAN",
+    "name": "",
+    "vi_name": "Tỷ lệ tiền phạt vận hành sàn",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Phí Sàn & Lợi nhuận",
+    "definition": "Tổng tiền bị sàn trừ do giao trễ, hết hàng tự huỷ đơn, vi phạm từ khóa, tính theo % doanh thu thực thu. Tiền phạt là tiền mất oan hoàn toàn.",
+    "formula": {
+      "readable": "Tổng số tiền bị sàn trừ do giao trễ, hết hàng tự hủy đơn hoặc vi phạm từ khóa / Doanh thu thực thu × 100%",
+      "derived": "(Platform_Penalties / Net_Sales) * 100"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_ops_sla_breach",
+          "impact": "direct",
+          "note": "Giao trễ hạn bị sàn phạt tiền và bóp tương tác"
+        }
+      ],
+      "downstream_impacts": [
+        {
+          "metric_id": "vn_fin_cm2",
+          "note": "Khoản mất tiền oan do lỗi quy trình"
+        }
+      ],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_04_ops_efficiency"
+    ]
+  },
+  {
+    "metric_id": "vn_fin_cash_runway",
     "code": "Cash Runway",
-    "name": "Cash Runway",
-    "vi_name": "Đường băng tiền mặt",
+    "pack_code": "SO_THANG_SONG_SOT_RUNWAY",
+    "name": "",
+    "vi_name": "Số tháng sống sót còn lại (Cash Runway)",
     "stage": "06_finance_unit_econ",
-    "sub_group": "Cash",
-    "definition": "Số tháng doanh nghiệp còn hoạt động được với lượng tiền mặt hiện có nếu giữ tốc độ đốt tiền như hiện tại.",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Số tháng shop còn sống được với tiền mặt hiện có nếu giữ mức thâm hụt như hiện tại. Dòng tiền là máu của doanh nghiệp, runway là còn bao nhiêu máu.",
     "formula": {
-      "readable": "Runway (tháng) = Tiền mặt hiện có / Net Burn mỗi tháng",
-      "latex": "\\text{Runway} = \\frac{\\text{Cash}}{\\text{Net burn per month}}"
+      "readable": "Tổng tiền mặt hiện có trong két & ngân hàng / Số tiền mặt bị thâm hụt trung bình mỗi tháng",
+      "derived": "Current_Cash_Balance / Monthly_Net_Cash_Burn"
     },
     "benchmarks": {},
     "relationships": {
       "upstream_drivers": [
         {
-          "metric_id": "fin_burn_rate",
+          "metric_id": "vn_fin_ccc",
           "impact": "inverse",
-          "note": "Đốt tiền nhanh làm đường băng ngắn"
-        },
-        {
-          "metric_id": "ops_dio",
-          "impact": "inverse",
-          "note": "Tiền giam trong kho làm tiền mặt ít đi"
-        },
-        {
-          "metric_id": "fin_cac_payback",
-          "impact": "inverse",
-          "note": "Thu hồi CAC chậm khi tăng trưởng làm hao tiền mặt"
+          "note": "Kẹt vốn càng nặng thì lượng tiền mặt dự trữ càng mỏng"
         }
       ],
       "downstream_impacts": [],
       "trade_offs": []
     },
+    "playbook_refs": [
+      "pb_02_cashflow_trap",
+      "pb_03_tax_and_opex"
+    ],
     "simulator": {
       "title": "Còn bao nhiêu tháng trước khi hết tiền?",
       "controls": [
@@ -965,5 +881,34 @@
         }
       ]
     }
+  },
+  {
+    "metric_id": "vn_fin_working_capital_turnover",
+    "code": "Vòng quay vốn lưu động",
+    "pack_code": "VONG_QUAY_VON_LUU_DONG",
+    "name": "",
+    "vi_name": "Vòng quay vốn lưu động",
+    "stage": "06_finance_unit_econ",
+    "sub_group": "Dòng tiền (Cashflow)",
+    "definition": "Doanh thu thuần cả năm chia cho vốn lưu động bình quân. Cho biết mỗi đồng vốn lưu động tạo ra bao nhiêu đồng doanh thu, quay càng nhanh càng đỡ phải vay.",
+    "formula": {
+      "readable": "Doanh thu thuần trong năm / (Tài sản ngắn hạn - Nợ ngắn hạn trung bình)",
+      "derived": "Annual_Net_Sales / Avg_Working_Capital"
+    },
+    "benchmarks": {},
+    "relationships": {
+      "upstream_drivers": [
+        {
+          "metric_id": "vn_fin_ccc",
+          "impact": "inverse",
+          "note": "Chu kỳ kẹt vốn ngắn giúp đồng vốn xoay được nhiều vòng trong năm"
+        }
+      ],
+      "downstream_impacts": [],
+      "trade_offs": []
+    },
+    "playbook_refs": [
+      "pb_02_cashflow_trap"
+    ]
   }
 ]

@@ -105,13 +105,13 @@ function Scene({ s, metric, n, total, onHomework }) {
     }
     case 'formula': {
       let html = ''
-      try { html = katex.renderToString(metric.formula.latex, { displayMode: true, throwOnError: false, strict: false }) } catch { html = '' }
+      try { html = metric.formula.latex ? katex.renderToString(metric.formula.latex, { displayMode: true, throwOnError: false, strict: false }) : '' } catch { html = '' }
       return (
         <Frame bg="bg-white text-ink" n={n} total={total} label="Công thức">
           <div className="mv-pop rounded-[3cqmin] bg-brand-50 text-ink" style={{ padding: '4cqmin', ...d(200) }}>
-            <div style={fs(4.4)} dangerouslySetInnerHTML={{ __html: html }} />
+            {html ? <div style={fs(4.4)} dangerouslySetInnerHTML={{ __html: html }} /> : <p className="font-display font-extrabold leading-snug" style={fs(4.2)}>{metric.formula.readable}</p>}
           </div>
-          <p className="mv-up mt-[4cqmin] font-semibold leading-snug" style={{ ...fs(3.6), ...d(1200) }}>{metric.formula.readable}</p>
+          {html && <p className="mv-up mt-[4cqmin] font-semibold leading-snug" style={{ ...fs(3.6), ...d(1200) }}>{metric.formula.readable}</p>}
         </Frame>
       )
     }

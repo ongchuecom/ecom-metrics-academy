@@ -1,0 +1,1974 @@
+{
+  "version": "5.0_VN_60_Metrics_10_Playbooks",
+  "description": "Bộ 60 chỉ số vận hành thực chiến thuần Việt kèm trọn bộ 10 Playbook tình huống giả lập liên kết hai chiều",
+  "metrics_count": 60,
+  "playbooks_count": 10,
+  "metrics": [
+    {
+      "metric_id": "vn_prod_landed_cost",
+      "code": "GIA_VON_VE_KHO",
+      "name": "Giá vốn về tới kho (Giá nhập thực tế)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "Tiền trả xưởng + Cước vận chuyển Trung-Việt + Phí ủy thác/thuế nhập khẩu + Phí bốc xếp / Tổng số lượng nhập",
+      "formula_derived": "(Factory_Cost + Shipping_Fee + Import_Tax + Handling_Fee) / Units",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm1",
+            "note": "Quyết định trực tiếp lãi gộp sau giá vốn"
+          },
+          {
+            "metric_id": "vn_fin_breakeven_roas",
+            "note": "Giá vốn cao đẩy điểm hòa vốn Ads lên cao"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_prod_hero_sku",
+      "code": "HANG_CHU_LUC",
+      "name": "Tỷ lệ hàng bán chủ lực (Hàng gánh doanh thu)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "Doanh thu từ Top 20% mã hàng bán chạy nhất / Tổng doanh thu × 100%",
+      "formula_derived": "(Top_20_SKU_Revenue / Total_Revenue) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_stockout_rate",
+            "note": "Nếu mã chủ lực bị đứt hàng, doanh thu toàn shop sập ngay"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_dio",
+      "code": "VONG_QUAY_TON_KHO",
+      "name": "Vòng quay hàng tồn kho (Số ngày hàng nằm kho)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_02_cashflow_trap",
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "(Giá trị tồn kho trung bình / Giá vốn hàng bán trong kỳ) × Số ngày trong kỳ",
+      "formula_derived": "(Avg_Inventory_Value / COGS) * Period_Days",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_ccc",
+            "note": "Hàng nằm kho càng lâu thì chu kỳ kẹt vốn càng dài"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_dead_stock",
+      "code": "HANG_TON_CHET",
+      "name": "Tỷ lệ hàng tồn chết (Hàng đọng vốn > 90 ngày)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_02_cashflow_trap",
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "Giá trị lô hàng không phát sinh đơn nào trên 90 ngày / Tổng giá trị tồn kho × 100%",
+      "formula_derived": "(Dead_Stock_Value / Total_Inventory_Value) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_dio",
+            "impact": "direct_proportional",
+            "note": "Vòng quay chậm sinh ra hàng tồn chết"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_ccc",
+            "note": "Hút cạn tiền mặt xoay vòng của chủ shop"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_prod_defect_rate",
+      "code": "HANG_LOI_XUONG",
+      "name": "Tỷ lệ hàng lỗi nhập xưởng",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [],
+      "formula_readable": "Số lượng sản phẩm lỗi đường may, trầy xước, móp méo khi kiểm kho / Tổng số lượng nhập × 100%",
+      "formula_derived": "(Defective_Units / Total_Received_Units) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_rto_rate",
+            "note": "Lọt hàng lỗi tới tay khách làm tăng tỷ lệ hoàn trả"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_prod_packaging_cost",
+      "code": "CHI_PHI_DONG_GOI",
+      "name": "Chi phí đóng gói trên mỗi đơn",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "(Tiền hộp carton + xốp nổ + băng keo + túi niêm phong + quà tặng kèm) / Tổng số đơn xuất",
+      "formula_derived": "Total_Packaging_And_Gift_Cost / Total_Shipped_Orders",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Trừ trực tiếp vào lợi nhuận gộp sau vận hành"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_rto_rate",
+      "code": "TY_LE_HOAN_HANG",
+      "name": "Tỷ lệ hoàn hàng (Tỷ lệ bom hàng / RTO)",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Ship & Hoàn COD",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Tổng số đơn bị hoàn quay đầu về kho / Tổng số đơn đã bàn giao vận chuyển × 100%",
+      "formula_derived": "(Returned_Orders / Shipped_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_cod_ratio",
+            "impact": "direct_proportional",
+            "note": "Đơn COD càng nhiều tỷ lệ bom hàng càng cao"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Làm giảm doanh thu thực thu"
+          },
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Đốt sạch biên lãi gộp vì tốn ship 2 chiều"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_cancel_rate",
+      "code": "TY_LE_HUY_DON",
+      "name": "Tỷ lệ hủy đơn trước khi giao",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Ship & Hoàn COD",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Số đơn khách hủy ngang hoặc gọi xác nhận không nghe máy trước khi xuất kho / Tổng đơn đặt × 100%",
+      "formula_derived": "(Pre_Shipment_Canceled_Orders / Total_Placed_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_frt",
+            "impact": "direct_proportional",
+            "note": "Phản hồi xác nhận chậm làm khách đổi ý"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Tạo khoảng cách lớn giữa doanh thu ảo và thực thu"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_cost_per_return",
+      "code": "CHI_PHI_1_DON_HOAN",
+      "name": "Chi phí thực tế cho 1 đơn hoàn",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Ship & Hoàn COD",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "(Phí ship đi + Phí ship hoàn + Tiền hộp/xốp hư hỏng + Công nhân sự kiểm hàng nhập lại) / Tổng đơn hoàn",
+      "formula_derived": "(Outbound_Ship + Return_Ship + Damaged_Box_Cost + Restock_Labor) / Returned_Orders",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_resellable_return",
+            "impact": "inverse_proportional",
+            "note": "Hàng hoàn bị móp hộp không bán lại được làm đội chi phí"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Chi phí chìm ăn mòn lợi nhuận từng đơn"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_cod_ratio",
+      "code": "TY_LE_DON_COD",
+      "name": "Tỷ lệ đơn COD vs Chuyển khoản trước",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Ship & Hoàn COD",
+      "playbook_refs": [
+        "pb_02_cashflow_trap"
+      ],
+      "formula_readable": "Số đơn thu hộ tiền mặt (COD) / Tổng số đơn giao đi × 100%",
+      "formula_derived": "(COD_Orders / Shipped_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_rto_rate",
+            "note": "COD cao kéo theo rủi ro bom hàng"
+          },
+          {
+            "metric_id": "vn_fin_dso",
+            "note": "Tiền bị giam ở đơn vị vận chuyển chờ đối soát"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_picking_error",
+      "code": "TY_LE_DONG_NHAM",
+      "name": "Tỷ lệ đóng nhầm / thiếu hàng",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Vận hành Kho",
+      "playbook_refs": [
+        "pb_04_ops_efficiency",
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "Số đơn kho nhặt sai size, đúng màu, thiếu món / Tổng số đơn xuất kho × 100%",
+      "formula_derived": "(Mispacked_Orders / Shipped_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_pack_speed",
+            "impact": "direct_proportional",
+            "note": "Ép tốc độ gói hàng mà thiếu máy quét mã vạch dễ gây nhầm lẫn"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_cost_per_return",
+            "note": "Mất oan tiền ship đổi trả 2 chiều và rớt đánh giá sao"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_stockout_rate",
+      "code": "TY_LE_DUT_HANG",
+      "name": "Tỷ lệ đứt hàng (Hết hàng mã đang chạy ngon)",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Vận hành Kho",
+      "playbook_refs": [
+        "pb_04_ops_efficiency",
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "Số ngày mã hàng chủ lực bị hết tồn kho / Tổng số ngày bán trong tháng × 100%",
+      "formula_derived": "(Out_Of_Stock_Days / Total_Days_In_Month) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_prod_hero_sku",
+            "impact": "direct_proportional",
+            "note": "Tập trung quá nhiều vào 1 mã nhưng dự báo nhập hàng chậm"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Tắt Ads ngang làm đứt gãy luồng phân phối và mất top sàn"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_resellable_return",
+      "code": "HANG_HOAN_BAN_LAI_DUOC",
+      "name": "Tỷ lệ hàng hoàn còn bán lại được",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Vận hành Kho",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "Số sản phẩm hoàn về còn nguyên hộp/tem mác bán lại giá gốc được / Tổng số hàng hoàn về × 100%",
+      "formula_derived": "(Resellable_Returned_Units / Total_Returned_Units) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_cost_per_return",
+            "note": "Hàng hoàn bị rách nát phải thanh lý lỗ làm tăng thiệt hại mỗi đơn hoàn"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_net_sales",
+      "code": "DOANH_THU_THUC_THU",
+      "name": "Doanh thu thực thu (Net Sales)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Doanh thu hiển thị trên báo cáo - Voucher shop tự giảm - Đơn hủy - Đơn hoàn",
+      "formula_derived": "Gross_Sales - Shop_Vouchers - Canceled_Sales - Returned_Sales",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_rto_rate",
+            "impact": "inverse_proportional",
+            "note": "Hoàn hàng cao làm hụt doanh thu thực thu"
+          },
+          {
+            "metric_id": "vn_ops_cancel_rate",
+            "impact": "inverse_proportional",
+            "note": "Hủy đơn trước giao"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm1",
+            "note": "Cơ sở tính toán mọi tầng lợi nhuận phía sau"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_platform_fee",
+      "code": "TONG_PHI_SAN",
+      "name": "Tổng phí sàn TMĐT (%)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_06_livestream_and_koc"
+      ],
+      "formula_readable": "(Phí cố định + Phí thanh toán + Freeship Xtra + Voucher Xtra + Thuế sàn thu hộ) / Doanh thu thực thu × 100%",
+      "formula_derived": "(Fixed_Fee + Payment_Fee + Freeship_Extra + Voucher_Extra + Withheld_Tax) / Net_Sales * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Phí sàn tăng trực tiếp bóp nghẹt ngân sách chạy Ads"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_cm1",
+      "code": "LAI_GOP_CM1",
+      "name": "Lãi gộp sau giá vốn (CM1)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Doanh thu thực thu (Net Sales) - Tổng giá vốn hàng bán đã giao thành công",
+      "formula_derived": "Net_Sales - Delivered_COGS",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_prod_landed_cost",
+            "impact": "inverse_proportional",
+            "note": "Giá vốn nhập kho"
+          },
+          {
+            "metric_id": "vn_fin_net_sales",
+            "impact": "direct_proportional",
+            "note": "Doanh thu thực tế"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Lớp đệm đầu tiên của lợi nhuận"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_cm2",
+      "code": "LAI_GOP_SAU_SAN_SHIP_CM2",
+      "name": "Lãi gộp sau phí sàn & ship (CM2)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "CM1 - Tổng phí sàn - Phí ship shop bù - Chi phí đóng gói - Chi phí xử lý đơn hoàn",
+      "formula_derived": "CM1 - Platform_Fees - Seller_Shipping - Packaging_Cost - Return_Costs",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_cm1",
+            "impact": "direct_proportional",
+            "note": "Lãi gộp gốc"
+          },
+          {
+            "metric_id": "vn_fin_platform_fee",
+            "impact": "inverse_proportional",
+            "note": "Phí sàn"
+          },
+          {
+            "metric_id": "vn_ops_cost_per_return",
+            "impact": "inverse_proportional",
+            "note": "Thiệt hại đơn hoàn"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "note": "Số tiền tối đa được phép chi cho quảng cáo"
+          },
+          {
+            "metric_id": "vn_fin_breakeven_roas",
+            "note": "Quyết định điểm hòa vốn quảng cáo"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_cm3",
+      "code": "LOI_NHUAN_SAU_ADS_CM3",
+      "name": "Lợi nhuận sau quảng cáo (CM3)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_03_tax_and_opex",
+        "pb_06_livestream_and_koc",
+        "pb_08_retention_clv"
+      ],
+      "formula_readable": "CM2 - Tổng tiền chạy Ads (FB/TikTok/Shopee) - Tiền booking KOC/Affiliate",
+      "formula_derived": "CM2 - Ad_Spend - Affiliate_And_KOC_Cost",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "impact": "direct_proportional",
+            "note": "Lãi sau biến phí vận hành"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_profit",
+            "note": "Tiền thật còn lại để nuôi bộ máy cố định và đóng thuế"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_tax_reserve",
+      "code": "DU_PHONG_THUE",
+      "name": "Tỷ lệ dự phòng Thuế",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Thuế & Tuân thủ",
+      "playbook_refs": [
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "(Thuế GTGT + Thuế TNDN/Hộ kinh doanh + Thuế nhà thầu quảng cáo) / Doanh thu thực thu × 100%",
+      "formula_derived": "(VAT + Corporate_Or_Household_Tax + Ad_Contractor_Tax) / Net_Sales * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_vat_input_ratio",
+            "impact": "inverse_proportional",
+            "note": "Thiếu hóa đơn đầu vào làm tăng số thuế phải nộp"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_profit",
+            "note": "Không trích trước sẽ làm bay sạch lãi cuối năm khi quyết toán"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_vat_input_ratio",
+      "code": "TY_LE_HOA_DON_DAU_VAO",
+      "name": "Tỷ lệ hàng có hóa đơn đầu vào (VAT)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Thuế & Tuân thủ",
+      "playbook_refs": [
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "Giá trị hàng nhập có hóa đơn đỏ (VAT) hợp lệ / Tổng giá trị hàng nhập trong kỳ × 100%",
+      "formula_derived": "(VAT_Invoiced_Purchases / Total_Purchases) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_tax_reserve",
+            "note": "Quyết định rủi ro xuất toán chi phí và mức thuế phải đóng"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_breakeven_roas",
+      "code": "ROAS_HOA_VON",
+      "name": "ROAS hòa vốn (Điểm hòa vốn quảng cáo)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality",
+        "pb_07_ads_scaling"
+      ],
+      "formula_readable": "1 / Tỷ lệ lợi nhuận CM2 (%)",
+      "formula_derived": "1 / (CM2 / Net_Sales)",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "impact": "inverse_proportional",
+            "note": "Biên lãi CM2 càng mỏng thì ROAS hòa vốn càng phải cao"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "note": "Chạy dưới ngưỡng này nghĩa là càng vít Ads càng lỗ"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_pending_payout",
+      "code": "TIEN_KET_DOI_SOAT",
+      "name": "Tiền đang kẹt đối soát (Tiền treo ví / COD chưa về)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap"
+      ],
+      "formula_readable": "Tổng tiền các đơn đang giao + Tiền nằm trên ví sàn chờ đối soát + Tiền COD bưu cục chưa chuyển khoản",
+      "formula_derived": "In_Transit_COD + Marketplace_Escrow_Balance + Carrier_Pending_COD",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_cod_ratio",
+            "impact": "direct_proportional",
+            "note": "Bán COD nhiều làm tăng lượng tiền treo"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_dso",
+            "note": "Nguyên nhân khiến báo cáo có lãi nhưng tài khoản cạn tiền mặt"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_dso",
+      "code": "THOI_GIAN_THU_TIEN_DSO",
+      "name": "Thời gian thu tiền về túi (DSO)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap"
+      ],
+      "formula_readable": "Số ngày trung bình từ lúc xuất đơn khỏi kho đến khi tiền ting ting về tài khoản ngân hàng",
+      "formula_derived": "(Avg_Accounts_Receivable / Net_Credit_Sales) * Period_Days",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_pending_payout",
+            "impact": "direct_proportional",
+            "note": "Thời gian đối soát của sàn và hãng vận chuyển"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_ccc",
+            "note": "Kéo dài chu kỳ kẹt vốn của doanh nghiệp"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_dpo",
+      "code": "THOI_GIAN_NO_XUONG_DPO",
+      "name": "Thời gian nợ nhà cung cấp (DPO)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap"
+      ],
+      "formula_readable": "Số ngày trung bình được xưởng/nhà cung cấp cho nợ gối đầu trước khi phải thanh toán",
+      "formula_derived": "(Avg_Accounts_Payable / COGS) * Period_Days",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_ccc",
+            "note": "Đàm phán nợ gối đầu tốt giúp giảm áp lực vốn tự có"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_ccc",
+      "code": "VONG_QUAY_TIEN_MAT_CCC",
+      "name": "Vòng quay tiền mặt (Chu kỳ kẹt vốn - CCC)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap"
+      ],
+      "formula_readable": "Số ngày hàng nằm kho (DIO) + Số ngày chờ tiền về (DSO) - Số ngày được nợ xưởng (DPO)",
+      "formula_derived": "DIO + DSO - DPO",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_dio",
+            "impact": "direct_proportional",
+            "note": "Tồn kho lâu"
+          },
+          {
+            "metric_id": "vn_fin_dso",
+            "impact": "direct_proportional",
+            "note": "Tiền sàn/COD về chậm"
+          },
+          {
+            "metric_id": "vn_fin_dpo",
+            "impact": "inverse_proportional",
+            "note": "Công nợ xưởng"
+          }
+        ],
+        "downstream_impacts": [],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_breakeven_rev",
+      "code": "DOANH_THU_HOA_VON",
+      "name": "Doanh thu hòa vốn mỗi tháng",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Sức khỏe Tài chính",
+      "playbook_refs": [
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "Tổng chi phí cố định hàng tháng (Lương cứng, mặt bằng, điện nước) / Tỷ lệ CM3 (%)",
+      "formula_derived": "Fixed_OPEX / (CM3 / Net_Sales)",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_opex_ratio",
+            "impact": "direct_proportional",
+            "note": "Định phí càng cao thì áp lực doanh số hòa vốn càng lớn"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_profit",
+            "note": "Vượt qua mốc này mới bắt đầu có lãi ròng thực sự"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_opex_ratio",
+      "code": "TY_LE_DINH_PHI",
+      "name": "Tỷ lệ chi phí cố định (Định phí / Doanh thu)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Sức khỏe Tài chính",
+      "playbook_refs": [
+        "pb_03_tax_and_opex",
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "Tổng lương cứng văn phòng + Thuê kho/mặt bằng + Phần mềm / Doanh thu thực thu × 100%",
+      "formula_derived": "(Fixed_OPEX / Net_Sales) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_gp_per_staff",
+            "impact": "inverse_proportional",
+            "note": "Năng suất đội ngũ cao giúp giữ tỷ lệ định phí gọn nhẹ"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_breakeven_rev",
+            "note": "Quyết định điểm hòa vốn hàng tháng"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_net_profit",
+      "code": "LOI_NHUAN_RONG_THUC",
+      "name": "Lợi nhuận ròng thực bỏ túi",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Sức khỏe Tài chính",
+      "playbook_refs": [
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "Lợi nhuận sau Ads (CM3) - Tổng định phí cố định (OPEX) - Khoản dự phòng thuế",
+      "formula_derived": "CM3 - Fixed_OPEX - Tax_Reserve",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "impact": "direct_proportional",
+            "note": "Lãi sau Ads"
+          },
+          {
+            "metric_id": "vn_fin_tax_reserve",
+            "impact": "inverse_proportional",
+            "note": "Nghĩa vụ thuế"
+          }
+        ],
+        "downstream_impacts": [],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_chat_cvr",
+      "code": "TY_LE_CHOT_DON_CHAT",
+      "name": "Tỷ lệ chốt đơn qua tin nhắn (Chat-to-Order)",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Bán hàng",
+      "playbook_refs": [
+        "pb_04_ops_efficiency"
+      ],
+      "formula_readable": "Số đơn chốt thành công qua Zalo/Messenger/TikTok Chat / Tổng số khách nhắn tin hỏi mua × 100%",
+      "formula_derived": "(Chat_Orders / Inbound_Leads) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_frt",
+            "impact": "inverse_proportional",
+            "note": "Trả lời tin nhắn càng nhanh tỷ lệ chốt càng cao"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Tăng doanh thu mà không cần tăng tiền Ads"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_frt",
+      "code": "THOI_GIAN_REP_TIN_NHAN",
+      "name": "Thời gian trả lời tin nhắn đầu tiên (FRT)",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Bán hàng",
+      "playbook_refs": [
+        "pb_04_ops_efficiency",
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "Tổng thời gian chờ phản hồi tin nhắn đầu tiên / Tổng số khách nhắn tin (tính bằng phút/giây)",
+      "formula_derived": "Total_First_Response_Minutes / Total_Conversations",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_team_chat_cvr",
+            "note": "Trễ quá 3 phút là khách thoát ra mua shop khác"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_live_gmv_hour",
+      "code": "DOANH_THU_GIO_LIVE",
+      "name": "Doanh thu mỗi giờ Livestream (GMV / Giờ Live)",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Bán hàng",
+      "playbook_refs": [
+        "pb_06_livestream_and_koc"
+      ],
+      "formula_readable": "Tổng doanh thu phát sinh trong phiên Live / Tổng số giờ lên sóng",
+      "formula_derived": "Total_Live_GMV / Live_Hours",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Đo lường hiệu quả của từng Host Live và khung giờ"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_koc_return_rate",
+      "code": "TY_LE_KOC_TRA_CLIP",
+      "name": "Tỷ lệ KOC nhận mẫu có trả video",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Bán hàng",
+      "playbook_refs": [
+        "pb_06_livestream_and_koc"
+      ],
+      "formula_readable": "Số KOC trả video gắn giỏ hàng đúng hẹn / Tổng số mẫu miễn phí đã gửi đi × 100%",
+      "formula_derived": "(Completed_KOC_Videos / Total_Samples_Sent) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "note": "Gửi mẫu tràn lan không thu hồi được clip làm đội chi phí Marketing"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_pack_speed",
+      "code": "NANG_SUAT_DONG_GOI",
+      "name": "Năng suất đóng gói kho (Đơn / Nhân sự / Ca)",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Vận hành",
+      "playbook_refs": [
+        "pb_04_ops_efficiency",
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "Tổng số đơn đóng gói hoàn chỉnh trong ngày / (Số nhân viên kho × Số ca làm việc)",
+      "formula_derived": "Total_Packed_Orders / Warehouse_Staff_Shifts",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_picking_error",
+            "note": "Cần cân bằng giữa tốc độ gói và độ chính xác"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_gp_per_staff",
+      "code": "LAI_GOP_TREN_NHAN_SU",
+      "name": "Lợi nhuận gộp trên mỗi nhân sự",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Đội ngũ",
+      "playbook_refs": [
+        "pb_04_ops_efficiency",
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "Tổng lãi gộp sau giá vốn (CM1) / Tổng số nhân sự toàn công ty",
+      "formula_derived": "Total_CM1 / Total_Headcount",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_chat_cvr",
+            "impact": "direct_proportional",
+            "note": "Tối ưu quy trình giúp tăng doanh thu trên cùng định biên nhân sự"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_opex_ratio",
+            "note": "Thước đo quyết định có nên tuyển thêm người hay không"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ret_repeat_rate",
+      "code": "TY_LE_MUA_LAI_LAN_2",
+      "name": "Tỷ lệ khách quay lại mua lần 2",
+      "stage": "05_Retention_Lifecycle",
+      "sub_group": "Giữ chân Khách hàng",
+      "playbook_refs": [
+        "pb_08_retention_clv",
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "Số khách quay lại đặt đơn thứ 2 / Tổng số khách đã mua lần đầu × 100%",
+      "formula_derived": "(Repeat_Customers / Total_First_Time_Customers) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_picking_error",
+            "impact": "inverse_proportional",
+            "note": "Giao nhầm hàng ở đơn 1 khiến khách một đi không trở lại"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "note": "Đơn khách cũ quay lại không tốn tiền Ads kéo khách mới"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_mkt_ctr",
+      "code": "TY_LE_NHAP_QUANG_CAO_CTR",
+      "name": "Tỷ lệ nhấp quảng cáo (CTR)",
+      "stage": "02_Traffic_Acquisition",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_07_ads_scaling"
+      ],
+      "formula_readable": "Số lượt bấm vào quảng cáo / Tổng số lượt hiển thị quảng cáo × 100%",
+      "formula_derived": "(Ad_Clicks / Ad_Impressions) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_mkt_cpa",
+            "note": "Video/hình ảnh kém hấp dẫn làm CTR thấp và đẩy giá thầu lên cao"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_mkt_cpa",
+      "code": "CHI_PHI_1_DON_ADS_CPA",
+      "name": "Chi phí quảng cáo trên mỗi đơn hàng (CPA)",
+      "stage": "03_Conversion_Sales",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_07_ads_scaling"
+      ],
+      "formula_readable": "Tổng tiền chi cho quảng cáo / Tổng số đơn hàng chốt được từ quảng cáo",
+      "formula_derived": "Total_Ad_Spend / Ad_Attributed_Orders",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_mkt_ctr",
+            "impact": "inverse_proportional",
+            "note": "CTR cao giúp giảm giá mỗi lượt nhấp"
+          },
+          {
+            "metric_id": "vn_team_chat_cvr",
+            "impact": "inverse_proportional",
+            "note": "Chốt đơn tốt giúp giảm chi phí trên mỗi đơn"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "note": "CPA vượt quá biên lãi CM2 sẽ gây lỗ trực tiếp"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_sales_aov",
+      "code": "GIA_TRI_TRUNG_BINH_DON_AOV",
+      "name": "Giá trị trung bình mỗi đơn hàng (AOV)",
+      "stage": "03_Conversion_Sales",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_07_ads_scaling"
+      ],
+      "formula_readable": "Tổng doanh thu thực thu / Tổng số đơn hàng giao thành công",
+      "formula_derived": "Net_Sales / Delivered_Orders",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Gộp combo tăng AOV giúp gánh chi phí Ads và phí ship tốt hơn"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ret_clv",
+      "code": "GIA_TRI_VONG_DOI_KHACH_HANG_CLV",
+      "name": "Giá trị vòng đời khách hàng (CLV / Lãi gộp trọn đời)",
+      "stage": "05_Retention_Lifecycle",
+      "sub_group": "Giữ chân Khách hàng",
+      "playbook_refs": [
+        "pb_08_retention_clv"
+      ],
+      "formula_readable": "Lãi gộp trung bình mỗi đơn (CM2) × Số lần mua trung bình của 1 khách hàng trong 12 tháng",
+      "formula_derived": "Avg_Order_CM2 * Avg_Purchase_Frequency_12M",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ret_repeat_rate",
+            "impact": "direct_proportional",
+            "note": "Khách quay lại mua nhiều lần giúp nhân đôi, nhân ba CLV"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_mkt_cpa",
+            "note": "CLV cao cho phép shop chấp nhận chi phí kéo khách mới (CAC) cao hơn đối thủ"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_prod_lead_time",
+      "code": "THOI_GIAN_HANG_VE_KHO",
+      "name": "Thời gian hàng về kho (Lead Time nhập hàng)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "Tổng số ngày từ lúc chốt cọc xưởng (Trung Quốc/Việt Nam) đến khi hàng nằm trên kệ sẵn sàng xuất bán",
+      "formula_derived": "Stock_Ready_Date - Deposit_Paid_Date",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_stockout_rate",
+            "note": "Lead time dài nhưng đặt hàng trễ sẽ gây đứt hàng giữa chừng"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_reorder_point",
+      "code": "DIEM_BAO_NHAP_HANG",
+      "name": "Điểm báo nhập hàng (Reorder Point)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_04_ops_efficiency",
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "(Số đơn bán trung bình mỗi ngày × Số ngày hàng về kho) + Tồn kho an toàn dự phòng",
+      "formula_derived": "(Avg_Daily_Unit_Sales * Lead_Time_Days) + Safety_Stock",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_prod_lead_time",
+            "impact": "direct_proportional",
+            "note": "Hàng về càng lâu thì mốc báo nhập phải đặt càng sớm"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_stockout_rate",
+            "note": "Chốt chặn chống tắt Ads ngang vì hết hàng"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_gmroi",
+      "code": "HE_SO_SINH_LOI_TON_KHO_GMROI",
+      "name": "Hệ số sinh lời trên vốn tồn kho (GMROI)",
+      "stage": "01_Product_RnD",
+      "sub_group": "Hàng hóa & Giá vốn",
+      "playbook_refs": [
+        "pb_02_cashflow_trap",
+        "pb_05_sourcing_and_deadstock"
+      ],
+      "formula_readable": "Tổng lãi gộp CM1 thu được trong kỳ / Giá trị tồn kho trung bình",
+      "formula_derived": "Total_CM1 / Avg_Inventory_Cost",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_dio",
+            "impact": "inverse_proportional",
+            "note": "Hàng quay vòng nhanh giúp 1 đồng vốn đẻ ra nhiều lãi gộp"
+          }
+        ],
+        "downstream_impacts": [],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_first_attempt_delivery",
+      "code": "GIAO_THANH_CONG_LAN_DAU",
+      "name": "Tỷ lệ giao thành công lần đầu",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Ship & Hoàn COD",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Số đơn shipper gọi phát thành công ngay lần giao đầu tiên / Tổng số đơn đi giao × 100%",
+      "formula_derived": "(First_Attempt_Delivered_Orders / Total_Dispatched_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_rto_rate",
+            "note": "Rớt phát lần 1 sang lần 2-3 làm tỷ lệ hoàn tăng vọt"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_click_to_door",
+      "code": "THOI_GIAN_GIAO_TOI_KHACH",
+      "name": "Thời gian giao hàng tới tay khách (Click-to-Door)",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Ship & Hoàn COD",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Số ngày trung bình từ lúc khách bấm đặt đơn đến khi nhận được hàng",
+      "formula_derived": "Avg_Delivery_Days_From_Order",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_rto_rate",
+            "note": "Giao quá 3-4 ngày khách hết hứng thú và dễ bom hàng"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_sla_breach",
+      "code": "TY_LE_GIAO_TRE_HAN_SAN",
+      "name": "Tỷ lệ đơn giao trễ cam kết sàn (SLA Breach)",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Vận hành Kho",
+      "playbook_refs": [
+        "pb_04_ops_efficiency"
+      ],
+      "formula_readable": "Số đơn bàn giao cho đơn vị vận chuyển trễ hơn giờ quy định của Shopee/TikTok / Tổng đơn × 100%",
+      "formula_derived": "(Late_Handover_Orders / Total_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_pack_speed",
+            "impact": "inverse_proportional",
+            "note": "Kho đóng chậm làm trễ giờ cắt đơn của sàn"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_platform_penalty",
+            "note": "Bị tính điểm phạt sao quả tạ và rớt nhãn Giao Nhanh"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_transit_damage",
+      "code": "HANG_HU_HONG_THAT_LAC",
+      "name": "Tỷ lệ hàng hư hỏng, thất lạc khi vận chuyển",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Vận hành Kho",
+      "playbook_refs": [
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "Số kiện hàng bị bưu cục làm vỡ, ướt hoặc mất hàng trên đường giao / Tổng đơn xuất × 100%",
+      "formula_derived": "(Damaged_Or_Lost_In_Transit_Orders / Shipped_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_ops_cost_per_return",
+            "note": "Nếu không quay video đóng gói sẽ mất trắng tiền hàng không khiếu nại được"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ops_warehouse_cost_per_order",
+      "code": "CHI_PHI_KHO_TREN_DON",
+      "name": "Chi phí vận hành kho trên mỗi đơn",
+      "stage": "04_Fulfillment_SupplyChain",
+      "sub_group": "Vận hành Kho",
+      "playbook_refs": [
+        "pb_03_tax_and_opex",
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "(Tiền thuê mặt bằng kho + Điện nước + Lương thủ kho & nhân viên đóng gói) / Tổng số đơn xuất trong tháng",
+      "formula_derived": "(Warehouse_Rent + Utilities + Warehouse_Payroll) / Total_Shipped_Orders",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_team_pack_speed",
+            "impact": "inverse_proportional",
+            "note": "Tối ưu layout kho giúp tăng đơn xuất mà không tăng chi phí mặt bằng"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_opex_ratio",
+            "note": "Cấu phần quan trọng của chi phí cố định"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_sales_pdp_cvr",
+      "code": "TY_LE_CHOT_TRANG_SAN_PHAM",
+      "name": "Tỷ lệ chốt đơn trên trang sản phẩm (CVR sàn/web)",
+      "stage": "03_Conversion_Sales",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_07_ads_scaling",
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "Số đơn đặt hàng thành công / Tổng số lượt khách bấm vào xem trang sản phẩm × 100%",
+      "formula_derived": "(Completed_Orders / Product_Page_Views) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_mkt_cpa",
+            "note": "Ảnh bìa đẹp, đánh giá sao cao giúp tăng CVR và kéo giảm chi phí Ads"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_mkt_hook_rate",
+      "code": "TY_LE_GIU_CHAN_3S_DAU",
+      "name": "Tỷ lệ giữ chân 3 giây đầu video (Hook Rate)",
+      "stage": "02_Traffic_Acquisition",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_07_ads_scaling"
+      ],
+      "formula_readable": "Số người xem video quảng cáo hoặc TikTok quá 3 giây đầu tiên / Tổng số lượt hiển thị × 100%",
+      "formula_derived": "(Three_Second_Video_Views / Video_Impressions) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_mkt_ctr",
+            "note": "3 giây đầu không giữ được chân người xem thì không ai bấm mua hàng"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_live_gpm",
+      "code": "DOANH_THU_1000_LUOT_XEM_GPM",
+      "name": "Doanh thu trên mỗi 1.000 lượt xem Live/Video (GPM)",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Bán hàng",
+      "playbook_refs": [
+        "pb_06_livestream_and_koc"
+      ],
+      "formula_readable": "(Tổng doanh thu tạo ra / Tổng lượt xem phiên Live hoặc video) × 1.000",
+      "formula_derived": "(Total_GMV / Total_Views) * 1000",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_team_live_gmv_hour",
+            "note": "Chỉ số quyết định thuật toán TikTok có đẩy thêm mắt xem miễn phí hay không"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_live_cart_ctr",
+      "code": "TY_LE_BAM_GIO_HANG_LIVE",
+      "name": "Tỷ lệ khách bấm giỏ hàng khi xem Live",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Bán hàng",
+      "playbook_refs": [
+        "pb_06_livestream_and_koc"
+      ],
+      "formula_readable": "Số lượt khách bấm vào giỏ hàng ghim sản phẩm / Tổng số lượt xem phiên Live × 100%",
+      "formula_derived": "(Product_Clicks_In_Live / Live_Views) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_team_live_gpm",
+            "note": "Đo khả năng kêu gọi hành động (CTA) của Host Live"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_sales_voucher_dependency",
+      "code": "TY_LE_DON_PHU_THUOC_VOUCHER",
+      "name": "Tỷ lệ đơn hàng phụ thuộc mã giảm giá",
+      "stage": "03_Conversion_Sales",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "Số đơn hàng sử dụng mã giảm giá sâu của shop / Tổng số đơn hàng × 100%",
+      "formula_derived": "(Discounted_Orders / Total_Orders) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_net_sales",
+            "note": "Cảnh báo shop bị nghiện khuyến mãi, tắt mã là đứng đơn"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_mkt_organic_vs_paid",
+      "code": "TY_LE_DOANH_THU_TU_NHIEN",
+      "name": "Tỷ lệ doanh thu tự nhiên vs Quảng cáo",
+      "stage": "02_Traffic_Acquisition",
+      "sub_group": "Quảng cáo & Chuyển đổi",
+      "playbook_refs": [
+        "pb_08_retention_clv"
+      ],
+      "formula_readable": "Doanh thu từ khách tự tìm kiếm, khách cũ quay lại / Tổng doanh thu thực thu × 100%",
+      "formula_derived": "(Organic_And_Repeat_Sales / Net_Sales) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ret_repeat_rate",
+            "impact": "direct_proportional",
+            "note": "Khách cũ quay lại giúp giảm lệ thuộc vào tiền Ads"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm3",
+            "note": "Tỷ trọng tự nhiên càng cao thì biên lợi nhuận ròng càng bền vững"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_promo_cost_ratio",
+      "code": "TY_LE_CHI_PHI_KHUYEN_MAI",
+      "name": "Tỷ lệ chi phí khuyến mãi & quà tặng",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_01_profit_reality"
+      ],
+      "formula_readable": "(Giá vốn hàng tặng kèm + Giá trị voucher shop tự tung ra) / Doanh thu thực thu × 100%",
+      "formula_derived": "((Free_Gift_COGS + Shop_Vouchers) / Net_Sales) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Tặng quà tràn lan không kiểm soát sẽ ăn mòn biên lãi"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_platform_penalty",
+      "code": "TY_LE_TIEN_PHAT_SAN",
+      "name": "Tỷ lệ tiền phạt vận hành sàn",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Phí Sàn & Lợi nhuận",
+      "playbook_refs": [
+        "pb_04_ops_efficiency"
+      ],
+      "formula_readable": "Tổng số tiền bị sàn trừ do giao trễ, hết hàng tự hủy đơn hoặc vi phạm từ khóa / Doanh thu thực thu × 100%",
+      "formula_derived": "(Platform_Penalties / Net_Sales) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_ops_sla_breach",
+            "impact": "direct_proportional",
+            "note": "Giao trễ hạn bị sàn phạt tiền và bóp tương tác"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_fin_cm2",
+            "note": "Khoản mất tiền oan do lỗi quy trình"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_cash_runway",
+      "code": "SO_THANG_SONG_SOT_RUNWAY",
+      "name": "Số tháng sống sót còn lại (Cash Runway)",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap",
+        "pb_03_tax_and_opex"
+      ],
+      "formula_readable": "Tổng tiền mặt hiện có trong két & ngân hàng / Số tiền mặt bị thâm hụt trung bình mỗi tháng",
+      "formula_derived": "Current_Cash_Balance / Monthly_Net_Cash_Burn",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_ccc",
+            "impact": "inverse_proportional",
+            "note": "Kẹt vốn càng nặng thì lượng tiền mặt dự trữ càng mỏng"
+          }
+        ],
+        "downstream_impacts": [],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_fin_working_capital_turnover",
+      "code": "VONG_QUAY_VON_LUU_DONG",
+      "name": "Vòng quay vốn lưu động",
+      "stage": "06_Finance_UnitEconomics",
+      "sub_group": "Dòng tiền (Cashflow)",
+      "playbook_refs": [
+        "pb_02_cashflow_trap"
+      ],
+      "formula_readable": "Doanh thu thuần trong năm / (Tài sản ngắn hạn - Nợ ngắn hạn trung bình)",
+      "formula_derived": "Annual_Net_Sales / Avg_Working_Capital",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_fin_ccc",
+            "impact": "inverse_proportional",
+            "note": "Chu kỳ kẹt vốn ngắn giúp đồng vốn xoay được nhiều vòng trong năm"
+          }
+        ],
+        "downstream_impacts": [],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_creative_win_rate",
+      "code": "TY_LE_VIDEO_ADS_THANG",
+      "name": "Tỷ lệ video quảng cáo thắng (Creative Win Rate)",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Đội ngũ",
+      "playbook_refs": [
+        "pb_07_ads_scaling",
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "Số video mới đem chạy test Ads đạt ROAS mục tiêu / Tổng số video team sản xuất ra × 100%",
+      "formula_derived": "(Winning_Ad_Creatives / Total_Produced_Creatives) * 100",
+      "relationships": {
+        "upstream_drivers": [
+          {
+            "metric_id": "vn_mkt_hook_rate",
+            "impact": "direct_proportional",
+            "note": "Tối ưu 3 giây đầu giúp tăng tỷ lệ video thắng"
+          }
+        ],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_mkt_cpa",
+            "note": "Video thắng liên tục giúp duy trì ngân sách scale ổn định"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_team_rev_per_media_buyer",
+      "code": "DOANH_THU_TREN_NHAN_SU_ADS",
+      "name": "Doanh thu trên mỗi nhân sự chạy Ads",
+      "stage": "07_Team_Productivity",
+      "sub_group": "Hiệu suất Đội ngũ",
+      "playbook_refs": [
+        "pb_10_team_vs_automation"
+      ],
+      "formula_readable": "Tổng doanh thu từ quảng cáo trong tháng / Tổng số nhân sự Media Buyer trực tiếp cầm tài khoản",
+      "formula_derived": "Total_Paid_Revenue / Media_Buyer_Headcount",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_team_gp_per_staff",
+            "note": "Đo năng suất thực tế của team Performance Marketing"
+          }
+        ],
+        "trade_offs": []
+      }
+    },
+    {
+      "metric_id": "vn_ret_bad_review_resolution",
+      "code": "TY_LE_XU_LY_DANH_GIA_XAU",
+      "name": "Tỷ lệ xử lý đánh giá xấu (1–2 sao)",
+      "stage": "05_Retention_Lifecycle",
+      "sub_group": "Giữ chân Khách hàng",
+      "playbook_refs": [
+        "pb_09_packing_and_reviews"
+      ],
+      "formula_readable": "Số đánh giá 1–2 sao được CSKH liên hệ xử lý thỏa đáng và khách sửa lại đánh giá / Tổng đánh giá xấu × 100%",
+      "formula_derived": "(Resolved_And_Updated_Bad_Reviews / Total_Bad_Reviews) * 100",
+      "relationships": {
+        "upstream_drivers": [],
+        "downstream_impacts": [
+          {
+            "metric_id": "vn_sales_pdp_cvr",
+            "note": "Gỡ được đánh giá 1 sao đầu trang giúp cứu tỷ lệ chuyển đổi toàn gian hàng"
+          }
+        ],
+        "trade_offs": []
+      }
+    }
+  ],
+  "playbooks": [
+    {
+      "playbook_id": "pb_01_profit_reality",
+      "title": "Playbook 01: Bài toán Phí sàn, Hoàn hàng & Lãi thật (Đừng để doanh thu ảo đánh lừa)",
+      "summary": "Cách bóc tách 3 lớp lợi nhuận từ doanh thu hiển thị trên sàn đến tiền thực còn lại để chạy Ads và nuôi bộ máy.",
+      "linked_metrics": [
+        "vn_fin_net_sales",
+        "vn_fin_platform_fee",
+        "vn_ops_rto_rate",
+        "vn_ops_cost_per_return",
+        "vn_fin_cm2",
+        "vn_fin_breakeven_roas",
+        "vn_ops_first_attempt_delivery",
+        "vn_ops_click_to_door",
+        "vn_sales_voucher_dependency",
+        "vn_fin_promo_cost_ratio"
+      ],
+      "core_correlation": "Doanh thu hiển thị trên màn hình Shopee/TikTok chưa bao giờ là tiền của bạn. Tiền thật phải đi qua 3 lớp lọc: trừ giá vốn ra CM1, trừ tiếp phí sàn + ship + chi phí đơn hoàn ra CM2, rồi mới đem CM2 đi chạy Ads. Nếu phí sàn tăng hoặc tỷ lệ hoàn nhích lên mà không tính lại ROAS hòa vốn, càng đẩy ngân sách Ads thì lỗ càng nặng.",
+      "case_study": {
+        "title": "Shop gia dụng doanh thu 1 tỷ/tháng, ROAS 5.0 nhưng cuối tháng lỗ ròng 25 triệu",
+        "context": "Anh Nam bán đồ gia dụng tiện ích trên TikTok Shop giá niêm yết 250.000đ/đơn. Tháng này báo doanh thu 1 tỷ đồng (4.000 đơn), tiền Ads hết 200 triệu (ROAS = 5.0).",
+        "breakdown": [
+          "Giá vốn nhập kho thực tế (Landed Cost): 85.000đ/sp (34%).",
+          "Voucher shop tự giảm + khách hủy ngang trước khi giao (8%): Doanh thu thực thu chỉ còn 920 triệu.",
+          "Tổng phí sàn (cố định + thanh toán + Freeship Xtra + Voucher Xtra + thuế sàn thu hộ): 16% = 147 triệu.",
+          "Tỷ lệ hoàn hàng (RTO): 12% (480 đơn quay đầu). Mỗi đơn hoàn tốn 32.000đ (ship 2 chiều + hộp rách hỏng) = 15,4 triệu chi phí chìm và mất trắng doanh thu 480 đơn này."
+        ],
+        "result": "Tiền CM2 còn lại đúng 260 triệu. Trừ tiếp 200 triệu tiền Ads, CM3 chỉ còn vỏn vẹn 60 triệu — không đủ trả tiền thuê kho, điện nước và lương 4 nhân sự (85 triệu/tháng). Thực tế lỗ ròng 25 triệu."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Thấy ROAS = 5.0 là auto có lời. Thực tế với cơ cấu phí sàn và hoàn hàng trên, ROAS hòa vốn biến phí đã là ~3.8, và để nuôi bộ máy cố định thì ROAS tối thiểu phải đạt 5.5 trở lên."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Chỉ nhìn tỷ lệ hoàn hàng (RTO) theo số lượng đơn mà quên nhân với Chi phí 1 đơn hoàn và phần hàng hoàn bị móp méo không bán lại giá gốc được."
+        }
+      ],
+      "action_checklist": [
+        "Luôn tính ROAS hòa vốn dựa trên CM2, tuyệt đối không tính trên giá bán niêm yết.",
+        "Gọi xác nhận hoặc nhắn tin tự động lọc các đơn có lịch sử bom hàng cao trước khi đóng gói để ép RTO xuống dưới 6%.",
+        "Gộp bán Combo 2-3 món để tăng giá trị đơn hàng, giảm tỷ trọng phí đóng gói và phí ship trên mỗi sản phẩm."
+      ]
+    },
+    {
+      "playbook_id": "pb_02_cashflow_trap",
+      "title": "Playbook 02: Bài toán Dòng tiền & Kẹt vốn (Lãi trên giấy nhưng hết tiền mặt)",
+      "summary": "Giải mã nghịch lý sổ sách báo lãi trăm triệu mỗi tháng nhưng tài khoản ngân hàng luôn cạn tiền nhập hàng mới.",
+      "linked_metrics": [
+        "vn_ops_dio",
+        "vn_ops_dead_stock",
+        "vn_fin_pending_payout",
+        "vn_fin_dso",
+        "vn_fin_dpo",
+        "vn_fin_ccc",
+        "vn_fin_gmroi",
+        "vn_fin_cash_runway",
+        "vn_fin_working_capital_turnover"
+      ],
+      "core_correlation": "Tăng trưởng nóng rất dễ làm chủ shop chết trên đống tài sản vì tiền mặt bị hút hết vào 2 cái hố: hàng nằm trong kho và tiền COD/tiền sàn đang treo chờ đối soát. Chu kỳ kẹt vốn (CCC = Số ngày tồn kho + Số ngày chờ tiền về - Số ngày nợ xưởng) càng dài thì áp lực vay vốn càng lớn.",
+      "case_study": {
+        "title": "Shop thời trang lãi sổ sách 120 triệu/tháng nhưng phải đi vay nóng nhập hàng",
+        "context": "Chị Lan kinh doanh thời trang thiết kế, báo cáo sổ sách mỗi tháng lãi ròng 120 triệu, nhưng đến kỳ nhập hàng mới lại cạn tiền mặt.",
+        "breakdown": [
+          "Xưởng bắt thanh toán 100% tiền cọc và giao hàng (DPO = 0 ngày).",
+          "Nhập 1 lần bán cả mùa nên hàng nằm trong kho trung bình 65 ngày mới xả hết (DIO = 65 ngày), trong đó 25% vốn nằm chết ở các size lẻ (XS, XXL) quá 90 ngày.",
+          "Khách mua sàn và COD chiếm 85%, từ lúc gửi hàng đến khi đối soát rút được tiền về ngân hàng mất trung bình 14 ngày (DSO = 14 ngày)."
+        ],
+        "result": "Chu kỳ kẹt vốn là 65 + 14 - 0 = 79 ngày. Bỏ 1 đồng tiền mặt ra nhập hàng thì gần 3 tháng sau tiền mới quay về túi. Càng bán mạnh càng phải ứng tiền túi ra nhập hàng mới."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Đánh đồng Lợi nhuận trên báo cáo P&L với Tiền mặt trong két."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Ham chiết khấu 5-7% của nhà cung cấp nên ôm lô hàng quá lớn, dẫn đến đọng vốn vào hàng tồn chết (Dead Stock) làm mất khả năng xoay vòng cho các mã trend mới."
+        }
+      ],
+      "action_checklist": [
+        "Tách riêng tài khoản nhận tiền đối soát sàn/COD và trích ngay tỷ lệ giá vốn + thuế sang một tài khoản riêng, không tiêu lẹm vào tiền xoay vòng.",
+        "Đặt quy tắc xả kho cứng: Mã nào quá 60 ngày không đạt tốc độ bán chuẩn thì lập tức chạy Flash Sale hoặc ghép quà tặng để thu hồi tiền mặt.",
+        "Đàm phán công nợ gối đầu với xưởng (trả trước 50%, 50% còn lại thanh toán sau 15-30 ngày) để kéo giảm chu kỳ kẹt vốn."
+      ]
+    },
+    {
+      "playbook_id": "pb_03_tax_and_opex",
+      "title": "Playbook 03: Bài toán Thuế, Hóa đơn đầu vào & Chi phí cố định",
+      "summary": "Tránh cú sốc bay sạch lợi nhuận cả năm khi quyết toán thuế hoặc khi doanh số chững lại.",
+      "linked_metrics": [
+        "vn_fin_tax_reserve",
+        "vn_fin_vat_input_ratio",
+        "vn_fin_opex_ratio",
+        "vn_fin_breakeven_rev",
+        "vn_fin_net_profit",
+        "vn_ops_warehouse_cost_per_order",
+        "vn_fin_cash_runway"
+      ],
+      "core_correlation": "Khi mở rộng quy mô, nếu không trích lập dự phòng thuế ngay từ đầu và để định phí (lương cứng, mặt bằng) phình to quá nhanh, toàn bộ phần lãi tích lũy cả năm sẽ bay sạch khi quyết toán thuế hoặc khi thị trường chững lại 1-2 tháng.",
+      "case_study": {
+        "title": "Doanh thu 1,5 tỷ/tháng, lãi sau Ads 240 triệu nhưng bỏ túi thực tế bằng 0",
+        "context": "Team của Huy đạt doanh thu 1,5 tỷ/tháng, lãi sau quảng cáo (CM3) được 240 triệu/tháng. Huy thuê kho rộng hơn và tuyển thêm 5 nhân sự văn phòng, đẩy định phí lên 160 triệu/tháng.",
+        "breakdown": [
+          "80% hàng hóa nhập tiểu ngạch không có hóa đơn đỏ đầu vào (VAT), nhưng doanh thu đổ về tài khoản định danh và sàn TMĐT đã kê khai đầy đủ.",
+          "Chi phí chạy Ads Facebook/TikTok chưa nộp thuế nhà thầu nước ngoài.",
+          "Khoản dự phòng thuế thực tế (GTGT, TNDN/Hộ kinh doanh và thuế nhà thầu Ads) ngốn mất 4,5% - 6% doanh thu (tương đương 80 triệu/tháng)."
+        ],
+        "result": "CM3 (240 triệu) - Định phí (160 triệu) - Dự phòng thuế (80 triệu) = 0 đồng. Cả team cày cuốc 1,5 tỷ/tháng nhưng lợi nhuận ròng thực bỏ túi bằng không."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Tiền về ví sàn hoặc tài khoản cá nhân thì cơ quan thuế không nắm được."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Bỏ quên khoản thuế nhà thầu khi chạy Ads (Facebook/TikTok/Google) và không chuẩn hóa nguồn hàng có hóa đơn đầu vào khi doanh thu đã vượt ngưỡng vài tỷ/năm."
+        }
+      ],
+      "action_checklist": [
+        "Trích cứng 5% - 7% doanh thu thực thu vào quỹ dự phòng thuế mỗi tháng trước khi chia lợi nhuận.",
+        "Chuyển dần các mã hàng chủ lực sang nhập chính ngạch hoặc lấy từ nhà cung cấp xuất được hóa đơn đỏ để hợp thức hóa giá vốn.",
+        "Giữ tỷ lệ chi phí cố định (OPEX) luôn dưới 12% - 15% doanh thu, ưu tiên trả lương theo hiệu suất (KPI/Hoa hồng)."
+      ]
+    },
+    {
+      "playbook_id": "pb_04_ops_efficiency",
+      "title": "Playbook 04: Bài toán Tối ưu Hiệu suất Kho, Chốt đơn & Đội ngũ",
+      "summary": "Cách tăng thêm 30-40% doanh thu và lãi ròng bằng việc vá lỗ hổng nội bộ mà không tốn thêm tiền Ads.",
+      "linked_metrics": [
+        "vn_team_chat_cvr",
+        "vn_team_frt",
+        "vn_ops_picking_error",
+        "vn_ops_stockout_rate",
+        "vn_team_gp_per_staff",
+        "vn_ops_reorder_point",
+        "vn_ops_sla_breach",
+        "vn_fin_platform_penalty"
+      ],
+      "core_correlation": "Đội Ads có giỏi đến mấy mà khâu trực page chậm trễ, kho đóng nhầm size hoặc mã hàng đang bán chạy lại bị đứt hàng thì tiền quảng cáo coi như đổ sông đổ bể. Hiệu suất vận hành nội bộ chính là đòn bẩy giúp tăng lãi ròng mà không tốn thêm một đồng ngân sách Marketing nào.",
+      "case_study": {
+        "title": "Giữ nguyên 12 nhân sự nhưng doanh thu nhảy từ 1,2 tỷ lên 1,65 tỷ nhờ vá 3 lỗ hổng kho & chat",
+        "context": "Shop mỹ phẩm có 12 nhân sự, doanh thu 1,2 tỷ/tháng, lãi gộp 480 triệu (40 triệu/nhân sự). Chủ shop định tuyển thêm 5 người để đẩy doanh số.",
+        "breakdown": [
+          "Thời gian trả lời tin nhắn đầu tiên (FRT) trung bình 9 phút khiến khách thoát ra mua shop khác, tỷ lệ chốt qua chat chỉ đạt 18%.",
+          "Kho không dùng máy quét mã vạch nên tỷ lệ đóng nhầm/thiếu hàng lên tới 3,5% (mất oan tiền ship đổi trả 2 chiều).",
+          "Mã serum chủ lực bị đứt hàng 6 ngày trong tháng do thủ kho báo nhập chậm, làm rớt nhịp phân phối của chiến dịch Ads đang thắng."
+        ],
+        "result": "Dừng tuyển người, cài kịch bản trả lời nhanh ép thời gian rep xuống dưới 1 phút (tỷ lệ chốt tăng lên 25%), dùng máy quét mã vạch và cài cảnh báo tồn kho tự động trước 10 ngày. Doanh thu nhảy lên 1,65 tỷ với đúng 12 nhân sự cũ, đẩy lãi gộp/nhân sự lên 55 triệu/tháng."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Doanh thu chững lại là do thuật toán quảng cáo đắt lên, phải tuyển thêm người chạy Ads."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Đổ thêm lưu lượng (Traffic) vào một cái phễu đang thủng ở khâu trực chat và đóng gói kho."
+        }
+      ],
+      "action_checklist": [
+        "Đo Lợi nhuận gộp trên mỗi nhân sự hằng tháng: Chỉ tuyển thêm người khi chỉ số này đang tăng trưởng tốt.",
+        "Đặt SLA cứng cho trực page: Phản hồi dưới 2 phút trong giờ hành chính; dùng tin nhắn tự động giữ chân khách ngoài giờ.",
+        "Bắt buộc quét mã vạch từng sản phẩm trước khi dán vận đơn để triệt tiêu chi phí đổi trả do lỗi kho."
+      ]
+    },
+    {
+      "playbook_id": "pb_05_sourcing_and_deadstock",
+      "title": "Playbook 05: Bài toán Chọn hàng, Nhập lô & Bẫy tồn kho cuối mùa",
+      "summary": "Tránh cảnh bán đầu mùa lãi đậm nhưng cuối mùa thanh lý lỗ sạch vốn vì ôm hàng theo cảm tính.",
+      "linked_metrics": [
+        "vn_prod_landed_cost",
+        "vn_prod_hero_sku",
+        "vn_ops_dio",
+        "vn_ops_dead_stock",
+        "vn_ops_stockout_rate",
+        "vn_prod_lead_time",
+        "vn_ops_reorder_point",
+        "vn_fin_gmroi"
+      ],
+      "core_correlation": "Nếu ôm quá nhiều ngay từ đầu để lấy giá sỉ rẻ, vốn sẽ kẹt cứng vào hàng tồn chết (Dead Stock); ngược lại nếu nhập rón rén từng ít một, khi Ads vừa lên cam ngon thì lại bị đứt hàng (Stockout), mất sạch đà tăng trưởng.",
+      "case_study": {
+        "title": "Ôm 1.000 áo khoác để giảm giá nhập 25k/áo nhưng cuối mùa lỗ 20 triệu vì thanh lý size lẻ",
+        "context": "Anh Tuấn nhập lô áo khoác gió mùa đông từ Quảng Châu. Xưởng báo 140k nếu lấy 300 cái, giảm còn 115k nếu ôm 1.000 cái. Anh Tuấn chốt 1.000 cái (Landed Cost = 125k/áo, tổng vốn 125 triệu).",
+        "breakdown": [
+          "Tháng đầu vào mùa lạnh bán chạy được 550 cái giá 299k, lãi gộp ngon lành.",
+          "Sang tháng thứ 2 thời tiết ấm lên, 450 cái còn lại (chủ yếu size S và XXL) đứng im trong kho suốt 95 ngày (Tỷ lệ hàng tồn chết = 45%).",
+          "Buộc phải thanh lý lỗ 450 cái giá 80k/áo (thu về 36 triệu, lỗ 20,25 triệu tiền vốn gốc)."
+        ],
+        "result": "Tiền lãi của 550 cái bán đầu mùa gần như bị nuốt sạch bởi đống hàng tồn thanh lý cuối mùa."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Đàm phán được giá nhập rẻ hơn 15-20% là chắc chắn biên lợi nhuận sẽ cao hơn. Chỉ đúng nếu bạn bán hết được 100% lô hàng trong vòng 60 ngày."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Chia đều số lượng nhập cho tất cả các size/màu thay vì dồn 70% ngân sách nhập vào 2 size/màu phổ biến nhất."
+        }
+      ],
+      "action_checklist": [
+        "Áp dụng công thức nhập hàng 'Test nhỏ – Bồi nhanh': Lô đầu chỉ nhập đủ bán trong 15-20 ngày để đo phản ứng thị trường.",
+        "Luôn giữ mức tồn kho an toàn tối thiểu 10 ngày cho Top 20% mã hàng chủ lực để không bị tắt Ads giữa chừng vì hết hàng."
+      ]
+    },
+    {
+      "playbook_id": "pb_06_livestream_and_koc",
+      "title": "Playbook 06: Bài toán Livestream & Booking KOC (Đốt tiền mẫu nhưng không ra đơn)",
+      "summary": "Kiểm soát chi phí mẫu miễn phí, hoa hồng Affiliate và hiệu suất từng giờ lên sóng trên TikTok Shop/Shopee.",
+      "linked_metrics": [
+        "vn_team_live_gmv_hour",
+        "vn_team_koc_return_rate",
+        "vn_fin_platform_fee",
+        "vn_fin_cm3",
+        "vn_team_live_gpm",
+        "vn_team_live_cart_ctr"
+      ],
+      "core_correlation": "Livestream và Affiliate rất dễ biến thành hố đen đốt tiền nếu chỉ nhìn vào GMV (tổng giá trị đơn đặt) mà quên trừ hoa hồng Affiliate, phí sàn, chi phí gửi mẫu miễn phí và lương cứng/hoa hồng cho Host Live.",
+      "case_study": {
+        "title": "Doanh thu Live + Affiliate đạt 800 triệu/tháng nhưng lỗ ròng 18 triệu vì gửi mẫu tràn lan",
+        "context": "Chị Mai mở phòng Live 8 tiếng/ngày và gửi 200 set mỹ phẩm (giá vốn 90k/set) cho KOC làm clip gắn giỏ hàng. Cuối tháng tổng doanh thu đạt 800 triệu.",
+        "breakdown": [
+          "Trong 200 mẫu gửi đi chỉ có 65 KOC trả clip (Tỷ lệ trả clip = 32,5%), 135 mẫu mất hút làm bay mất 12,15 triệu tiền vốn + 4 triệu tiền ship.",
+          "Hoa hồng KOC trung bình 18% + phí sàn & Freeship Xtra 15% = mất đứt 33% doanh thu (264 triệu).",
+          "Phiên Live chỉ đạt trung bình 1,8 triệu/giờ, trong khi chi phí Host Live + trợ live + Ads mồi phiên hết 75 triệu/tháng."
+        ],
+        "result": "Sau khi trừ giá vốn (35%), phí sàn + hoa hồng (33%), hoàn hàng 10% và chi phí phòng Live, tháng đó chị Mai lỗ ròng 18 triệu."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Gửi mẫu càng nhiều KOC càng tốt, miễn phí mà, không mất tiền quảng cáo."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Cài mức hoa hồng Affiliate cố định 20% cho tất cả sản phẩm mà không tách riêng sản phẩm phễu và sản phẩm lãi cao."
+        }
+      ],
+      "action_checklist": [
+        "Chỉ duyệt gửi mẫu miễn phí cho KOC có tỷ lệ ra đơn/đăng video thực tế trên 70% trong 30 ngày gần nhất.",
+        "Đặt KPI Doanh thu mỗi giờ Live tối thiểu gấp 5 lần chi phí nhân sự + Ads của 1 giờ Live đó thì mới duy trì khung giờ."
+      ]
+    },
+    {
+      "playbook_id": "pb_07_ads_scaling",
+      "title": "Playbook 07: Bài toán Quảng cáo Chuyển đổi (Khi nào nên vít ngân sách, khi nào phải cắt lỗ?)",
+      "summary": "Cách chẩn đoán bệnh của tài khoản quảng cáo qua CTR, CPA và dùng Combo tăng AOV để scale ngân sách có lãi.",
+      "linked_metrics": [
+        "vn_mkt_ctr",
+        "vn_mkt_cpa",
+        "vn_sales_aov",
+        "vn_fin_breakeven_roas",
+        "vn_sales_pdp_cvr",
+        "vn_mkt_hook_rate",
+        "vn_team_creative_win_rate"
+      ],
+      "core_correlation": "CPA là kết quả trực tiếp của độ hấp dẫn mẫu quảng cáo (CTR) nhân với khả năng thuyết phục của trang bán hàng/tin nhắn (CVR). Cách duy nhất để scale tiền Ads quy mô lớn là kéo tăng giá trị trung bình đơn (AOV) để gánh được CPA cao.",
+      "case_study": {
+        "title": "Vít ngân sách từ 3 triệu lên 12 triệu/ngày bị lỗ nặng, lật ngược thế cờ nhờ gộp Combo tăng AOV",
+        "context": "Team Dũng chạy Ads Facebook bán thực phẩm bảo vệ sức khỏe giá 350k/hộp. ROAS hòa vốn là 2.8 (CPA tối đa cho phép là 125k/đơn).",
+        "breakdown": [
+          "Tuần 1 chạy 3 triệu/ngày: CTR = 2,4%, CPA = 95k/đơn (lãi 30k/đơn).",
+          "Tuần 2 tăng lên 12 triệu/ngày: tệp khách lặp lại khiến CTR tụt xuống 1,3%, CPA đội lên 155k/đơn (ROAS tụt về 2.25), lỗ 3,6 triệu/ngày.",
+          "Cách xử lý: Đẩy gói Combo 3 hộp giá 890k (tặng kèm 1 hộp nhỏ) trên trang đích."
+        ],
+        "result": "AOV nhảy từ 350k lên 620k. Dù CPA vẫn ở mức 165k/đơn, ROAS lập tức vọt lên 3.75, biến chiến dịch từ lỗ nặng thành lãi đậm."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Thấy chiến dịch đắt lên là do lỗi thuật toán phân phối, cứ nhân nhóm quảng cáo liên tục là sẽ rẻ lại."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Cố ép chạy quảng cáo cho sản phẩm đơn lẻ giá trị thấp (< 200k) trong khi giá thầu CPM ngày càng đắt đỏ."
+        }
+      ],
+      "action_checklist": [
+        "Soi bệnh theo thứ tự: CTR thấp (< 1.5%) -> Sửa 3 giây đầu video; CTR cao nhưng CPA đắt -> Sửa trang đích và kịch bản chốt đơn.",
+        "Muốn vít ngân sách Ads lên quy mô lớn, bắt buộc phải thiết kế gói Combo/Mua kèm để kéo AOV lên tối thiểu gấp 3 lần CPA."
+      ]
+    },
+    {
+      "playbook_id": "pb_08_retention_clv",
+      "title": "Playbook 08: Bài toán Khách quay lại & Giá trị vòng đời (Không phải đi săn khách mới mỗi ngày)",
+      "summary": "Tối ưu lợi nhuận từ đơn hàng thứ 2, thứ 3 để bù đắp chi phí quảng cáo kéo khách mới ngày càng đắt đỏ.",
+      "linked_metrics": [
+        "vn_ret_repeat_rate",
+        "vn_ret_clv",
+        "vn_mkt_cpa",
+        "vn_fin_cm3",
+        "vn_mkt_organic_vs_paid"
+      ],
+      "core_correlation": "Đơn hàng đầu tiên chạy Ads thường chỉ hòa vốn hoặc lãi rất mỏng vì chi phí kéo khách mới quá cao. Tiền lời thực sự của chủ shop nằm ở đơn hàng thứ 2, thứ 3 khi khách tự quay lại mà không tốn thêm tiền quảng cáo.",
+      "case_study": {
+        "title": "Đơn đầu lãi đúng 5.000đ nhưng vẫn thắng lớn nhờ 34% khách quay lại mua lần 2 trong 45 ngày",
+        "context": "Shop bán hạt dinh dưỡng & đồ ăn vặt healthy có AOV 280k, lãi gộp sau phí sàn & ship (CM2) là 110k/đơn. Chi phí Ads kéo 1 khách mới hết 105k.",
+        "breakdown": [
+          "Ở đơn đầu tiên shop gần như làm không công (lãi 5.000đ/đơn).",
+          "Nhờ sản phẩm ngon và phiếu tặng voucher 30k kèm mã QR kết bạn Zalo CSKH trong hộp hàng, 34% khách quay lại mua lần 2 trong 45 ngày, 15% mua lần 3.",
+          "Các đơn quay lại chỉ tốn 2.000đ gửi tin nhắn Zalo ZNS."
+        ],
+        "result": "Tổng lãi gộp thu về sau 90 ngày đạt 165k/khách (so với chi phí kéo khách 105k), giúp shop tự tin vít Ads mạnh hơn hẳn đối thủ."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Bán hàng trên sàn TMĐT thì sàn giấu thông tin khách hàng rồi, không chăm sóc lại được."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Đổ 100% ngân sách Marketing vào tìm khách mới mà không dành lấy 1 đồng ưu đãi để giữ chân tệp khách đã từng mua."
+        }
+      ],
+      "action_checklist": [
+        "Đo Tỷ lệ khách quay lại mua lần 2 sau 30-60 ngày: Nếu dưới 15% với ngành tiêu dùng nhanh, phải xem lại ngay chất lượng sản phẩm.",
+        "Cài quy trình nhắn tin chăm sóc đúng điểm rơi (ví dụ: hũ kem dùng 45 ngày thì ngày thứ 35 nhắn tin tặng mã Freeship nhắc mua lọ mới)."
+      ]
+    },
+    {
+      "playbook_id": "pb_09_packing_and_reviews",
+      "title": "Playbook 09: Bài toán Đóng gói, Đổi trả & Đánh giá sao (Lỗ hổng vận hành giết chết gian hàng)",
+      "summary": "Ngăn chặn tình trạng mất oan tiền ship đổi trả 2 chiều và rớt điểm đánh giá shop vì lỗi nhặt sai hàng.",
+      "linked_metrics": [
+        "vn_ops_picking_error",
+        "vn_ops_resellable_return",
+        "vn_ops_cost_per_return",
+        "vn_ret_repeat_rate",
+        "vn_ops_transit_damage",
+        "vn_sales_pdp_cvr",
+        "vn_ret_bad_review_resolution"
+      ],
+      "core_correlation": "Một đơn hàng đóng nhầm size không chỉ làm mất oan 2 lần tiền ship đổi trả, mà còn mang về đánh giá 1 sao ngay đầu trang sản phẩm — kéo tụt tỷ lệ chuyển đổi của hàng ngàn lượt khách vào xem sau đó.",
+      "case_study": {
+        "title": "Đầu tư 6 triệu mua máy quét mã vạch, tiết kiệm ngay 17 triệu/tháng tiền ship đổi trả",
+        "context": "Một shop giày dép có 3 nhân viên kho đóng trung bình 350 đơn/ngày bằng cách nhìn phiếu in giấy và nhặt hàng thủ công.",
+        "breakdown": [
+          "Mỗi ngày đóng nhầm size/màu khoảng 11 đơn (Tỷ lệ đóng nhầm = 3,1%), tương đương 330 đơn/tháng.",
+          "Phí ship thu hồi và gửi lại đôi mới tốn 55.000đ/ca × 330 ca = 18,15 triệu/tháng tiền cước ném qua cửa sổ.",
+          "40 khách bấm hoàn hàng kèm đánh giá 1 sao khiến điểm shop tụt từ 4.9 xuống 4.6, làm chi phí Ads tuần sau tăng 18%."
+        ],
+        "result": "Bỏ 6 triệu mua 2 máy quét mã vạch và phần mềm bắn bill: tỷ lệ đóng nhầm giảm về 0,1%, tiết kiệm 17 triệu/tháng và lấy lại mốc 4.9 sao sau 3 tuần."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Kho nhỏ vài trăm đơn/ngày chưa cần dùng máy quét mã vạch, nhìn mắt thường cho nhanh."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Tiết kiệm 2.000đ tiền hộp carton cứng và xốp chống sốc, dẫn đến khi đơn bị hoàn thì hộp bẹp dúm, không thể bán lại giá gốc."
+        }
+      ],
+      "action_checklist": [
+        "Bắt buộc quay video đóng gói và quét mã vạch từng món trước khi dán vận đơn để có bằng chứng khiếu nại sàn khi tranh chấp.",
+        "Gia cố bao bì đủ chắc để chịu được ít nhất 2 vòng vận chuyển đi – về mà hàng bên trong vẫn còn nguyên tem mác."
+      ]
+    },
+    {
+      "playbook_id": "pb_10_team_vs_automation",
+      "title": "Playbook 10: Bài toán Quyết định Tuyển người hay Tự động hóa (Chống phình to bộ máy)",
+      "summary": "Thước đo tài chính giúp chủ shop biết chính xác khi nào nên tuyển thêm nhân sự và khi nào nên dùng công cụ tự động.",
+      "linked_metrics": [
+        "vn_team_gp_per_staff",
+        "vn_fin_opex_ratio",
+        "vn_team_pack_speed",
+        "vn_team_frt",
+        "vn_ops_warehouse_cost_per_order",
+        "vn_team_creative_win_rate",
+        "vn_team_rev_per_media_buyer"
+      ],
+      "core_correlation": "Nếu quy trình đang lộn xộn mà tuyển thêm nhân sự, bạn chỉ đang nhân bản sự kém hiệu quả và đẩy Tỷ lệ chi phí cố định lên cao. Chỉ cần thị trường chững lại 1 tháng, quỹ lương cứng sẽ bóp nghẹt dòng tiền.",
+      "case_study": {
+        "title": "Hoãn tuyển 4 nhân sự, chi 15 triệu dùng tự động hóa giúp tiết kiệm 33 triệu/tháng định phí",
+        "context": "Công ty của anh Hoàng có 18 nhân sự, doanh thu 2,2 tỷ/tháng, lãi gộp 810 triệu (45 triệu/người). Anh định tuyển thêm 4 người (quỹ lương tăng thêm 48 triệu/tháng) vì các bộ phận kêu quá tải.",
+        "breakdown": [
+          "70% câu hỏi trên fanpage/Zalo lặp đi lặp lại nhưng nhân viên phải gõ tay từng câu.",
+          "Bạn Editor mất 4 tiếng/ngày chỉ để cắt ghép video review cơ bản từ kho tư liệu có sẵn.",
+          "Kế toán mất 2 tiếng mỗi sáng tải file Excel từ 3 sàn về ghép tay đối soát đơn hoàn."
+        ],
+        "result": "Hoãn tuyển 4 người, chi 15 triệu/tháng dùng chatbot trả lời tự động, template dựng video và tool đồng bộ đơn hàng. Hiệu suất đội cũ tăng 35%, Lợi nhuận gộp/nhân sự nhảy lên 54 triệu/người, tiết kiệm 33 triệu/tháng định phí."
+      },
+      "myths_and_mistakes": [
+        {
+          "type": "Ngộ nhận",
+          "detail": "Công ty đông nhân sự nhìn mới hoành tráng và chuyên nghiệp."
+        },
+        {
+          "type": "Sai lầm",
+          "detail": "Trả lương cứng quá cao cho các vị trí trực tiếp tạo ra doanh thu (Sales, Ads, Live) thay vì gắn chặt thu nhập của họ với Lợi nhuận sau quảng cáo (CM3)."
+        }
+      ],
+      "action_checklist": [
+        "Chốt ngưỡng kỷ luật: Chỉ mở tuyển dụng nhân sự mới khi Lợi nhuận gộp trên mỗi nhân sự đạt tối thiểu gấp 3,5 - 4 lần mức lương trung bình của vị trí đó.",
+        "Trước khi tuyển thêm người cho bất kỳ khâu nào, hãy hỏi: 'Việc này có thể giải quyết bằng mẫu câu trả lời sẵn, quy trình chuẩn (SOP) hoặc công cụ tự động hóa không?'."
+      ]
+    }
+  ]
+}
