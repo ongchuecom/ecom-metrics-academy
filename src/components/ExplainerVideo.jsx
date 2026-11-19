@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { stageById, STAGES } from '../data/index.js'
-import lessons from '../data/lessons.json'
 import { Chart } from './LessonVisuals.jsx'
 
 // Video giải thích kiểu bảng giảng: nền trắng kẻ ô mờ, công thức, con số và biểu đồ viết dần lên bảng.
@@ -17,14 +16,14 @@ const WIDE = { w: 960, h: 540 }
 const TALL = { w: 520, h: 650 }
 
 function buildScenes(metric) {
-  const L = lessons[metric.metric_id] || {}
+  const L = metric.lesson || {}
   const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
   const scenes = []
   scenes.push({ id: 'title', label: 'Đề bài', stageNo, say: `${metric.code}. ${L.subtitle || metric.vi_name}.`, dur: 5000 })
-  scenes.push({
+  if (metric.formula?.readable || L.tree) scenes.push({
     id: 'formula', label: 'Công thức', tree: L.tree,
-    say: 'Công thức: ' + spoken(metric.formula.readable) + (L.tree?.note ? '. ' + L.tree.note : ''),
-    dur: durationFor(metric.formula.readable + (L.tree?.note || ''), 4),
+    say: (metric.formula?.readable ? 'Công thức: ' + spoken(metric.formula.readable) : '') + (L.tree?.note ? '. ' + L.tree.note : ''),
+    dur: durationFor((metric.formula?.readable || '') + (L.tree?.note || ''), 4),
   })
   if (L.breakdown?.chart) {
     const b = L.breakdown
@@ -104,7 +103,7 @@ function Scene({ s, metric, n, total, onHomework, wide }) {
   const stage = stageById[metric.stage]
   switch (s.id) {
     case 'title': {
-      const L = lessons[metric.metric_id] || {}
+      const L = metric.lesson || {}
       return (
         <Board n={n} total={total} label={`Khâu ${s.stageNo} · ${stage?.short || ''}`}>
           <div className="flex flex-1 flex-col justify-center">
@@ -130,7 +129,7 @@ function Scene({ s, metric, n, total, onHomework, wide }) {
           {t?.title && <h3 className="mv-up font-display font-extrabold" style={{ fontSize: wide ? 24 : 21, ...d(100) }}>{t.title}</h3>}
           <div className="flex flex-1 flex-col justify-center gap-5">
             {t?.expr?.eq ? <Equation expr={t.expr} size={wide ? 34 : 26} /> : (
-              <p className="mv-up font-display font-extrabold leading-snug" style={{ fontSize: wide ? 32 : 25, ...d(300) }}>{metric.formula.readable}</p>
+              <p className="mv-up font-display font-extrabold leading-snug" style={{ fontSize: wide ? 32 : 25, ...d(300) }}>{metric.formula?.readable || s.tree?.title}</p>
             )}
             {nested.map((x, k) => (
               <div key={k} className="flex flex-wrap items-baseline gap-2" style={{ fontSize: wide ? 22 : 18 }}>

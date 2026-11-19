@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
-import { stageById, BENCHMARK_LABELS, STAGES } from '../data/index.js'
-import lessons from '../data/lessons.json'
+import { stageById, BENCHMARK_LABELS, STAGES, topicById, TYPES } from '../data/index.js'
 import ExplainerVideo from './ExplainerVideo.jsx'
 import MetricDependencyGraph from './MetricDependencyGraph.jsx'
 import { FormulaTree, Chart } from './LessonVisuals.jsx'
@@ -43,13 +42,15 @@ function Box({ title, children, className = '', id }) {
 export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlaybook }) {
   const stage = stageById[metric.stage]
   const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
-  const L = lessons[metric.metric_id]
+  const topic = topicById[metric.topic]
+  const L = metric.lesson
+  const isMetric = metric.type === 'metric' || !metric.type
   const bench = Object.entries(metric.benchmarks || {}).filter(([, v]) => v)
   const [first, ...rest] = L?.sections || []
   return (
     <article className="space-y-4">
       <header className="pb-2">
-        <p className="eyebrow text-brand-600">Khâu {stageNo} · {stage?.label}</p>
+        <p className="eyebrow text-brand-600">{stageNo}. {stage?.label}{topic ? ` · ${topic.label}` : ''}{!isMetric && TYPES[metric.type] ? ` · ${TYPES[metric.type].label}` : ''}</p>
         <div className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h1 className="font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
           <span className="text-sm text-muted">{metric.vi_name}</span>
@@ -57,7 +58,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
         </div>
         {L?.subtitle && <p className="mt-1 text-base font-semibold text-charcoal">{L.subtitle}</p>}
         {metric.basis?.type === 'custom' && (
-          <p className="mt-2 max-w-3xl rounded-lg bg-stone-50 px-3 py-2 text-xs leading-relaxed text-charcoal"><b className="text-ink">Chỉ số tự xây.</b> {metric.basis.note}</p>
+          <p className="mt-2 max-w-3xl rounded-lg bg-stone-50 px-3 py-2 text-xs leading-relaxed text-charcoal"><b className="text-ink">{isMetric ? 'Chỉ số tự xây.' : 'Khái niệm tự xây.'}</b> {metric.basis.note}</p>
         )}
         <div className="prose-lesson mt-3 max-w-3xl">
           {(L?.intro || [metric.definition]).map((p, i) => <p key={i}><Rich text={p} /></p>)}
@@ -66,7 +67,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
 
       <PlaybookLinks metric={metric} onOpen={onOpenPlaybook} />
 
-      <Box id="cong-thuc" title="Công thức">
+      {metric.formula?.readable && <Box id="cong-thuc" title="Công thức">
         {metric.formula.latex ? (
           <>
             <div className="rounded-xl bg-brand-50 px-3 py-2"><Latex src={metric.formula.latex} /></div>
@@ -76,7 +77,8 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
           <p className="rounded-xl bg-brand-50 px-4 py-3 text-[15px] font-semibold leading-relaxed text-lime-ink">{metric.code} = {metric.formula.readable}</p>
         )}
         {L?.tree && <div className="mt-5 border-t border-stone-100 pt-4"><FormulaTree tree={L.tree} onSelect={onSelect} /></div>}
-      </Box>
+      </Box>}
+      {!metric.formula?.readable && L?.tree && <Box id="cong-thuc" title="Cấu trúc"><FormulaTree tree={L.tree} onSelect={onSelect} /></Box>}
 
       {(L?.breakdown || first) && (
         <div className="grid gap-4 md:grid-cols-2">
@@ -139,7 +141,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
 
       {metric.sources?.length > 0 && (
         <p className="text-xs leading-relaxed text-muted">
-          {metric.basis?.type === 'standard' && <>{metric.basis.note} </>}Khái niệm rút ra từ bài viết: {metric.sources.map((x, i) => (
+          {metric.basis?.type === 'standard' && <>{metric.basis.note} </>}Nguồn: {metric.sources.map((x, i) => (
             <span key={i}>{i > 0 && ' · '}{x.url ? <a href={x.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-700">{x.title}</a> : x.title}{x.author && ` (${x.author})`}</span>
           ))}
         </p>

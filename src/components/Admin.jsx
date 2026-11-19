@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { metricsMaster, playbooks, STAGES, metricById, playbookById } from '../data/index.js'
-import lessons from '../data/lessons.json'
 import cases from '../data/cases.json'
 import site from '../data/site.json'
 import { useAuth, authEnabled } from '../lib/auth.jsx'
@@ -324,9 +323,9 @@ function Feedback({ fb, token, setToken, reload }) {
 
 function Content() {
   const [filter, setFilter] = useState('all')
-  const list = metricsMaster.filter((m) => filter === 'all' || (filter === 'draft' ? m.review === 'draft' : filter === 'added' ? !!m.sources : !lessons[m.metric_id]))
+  const list = metricsMaster.filter((m) => filter === 'all' || (filter === 'draft' ? m.review === 'draft' : filter === 'added' ? m.hasSources : !m.hasLesson))
   const stageNo = (id) => STAGES.findIndex((s) => s.id === id) + 1
-  const counts = { all: metricsMaster.length, draft: metricsMaster.filter((m) => m.review === 'draft').length, added: metricsMaster.filter((m) => m.sources).length, missing: metricsMaster.filter((m) => !lessons[m.metric_id]).length }
+  const counts = { all: metricsMaster.length, draft: metricsMaster.filter((m) => m.review === 'draft').length, added: metricsMaster.filter((m) => m.hasSources).length, missing: metricsMaster.filter((m) => !m.hasLesson).length }
   return (
     <div className="space-y-8">
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -352,8 +351,8 @@ function Content() {
                   <td className="num pr-3">{stageNo(m.stage)}</td>
                   <td className="pr-3">{m.review === 'draft' ? <span className="rounded-full bg-lemon px-2 py-0.5 text-[11px] font-bold text-navy-ink">Chờ duyệt</span> : <span className="text-xs text-ok">Đã duyệt</span>}{m.basis?.type === 'custom' && <span className="ml-1 text-[11px] text-muted">tự xây</span>}</td>
                   <td className="num pr-3">{m.playbook_refs?.length || 0}</td>
-                  <td className="pr-3 text-xs text-charcoal">{[m.simulator && 'giả lập', m.diagnostic_homework && 'bài tập', cases[m.metric_id] && 'video thật'].filter(Boolean).join(', ') || '–'}</td>
-                  <td className="pr-3 text-xs text-charcoal">{m.sources?.[0]?.title ? m.sources[0].title.slice(0, 40) : '–'}</td>
+                  <td className="pr-3 text-xs text-charcoal">{[m.simulator && 'giả lập', m.diagnostic_homework && 'bài tập', m.hasCase && 'video thật'].filter(Boolean).join(', ') || '–'}</td>
+                  <td className="pr-3 text-xs text-charcoal">{m.hasSources ? 'có' : '–'}</td>
                 </tr>
               ))}
             </tbody>

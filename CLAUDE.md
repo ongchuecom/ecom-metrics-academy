@@ -1,6 +1,7 @@
 # Ecom Metrics Academy
 
 - Dữ liệu chỉ số được sinh ra, không sửa tay `src/data/stages/*.json`. Sửa ở `data-src/`, rồi chạy `npm run data:pack`.
+- Mô hình nội dung cho hàng nghìn khái niệm: phân loại Lĩnh vực → Chủ đề → Khái niệm ở `data-src/taxonomy.json`; khái niệm mới (khái niệm, khung làm việc, thuật ngữ, chỉ số) mỗi cái một file `content/concepts/<id>.json`. `scripts/build-content.mjs` (chạy tự động khi build/dev) sinh chỉ mục nhẹ `src/data/catalog.json` và nội dung đầy đủ `public/data/c/<id>.json` (tải khi mở bài, `useConcept` trong `src/lib/content.js`). Hai file sinh ra này không commit. Không import `lessons.json` vào giao diện.
 - Bài đọc nằm ở `src/data/lessons.json`. Bài mẫu chuẩn là `vn_fin_breakeven_roas`.
 - Khi người dùng dán một bài viết để tìm khái niệm hoặc sinh chỉ số mới, làm theo skill `.claude/skills/bai-viet-sinh-chi-so/SKILL.md`.
 - Mỗi lần push lên `main`, GitHub Actions tự dựng web lên GitHub Pages.

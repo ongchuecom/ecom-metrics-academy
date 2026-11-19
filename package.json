@@ -10,12 +10,14 @@
     "validate": "node scripts/validate-data.mjs",
     "data:import": "node scripts/csv-to-json.mjs",
     "data:export": "node scripts/json-to-csv.mjs",
-    "prebuild": "node scripts/validate-data.mjs && node scripts/gen-firestore-rules.mjs --check",
-    "data:pack": "node scripts/import-pack.mjs && node scripts/gen-firestore-rules.mjs",
+    "prebuild": "node scripts/validate-data.mjs && node scripts/gen-firestore-rules.mjs --check && node scripts/build-content.mjs",
+    "data:pack": "node scripts/import-pack.mjs && node scripts/gen-firestore-rules.mjs && node scripts/build-content.mjs",
     "postbuild": "node scripts/prerender.mjs",
     "scan:article": "node scripts/scan-article.mjs",
     "feedback:summary": "node scripts/feedback-summary.mjs",
-    "test:rules": "cd tests && npx -y -p firebase-tools@15 -p @firebase/rules-unit-testing@6 -p firebase@13 firebase emulators:exec --only firestore --project ema-test \"node firestore-rules.test.mjs\""
+    "test:rules": "cd tests && npx -y -p firebase-tools@15 -p @firebase/rules-unit-testing@6 -p firebase@13 firebase emulators:exec --only firestore --project ema-test \"node firestore-rules.test.mjs\"",
+    "content": "node scripts/build-content.mjs",
+    "predev": "node scripts/build-content.mjs"
   },
   "dependencies": {
     "firebase": "^11.10.0",

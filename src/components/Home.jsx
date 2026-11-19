@@ -1,5 +1,4 @@
 import { metricById, metricsMaster, playbooks, playbookById, LEARNING_PATH } from '../data/index.js'
-import lessons from '../data/lessons.json'
 import site from '../data/site.json'
 import { pbTitle } from './Playbooks.jsx'
 import LeadForm from './LeadForm.jsx'
@@ -76,7 +75,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             <p className="text-sm font-semibold text-charcoal">Bấm thử một khái niệm:</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {TERMS.filter((id) => metricById[id]).map((id) => (
-                <button key={id} onClick={() => onSelectMetric(id)} title={lessons[id]?.subtitle || metricById[id].vi_name}
+                <button key={id} onClick={() => onSelectMetric(id)} title={metricById[id].subtitle || metricById[id].vi_name}
                   className="rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-ink ring-1 ring-stone-200 transition hover:bg-brand-50 hover:ring-brand-500">
                   {metricById[id].code}
                 </button>
@@ -187,7 +186,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
                   <span className="w-6 shrink-0 text-right font-display text-sm font-black text-brand-600">{i + 1}</span>
                   <span className="min-w-0">
                     <span className="font-display font-extrabold text-ink">{m.code}</span>
-                    <span className="ml-2 text-sm text-charcoal">{lessons[id]?.subtitle || m.vi_name}</span>
+                    <span className="ml-2 text-sm text-charcoal">{m.subtitle || m.vi_name}</span>
                   </span>
                 </button>
               </li>

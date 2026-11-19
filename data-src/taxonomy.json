@@ -1,0 +1,59 @@
+{
+  "_huong_dan": "Phân loại 3 tầng: Lĩnh vực → Chủ đề → Khái niệm. id lĩnh vực giữ nguyên mã khâu cũ để không gãy link. Chủ đề có sub_groups: chỉ số trong pack thuộc sub_group nào thì vào chủ đề đó. Khái niệm mới (content/concepts/*.json) ghi thẳng topic = id chủ đề. Sửa xong chạy npm run data:pack.",
+  "types": {
+    "metric": { "label": "Chỉ số", "desc": "Đo được bằng số, có công thức" },
+    "concept": { "label": "Khái niệm", "desc": "Cách hiểu, nguyên lý, không nhất thiết có công thức" },
+    "framework": { "label": "Khung làm việc", "desc": "Các bước, ma trận, quy trình để ra quyết định" },
+    "term": { "label": "Thuật ngữ", "desc": "Từ chuyên môn, giải thích ngắn" }
+  },
+  "domains": [
+    { "id": "01_product_rd", "short": "Sản phẩm", "label": "Sản phẩm & nguồn hàng", "desc": "Chọn hàng, giá vốn, nhập hàng, tồn kho, chất lượng.",
+      "topics": [
+        { "id": "hang-hoa-gia-von", "label": "Hàng hóa & giá vốn", "sub_groups": ["Hàng hóa & Giá vốn"] },
+        { "id": "chon-san-pham", "label": "Chọn sản phẩm & nghiên cứu thị trường" }
+      ] },
+    { "id": "02_traffic_acquisition", "short": "Traffic", "label": "Marketing & traffic", "desc": "Quảng cáo, nội dung, KOC, affiliate, traffic tự nhiên.",
+      "topics": [
+        { "id": "quang-cao", "label": "Quảng cáo", "sub_groups": ["Quảng cáo & Chuyển đổi"] },
+        { "id": "noi-dung-kenh", "label": "Nội dung, KOC & affiliate" }
+      ] },
+    { "id": "03_conversion_sales", "short": "Chuyển đổi", "label": "Bán hàng & chuyển đổi", "desc": "Trang sản phẩm, giá, khuyến mãi, chốt đơn.",
+      "topics": [
+        { "id": "chuyen-doi", "label": "Chuyển đổi & giá trị đơn", "sub_groups": ["Quảng cáo & Chuyển đổi"] },
+        { "id": "ban-tren-san", "label": "Bán trên sàn & kênh riêng" }
+      ] },
+    { "id": "04_fulfillment_supply", "short": "Kho vận", "label": "Vận hành & kho vận", "desc": "Kho, đóng gói, giao hàng, hoàn hàng, COD.",
+      "topics": [
+        { "id": "ship-hoan-cod", "label": "Ship, hoàn hàng & COD", "sub_groups": ["Ship & Hoàn COD"] },
+        { "id": "van-hanh-kho", "label": "Vận hành kho", "sub_groups": ["Vận hành Kho"] }
+      ] },
+    { "id": "05_retention_lifecycle", "short": "Giữ chân", "label": "Khách hàng & giữ chân", "desc": "Mua lại, vòng đời khách, chăm sóc, đánh giá.",
+      "topics": [
+        { "id": "giu-chan-khach", "label": "Giữ chân khách hàng", "sub_groups": ["Giữ chân Khách hàng"] }
+      ] },
+    { "id": "06_finance_unit_econ", "short": "Tài chính", "label": "Tài chính & dòng tiền", "desc": "Lãi thật, phí sàn, dòng tiền, thuế, sức khỏe tài chính.",
+      "topics": [
+        { "id": "phi-san-loi-nhuan", "label": "Phí sàn & lợi nhuận", "sub_groups": ["Phí Sàn & Lợi nhuận"] },
+        { "id": "dong-tien", "label": "Dòng tiền", "sub_groups": ["Dòng tiền (Cashflow)"] },
+        { "id": "thue-tuan-thu", "label": "Thuế & tuân thủ", "sub_groups": ["Thuế & Tuân thủ"] },
+        { "id": "suc-khoe-tai-chinh", "label": "Sức khỏe tài chính", "sub_groups": ["Sức khỏe Tài chính"] }
+      ] },
+    { "id": "07_team_operations", "short": "Đội ngũ", "label": "Đội ngũ & quản trị", "desc": "Hiệu suất, tuyển dụng, lãnh đạo, quy trình.",
+      "topics": [
+        { "id": "hieu-suat-ban-hang", "label": "Hiệu suất bán hàng", "sub_groups": ["Hiệu suất Bán hàng"] },
+        { "id": "hieu-suat-doi-ngu", "label": "Hiệu suất đội ngũ & vận hành", "sub_groups": ["Hiệu suất Đội ngũ", "Hiệu suất Vận hành"] },
+        { "id": "lanh-dao-van-hoa", "label": "Lãnh đạo & văn hóa" },
+        { "id": "tuyen-dung-dao-tao", "label": "Tuyển dụng & đào tạo" },
+        { "id": "quy-trinh-quan-tri", "label": "Quy trình & quản trị" }
+      ] },
+    { "id": "08_startup_strategy", "short": "Khởi nghiệp", "label": "Khởi nghiệp & chiến lược", "desc": "Khởi nghiệp tinh gọn, mô hình kinh doanh, gọi vốn, thương hiệu, go global, AI.",
+      "topics": [
+        { "id": "khoi-nghiep-tinh-gon", "label": "Khởi nghiệp tinh gọn" },
+        { "id": "mo-hinh-kinh-doanh", "label": "Mô hình kinh doanh & tăng trưởng" },
+        { "id": "goi-von-ma", "label": "Gọi vốn & M&A" },
+        { "id": "thuong-hieu", "label": "Thương hiệu" },
+        { "id": "go-global", "label": "Go global" },
+        { "id": "ai-ecom", "label": "AI trong Ecom" }
+      ] }
+  ]
+}

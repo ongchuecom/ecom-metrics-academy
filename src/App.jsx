@@ -1,9 +1,10 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
-import { metricById, metricsMaster, playbookById, LEARNING_PATH } from './data/index.js'
+import { metricById, metricsMaster, playbookById, LEARNING_PATH, topicById } from './data/index.js'
 import { href, parse } from './lib/route.js'
 import { PlaybookPage } from './components/Playbooks.jsx'
 import Leaderboard from './components/Leaderboard.jsx'
 import Privacy from './components/Privacy.jsx'
+import TopicPage from './components/TopicPage.jsx'
 // trang quản trị chỉ tải khi có người mở /quan-tri/
 const Admin = lazy(() => import('./components/Admin.jsx'))
 import { LoginDialog, AccountButton } from './components/Login.jsx'
@@ -22,19 +23,19 @@ import Home from './components/Home.jsx'
 import SearchDialog, { SearchButton } from './components/SearchDialog.jsx'
 import LeadForm from './components/LeadForm.jsx'
 import PageFeedback from './components/PageFeedback.jsx'
-import lessons from './data/lessons.json'
+import { useConcept, prefetchConcept } from './lib/content.js'
 import cases from './data/cases.json'
 
 // Mục lục trong bài (máy tính): nhảy tới từng phần mà không phải rời trang
 function Toc({ metric, hasPractice }) {
-  const L = lessons[metric.metric_id] || {}
+  const L = metric.lesson || {}
   const items = [
-    ['cong-thuc', 'Công thức'],
+    (metric.formula?.readable || L.tree) && ['cong-thuc', metric.formula?.readable ? 'Công thức' : 'Cấu trúc'],
     L.breakdown && ['vi-du', 'Ví dụ có số'],
     L.sections?.[0] && ['nguong', L.sections[0].title],
     L.mistakes && ['hay-hieu-sai', 'Hay hiểu sai'],
     ['video', 'Xem nhanh 1 phút'],
-    ['so-do', 'Nối với chỉ số nào'],
+    (metric.relationships?.upstream_drivers?.length || metric.relationships?.downstream_impacts?.length || metric.relationships?.related?.length) && ['so-do', 'Nối với khái niệm nào'],
     cases[metric.metric_id] && ['tinh-huong', 'Tình huống thực tế'],
     hasPractice && ['thuc-hanh', 'Tự tay tính'],
   ].filter(Boolean)
@@ -68,11 +69,28 @@ function Brand({ compact = false, onHome }) {
 
 const TITLE = 'Ecom Metrics Academy'
 
+// Khung chờ khi nội dung bài đang tải (chỉ mục đã có sẵn tên, định nghĩa)
+function LessonSkeleton({ metric, error }) {
+  return (
+    <article className="space-y-4" aria-busy={!error}>
+      <header>
+        <h1 className="font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
+        <p className="mt-1 text-sm text-muted">{metric.vi_name}</p>
+        {metric.subtitle && <p className="mt-1 text-base font-semibold text-charcoal">{metric.subtitle}</p>}
+        <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-body">{metric.definition}</p>
+      </header>
+      {error ? <p className="text-sm text-coral">Chưa tải được nội dung bài. <button onClick={() => window.location.reload()} className="underline">Tải lại trang</button></p>
+        : <div className="space-y-3" aria-hidden="true">{[0, 1, 2].map((i) => <div key={i} className="h-28 animate-pulse rounded-2xl bg-stone-100" />)}</div>}
+    </article>
+  )
+}
+
 export default function App() {
   const [route, setRoute] = useState(() => parse())
   const [drawer, setDrawer] = useState(false)
   const [searching, setSearching] = useState(false)
   const metric = route.type === 'metric' ? metricById[route.id] : null
+  const { data: full, error: fullErr } = useConcept(metric?.metric_id)
   const tabs = tabsFor(metric)
   const tab = metric && tabs.some((t) => t.id === route.tab) ? route.tab : tabs[0]?.id
 
@@ -90,6 +108,7 @@ export default function App() {
   const openHome = useCallback(() => go({ type: 'home' }), [go])
   const openHealth = useCallback(() => go({ type: 'health' }), [go])
   const openLeaderboard = useCallback(() => go({ type: 'leaderboard' }), [go])
+  const openTopic = useCallback((id) => go({ type: 'topic', id }), [go])
   // Đăng nhập xong thì gộp điểm trắc nghiệm trên máy với điểm theo tài khoản
   const { user } = useAuth()
   useEffect(() => { if (user) syncAccount(user).catch(() => {}) }, [user?.uid]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -111,7 +130,8 @@ export default function App() {
       : route.type === 'health' ? `Khám sức khỏe shop · ${TITLE}`
       : route.type === 'leaderboard' ? `Bảng xếp hạng trắc nghiệm · ${TITLE}`
       : route.type === 'privacy' ? `Chính sách riêng tư · ${TITLE}`
-      : route.type === 'admin' ? `Quản trị · ${TITLE}` : `${TITLE} · Ông chú Ecom`
+      : route.type === 'admin' ? `Quản trị · ${TITLE}`
+      : route.type === 'topic' ? `${topicById[route.id]?.label} · ${TITLE}` : `${TITLE} · Ông chú Ecom`
   }, [route, metric])
 
   // Phím tắt tìm kiếm: Ctrl/⌘ + K hoặc "/"
@@ -137,13 +157,13 @@ export default function App() {
   const prev = metricById[order[at - 1]], next = metricById[order[at + 1]]
 
   const side = (
-    <Sidebar selected={metric?.metric_id ?? null} onSelect={select} selectedPb={route.type === 'pb' ? route.id : null} onOpenPlaybook={openPlaybook} />
+    <Sidebar selected={metric?.metric_id ?? null} onSelect={select} selectedPb={route.type === 'pb' ? route.id : null} onOpenPlaybook={openPlaybook} selectedTopic={route.type === 'topic' ? route.id : null} onOpenTopic={openTopic} />
   )
 
   return (
     <div className="min-h-full lg:flex">
       <LoginDialog />
-      <SearchDialog open={searching} onClose={() => setSearching(false)} onSelectMetric={select} onOpenPlaybook={openPlaybook} />
+      <SearchDialog open={searching} onClose={() => setSearching(false)} onSelectMetric={select} onOpenPlaybook={openPlaybook} onOpenTopic={openTopic} />
 
       {/* Thanh trên cùng trên mobile */}
       <header className="book-band sticky top-0 z-30 flex items-center justify-between gap-2 px-4 py-2.5 lg:hidden">
@@ -207,6 +227,7 @@ export default function App() {
           {route.type === 'pb' && <PlaybookPage playbook={playbookById[route.id]} onSelectMetric={select} onOpen={openPlaybook} onOpenLeaderboard={openLeaderboard} />}
           {route.type === 'leaderboard' && <Leaderboard onOpenPlaybook={openPlaybook} />}
           {route.type === 'privacy' && <Privacy />}
+          {route.type === 'topic' && <TopicPage key={route.id} id={route.id} onSelectMetric={select} onOpenTopic={openTopic} onOpenPlaybook={openPlaybook} />}
           {route.type === 'admin' && <Suspense fallback={<p className="text-sm text-muted">Đang tải trang quản trị…</p>}><Admin /></Suspense>}
 
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
@@ -218,9 +239,11 @@ export default function App() {
               </div>
             )}
 
-            <MetricLesson metric={metric} onSelect={select} onHomework={openHomework} onOpenPlaybook={openPlaybook} />
+            {full ? <>
+            <MetricLesson metric={full} onSelect={select} onHomework={openHomework} onOpenPlaybook={openPlaybook} />
 
-            <CaseStudy key={`case-${metric.metric_id}`} metric={metric} onSelect={select} />
+            <CaseStudy key={`case-${metric.metric_id}`} metric={full} onSelect={select} />
+            </> : <LessonSkeleton metric={metric} error={fullErr} />}
 
             {tabs.length > 0 && (
               <section id="thuc-hanh" className="scroll-mt-20 space-y-4">
@@ -236,19 +259,19 @@ export default function App() {
                   </div>
                 )}
                 <div role="tabpanel">
-                  {tab === 'sim' && <MetricSimulator key={metric.metric_id} metric={metric} onSelect={select} />}
-                  {tab === 'homework' && <DiagnosticHomework key={metric.metric_id} metric={metric} onSelect={select} />}
+                  {full && tab === 'sim' && <MetricSimulator key={metric.metric_id} metric={full} onSelect={select} />}
+                  {full && tab === 'homework' && <DiagnosticHomework key={metric.metric_id} metric={full} onSelect={select} />}
                 </div>
               </section>
             )}
 
             <p className="text-sm text-charcoal">Muốn tính {metric.code} bằng số của shop mình? <button onClick={openHealth} className="font-semibold text-brand-700 hover:underline">Khám sức khỏe shop →</button></p>
 
-            <PageFeedback key={metric.metric_id} page={metric.metric_id} title={`${metric.code}: ${lessons[metric.metric_id]?.subtitle || metric.vi_name}`} shareText={metric.definition} />
+            <PageFeedback key={metric.metric_id} page={metric.metric_id} title={`${metric.code}: ${metric.subtitle || metric.vi_name}`} shareText={metric.definition} />
 
             <nav aria-label="Chuyển bài" className="grid grid-cols-2 gap-3">
               {[prev, next].map((m, k) => m ? (
-                <a key={m.metric_id} href={href({ type: 'metric', id: m.metric_id })} onClick={(e) => { e.preventDefault(); select(m.metric_id) }}
+                <a key={m.metric_id} href={href({ type: 'metric', id: m.metric_id })} onClick={(e) => { e.preventDefault(); select(m.metric_id) }} onMouseEnter={() => prefetchConcept(m.metric_id)}
                   className={`rounded-xl p-2 transition hover:bg-brand-50 ${k ? 'text-right' : 'text-left'}`}>
                   <p className="eyebrow text-muted">{k ? (pathIdx >= 0 ? 'Bài tiếp trong lộ trình →' : 'Bài tiếp →') : '← Bài trước'}</p>
                   <p className="mt-1 font-display font-extrabold text-brand-600">{m.code}</p>
@@ -258,7 +281,7 @@ export default function App() {
             </nav>
 
             <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
-          </div><Toc metric={metric} hasPractice={tabs.length > 0} /></div>)}
+          </div>{full && <Toc metric={full} hasPractice={tabs.length > 0} />}</div>)}
 
           {route.type !== 'home' && route.type !== 'admin' && <Promos compact />}
 

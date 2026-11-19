@@ -63,7 +63,14 @@ function Column({ title, hint, children, empty }) {
 }
 
 export default function MetricDependencyGraph({ metric, onSelect }) {
-  const { upstream_drivers: up = [], downstream_impacts: down = [], trade_offs: trade = [] } = metric.relationships || {}
+  const { upstream_drivers: up = [], downstream_impacts: down = [], trade_offs: trade = [], related = [] } = metric.relationships || {}
+  // Khái niệm không có quan hệ nhân quả rõ ràng: chỉ hiện nhóm "Liên quan"
+  if (!up.length && !down.length && !trade.length) return related.length ? (
+    <section aria-label="Khái niệm liên quan" className="space-y-3">
+      <SectionTitle eyebrow="Liên quan" title={`Học ${metric.code} xong, đọc tiếp`} desc="Bấm vào một thẻ để mở bài." />
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{related.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind="link" onSelect={onSelect} delay={i * 60} />)}</div>
+    </section>
+  ) : null
   return (
     <section aria-label="Sơ đồ phụ thuộc chỉ số" className="space-y-4">
       <SectionTitle eyebrow="Sơ đồ phụ thuộc" title={`${metric.code} đứng ở đâu trong cỗ máy?`} desc="Bấm vào một thẻ để học chỉ số đó."
@@ -98,6 +105,12 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
         </div>
       </div>
       </div>
+      {related.length > 0 && (
+        <div>
+          <p className="eyebrow mb-2 text-charcoal">Khái niệm liên quan</p>
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{related.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind="link" onSelect={onSelect} delay={i * 60} />)}</div>
+        </div>
+      )}
     </section>
   )
 }
