@@ -1,196 +1,177 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import katex from 'katex'
-import { metricById, stageById, STAGES } from '../data/index.js'
-import { evaluateOutputs, isWarning, formatUnit } from '../lib/formula.js'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { stageById, STAGES } from '../data/index.js'
+import lessons from '../data/lessons.json'
+import { Chart } from './LessonVisuals.jsx'
 
-// Video giải thích dạng motion, dựng trực tiếp từ dữ liệu chỉ số (không cần file MP4).
-// Mỗi chỉ số tự có 4–6 cảnh: Mở đầu → Nói gọn → Công thức → Ví dụ → Mạng lưới → Chốt.
+// Video giải thích kiểu bảng giảng: nền trắng kẻ ô mờ, công thức, con số và biểu đồ viết dần lên bảng.
+// Mọi cảnh lấy từ bài đọc của chỉ số (lessons.json), nên video và bài đọc luôn khớp số.
 // Nếu chỉ số có media.video_url (Drive/YouTube), người xem chuyển sang được video quay thật.
 
-const fs = (n) => ({ fontSize: `${n}cqmin` })
+const plain = (t = '') => t.replace(/\*\*/g, '')
 const spoken = (s) => s.replace(/[×*]/g, ' nhân ').replace(/\//g, ' chia ').replace(/−/g, ' trừ ').replace(/[()]/g, ' ')
+const rich = (t = '') => t.split('**').map((x, i) => (i % 2 ? <b key={i} className="board-mark">{x}</b> : x))
+const durationFor = (text, base = 3) => Math.round(Math.min(11, Math.max(5, base + (text || '').length / 22)) * 1000)
 
-function durationFor(text, base = 3) {
-  return Math.min(10, Math.max(4.5, base + (text || '').length / 20)) * 1000
-}
+// Khổ thiết kế cố định, cả khung được co giãn theo bề rộng thật để biểu đồ luôn vừa
+const WIDE = { w: 960, h: 540 }
+const TALL = { w: 520, h: 650 }
 
 function buildScenes(metric) {
+  const L = lessons[metric.metric_id] || {}
   const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
-  const up = metric.relationships?.upstream_drivers || []
-  const down = metric.relationships?.downstream_impacts || []
-  const trade = metric.relationships?.trade_offs?.[0]
   const scenes = []
-  scenes.push({ id: 'hook', label: 'Mở đầu', say: `${metric.code}, ${metric.vi_name}. Hiểu nhanh trong vài cảnh.`, dur: 4200, stageNo })
-  scenes.push({ id: 'def', label: 'Nói gọn', say: metric.definition, dur: durationFor(metric.definition, 2.5) })
-  scenes.push({ id: 'formula', label: 'Công thức', say: 'Công thức: ' + spoken(metric.formula.readable), dur: durationFor(metric.formula.readable, 3.5) })
-  if (metric.simulator) {
-    const sim = metric.simulator
-    const vals = Object.fromEntries(sim.controls.map((c) => [c.key, c.default]))
-    const res = evaluateOutputs(sim.outputs, vals)
-    const out = [...sim.outputs].reverse().find((o) => o.warning_threshold) || sim.outputs[sim.outputs.length - 1]
-    const inputs = sim.controls.slice(0, 4).map((c) => ({ label: c.label, value: formatUnit(c.default, c.unit) }))
-    const value = res[out.key]
-    const warn = isWarning(value, out.warning_threshold)
-    scenes.push({
-      id: 'example', label: 'Ví dụ', inputs, out: { label: out.label, value: formatUnit(value, out.unit), warn, threshold: out.warning_threshold },
-      say: `Ví dụ: ${inputs.map((i) => `${i.label} ${i.value}`).join(', ')}. Khi đó ${out.label} là ${formatUnit(value, out.unit)}${warn ? ', đã vượt ngưỡng cảnh báo' : ''}.`,
-      dur: 2000 + inputs.length * 900 + 2600,
-    })
-  }
-  if (up.length || down.length) {
-    const name = (r) => metricById[r.metric_id]?.code || r.metric_id
-    scenes.push({
-      id: 'network', label: 'Mạng lưới', up: up.slice(0, 3), down: down.slice(0, 3),
-      say: `${up.length ? `${metric.code} chịu tác động từ ${up.slice(0, 3).map(name).join(', ')}.` : ''} ${down.length ? `Nó kéo theo ${down.slice(0, 3).map(name).join(', ')}.` : ''}`,
-      dur: 6000,
-    })
-  }
-  const hw = metric.diagnostic_homework
+  scenes.push({ id: 'title', label: 'Đề bài', stageNo, say: `${metric.code}. ${L.subtitle || metric.vi_name}.`, dur: 5000 })
   scenes.push({
-    id: 'close', label: 'Chốt', trade, hw: hw?.title,
-    say: `${trade ? 'Cẩn thận: ' + trade.note + '.' : ''} ${hw ? 'Thử sức với ' + hw.title.replace(/^Bệnh án:\s*/, '') + '.' : 'Kéo xuống để xem chỉ số này nối với những chỉ số nào.'}`,
-    dur: durationFor(trade?.note, 4),
+    id: 'formula', label: 'Công thức', tree: L.tree,
+    say: 'Công thức: ' + spoken(metric.formula.readable) + (L.tree?.note ? '. ' + L.tree.note : ''),
+    dur: durationFor(metric.formula.readable + (L.tree?.note || ''), 4),
   })
+  if (L.breakdown?.chart) {
+    const b = L.breakdown
+    scenes.push({ id: 'chart', label: 'Ví dụ số', title: b.title, chart: b.chart, text: b.after, say: `${b.title}. ${plain(b.after)}`, dur: durationFor(b.title + plain(b.after), 5) })
+  }
+  ;(L.sections || []).filter((x) => x.chart).slice(0, 2).forEach((x, k) => {
+    scenes.push({ id: 'chart', label: k ? 'Áp dụng' : 'Ngưỡng', title: x.title, chart: x.chart, text: x.body?.[0], say: `${x.title}. ${plain(x.body?.[0] || '')}`, dur: durationFor(x.title + plain(x.body?.[0] || ''), 5) })
+  })
+  const hw = metric.diagnostic_homework
+  const remember = L.remember || metric.definition
+  scenes.push({ id: 'close', label: 'Ghi nhớ', remember, hw: hw?.title, say: `Ghi nhớ: ${plain(remember)}${hw ? ' Thử sức với ' + hw.title.replace(/^Bệnh án:\s*/, '') + '.' : ''}`, dur: durationFor(remember, 4.5) })
   scenes[0].agenda = scenes.slice(1).map((x) => x.label)
   return scenes
 }
 
-function Frame({ bg, children, n, total, label, dark, sign = false }) {
+// Phóng hoặc co biểu đồ cho vừa ô còn trống trên bảng (tối đa 1,6 lần)
+function Fit({ children, className = '', max = 1.6 }) {
+  const outer = useRef(null), inner = useRef(null)
+  useLayoutEffect(() => {
+    const o = outer.current, n = inner.current
+    if (!o || !n) return
+    const W = o.clientWidth, H = o.clientHeight
+    let k = max
+    for (let t = 0; t < 4; t++) {
+      n.style.width = `${W / k}px`
+      const next = Math.min(max, H / Math.max(1, n.scrollHeight))
+      if (Math.abs(next - k) < 0.01) break
+      k = next
+    }
+    n.style.transform = `scale(${k})`
+  }, [children, max])
   return (
-    <div className={`absolute inset-0 flex flex-col ${bg}`} style={{ padding: '6cqmin 7cqmin' }}>
-      <div className={`flex items-center justify-between ${dark ? 'text-white/85' : 'text-current opacity-70'}`}>
-        <span className="eyebrow" style={fs(2.6)}>{label}</span>
-        <span className="num font-bold" style={fs(2.6)}>{n}/{total}</span>
-      </div>
-      <div className="relative flex min-h-0 flex-1 flex-col justify-center">{children}</div>
-      {sign && <p className={`text-right font-display font-extrabold ${dark ? 'text-white/85' : 'opacity-70'}`} style={fs(2.6)}>Ông chú Ecom</p>}
+    <div ref={outer} className={`relative min-h-0 flex-1 overflow-hidden ${className}`}>
+      <div ref={inner} style={{ transformOrigin: 'top left' }}>{children}</div>
     </div>
   )
 }
 
-function Scene({ s, metric, n, total, onHomework }) {
-  const d = (ms) => ({ animationDelay: `${ms}ms` })
+function Board({ children, n, total, label, sign = false }) {
+  return (
+    <div className="board absolute inset-0 flex flex-col text-ink" style={{ padding: '26px 34px 22px' }}>
+      <div className="flex items-center justify-between text-[13px] font-bold text-muted">
+        <span className="eyebrow">{label}</span>
+        <span className="num">{n}/{total}</span>
+      </div>
+      <div className="relative mt-3 flex min-h-0 flex-1 flex-col">{children}</div>
+      {sign && <p className="text-right font-display text-[14px] font-extrabold text-muted">Ông chú Ecom</p>}
+    </div>
+  )
+}
+
+const d = (ms) => ({ animationDelay: `${ms}ms` })
+
+// Một vế của công thức viết lên bảng: tên biến kèm mũi tên chiều muốn đi
+function Term({ n, delay, big }) {
+  if (typeof n === 'string') return <span className="mv-up px-1 font-display font-bold text-muted" style={d(delay)}>{n}</span>
+  const arrow = n.dir === 'up' ? '↑' : n.dir === 'down' ? '↓' : ''
+  return (
+    <span className={`mv-up inline-flex items-baseline gap-1 border-b-2 border-ink/80 px-1 font-display font-extrabold ${big ? '' : ''}`} style={d(delay)}>
+      {n.label}{arrow && <span className="text-brand-600">{arrow}</span>}
+    </span>
+  )
+}
+
+function Equation({ expr, size, start = 300 }) {
+  const items = expr.eq || []
+  return (
+    <p className="flex flex-wrap items-baseline gap-x-2 gap-y-3 leading-tight" style={{ fontSize: size }}>
+      <span className="mv-up font-display font-black text-brand-600" style={d(start)}>{expr.label}</span>
+      <span className="mv-up font-display font-bold text-muted" style={d(start + 250)}>=</span>
+      {items.map((x, k) => <Term key={k} n={x} delay={start + 500 + k * 380} />)}
+    </p>
+  )
+}
+
+function Scene({ s, metric, n, total, onHomework, wide }) {
   const stage = stageById[metric.stage]
   switch (s.id) {
-    case 'hook':
+    case 'title': {
+      const L = lessons[metric.metric_id] || {}
       return (
-        <Frame bg="bg-brand-50 text-ink" n={n} total={total} label={`Khâu ${s.stageNo} · ${stage?.short || ''}`}>
-          <p className="mv-up font-display font-extrabold text-brand-600" style={{ ...fs(4), ...d(100) }}>Hiểu nhanh</p>
-          <p className="mv-pop font-display font-black leading-none" style={{ ...fs(metric.code.length > 10 ? 12 : 18), ...d(250) }}>{metric.code}</p>
-          <p className="mv-up mt-[2cqmin] font-semibold leading-snug text-body" style={{ ...fs(4), ...d(800) }}>{metric.vi_name}</p>
-          <div className="mt-[4cqmin] flex flex-wrap gap-[1.5cqmin]">
-            {s.agenda.map((a, k) => (
-              <span key={a} className="mv-up rounded-full bg-white font-semibold text-body ring-1 ring-brand-500/30" style={{ padding: '1cqmin 2.4cqmin', ...fs(2.8), ...d(1300 + k * 220) }}>
-                {k + 1}. {a}
-              </span>
-            ))}
-          </div>
-        </Frame>
-      )
-    case 'def': {
-      const [first, ...rest] = metric.definition.split(/(?<=\.)\s+/)
-      return (
-        <Frame bg="bg-white text-ink" n={n} total={total} label="Nói gọn">
-          <div className="flex gap-[3cqmin]">
-            <span className="mv-up w-[1.4cqmin] shrink-0 rounded-full bg-brand-500" style={d(0)} />
-            <div>
-              <p className="font-display font-extrabold leading-snug" style={fs(5.6)}>
-                <span className="mv-wipe" style={d(400)}>{first}</span>
+        <Board n={n} total={total} label={`Khâu ${s.stageNo} · ${stage?.short || ''}`}>
+          <div className="flex flex-1 flex-col justify-center">
+            <p className="mv-up font-display font-black leading-none" style={{ fontSize: metric.code.length > 10 ? (wide ? 72 : 52) : (wide ? 104 : 76), ...d(150) }}>{metric.code}</p>
+            <p className="mv-up mt-3 font-semibold text-charcoal" style={{ fontSize: wide ? 22 : 19, ...d(500) }}>{metric.vi_name}</p>
+            {L.subtitle && (
+              <p className="mt-5 font-display font-extrabold leading-snug" style={{ fontSize: wide ? 30 : 25 }}>
+                <span className="mv-wipe" style={d(1000)}>{L.subtitle}</span>
               </p>
-              {rest.length > 0 && <p className="mv-up mt-[3cqmin] leading-relaxed text-body" style={{ ...fs(3.6), ...d(1600) }}>{rest.join(' ')}</p>}
-            </div>
+            )}
+            <ol className={`mt-7 flex flex-wrap gap-x-5 gap-y-1.5 font-semibold text-body`} style={{ fontSize: wide ? 16 : 15 }}>
+              {s.agenda.map((a, k) => <li key={k} className="mv-up" style={d(1700 + k * 200)}><span className="num mr-1 text-brand-600">{k + 1}.</span>{a}</li>)}
+            </ol>
           </div>
-        </Frame>
+        </Board>
       )
     }
     case 'formula': {
-      let html = ''
-      try { html = metric.formula.latex ? katex.renderToString(metric.formula.latex, { displayMode: true, throwOnError: false, strict: false }) : '' } catch { html = '' }
+      const t = s.tree
+      const nested = (t?.expr?.eq || []).filter((x) => typeof x === 'object' && x.eq)
       return (
-        <Frame bg="bg-white text-ink" n={n} total={total} label="Công thức">
-          <div className="mv-pop rounded-[3cqmin] bg-brand-50 text-ink" style={{ padding: '4cqmin', ...d(200) }}>
-            {html ? <div style={fs(4.4)} dangerouslySetInnerHTML={{ __html: html }} /> : <p className="font-display font-extrabold leading-snug" style={fs(4.2)}>{metric.formula.readable}</p>}
+        <Board n={n} total={total} label="Công thức">
+          {t?.title && <h3 className="mv-up font-display font-extrabold" style={{ fontSize: wide ? 24 : 21, ...d(100) }}>{t.title}</h3>}
+          <div className="flex flex-1 flex-col justify-center gap-5">
+            {t?.expr?.eq ? <Equation expr={t.expr} size={wide ? 34 : 26} /> : (
+              <p className="mv-up font-display font-extrabold leading-snug" style={{ fontSize: wide ? 32 : 25, ...d(300) }}>{metric.formula.readable}</p>
+            )}
+            {nested.map((x, k) => (
+              <div key={k} className="flex flex-wrap items-baseline gap-2" style={{ fontSize: wide ? 22 : 18 }}>
+                <span className="mv-up text-muted" style={d(2200 + k * 900)}>với</span>
+                <Equation expr={x} size={wide ? 22 : 18} start={2300 + k * 900} />
+              </div>
+            ))}
+            {t?.note && <p className="mv-up max-w-[46rem] leading-relaxed text-body" style={{ fontSize: wide ? 18 : 16, ...d(2600 + nested.length * 900) }}>{t.note.replace(/\s*Bấm vào từng chỉ số để học sâu\.?/, '')}</p>}
           </div>
-          {html && <p className="mv-up mt-[4cqmin] font-semibold leading-snug" style={{ ...fs(3.6), ...d(1200) }}>{metric.formula.readable}</p>}
-        </Frame>
+        </Board>
       )
     }
-    case 'example':
+    case 'chart':
       return (
-        <Frame bg="bg-white text-ink" n={n} total={total} label="Ví dụ minh họa">
-          <div className="grid items-center gap-[3cqmin] sm:grid-cols-[1fr_1fr]" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(40cqmin, 1fr))' }}>
-            <div className="space-y-[1.6cqmin]">
-              {s.inputs.map((i, k) => (
-                <div key={i.label} className="mv-left flex items-baseline justify-between gap-[2cqmin] rounded-[2cqmin] bg-stone-50" style={{ padding: '1.6cqmin 2.6cqmin', ...d(200 + k * 700) }}>
-                  <span className="font-semibold leading-tight" style={fs(2.9)}>{i.label}</span>
-                  <span className="num shrink-0 font-extrabold" style={fs(3.4)}>{i.value}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mv-pop rounded-[3cqmin] bg-lemon text-center text-navy-ink" style={{ padding: '4cqmin', ...d(400 + s.inputs.length * 700) }}>
-              <p className="font-semibold text-charcoal" style={fs(3)}>{s.out.label}</p>
-              <p className={`num font-black leading-none ${s.out.warn ? 'text-coral' : 'text-ink'}`} style={fs(9)}>{s.out.value}</p>
-              {s.out.threshold && (
-                <p className={`mt-[1.5cqmin] font-bold ${s.out.warn ? 'text-coral' : 'text-navy-ink'}`} style={fs(2.8)}>
-                  {s.out.warn ? 'Vượt ngưỡng cảnh báo ' : 'Trong ngưỡng an toàn · cảnh báo khi '}{s.out.threshold}
-                </p>
-              )}
-            </div>
+        <Board n={n} total={total} label={s.label}>
+          <h3 className="mv-up font-display font-extrabold leading-snug" style={{ fontSize: wide ? 26 : 21, ...d(100) }}>{s.title}</h3>
+          <div className={`mt-4 flex min-h-0 flex-1 gap-7 ${wide ? 'flex-row' : 'flex-col'}`}>
+            <Fit className={`board-draw ${wide ? 'basis-[60%]' : ''}`} max={wide ? 1.6 : 1.3}>
+              <div className="mv-up" style={{ ...d(500), fontSize: 15 }}><Chart c={s.chart} /></div>
+            </Fit>
+            {s.text && (
+              <p className={`mv-up leading-relaxed text-body ${wide ? 'basis-[40%] self-start pt-2' : 'shrink-0'}`} style={{ fontSize: wide ? 18 : 15.5, ...d(2400) }}>{rich(s.text)}</p>
+            )}
           </div>
-        </Frame>
+        </Board>
       )
-    case 'network': {
-      const chip = (r, k, side) => {
-        const t = metricById[r.metric_id]
-        return (
-          <div key={r.metric_id} className={`${side === 'l' ? 'mv-left' : 'mv-right'} rounded-[2cqmin] border-l-[1.2cqmin] bg-white ${r.impact === 'inverse' ? 'border-coral' : 'border-stone-400'} ring-1 ring-stone-200`}
-            style={{ padding: '1.4cqmin 2.2cqmin', ...d((side === 'l' ? 300 : 2200) + k * 350) }}>
-            <p className="font-display font-extrabold leading-tight text-ink" style={fs(3.4)}>{t?.code || r.metric_id}</p>
-            <p className={`font-bold ${r.impact === 'inverse' ? 'text-coral' : 'text-charcoal'}`} style={fs(2.4)}>{r.impact === 'inverse' ? 'Nghịch chiều' : 'Thuận chiều'}</p>
-          </div>
-        )
-      }
-      return (
-        <Frame bg="bg-white text-ink" n={n} total={total} label="Mạng lưới">
-          <div className="grid items-center gap-[2.5cqmin]" style={{ gridTemplateColumns: '1fr auto 1fr' }}>
-            <div className="space-y-[1.5cqmin]">
-              <p className="eyebrow text-charcoal" style={fs(2.2)}>Đầu vào</p>
-              {s.up.length ? s.up.map((r, k) => chip(r, k, 'l')) : <p className="text-muted" style={fs(2.8)}>Chỉ số gốc</p>}
-            </div>
-            <div className="mv-pop rounded-[3cqmin] bg-forest text-center text-white" style={{ padding: '3cqmin', ...d(1400) }}>
-              <p className="font-display font-black leading-none" style={fs(metric.code.length > 8 ? 4.4 : 6.5)}>{metric.code}</p>
-            </div>
-            <div className="space-y-[1.5cqmin]">
-              <p className="eyebrow text-charcoal" style={fs(2.2)}>Đầu ra</p>
-              {s.down.length ? s.down.map((r, k) => chip(r, k, 'r')) : <p className="text-muted" style={fs(2.8)}>Cuối chuỗi</p>}
-            </div>
-          </div>
-        </Frame>
-      )
-    }
     case 'close':
       return (
-        <Frame bg="bg-brand-50 text-ink" sign n={n} total={total} label="Chốt">
-          {s.trade ? (
-            <div className="mv-up rounded-[3cqmin] bg-white text-ink ring-1 ring-stone-200" style={{ padding: '3.5cqmin', ...d(200) }}>
-              <p className="eyebrow text-brand-600" style={fs(2.6)}>Cẩn thận đánh đổi</p>
-              <p className="mt-[1cqmin] font-display font-extrabold leading-snug" style={fs(4.2)}>{s.trade.note}</p>
-            </div>
-          ) : (
-            <p className="mv-up font-display font-extrabold leading-snug" style={{ ...fs(5.4), ...d(200) }}>
-              Hiểu {metric.code} là hiểu một mắt xích. Xem nó nối với những chỉ số nào ở sơ đồ bên dưới.
+        <Board sign n={n} total={total} label="Ghi nhớ">
+          <div className="flex flex-1 flex-col justify-center">
+            <p className="font-display font-extrabold leading-snug" style={{ fontSize: wide ? 38 : 28 }}>
+              <span className="mv-wipe" style={d(400)}>{plain(s.remember)}</span>
             </p>
-          )}
-          {s.hw && (
-            <>
-              <p className="mv-up text-center font-display font-black text-brand-600" style={{ ...fs(5), ...d(1100) }} aria-hidden="true">↓</p>
-              <button onClick={onHomework} className="mv-up rounded-[3cqmin] bg-marker text-left text-navy-ink" style={{ padding: '3cqmin 3.5cqmin', ...d(1400) }}>
-                <p className="eyebrow" style={fs(2.4)}>Thử sức · Bài tập chẩn đoán</p>
-                <p className="font-display font-extrabold leading-snug" style={fs(4)}>{s.hw.replace(/^Bệnh án:\s*/, '')}</p>
+            {s.hw && (
+              <button onClick={onHomework} className="mv-up mt-8 self-start rounded-xl border-2 border-ink px-5 py-3 text-left hover:bg-brand-50" style={d(1600)}>
+                <span className="eyebrow block text-brand-600" style={{ fontSize: 12 }}>Thử sức · Bài tập chẩn đoán</span>
+                <span className="font-display font-extrabold leading-snug" style={{ fontSize: wide ? 20 : 17 }}>{s.hw.replace(/^Bệnh án:\s*/, '')} →</span>
               </button>
-            </>
-          )}
-        </Frame>
+            )}
+          </div>
+        </Board>
       )
     default:
       return null
@@ -220,6 +201,21 @@ export default function ExplainerVideo({ metric, onHomework }) {
   const viVoice = useRef(null)
   const [canSpeak, setCanSpeak] = useState(false)
   const embed = toEmbed(metric.media?.video_url)
+  const stage = useRef(null)
+  const [box, setBox] = useState({ w: 0 })
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const measure = () => setBox({ w: el.clientWidth })
+    measure()
+    if (!('ResizeObserver' in window)) return
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [mode])
+  const wide = box.w === 0 ? true : box.w >= 560
+  const dim = wide ? WIDE : TALL
+  const scale = box.w ? box.w / dim.w : 1
 
   useEffect(() => {
     if (!('speechSynthesis' in window)) return
@@ -311,10 +307,11 @@ export default function ExplainerVideo({ metric, onHomework }) {
           <iframe src={embed} title={metric.media?.video_title || `Video ${metric.code}`} className="h-full w-full" allow="autoplay; encrypted-media; fullscreen" allowFullScreen />
         </div>
       ) : (
-        <div ref={ref} className="overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200/70">
-          <div className={`relative aspect-[4/5] w-full select-none sm:aspect-video ${playing ? '' : 'mv-paused'}`} style={{ containerType: 'size' }}>
-            <div key={`${metric.metric_id}-${i}-${run}`} className={`absolute inset-0 ${!playing && !seen.current && i === 0 ? 'mv-static' : ''}`}>
-              <Scene s={s} metric={metric} n={i + 1} total={scenes.length} onHomework={onHomework} />
+        <div ref={ref} className="overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200">
+          <div ref={stage} className={`relative w-full select-none overflow-hidden ${playing ? '' : 'mv-paused'}`} style={{ aspectRatio: `${dim.w} / ${dim.h}` }}>
+            <div key={`${metric.metric_id}-${i}-${run}-${wide}`} className={`absolute left-0 top-0 ${!playing && !seen.current && i === 0 ? 'mv-static' : ''}`}
+              style={{ width: dim.w, height: dim.h, transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+              <Scene s={s} metric={metric} n={i + 1} total={scenes.length} onHomework={onHomework} wide={wide} />
             </div>
             {!playing && (
               <button onClick={toggle} className="absolute inset-0 z-10 flex items-center justify-center bg-ink/10" aria-label={ended ? 'Xem lại' : 'Phát video'}>

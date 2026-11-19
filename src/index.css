@@ -85,3 +85,23 @@ input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; }
 /* Khung chờ của video: hiện sẵn trạng thái cuối của cảnh mở đầu */
 .mv-static, .mv-static * { animation: none !important; }
 .mv-static .mv-wipe { background-size: 100% 100%; }
+
+/* Video bảng giảng: nền trắng kẻ ô mờ, nét viết dần */
+.board { background-color: #fff; background-image: linear-gradient(#f1efed 1px, transparent 1px), linear-gradient(90deg, #f1efed 1px, transparent 1px); background-size: 30px 30px; background-position: -1px -1px; }
+.board-mark { background: linear-gradient(transparent 55%, var(--color-marker) 55%); padding: 0 0.1em; }
+@keyframes board-draw { to { stroke-dashoffset: 0; } }
+@keyframes board-grow { from { transform: scaleX(0); } to { transform: none; } }
+.board-draw svg path[fill="none"] { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: board-draw 1.8s 0.9s ease-out forwards; }
+.board-draw li, .board-draw .grid > div { animation: mv-in-up 0.5s cubic-bezier(.2,.8,.2,1) both; }
+.board-draw li span[style*="width"], .board-draw li div[style*="width"] { transform-origin: left; animation: board-grow 0.8s cubic-bezier(.2,.8,.2,1) both; animation-delay: inherit; }
+.board-draw li:nth-child(1), .board-draw .grid > div:nth-of-type(1) { animation-delay: .7s; }
+.board-draw li:nth-child(2), .board-draw .grid > div:nth-of-type(2) { animation-delay: 1s; }
+.board-draw li:nth-child(3), .board-draw .grid > div:nth-of-type(3) { animation-delay: 1.3s; }
+.board-draw li:nth-child(4), .board-draw .grid > div:nth-of-type(4) { animation-delay: 1.6s; }
+.board-draw li:nth-child(5) { animation-delay: 1.9s; }
+.board-draw li:nth-child(6) { animation-delay: 2.2s; }
+.board-draw li:nth-child(n+7) { animation-delay: 2.5s; }
+.mv-static .board-draw *, .mv-static .board-draw svg path { animation: none !important; stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .board-draw *, .board-draw svg path { animation: none !important; stroke-dashoffset: 0 !important; }
+}
