@@ -5596,5 +5596,1110 @@
       "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
     },
     "remember": "Doanh thu mỗi buyer cho biết đội Ads có full việc không. Lãi sau Ads mới cho biết ai giỏi."
+  },
+  "vn_fin_pending_payout": {
+    "subtitle": "Lãi trên sổ, nhưng tiền đang nằm ở đâu?",
+    "intro": [
+      "**Tiền kẹt đối soát là tiền đã bán ra nhưng chưa về tài khoản: đơn đang giao, tiền trên ví sàn chờ đối soát, tiền COD bưu cục chưa chuyển.** Hiểu đơn giản: hàng đã rời kho, doanh thu đã ghi, nhưng tiền thì chưa cầm được. Ví dụ: shop bán 20tr/ngày, đơn nằm trên đường giao 3 ngày là 60tr đang treo.",
+      "Nhiều anh em nhìn báo cáo thấy lãi, mở app ngân hàng thì không đủ tiền nhập hàng. Tiền không mất, nó đang kẹt ở sàn và bưu cục. Bán COD (thu tiền khi giao) càng nhiều, tiền treo càng lớn. Vậy nên trước khi nhập lô mới, phải biết mình đang có bao nhiêu tiền kẹt."
+    ],
+    "tree": {
+      "title": "Tiền kẹt đối soát gồm những gì",
+      "note": "Muốn tiền kẹt giảm thì giao nhanh hơn, đối soát đều hơn và bớt tỷ lệ COD. Tiền kẹt lâu ngày chính là thứ kéo dài DSO.",
+      "expr": {
+        "label": "Tiền kẹt đối soát",
+        "eq": [
+          {
+            "label": "Đơn đang giao",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Ví sàn chờ đối soát",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "COD bưu cục chưa chuyển",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Shop bán 20tr/ngày: 250tr trên sổ, tiền ở đâu?",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Đơn đang giao",
+            60,
+            "focus"
+          ],
+          [
+            "Ví sàn chờ đối soát",
+            100,
+            "focus"
+          ],
+          [
+            "COD bưu cục chưa chuyển",
+            40,
+            "focus"
+          ],
+          [
+            "Tiền đã về tài khoản",
+            50,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Trên sổ có 250tr, nhưng **200tr (80%) đang kẹt**. Thứ tiêu được ngay chỉ có 50tr."
+    },
+    "sections": [
+      {
+        "title": "Làm sao kéo tiền kẹt xuống?",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo",
+              "Mỗi thứ Hai ghi 3 con số: đơn đang giao, ví sàn, COD chưa chuyển."
+            ],
+            [
+              "Đòi",
+              "Đối chiếu từng bưu cục, khoản COD quá hạn thì gọi đòi ngay."
+            ],
+            [
+              "Giảm COD",
+              "Ưu đãi nhỏ cho khách chuyển khoản trước để tiền về sớm."
+            ],
+            [
+              "Tách",
+              "Tiền đối soát về là trích ngay giá vốn và thuế sang tài khoản riêng."
+            ]
+          ]
+        },
+        "body": [
+          "Tiền kẹt không mất, nhưng nó làm anh em chậm chân. Với shop trên, rút ngắn được 1 ngày chờ là có thêm 20tr quay về nhập hàng.",
+          "Thực tế, ngày bán mạnh (sale lớn, video viral) là ngày tiền kẹt phình to nhất. Đơn gấp 5 thì tiền treo cũng gấp 5, trong khi xưởng vẫn đòi tiền ngay. Vì vậy trước mỗi đợt đẩy số, tính trước sẽ có bao nhiêu tiền nằm chờ."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Coi tiền trên ví sàn là tiền mặt rồi tiêu trước.",
+      "Không đối chiếu COD với từng bưu cục, để tiền treo cả tháng không ai đòi.",
+      "Lên kế hoạch nhập hàng theo doanh thu trên sổ, không trừ phần tiền đang kẹt."
+    ],
+    "quote": {
+      "text": "Hãy nhớ \"công nợ\" không phải là tiền",
+      "source": "Ecom Truyền Kỳ · Bán hàng trên sàn Ecom còn có lãi không?"
+    },
+    "remember": "Doanh thu đã ghi chưa phải là tiền. Tiền về tài khoản mới là tiền."
+  },
+  "vn_fin_dso": {
+    "subtitle": "Xuất kho bao lâu thì tiền về túi?",
+    "intro": [
+      "**DSO là số ngày trung bình từ lúc đơn rời kho đến khi tiền về tài khoản ngân hàng.** Hiểu đơn giản: bán xong phải chờ bao lâu mới cầm được tiền. Ví dụ: mỗi ngày bán 30tr, tiền treo bình quân 420tr thì DSO = 420 ÷ 30 = 14 ngày.",
+      "Nhiều anh em nghĩ bán sàn là có tiền ngay. Thực tế đơn còn phải giao, chờ khách nhận, chờ sàn đối soát rồi mới rút được. Bán COD thì còn chờ bưu cục chuyển. DSO càng dài, tiền túi càng phải ứng ra nhiều để chạy hàng."
+    ],
+    "tree": {
+      "title": "DSO được tạo ra từ đâu",
+      "note": "Cùng doanh thu, tiền treo càng ít thì DSO càng ngắn. Tiền treo nhiều thường do bán COD nhiều và đối soát chậm.",
+      "expr": {
+        "label": "DSO",
+        "eq": [
+          {
+            "id": "vn_fin_pending_payout",
+            "label": "Tiền kẹt đối soát (bình quân)",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Doanh thu mỗi ngày"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Ví dụ shop bán sàn: 14 ngày chờ tiền nằm ở khâu nào",
+      "chart": {
+        "type": "bars",
+        "unit": "ngày",
+        "items": [
+          [
+            "Giao tới khách",
+            3
+          ],
+          [
+            "Chờ khách nhận, hết hạn đổi trả",
+            5,
+            "focus"
+          ],
+          [
+            "Sàn đối soát",
+            4,
+            "focus"
+          ],
+          [
+            "Rút về ngân hàng",
+            2
+          ]
+        ]
+      },
+      "after": "Khâu giao hàng chỉ mất 3 ngày. **11 ngày còn lại là chờ xác nhận, đối soát và rút tiền**, và đó là chỗ anh em kéo ngắn được."
+    },
+    "sections": [
+      {
+        "title": "DSO dài thì giam bao nhiêu tiền?",
+        "chart": {
+          "type": "line",
+          "xLabel": "DSO (ngày)",
+          "unit": "tr",
+          "points": [
+            [
+              2,
+              60
+            ],
+            [
+              4,
+              120
+            ],
+            [
+              6,
+              180
+            ],
+            [
+              8,
+              240
+            ],
+            [
+              10,
+              300
+            ],
+            [
+              12,
+              360
+            ],
+            [
+              14,
+              420
+            ],
+            [
+              16,
+              480
+            ],
+            [
+              18,
+              540
+            ],
+            [
+              20,
+              600
+            ],
+            [
+              22,
+              660
+            ],
+            [
+              24,
+              720
+            ],
+            [
+              26,
+              780
+            ],
+            [
+              28,
+              840
+            ]
+          ],
+          "threshold": {
+            "x": 7,
+            "label": "Mốc 7 ngày: treo 210tr"
+          },
+          "now": {
+            "x": 14,
+            "label": "Đang 14 ngày: treo 420tr"
+          }
+        },
+        "body": [
+          "Shop bán 30tr/ngày thì mỗi ngày DSO là 30tr nằm chờ. Kéo DSO từ 14 xuống 7 ngày là nhả ra **210tr** tiền mặt, không cần bán thêm đơn nào.",
+          "Cách kéo: đẩy khách sang chuyển khoản trước, đối soát hãng ship 2 lần mỗi tuần, rút tiền ví sàn ngay khi được rút. Và đừng chỉ nhìn DSO trung bình: tách riêng sàn, COD, chuyển khoản để biết kênh nào giam tiền lâu nhất."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tưởng bán sàn là tiền về ngay, không tính ngày chờ đối soát.",
+      "Chỉ nhìn DSO trung bình, không tách riêng kênh COD, sàn, chuyển khoản.",
+      "Vít doanh số mà quên rằng DSO giữ nguyên thì tiền treo cũng tăng theo."
+    ],
+    "quote": {
+      "text": "Nhiều khi dòng tiền bị gãy không phải do bán hàng dở mà do quản dòng tiền thu về từ khách hàng kém.",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "Mỗi ngày DSO là một ngày doanh thu nằm chờ. Kéo ngắn DSO là nhả tiền ra."
+  },
+  "vn_fin_dpo": {
+    "subtitle": "Xưởng cho mình nợ bao lâu?",
+    "intro": [
+      "**DPO là số ngày trung bình xưởng hay nhà cung cấp cho nợ trước khi phải trả tiền.** Hiểu đơn giản: nhận hàng hôm nay, bao lâu sau mới phải chuyển khoản. Ví dụ: mỗi ngày bán ra 10tr giá vốn, đang nợ xưởng bình quân 150tr thì DPO = 150 ÷ 10 = 15 ngày.",
+      "Nhiều shop nhỏ trả 100% ngay khi nhập, tức DPO = 0. Mọi đồng nhập hàng đều là tiền túi ứng ra. DPO càng dài, xưởng càng gánh vốn hộ mình. Vậy nên deal công nợ quan trọng không kém deal giá vốn."
+    ],
+    "tree": {
+      "title": "DPO được tạo ra từ đâu",
+      "note": "Muốn DPO dài thì phải được xưởng cho nợ nhiều hơn, lâu hơn. Đổi lại là lấy hàng đều, trả đúng hẹn để giữ uy tín.",
+      "expr": {
+        "label": "DPO",
+        "eq": [
+          {
+            "label": "Nợ xưởng bình quân",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Giá vốn mỗi ngày"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Nhập lô 300tr: trả ngay hay nợ 50%?",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Trả 100% ngay",
+          "Trả 50%, nợ 50% trong 30 ngày"
+        ],
+        "items": [
+          [
+            "Tiền túi ứng ra khi nhập",
+            300,
+            150
+          ],
+          [
+            "Xưởng cho nợ",
+            0,
+            150
+          ]
+        ]
+      },
+      "after": "Cùng lô 300tr, DPO từ 0 lên **15 ngày** là giữ lại 150tr trong túi để chạy Ads, nhập mã mới."
+    },
+    "sections": [
+      {
+        "title": "DPO bao nhiêu là ổn?",
+        "chart": {
+          "type": "line",
+          "xLabel": "DPO (ngày)",
+          "unit": "tr",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              5,
+              50
+            ],
+            [
+              10,
+              100
+            ],
+            [
+              15,
+              150
+            ],
+            [
+              20,
+              200
+            ],
+            [
+              25,
+              250
+            ],
+            [
+              30,
+              300
+            ],
+            [
+              35,
+              350
+            ],
+            [
+              40,
+              400
+            ],
+            [
+              45,
+              450
+            ]
+          ],
+          "threshold": {
+            "x": 21,
+            "label": "Mức thường gặp: 21 ngày"
+          },
+          "now": {
+            "x": 15,
+            "label": "Nợ 50% trong 30 ngày: 150tr"
+          }
+        },
+        "body": [
+          "Theo sách Ecom Truyền Kỳ, nhà cung cấp thường cho nợ 21 ngày, bán tốt có thể deal lên 45 ngày. Shop bán ra 10tr giá vốn mỗi ngày mà DPO 45 ngày thì xưởng đang cho mượn 450tr, không lãi.",
+          "Nhưng đừng kéo DPO bằng cách trả trễ hẹn. Mất uy tín là mất nguồn hàng. Sách cũng dặn đừng lạm dụng, vì chỉ cần mất cân đối dòng tiền sẽ “đứt tay”."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Ham chiết khấu vài % mà chấp nhận trả trước 100%, đẩy DPO về 0.",
+      "Kéo DPO bằng cách trả trễ hẹn, mất uy tín với xưởng.",
+      "Coi tiền đang nợ xưởng là tiền lãi rồi tiêu, đến hạn không đủ trả."
+    ],
+    "quote": {
+      "text": "Ví dụ nếu đối tác cho bạn nợ 45 ngày, trong khi bạn bán hàng tầm 7 ngày đã thu được tiền thì còn nguyên 38 ngày cầm tiền để làm đủ thứ",
+      "source": "Ecom Truyền Kỳ · Khởi nghiệp tinh gọn"
+    },
+    "remember": "DPO dài là xưởng gánh vốn hộ mình. Deal công nợ cũng là kiếm tiền."
+  },
+  "vn_fin_ccc": {
+    "subtitle": "Một đồng nhập hàng bao lâu mới quay về?",
+    "intro": [
+      "**CCC (chu kỳ kẹt vốn) là số ngày một đồng bỏ ra nhập hàng bị giam trước khi quay về túi.** Công thức: số ngày hàng nằm kho (DIO) + số ngày chờ tiền về (DSO) − số ngày được nợ xưởng (DPO). Ví dụ: hàng nằm kho 30 ngày, chờ tiền 10 ngày, được nợ 20 ngày thì CCC = 20 ngày.",
+      "Chị Lan bán thời trang, sổ sách lãi 120tr/tháng mà kỳ nào nhập hàng cũng phải đi vay. Lý do nằm ở CCC: tiền không mất, nó đang bị giam. CCC càng dài thì càng bán mạnh càng phải ứng nhiều tiền túi."
+    ],
+    "tree": {
+      "title": "CCC được tạo ra từ đâu",
+      "note": "Muốn CCC ngắn: hàng bán nhanh, tiền về sớm, xưởng cho nợ lâu. Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "CCC",
+        "eq": [
+          {
+            "id": "vn_ops_dio",
+            "label": "DIO (ngày nằm kho)",
+            "dir": "down"
+          },
+          "+",
+          {
+            "id": "vn_fin_dso",
+            "label": "DSO (ngày chờ tiền)",
+            "dir": "down"
+          },
+          "−",
+          {
+            "id": "vn_fin_dpo",
+            "label": "DPO (ngày được nợ)",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Shop chị Lan: 65 + 14 − 0 = 79 ngày",
+      "chart": {
+        "type": "bars",
+        "unit": "ngày",
+        "items": [
+          [
+            "Hàng nằm kho (DIO)",
+            65,
+            "focus"
+          ],
+          [
+            "Chờ tiền về (DSO)",
+            14,
+            "focus"
+          ],
+          [
+            "Được nợ xưởng (DPO)",
+            0
+          ],
+          [
+            "Tiền bị giam (CCC)",
+            79,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Bỏ 1 đồng nhập hàng, **79 ngày** sau mới quay về, hơn 2,5 tháng. Nếu mỗi ngày bán ra 10tr giá vốn thì có 790tr đang bị giam."
+    },
+    "sections": [
+      {
+        "title": "Kéo CCC ngắn lại thế nào?",
+        "chart": {
+          "type": "compare",
+          "unit": "ngày",
+          "labels": [
+            "Trước",
+            "Sau"
+          ],
+          "items": [
+            [
+              "DIO",
+              65,
+              45
+            ],
+            [
+              "DSO",
+              14,
+              10
+            ],
+            [
+              "DPO",
+              0,
+              15
+            ],
+            [
+              "CCC",
+              79,
+              40
+            ]
+          ]
+        },
+        "body": [
+          "Ba việc cùng lúc: xả cứng mã nào quá 60 ngày (DIO 65 → 45), đẩy khách chuyển khoản để tiền về sớm (DSO 14 → 10), deal xưởng trả 50% trước, 50% sau 30 ngày (DPO 0 → 15).",
+          "CCC từ 79 còn 40 ngày. Với 10tr giá vốn mỗi ngày, vốn bị giam từ 790tr còn **400tr**. 390tr nhả ra là tiền tự có, không phải đi vay."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Đánh đồng lãi trên P&L với tiền mặt trong két.",
+      "Ôm lô lớn để lấy chiết khấu, kéo DIO dài cả mùa.",
+      "Chỉ sửa một vế, quên rằng CCC là tổng của cả kho, tiền về và công nợ."
+    ],
+    "quote": {
+      "text": "Nên cash flow còn quan trọng hơn cả doanh thu vì nhiều khi doanh thu ghi nhận cao nhưng găm vào hàng tồn kho, công nợ, nhà xưởng thì coi như không còn vốn để phát triển.",
+      "source": "Ecom Truyền Kỳ · Hiểu về các khái niệm Tài chính, Metrics căn bản trong Ecom"
+    },
+    "remember": "CCC càng dài, bán càng mạnh càng khát tiền. Rút ngắn CCC trước khi vít số."
+  },
+  "vn_fin_breakeven_rev": {
+    "subtitle": "Mỗi tháng bán bao nhiêu thì không lỗ?",
+    "intro": [
+      "**Doanh thu hòa vốn là doanh thu tối thiểu mỗi tháng để CM3 vừa đủ trả chi phí cố định (định phí).** CM3 là phần còn lại sau giá vốn, phí sàn, ship, hoàn và Ads. Ví dụ: định phí 50tr, CM3 chiếm 20% doanh thu thì phải bán 50tr ÷ 20% = 250tr mới không lỗ.",
+      "Nhiều anh em chỉ hỏi tháng này bán được bao nhiêu. Câu nên hỏi là: bán bao nhiêu thì tháng đó không lỗ. Mỗi lần thuê kho rộng hơn hay tuyển thêm người, con số này nhảy lên ngay."
+    ],
+    "tree": {
+      "title": "Doanh thu hòa vốn được tạo ra từ đâu",
+      "note": "Muốn mức không lỗ thấp xuống: cắt định phí, hoặc kéo tỷ lệ CM3 lên (giá vốn, phí sàn, Ads giảm).",
+      "expr": {
+        "label": "Doanh thu hòa vốn",
+        "eq": [
+          {
+            "label": "Định phí mỗi tháng",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "id": "vn_fin_cm3",
+            "label": "Tỷ lệ CM3",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Team Huy: định phí 160tr, CM3 16% doanh thu",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Giá vốn, phí sàn, ship, hoàn, Ads",
+            840
+          ],
+          [
+            "CM3 = định phí (lương, kho)",
+            160,
+            "focus"
+          ],
+          [
+            "Còn lại",
+            0,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Định phí 160tr ÷ 16% = **1 tỷ**. Bán đúng 1 tỷ thì CM3 vừa đủ trả lương, kho. Dưới 1 tỷ là tháng đó lỗ."
+    },
+    "sections": [
+      {
+        "title": "Bán 1,5 tỷ mà sao vẫn không có lãi?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Doanh thu tháng (tỷ)",
+          "unit": "tr",
+          "points": [
+            [
+              0.6,
+              -64.0
+            ],
+            [
+              0.8,
+              -32.0
+            ],
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.2,
+              32.0
+            ],
+            [
+              1.4,
+              64.0
+            ],
+            [
+              1.6,
+              96.0
+            ],
+            [
+              1.8,
+              128.0
+            ],
+            [
+              2.0,
+              160.0
+            ]
+          ],
+          "threshold": {
+            "x": 1,
+            "label": "Không lỗ từ 1 tỷ (chưa tính thuế)"
+          },
+          "now": {
+            "x": 1.5,
+            "label": "Đang 1,5 tỷ: dư 80tr trước thuế"
+          },
+          "lossBelowZero": true
+        },
+        "body": [
+          "Huy bán 1,5 tỷ, CM3 trừ định phí còn 80tr. Nhưng khoản dự phòng thuế cũng đúng 80tr, khoảng 5,3% doanh thu. Tính cả thuế thì mỗi đồng doanh thu chỉ còn 16% − 5,3% ≈ 10,7% để trả định phí. Mức không lỗ thật là 160tr ÷ 10,7% ≈ **1,5 tỷ**, đúng bằng số Huy đang bán.",
+          "Hai cách hạ mức này: cắt định phí còn 120tr thì chỉ cần bán 750tr (trước thuế); hoặc kéo CM3 lên 20% thì chỉ cần 800tr."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính mức không lỗ bằng tỷ lệ CM2, quên trừ Ads.",
+      "Tăng định phí (thuê kho, tuyển người) khi doanh thu mới nhích qua mức không lỗ.",
+      "Quên trích thuế, tưởng vượt mức không lỗ là đã có lãi ròng."
+    ],
+    "quote": {
+      "text": "Khi mà doanh số không tăng trưởng được thì định phí sẽ ăn hết vào lợi nhuận và nguồn lực sẽ bị hút hết về những bên lớn có lợi thế dòng tiền",
+      "source": "Ecom Truyền Kỳ · Dấu hiệu của những công ty tưởng lớn hoá ra cồng kềnh"
+    },
+    "remember": "Biết bán bao nhiêu thì không lỗ trước khi tăng định phí. Vượt mức đó mới bắt đầu có lãi."
+  },
+  "vn_fin_opex_ratio": {
+    "subtitle": "Bộ máy đang ăn bao nhiêu % doanh thu?",
+    "intro": [
+      "**Tỷ lệ định phí là phần trăm doanh thu thực thu dùng để trả chi phí cố định: lương cứng, thuê kho, mặt bằng, phần mềm.** Hiểu đơn giản: bán hay không bán thì khoản này vẫn phải trả. Ví dụ: doanh thu 1 tỷ, định phí 120tr thì tỷ lệ định phí là 12%.",
+      "Định phí không tăng giảm theo đơn hàng. Tháng bán tốt thì tỷ lệ nhỏ, tháng chững lại thì nó phình ra và ăn hết lãi. Nhiều anh em tuyển người, thuê kho theo tháng đỉnh, đến tháng thấp thì gánh không nổi."
+    ],
+    "tree": {
+      "title": "Tỷ lệ định phí được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ này thấp: giữ lương cứng gọn, chuyển bớt sang lương theo hiệu suất, và tăng doanh thu trên cùng bộ máy.",
+      "expr": {
+        "label": "Tỷ lệ định phí",
+        "eq": [
+          {
+            "label": "Định phí",
+            "dir": "down",
+            "eq": [
+              {
+                "label": "Lương cứng",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Kho, mặt bằng",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Phần mềm, điện nước",
+                "dir": "down"
+              }
+            ]
+          },
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Doanh thu thực thu",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Doanh thu 1 tỷ, định phí 120tr đi đâu",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Lương cứng",
+            80,
+            "focus"
+          ],
+          [
+            "Kho, mặt bằng",
+            30
+          ],
+          [
+            "Phần mềm, điện nước",
+            10
+          ]
+        ]
+      },
+      "after": "Lương cứng chiếm **2/3 định phí**. Đây là khoản khó cắt nhất khi doanh thu đi xuống."
+    },
+    "sections": [
+      {
+        "title": "Tỷ lệ định phí bao nhiêu là ổn?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Doanh thu tháng (tr)",
+          "unit": "%",
+          "points": [
+            [
+              600,
+              20.0
+            ],
+            [
+              700,
+              17.14
+            ],
+            [
+              800,
+              15.0
+            ],
+            [
+              900,
+              13.33
+            ],
+            [
+              1000,
+              12.0
+            ],
+            [
+              1100,
+              10.91
+            ],
+            [
+              1200,
+              10.0
+            ],
+            [
+              1300,
+              9.23
+            ],
+            [
+              1400,
+              8.57
+            ],
+            [
+              1500,
+              8.0
+            ]
+          ],
+          "threshold": {
+            "x": 800,
+            "label": "Doanh thu chững 20%: 15%"
+          },
+          "now": {
+            "x": 1000,
+            "label": "Đang 1 tỷ: 12%"
+          }
+        },
+        "body": [
+          "Theo sách Ecom Truyền Kỳ, cơ cấu chi phí Ecom từ 2025 chỉ chừa chi phí vận hành chung (văn phòng, định phí) 4% và chi phí nhân sự 5% doanh thu. Ngưỡng an toàn nên giữ: định phí dưới 12–15%.",
+          "Shop trên đang 12%. Doanh thu chững 20% còn 800tr là tỷ lệ nhảy lên 15%, chạm trần. Nếu tuyển thêm 4 người, quỹ lương tăng 48tr/tháng, định phí lên 168tr, tức **16,8%** dù vẫn bán 1 tỷ. Dùng tool tự động 15tr/tháng thay vì tuyển thì chỉ 13,5%."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tuyển người, thuê kho theo doanh thu của tháng đỉnh.",
+      "Trả lương cứng cao cho vị trí tạo doanh thu thay vì gắn thu nhập với CM3.",
+      "Chỉ nhìn số tiền định phí, không nhìn tỷ lệ trên doanh thu."
+    ],
+    "quote": {
+      "text": "Nên là: ít nhân sự + automation + bộ tool AI. Bởi lẽ: nhân sự là định phí (phải trả hàng tháng) còn automation / AI là biến phí (tăng giảm theo nhu cầu).",
+      "source": "Ecom Truyền Kỳ · Những bài học nào cần khắc cốt ghi tâm?"
+    },
+    "remember": "Định phí phải trả cả tháng xấu. Giữ nó gọn trước khi doanh thu chững lại."
+  },
+  "vn_fin_net_profit": {
+    "subtitle": "Cuối cùng shop bỏ túi được bao nhiêu?",
+    "intro": [
+      "**Lãi ròng là tiền thực bỏ túi: CM3 trừ định phí và khoản dự phòng thuế.** Đây là dòng cuối cùng của P&L (báo cáo lãi lỗ). Ví dụ: CM3 100tr, định phí 50tr, dự phòng thuế 20tr thì lãi ròng còn 30tr.",
+      "Doanh thu, ROAS, CM3 đều có thể rất đẹp. Nhưng định phí phình to và quên trích thuế thì cuối năm có khi chẳng còn gì. Lấy lãi ròng chia doanh thu ra Net margin, lúc đó mới biết mình làm ăn thật ra sao."
+    ],
+    "tree": {
+      "title": "Lãi ròng được tạo ra từ đâu",
+      "note": "Muốn lãi ròng tăng: CM3 dày lên, định phí gọn lại. Thuế thì không né được, chỉ có trích đủ từ đầu.",
+      "expr": {
+        "label": "Lãi ròng",
+        "eq": [
+          {
+            "id": "vn_fin_cm3",
+            "label": "CM3 (lãi sau Ads)",
+            "dir": "up"
+          },
+          "−",
+          {
+            "label": "Định phí",
+            "dir": "down"
+          },
+          "−",
+          {
+            "id": "vn_fin_tax_reserve",
+            "label": "Dự phòng thuế",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Team Huy: CM3 240tr chia đi đâu",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Định phí (lương, kho)",
+            160,
+            "loss"
+          ],
+          [
+            "Dự phòng thuế",
+            80,
+            "focus"
+          ],
+          [
+            "Lãi ròng",
+            0,
+            "keep"
+          ]
+        ]
+      },
+      "after": "240 − 160 − 80 = **0 đồng**. Cả team cày 1,5 tỷ mỗi tháng mà lãi ròng bằng không."
+    },
+    "sections": [
+      {
+        "title": "Lãi ròng bao nhiêu là ổn?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Hiện tại",
+            "Sau khi sửa"
+          ],
+          "items": [
+            [
+              "CM3",
+              240,
+              300
+            ],
+            [
+              "Định phí",
+              160,
+              112
+            ],
+            [
+              "Dự phòng thuế",
+              80,
+              80
+            ],
+            [
+              "Lãi ròng",
+              0,
+              108
+            ]
+          ]
+        },
+        "body": [
+          "Theo sách Ecom Truyền Kỳ, khi thuế phải đóng đủ thì Net margin 7–10% là ổn rồi. Với 1,5 tỷ doanh thu, 7% là khoảng 105tr mỗi tháng.",
+          "Huy có hai đòn bẩy. Kéo CM3 từ 16% lên 20% doanh thu (deal giá vốn, tắt nhóm Ads lỗ): CM3 lên 300tr. Cắt 30% định phí, mức mà sách kể các công ty của tác giả đã làm được: 160tr còn 112tr. Lãi ròng lên **108tr, Net margin 7,2%**."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy CM3 hay lãi gộp ra khoe như lãi ròng.",
+      "Không trích dự phòng thuế hàng tháng, cuối năm quyết toán mới giật mình.",
+      "So Net margin với shop không đóng thuế rồi nghĩ mình làm kém."
+    ],
+    "quote": {
+      "text": "Khi trước anh em seller toàn đặt ra net margin> 20% mới vui thì giờ đây 7-10% là ổn rồi.",
+      "source": "Ecom Truyền Kỳ · Nâng tầm quản trị"
+    },
+    "remember": "Lãi ròng mới là tiền bỏ túi. CM3 đẹp mà định phí, thuế ăn hết thì vẫn bằng 0."
+  },
+  "vn_fin_cash_runway": {
+    "subtitle": "Tiền mặt còn đủ sống mấy tháng?",
+    "intro": [
+      "**Cash Runway là số tháng shop còn sống được với tiền mặt hiện có, nếu cứ hụt tiền như hiện tại.** Công thức: tiền mặt ÷ số tiền hụt ròng mỗi tháng (net burn). Ví dụ: còn 900tr, mỗi tháng hụt 150tr thì runway = 6 tháng.",
+      "Dòng tiền là máu của doanh nghiệp, runway là còn bao nhiêu máu. Nhiều anh em chỉ để ý tháng này lãi hay lỗ, không biết nếu mấy tháng tới bán chậm thì tiền cạn lúc nào. Biết runway thì quyết sớm: cắt chi phí, xả hàng hay đi gọi vốn."
+    ],
+    "tree": {
+      "title": "Runway được tạo ra từ đâu",
+      "note": "Muốn runway dài: tăng tiền mặt (thu tiền kẹt, xả hàng tồn) hoặc giảm burn (cắt định phí không ra doanh thu).",
+      "expr": {
+        "label": "Cash Runway",
+        "eq": [
+          {
+            "label": "Tiền mặt hiện có",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Net burn mỗi tháng",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "900tr tiền mặt, mỗi tháng hụt 150tr",
+      "chart": {
+        "type": "line",
+        "xLabel": "Tháng",
+        "unit": "tr",
+        "points": [
+          [
+            0,
+            900
+          ],
+          [
+            1,
+            750
+          ],
+          [
+            2,
+            600
+          ],
+          [
+            3,
+            450
+          ],
+          [
+            4,
+            300
+          ],
+          [
+            5,
+            150
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            -150
+          ],
+          [
+            8,
+            -300
+          ],
+          [
+            9,
+            -450
+          ]
+        ],
+        "threshold": {
+          "x": 6,
+          "label": "Hết tiền ở tháng thứ 6"
+        },
+        "lossBelowZero": true
+      },
+      "after": "Sau **6 tháng**, tài khoản về 0. Nếu kế hoạch gọi vốn hay đi vay mất 6–9 tháng thì đã trễ."
+    },
+    "sections": [
+      {
+        "title": "Kéo runway lên 12 tháng thế nào?",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Hiện tại: 6 tháng",
+            "Sau khi sửa: 12 tháng"
+          ],
+          "items": [
+            [
+              "Tiền mặt",
+              900,
+              1200
+            ],
+            [
+              "Net burn mỗi tháng",
+              150,
+              100
+            ]
+          ]
+        },
+        "body": [
+          "Mở hai cửa cùng lúc. Một là thêm tiền mặt: xả hàng tồn, thu tiền đang kẹt ở sàn và COD, ví dụ được 300tr. Hai là giảm burn: cắt định phí không tạo doanh thu, ví dụ 50tr mỗi tháng. Runway thành 1,2 tỷ ÷ 100tr = **12 tháng**.",
+          "Runway dưới 6 tháng là vùng báo động. Lúc đó đừng vay nóng để giữ tốc độ tăng trưởng, vì lãi vay làm đường băng còn ngắn hơn."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính runway bằng doanh thu thay vì tiền mặt thật trong tài khoản.",
+      "Đếm cả tiền đang kẹt ở sàn, COD là tiền mặt sẵn có.",
+      "Chờ còn 1–2 tháng tiền mới đi vay, lúc đó phải vay nóng lãi cao."
+    ],
+    "quote": {
+      "text": "Cashflow: xem mình có đủ tiền để chống chọi bao lâu trong cơn báo bão: ví dụ cầm 10 tỉ mỗi năm đốt 2 tỉ thì ít nhất 4 năm nữa vẫn chiến được, bão tan thì mây trời lại sáng",
+      "source": "Ecom Truyền Kỳ · Bán hàng trên sàn Ecom còn có lãi không?"
+    },
+    "remember": "Luôn biết mình còn mấy tháng tiền mặt. Dưới 6 tháng là phải hành động ngay."
+  },
+  "vn_fin_working_capital_turnover": {
+    "subtitle": "Một đồng vốn quay ra bao nhiêu doanh thu?",
+    "intro": [
+      "**Vòng quay vốn lưu động là doanh thu thuần cả năm chia cho vốn lưu động bình quân.** Vốn lưu động là tiền nằm trong hàng tồn, tiền chờ đối soát, tiền mặt, trừ đi phần đang nợ xưởng. Ví dụ: doanh thu năm 10,8 tỷ, vốn lưu động bình quân 1,8 tỷ thì vốn quay 6 vòng mỗi năm.",
+      "Vòng quay cho biết mỗi đồng vốn làm ra bao nhiêu đồng doanh thu. Quay chậm thì muốn bán thêm phải bơm thêm vốn, thường là đi vay. Quay nhanh thì cùng số vốn mà bán được nhiều hơn, lãi mỏng vẫn sống khỏe."
+    ],
+    "tree": {
+      "title": "Vòng quay vốn lưu động được tạo ra từ đâu",
+      "note": "Vốn lưu động phình chủ yếu vì hàng nằm kho lâu và tiền về chậm. Rút ngắn chu kỳ kẹt vốn (CCC) là cách nhanh nhất để vốn quay nhiều vòng hơn.",
+      "expr": {
+        "label": "Vòng quay vốn lưu động",
+        "eq": [
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Doanh thu thuần cả năm",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Vốn lưu động bình quân",
+            "dir": "down",
+            "eq": [
+              {
+                "id": "vn_ops_dio",
+                "label": "Hàng tồn kho",
+                "dir": "down"
+              },
+              "+",
+              {
+                "id": "vn_fin_pending_payout",
+                "label": "Tiền kẹt đối soát",
+                "dir": "down"
+              },
+              "+",
+              {
+                "label": "Tiền mặt"
+              },
+              "−",
+              {
+                "id": "vn_fin_dpo",
+                "label": "Nợ xưởng",
+                "dir": "up"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Cùng 10,8 tỷ doanh thu, vốn cần khác nhau",
+      "chart": {
+        "type": "compare",
+        "unit": "tỷ",
+        "labels": [
+          "Shop A: 6 vòng",
+          "Shop B: 12 vòng"
+        ],
+        "items": [
+          [
+            "Doanh thu cả năm",
+            10.8,
+            10.8
+          ],
+          [
+            "Vốn lưu động bình quân",
+            1.8,
+            0.9
+          ]
+        ]
+      },
+      "after": "Shop B chỉ cần **nửa số vốn** để bán cùng doanh thu. 900tr dư ra là tiền để ra mã mới, hoặc khỏi phải vay."
+    },
+    "sections": [
+      {
+        "title": "Vòng quay chậm thì phải bơm bao nhiêu vốn?",
+        "chart": {
+          "type": "line",
+          "xLabel": "Số vòng quay mỗi năm",
+          "unit": "tỷ",
+          "points": [
+            [
+              2,
+              5.4
+            ],
+            [
+              3,
+              3.6
+            ],
+            [
+              4,
+              2.7
+            ],
+            [
+              5,
+              2.16
+            ],
+            [
+              6,
+              1.8
+            ],
+            [
+              7,
+              1.54
+            ],
+            [
+              8,
+              1.35
+            ],
+            [
+              9,
+              1.2
+            ],
+            [
+              10,
+              1.08
+            ],
+            [
+              11,
+              0.98
+            ],
+            [
+              12,
+              0.9
+            ]
+          ],
+          "now": {
+            "x": 6,
+            "label": "Đang 6 vòng: cần 1,8 tỷ"
+          }
+        },
+        "body": [
+          "Quay 6 vòng nghĩa là mỗi vòng mất khoảng 365 ÷ 6 ≈ 61 ngày. Tụt xuống 3 vòng thì cùng 10,8 tỷ doanh thu phải giam tới **3,6 tỷ** vốn.",
+          "Muốn quay nhanh: nhập vừa đủ thay vì ôm lô lớn, xả mã chậm sớm, thu tiền sàn và COD đều tay, deal công nợ với xưởng. Lãi mỏng mà quay nhanh vẫn hơn lãi dày mà vốn nằm kho cả năm."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đo doanh thu, không đo phải giam bao nhiêu vốn để có doanh thu đó.",
+      "Ôm hàng lô lớn lấy chiết khấu, làm vốn quay chậm cả mùa.",
+      "Quên trừ nợ xưởng khi tính vốn lưu động, nên không thấy deal công nợ giúp vốn quay nhanh hơn."
+    ],
+    "quote": {
+      "text": "Vòng quay vốn và hàng được đảm bảo và luân chuyển tốc độ sẽ tạo nên thặng dư",
+      "source": "Ecom Truyền Kỳ · Vận hành xuất sắc là bí mật của Tăng trưởng"
+    },
+    "remember": "Vốn quay càng nhiều vòng, càng ít phải vay. Nhìn số vòng, đừng chỉ nhìn doanh thu."
   }
 }

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { metricById } from '../data/index.js'
 
 const nf = (x, d = 2) => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: d }).format(x)
+// đơn vị chữ (ngày, đơn, người…) cách số một khoảng; đơn vị ký hiệu (k, tr, %, x) viết liền
+const un = (u) => (!u ? '' : /^(k|tr|%|x|đ|tỷ)$/.test(u) ? u : ' ' + u)
 
 // Cây công thức: mỗi biến là một nút bấm được, mũi tên cho biết muốn chỉ số gốc tốt lên thì biến này phải đi hướng nào
 function Node({ n, onSelect, depth }) {
@@ -55,7 +57,7 @@ export function SpendBars({ bars }) {
                 background: kind === 'focus' ? '#F05025' : kind === 'keep' ? '#FFD200' : kind === 'loss' ? '#B42318' : '#D6D3D1',
                 opacity: hover == null || hover === i ? 1 : 0.45,
               }} />
-              <span className={`num shrink-0 font-bold ${v < 0 ? 'text-coral' : 'text-ink'}`}>{nf(v)}{bars.unit || ''}</span>
+              <span className={`num shrink-0 font-bold ${v < 0 ? 'text-coral' : 'text-ink'}`}>{nf(v)}{un(bars.unit)}</span>
             </span>
           </li>
         ))}
@@ -117,7 +119,7 @@ export function LineChart({ c }) {
             <g transform={`translate(${tx},${P.t + 18})`}>
               <rect width="140" height="34" rx="6" fill="#fff" stroke="#E7E5E4" />
               <text x="8" y="14" fontSize="11" fill="#57534E">{c.xLabel || 'x'} {nf(hx, 2)}</text>
-              <text x="8" y="28" fontSize="12" fontWeight="700" fill={yy < 0 ? '#B42318' : '#1A1A1A'}>{nf(yy, 2)}{u}</text>
+              <text x="8" y="28" fontSize="12" fontWeight="700" fill={yy < 0 ? '#B42318' : '#1A1A1A'}>{nf(yy, 2)}{un(u)}</text>
             </g>
           </g>) })()}
       </svg>
@@ -169,7 +171,7 @@ export function Compare({ c }) {
             {[[a, '#D6D3D1'], [b, '#F05025']].map(([v, col], k) => (
               <div key={k} className="mb-0.5 flex items-center gap-2">
                 <span className="h-2.5 rounded-r-[4px]" style={{ width: `${Math.max(1.5, (Math.abs(v) / max) * 85)}%`, background: col }} />
-                <span className={`num shrink-0 font-bold ${v < 0 ? 'text-coral' : 'text-ink'}`}>{nf(v)}{c.unit || ''}</span>
+                <span className={`num shrink-0 font-bold ${v < 0 ? 'text-coral' : 'text-ink'}`}>{nf(v)}{un(c.unit)}</span>
               </div>
             ))}
           </li>
