@@ -44,9 +44,9 @@ function SelfCheck({ cfg }) {
           <p className="text-xs font-semibold text-charcoal">ROAS hòa vốn thật</p>
           <p className="num text-2xl font-black">{Number.isFinite(beTrue) ? nf(beTrue) : 'không thể'}</p>
         </div>
-        <div className={`rounded-xl px-3 py-2 ${ok ? 'bg-brand-100' : 'bg-peach'}`}>
+        <div className={`rounded-xl px-3 py-2 ${ok ? 'bg-white' : 'bg-peach'}`}>
           <p className="text-xs font-semibold text-charcoal">Còn lại mỗi 100 nghìn doanh thu</p>
-          <p className={`num text-xl font-black ${left >= 0 ? 'text-brand-800' : 'text-coral'}`}>{nf(left)} nghìn</p>
+          <p className={`num text-xl font-black ${left >= 0 ? 'text-ok' : 'text-coral'}`}>{nf(left)} nghìn</p>
         </div>
       </div>
       <p className="mt-3 text-sm font-semibold">

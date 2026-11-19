@@ -1,0 +1,36 @@
+{
+  "_huong_dan": "Bài đọc cho từng chỉ số, viết theo văn phong sách Ecom Truyền Kỳ (giữ nguyên thuật ngữ của tác giả: ROAS, Cps, giá vốn (Cogs), Net margin, P&L, hoàn huỷ, cost structure). **chữ đậm** bằng hai dấu sao. Số phải tính lại được.",
+  "fin_roas": {
+    "subtitle": "Bỏ 1 đồng Ads, thu về mấy đồng doanh thu",
+    "intro": [
+      "**ROAS (Return on Ad Spend) là doanh thu từ quảng cáo chia cho chi phí quảng cáo.** Hiểu đơn giản: bỏ 1 đồng cho Ads thì thu về bao nhiêu đồng doanh thu. Chạy 10tr Ads ra 32tr doanh thu thì ROAS = 3,2.",
+      "Nhiều anh em nhìn ROAS 3 là mừng. Nhưng ROAS chỉ nói Ads có ra doanh thu, không nói shop có lãi. Doanh thu đó còn phải trả giá vốn (Cogs), phí sàn, hoàn huỷ, lương, kho… Trừ hết đi mới ra Net margin."
+    ],
+    "breakdown": {
+      "title": "Bóc 1 đơn 100k, ROAS 3,2",
+      "rows": [["Doanh thu", "100k"], ["Giá vốn (Cogs)", "−35k"], ["Phí sàn + thanh toán", "−14k"], ["Hoàn huỷ", "−5k"], ["Ads (100k ÷ 3,2)", "−31,25k"], ["Lương, kho", "−12k"]],
+      "total": ["Còn lại", "2,75k"],
+      "after": "ROAS 3,2 mà mỗi đơn 100k chỉ còn chưa tới 3k. **Lãi màn hình** là vậy. ROAS tụt xuống 2,9 thì lỗ luôn."
+    },
+    "sections": [
+      {
+        "title": "ROAS bao nhiêu thì không lỗ?",
+        "body": [
+          "Lấy 100% trừ hết các khoản không phải Ads: giá vốn, phí sàn, hoàn huỷ, lương, kho. Còn lại bao nhiêu % thì Ads chỉ được ăn trong phần đó.",
+          "Shop trên: 100% − 35% − 14% − 5% − 12% = 34%. Vậy ROAS tối thiểu = 1 ÷ 34% ≈ **2,94**. Dưới mức này là chạy càng nhiều càng lỗ.",
+          "Mỗi shop một con số, vì cost structure mỗi shop một khác. Shop giá vốn 20%, chi phí khác 30% thì ROAS trên 2 đã có lãi. Shop giá vốn 50%, chi phí khác 30% thì ROAS phải trên 5."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy ROAS của shop khác làm chuẩn cho shop mình.",
+      "Tin con số ROAS trình quản lý quảng cáo báo, trong khi số đó thường tính cả những đơn sau này bị huỷ hoàn.",
+      "Nhìn ROAS trung bình cả tài khoản, bỏ qua các nhóm quảng cáo đang lỗ bên trong."
+    ],
+    "quote": {
+      "text": "Các bạn trẻ say sưa với các chỉ số Cpa, Cpc, Ctr, Roas mà không hiểu rằng: Lifetime value, Margin, Cost structure mới là những thứ cốt lõi",
+      "source": "Ecom Truyền Kỳ · Khởi nghiệp tinh gọn"
+    },
+    "remember": "ROAS nói Ads có ra doanh thu. Còn có lãi hay không thì phải nhìn Net margin."
+  }
+}

@@ -3,9 +3,9 @@ import { SectionTitle } from './ui.jsx'
 
 const TYPE = {
   video: { label: 'Video', cls: 'bg-promo text-white' },
-  pdf: { label: 'PDF', cls: 'bg-coral/10 text-coral' },
-  sheet: { label: 'Sheet', cls: 'bg-brand-100 text-brand-800' },
-  doc: { label: 'Doc', cls: 'bg-sky-100 text-sky-800' },
+  pdf: { label: 'PDF', cls: 'bg-stone-100 text-body' },
+  sheet: { label: 'Sheet', cls: 'bg-stone-100 text-body' },
+  doc: { label: 'Doc', cls: 'bg-stone-100 text-body' },
   slide: { label: 'Slide', cls: 'bg-lemon text-navy-ink' },
   folder: { label: 'Thư mục', cls: 'bg-stone-100 text-body' },
   link: { label: 'Link', cls: 'bg-stone-100 text-body' },

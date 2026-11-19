@@ -6,7 +6,7 @@ function Cover({ item, i }) {
   if (item.image) return <img src={item.image} alt={item.title} loading="lazy" className="h-full w-full object-cover" />
   const styles = [
     { background: 'linear-gradient(160deg,#ED3830 0%,#F05025 35%,#F38714 70%,#F3DC0F 100%)', color: '#fff' },
-    { background: '#0E9447', color: '#fff' },
+    { background: '#FFF7ED', color: '#ED3420' },
     { background: '#FFDF38', color: '#1F2A44' },
   ]
   const st = styles[i % styles.length]

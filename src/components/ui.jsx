@@ -9,19 +9,16 @@ export function Card({ children, className = '', highlight = false }) {
 }
 
 // Tiêu đề khu vực: thanh màu mảnh mép trái + nhãn chữ hoa nhỏ + tít Montserrat
-export function SectionTitle({ eyebrow, title, desc, tone = 'green', right }) {
-  const bar = tone === 'orange' ? 'bg-coral' : 'bg-brand-500'
-  const ey = tone === 'orange' ? 'text-coral' : 'text-brand-700'
+// Tiêu đề khu vực: cùng kiểu với tiêu đề trong bài (thanh cam mảnh + chữ cam đỏ)
+export function SectionTitle({ eyebrow, title, desc, right }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-2">
-      <div className="flex gap-3">
-        <span className={`w-1 shrink-0 rounded-full ${bar}`} aria-hidden="true" />
-        <div>
-          {eyebrow && <p className={`eyebrow ${ey}`}>{eyebrow}</p>}
-          <h2 className="text-xl font-extrabold leading-tight sm:text-2xl">{title}</h2>
-          <span className={`mt-1.5 block h-px w-14 ${bar}`} aria-hidden="true" />
-          {desc && <p className="mt-1.5 text-sm text-charcoal">{desc}</p>}
-        </div>
+      <div>
+        {eyebrow && <p className="eyebrow text-muted">{eyebrow}</p>}
+        <h2 className="mt-1 flex items-center gap-2.5 text-xl font-extrabold leading-tight text-brand-600 sm:text-[22px]">
+          <span className="h-5 w-1 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />{title}
+        </h2>
+        {desc && <p className="mt-1.5 text-sm text-charcoal">{desc}</p>}
       </div>
       {right}
     </div>

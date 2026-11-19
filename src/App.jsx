@@ -10,7 +10,7 @@ import Templates from './components/Templates.jsx'
 import Resources from './components/Resources.jsx'
 import Promos from './components/Promos.jsx'
 import CaseStudy from './components/CaseStudy.jsx'
-import { SectionTitle } from './components/ui.jsx'
+import { H2 } from './components/MetricLesson.jsx'
 
 const TABS = [
   { id: 'sim', label: 'Giả lập', desc: 'Kéo thanh trượt, xem ngưỡng cảnh báo' },
@@ -29,12 +29,9 @@ function readHash() {
 
 function Brand({ compact = false }) {
   return (
-    <div className="flex items-center gap-2.5">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-lemon font-display text-sm font-black text-navy-ink">A1</span>
-      <div className="leading-tight">
-        <p className="font-display text-[15px] font-black text-ink">Ecom Metrics Academy</p>
-        {!compact && <p className="text-xs text-charcoal">Hiểu số trước khi đốt tiền</p>}
-      </div>
+    <div className="leading-tight text-white">
+      <p className="font-display text-[15px] font-black">Ecom Metrics Academy</p>
+      {!compact && <p className="text-xs text-white/85">Hiểu số trước khi đốt tiền</p>}
     </div>
   )
 }
@@ -88,9 +85,9 @@ export default function App() {
   return (
     <div className="min-h-full lg:flex">
       {/* Thanh trên cùng trên mobile */}
-      <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-stone-200/80 bg-white/95 px-4 py-2.5 backdrop-blur lg:hidden">
+      <header className="book-band sticky top-0 z-30 flex items-center justify-between gap-3 px-4 py-2.5 lg:hidden">
         <Brand compact />
-        <button onClick={() => setDrawer(true)} className="flex shrink-0 items-center gap-2 rounded-full bg-brand-600 px-3.5 py-2 font-display text-sm font-bold text-white" aria-expanded={drawer}>
+        <button onClick={() => setDrawer(true)} className="flex shrink-0 items-center gap-2 rounded-full bg-white px-3.5 py-2 font-display text-sm font-bold text-brand-600" aria-expanded={drawer}>
           <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden="true"><path d="M3 5h14v2H3zM3 9h14v2H3zM3 13h14v2H3z" /></svg>
           {metricsMaster.length} chỉ số
         </button>
@@ -111,22 +108,22 @@ export default function App() {
       )}
 
       {/* Thanh bên trên desktop */}
-      <aside className="hidden border-r border-stone-200/80 bg-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-80 lg:shrink-0 lg:flex-col">
-        <div className="px-5 pb-4 pt-6">
+      <aside className="hidden border-r border-stone-200/80 bg-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-72 lg:shrink-0 lg:flex-col">
+        <div className="book-band mb-3 px-5 pb-4 pt-5">
           <Brand />
-          <p className="mt-3 text-xs text-charcoal">{metricsMaster.length} chỉ số · 7 khâu vận hành</p>
+          <p className="mt-2 text-xs text-white/85">{metricsMaster.length} chỉ số · 7 khâu vận hành</p>
         </div>
         <Sidebar selected={selectedMetricId} onSelect={select} />
       </aside>
 
       <main className="min-w-0 flex-1">
-        <div className="mx-auto max-w-5xl space-y-10 px-4 py-5 sm:px-6 lg:px-10 lg:py-8">
+        <div className="mx-auto max-w-3xl space-y-12 px-4 py-6 sm:px-6 lg:py-12">
           <MetricLesson metric={metric} onSelect={select} onHomework={openHomework} />
 
           <CaseStudy key={`case-${selectedMetricId}`} metric={metric} onSelect={select} />
 
           <section id="thuc-hanh" className="scroll-mt-20 space-y-4">
-            <SectionTitle eyebrow="Thực hành" title="Tự tay tính, tự ra quyết định" />
+            <H2>Tự tay tính, tự ra quyết định</H2>
             <div role="tablist" aria-label="Chế độ thực hành" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
               {TABS.map((t) => {
                 const has = t.id === 'sim' ? !!metric.simulator : t.id === 'homework' ? !!metric.diagnostic_homework : true
@@ -134,7 +131,7 @@ export default function App() {
                 return (
                   <button key={t.id} role="tab" aria-selected={on} onClick={() => setTab(t.id)} title={t.desc}
                     className={`shrink-0 rounded-full px-4 py-2 font-display text-sm font-bold transition ${
-                      on ? 'bg-ink text-white' : 'bg-white text-body ring-1 ring-stone-200 hover:ring-brand-500'
+                      on ? 'bg-brand-600 text-white' : 'bg-white text-brand-700 ring-1 ring-brand-500/60 hover:bg-brand-50'
                     }`}>
                     {t.label}
                     {!has && <span className={`ml-1.5 text-[11px] font-semibold ${on ? 'text-white/60' : 'text-muted'}`}>· chưa có</span>}

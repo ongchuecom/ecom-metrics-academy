@@ -83,7 +83,7 @@ export default function PnLSimulator({ selected }) {
             </ul>
             <div className="mt-2 flex flex-wrap items-end justify-between gap-2 border-t-2 border-dashed border-stone-300 pt-3">
               <span className="font-display text-lg font-black uppercase text-ink">Lãi ròng</span>
-              <span className={`num text-4xl font-black leading-none sm:text-5xl ${r.netProfit >= 0 ? 'text-brand-700' : 'text-coral'}`}>
+              <span className={`num text-4xl font-black leading-none sm:text-5xl ${r.netProfit >= 0 ? 'text-ok' : 'text-coral'}`}>
                 {r.netProfit < 0 ? '−' : ''}{vnd(Math.abs(r.netProfit), true)}
               </span>
             </div>
@@ -91,7 +91,7 @@ export default function PnLSimulator({ selected }) {
           </div>
           <p className="mt-4 px-1 text-sm text-navy-ink">
             Lãi đơn đầu của khách mới:{' '}
-            <span className={`num font-extrabold ${r.profitPerNewOrder >= 0 ? 'text-brand-800' : 'text-coral'}`}>{vnd(r.profitPerNewOrder)}</span>
+            <span className={`num font-extrabold ${r.profitPerNewOrder >= 0 ? 'text-ok' : 'text-coral'}`}>{vnd(r.profitPerNewOrder)}</span>
             {r.profitPerNewOrder < 0 && r.ltvCac >= 1 && '. Lỗ đơn đầu nhưng có thể gỡ lại nếu khách mua lại đủ vòng đời.'}
           </p>
         </div>

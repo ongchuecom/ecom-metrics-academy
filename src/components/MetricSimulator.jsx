@@ -48,7 +48,7 @@ export default function MetricSimulator({ metric, onSelect }) {
               <div key={o.key} aria-live="polite"
                 className={`rounded-2xl border p-4 transition ${warn ? 'border-coral/40 bg-peach' : 'border-stone-200/80 bg-white'}`}>
                 <p className="eyebrow text-charcoal">{o.label}</p>
-                <p className={`num mt-1 text-3xl font-black ${warn ? 'text-coral' : 'text-brand-700'}`}>{formatUnit(v, o.unit)}</p>
+                <p className={`num mt-1 text-3xl font-black ${warn ? 'text-coral' : 'text-ink'}`}>{formatUnit(v, o.unit)}</p>
                 {o.warning_threshold && (
                   <p className={`mt-1 text-xs ${warn ? 'font-bold text-coral' : 'text-muted'}`}>
                     {warn ? 'Vượt ngưỡng cảnh báo ' : 'Ngưỡng cảnh báo: '}{o.warning_threshold}{o.unit && o.unit !== '%' ? ` ${o.unit}` : ''}

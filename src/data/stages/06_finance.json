@@ -343,7 +343,8 @@
     "benchmarks": {
       "tiktok_vn": "3.0x - 4.5x",
       "meta_vn": "3.5x - 5.0x",
-      "d2c_us": "2.5x - 4.0x"
+      "d2c_us": "2.5x - 4.0x",
+      "tham_khao": "4–6x trở lên, tùy ngành (sách Ecom Truyền Kỳ)"
     },
     "relationships": {
       "upstream_drivers": [

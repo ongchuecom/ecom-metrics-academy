@@ -1,9 +1,9 @@
 import { metricById } from '../data/index.js'
 import { SectionTitle } from './ui.jsx'
 
-// Theo bộ nhận diện: xanh = thuận chiều (cùng tăng), cam đỏ = nghịch chiều, vàng = đánh đổi cần nhớ
+// Xám = thuận chiều (cùng tăng), đỏ thẫm = nghịch chiều, vàng = đánh đổi cần nhớ
 const IMPACT = {
-  direct: { label: 'Thuận chiều', sign: '↑ ↑', badge: 'bg-brand-100 text-brand-800 ring-brand-500/30', edge: 'border-l-brand-500' },
+  direct: { label: 'Thuận chiều', sign: '↑ ↑', badge: 'bg-stone-100 text-ink ring-stone-300', edge: 'border-l-stone-400' },
   inverse: { label: 'Nghịch chiều', sign: '↑ ↓', badge: 'bg-coral/10 text-coral ring-coral/30', edge: 'border-l-coral' },
   trade: { label: 'Đánh đổi', sign: '⇄', badge: 'bg-marker text-navy-ink ring-amber-300', edge: 'border-l-marker' },
 }
