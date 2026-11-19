@@ -79,5 +79,6 @@ input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; }
 
 /* Dải cam bìa sách: chỉ cho thanh đầu trang, khối nhấn lớn */
 .book-band { background: linear-gradient(90deg, #ED3830 0%, #F05025 45%, #F38714 100%); color: #fff; }
-.prose-lesson p { font-size: 17px; line-height: 1.8; color: #2B2B2B; margin: 0 0 14px; }
+.prose-lesson p { font-size: 15px; line-height: 1.65; color: #3D3D3D; margin: 0 0 10px; }
+.prose-lesson p:last-child { margin-bottom: 0; }
 .prose-lesson b, .prose-lesson strong { color: #1A1A1A; }

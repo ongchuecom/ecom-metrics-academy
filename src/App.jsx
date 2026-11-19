@@ -117,7 +117,7 @@ export default function App() {
       </aside>
 
       <main className="min-w-0 flex-1">
-        <div className="mx-auto max-w-3xl space-y-12 px-4 py-6 sm:px-6 lg:py-12">
+        <div className="mx-auto max-w-5xl space-y-10 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
           <MetricLesson metric={metric} onSelect={select} onHomework={openHomework} />
 
           <CaseStudy key={`case-${selectedMetricId}`} metric={metric} onSelect={select} />

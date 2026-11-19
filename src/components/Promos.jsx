@@ -27,7 +27,7 @@ export default function Promos() {
         {items.map((it, i) => (
           <a key={it.title} href={it.url} target="_blank" rel="noopener noreferrer"
             className="group w-[68%] shrink-0 snap-start overflow-hidden rounded-2xl border border-stone-200/80 bg-white transition hover:-translate-y-0.5 hover:border-coral sm:w-auto">
-            <div className="aspect-[4/5] overflow-hidden"><Cover item={it} i={i} /></div>
+            <div className="aspect-[4/5] overflow-hidden sm:aspect-[4/3]"><Cover item={it} i={i} /></div>
             <div className="flex items-center justify-between gap-2 px-4 py-3">
               <span className="font-display font-extrabold leading-snug text-ink">{it.title}</span>
               <span className="shrink-0 font-bold text-coral transition group-hover:translate-x-0.5" aria-hidden="true">→</span>

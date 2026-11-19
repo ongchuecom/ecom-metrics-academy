@@ -15,8 +15,8 @@ export function SectionTitle({ eyebrow, title, desc, right }) {
     <div className="flex flex-wrap items-end justify-between gap-2">
       <div>
         {eyebrow && <p className="eyebrow text-muted">{eyebrow}</p>}
-        <h2 className="mt-1 flex items-center gap-2.5 text-xl font-extrabold leading-tight text-brand-600 sm:text-[22px]">
-          <span className="h-5 w-1 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />{title}
+        <h2 className="mt-1 flex items-center gap-2.5 text-lg font-extrabold leading-tight text-brand-600">
+          <span className="h-4 w-1 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />{title}
         </h2>
         {desc && <p className="mt-1.5 text-sm text-charcoal">{desc}</p>}
       </div>
