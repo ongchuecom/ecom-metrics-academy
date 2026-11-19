@@ -55,7 +55,7 @@ function buildScenes(metric) {
   return scenes
 }
 
-function Frame({ bg, children, n, total, label, dark }) {
+function Frame({ bg, children, n, total, label, dark, sign = false }) {
   return (
     <div className={`absolute inset-0 flex flex-col ${bg}`} style={{ padding: '6cqmin 7cqmin' }}>
       <div className={`flex items-center justify-between ${dark ? 'text-white/85' : 'text-current opacity-70'}`}>
@@ -63,10 +63,7 @@ function Frame({ bg, children, n, total, label, dark }) {
         <span className="num font-bold" style={fs(2.6)}>{n}/{total}</span>
       </div>
       <div className="relative flex min-h-0 flex-1 flex-col justify-center">{children}</div>
-      <div className={`flex items-center justify-between ${dark ? 'text-white/80' : 'text-current opacity-60'}`} style={fs(2.4)}>
-        <span className="font-display font-extrabold">A1demy</span>
-        <span className="font-semibold">Ecom Metrics Academy</span>
-      </div>
+      {sign && <p className={`text-right font-display font-extrabold ${dark ? 'text-white/85' : 'opacity-70'}`} style={fs(2.6)}>Ông chú Ecom</p>}
     </div>
   )
 }
@@ -173,7 +170,7 @@ function Scene({ s, metric, n, total, onHomework }) {
     }
     case 'close':
       return (
-        <Frame bg="bg-promo text-white" dark n={n} total={total} label="Chốt">
+        <Frame bg="bg-promo text-white" dark sign n={n} total={total} label="Chốt">
           {s.trade ? (
             <div className="mv-up rounded-[3cqmin] bg-white text-ink" style={{ padding: '3.5cqmin', ...d(200) }}>
               <p className="eyebrow text-coral" style={fs(2.6)}>Cẩn thận đánh đổi</p>

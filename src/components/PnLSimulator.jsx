@@ -40,7 +40,6 @@ export default function PnLSimulator({ selected }) {
     { label: 'Chi phí cố định', v: -p.fixedCost },
     { label: 'Lãi ròng', v: r.netProfit, total: true },
   ]
-  const maxAbs = Math.max(...pnl.map((x) => Math.abs(x.v)), 1)
   const roasTone = r.roas >= r.breakevenRoas * 1.3 ? 'good' : r.roas >= r.breakevenRoas ? 'warn' : 'bad'
   const ltvTone = r.ltvCac >= 3 ? 'good' : r.ltvCac >= 1 ? 'warn' : 'bad'
 
@@ -48,7 +47,7 @@ export default function PnLSimulator({ selected }) {
     <div className="grid gap-4 xl:grid-cols-[minmax(0,380px)_1fr]">
       <Card className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold">Giả định của shop</h3>
+          <h3 className="text-lg font-extrabold">Giả định của shop</h3>
           <button onClick={() => setP(SIM_DEFAULTS)} className="text-sm text-brand-700 hover:underline">Đặt lại</button>
         </div>
         {SLIDERS.map((s) => (
@@ -67,32 +66,39 @@ export default function PnLSimulator({ selected }) {
           <Stat ids={['fin_net_margin', 'fin_ebitda']} selected={selected} label="Lãi ròng / tháng" value={vnd(r.netProfit, true)} tone={r.netProfit >= 0 ? 'good' : 'bad'} sub={`Biên ròng ${pct(r.netMarginPct)}`} />
         </div>
 
-        <Card highlight={['fin_net_margin', 'fin_ebitda', 'fin_cm1', 'fin_cm2', 'fin_cm3'].includes(selected)}>
-          <h3 className="font-bold">P&L tháng (giả lập)</h3>
-          <div className="mt-3 space-y-2">
-            {pnl.map((x) => (
-              <div key={x.label} className="grid grid-cols-[150px_1fr_110px] items-center gap-2 text-sm sm:grid-cols-[200px_1fr_120px]">
-                <span className={x.total ? 'font-semibold' : 'text-stone-600'}>{x.label}</span>
-                <div className="h-4 rounded bg-stone-100">
-                  <div
-                    className={`h-4 rounded ${x.total ? (x.v >= 0 ? 'bg-brand-600' : 'bg-red-500') : 'bg-accent-500/70'}`}
-                    style={{ width: `${(Math.abs(x.v) / maxAbs) * 100}%` }}
-                  />
-                </div>
-                <span className={`text-right num ${x.v < 0 ? 'text-coral' : ''}`}>{vnd(x.v, true)}</span>
-              </div>
-            ))}
+        {/* Bố cục Hóa đơn (đã duyệt): thẻ trắng hơi nghiêng trên nền vàng chanh, dòng tổng to */}
+        <div className={`rounded-3xl bg-lemon p-4 sm:p-6 ${['fin_net_margin', 'fin_ebitda', 'fin_cm1', 'fin_cm2', 'fin_cm3'].includes(selected) ? 'ring-4 ring-brand-500/40' : ''}`}>
+          <p className="eyebrow px-1 text-navy-ink">Hóa đơn lãi lỗ · 1 tháng (giả lập)</p>
+          <div className="mt-3 rotate-[-1deg] rounded-2xl bg-white px-4 py-4 shadow-[0_10px_30px_rgba(31,42,68,0.12)] sm:px-6">
+            <div className="flex justify-between border-b border-dashed border-stone-300 pb-2 text-xs font-bold uppercase tracking-widest text-muted">
+              <span>Khoản</span><span>Số tiền</span>
+            </div>
+            <ul className="divide-y divide-dashed divide-stone-200">
+              {pnl.map((x) => (
+                <li key={x.label} className={`flex items-baseline justify-between gap-3 py-2 ${x.total ? 'font-display font-extrabold text-ink' : 'text-body'}`}>
+                  <span>{x.label}</span>
+                  <span className={`num shrink-0 ${x.total ? '' : 'font-semibold'} ${x.v < 0 && !x.total ? 'text-coral' : ''}`}>{x.v < 0 ? '−' : ''}{vnd(Math.abs(x.v), true)}</span>
+                </li>
+              )).slice(0, -1)}
+            </ul>
+            <div className="mt-2 flex flex-wrap items-end justify-between gap-2 border-t-2 border-dashed border-stone-300 pt-3">
+              <span className="font-display text-lg font-black uppercase text-ink">Lãi ròng</span>
+              <span className={`num text-4xl font-black leading-none sm:text-5xl ${r.netProfit >= 0 ? 'text-brand-700' : 'text-coral'}`}>
+                {r.netProfit < 0 ? '−' : ''}{vnd(Math.abs(r.netProfit), true)}
+              </span>
+            </div>
+            <p className="mt-1 text-right text-xs text-muted">Biên ròng {pct(r.netMarginPct)} · Ví dụ minh họa</p>
           </div>
-          <p className="mt-3 text-sm text-stone-600">
-            Lãi trên mỗi đơn của khách mới (đơn đầu tiên):{' '}
-            <span className={`num font-semibold ${r.profitPerNewOrder >= 0 ? 'text-brand-700' : 'text-coral'}`}>{vnd(r.profitPerNewOrder)}</span>
-            {r.profitPerNewOrder < 0 && r.ltvCac >= 1 && ' — lỗ đơn đầu nhưng có thể gỡ lại nếu khách mua lại đủ vòng đời.'}
+          <p className="mt-4 px-1 text-sm text-navy-ink">
+            Lãi đơn đầu của khách mới:{' '}
+            <span className={`num font-extrabold ${r.profitPerNewOrder >= 0 ? 'text-brand-800' : 'text-coral'}`}>{vnd(r.profitPerNewOrder)}</span>
+            {r.profitPerNewOrder < 0 && r.ltvCac >= 1 && '. Lỗ đơn đầu nhưng có thể gỡ lại nếu khách mua lại đủ vòng đời.'}
           </p>
-        </Card>
+        </div>
 
-        <div className="rounded-2xl bg-lemon p-4 text-navy-ink">
+        <div className="rounded-2xl border border-stone-200/80 bg-white p-4 text-body">
           <p className="text-sm leading-relaxed">
-            <span className="font-display font-extrabold">Thử ngay: </span>
+            <span className="font-display font-extrabold text-brand-700">Thử ngay: </span>
             kéo <b>giá vốn</b> lên vài điểm và xem ROAS hòa vốn nhảy lên thế nào; tăng <b>số đơn vòng đời</b> để thấy CLV/CAC đổi màu;
             tăng <b>ngân sách quảng cáo</b> khi ROAS đang dưới hòa vốn để thấy lỗ phình ra.
           </p>

@@ -14,7 +14,6 @@ function Cover({ item, i }) {
     <div className="flex h-full w-full flex-col justify-between p-4" style={st}>
       <span className="eyebrow opacity-90">{item.kind}</span>
       <span className="font-display text-2xl font-black uppercase leading-[1.05]">{item.title}</span>
-      <span className="font-display text-sm font-extrabold opacity-90">Ông chú Ecom</span>
     </div>
   )
 }

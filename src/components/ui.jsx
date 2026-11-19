@@ -19,7 +19,8 @@ export function SectionTitle({ eyebrow, title, desc, tone = 'green', right }) {
         <div>
           {eyebrow && <p className={`eyebrow ${ey}`}>{eyebrow}</p>}
           <h2 className="text-xl font-extrabold leading-tight sm:text-2xl">{title}</h2>
-          {desc && <p className="mt-0.5 text-sm text-charcoal">{desc}</p>}
+          <span className={`mt-1.5 block h-px w-14 ${bar}`} aria-hidden="true" />
+          {desc && <p className="mt-1.5 text-sm text-charcoal">{desc}</p>}
         </div>
       </div>
       {right}

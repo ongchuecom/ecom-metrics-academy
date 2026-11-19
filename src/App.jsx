@@ -32,7 +32,7 @@ function Brand({ compact = false }) {
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-lemon font-display text-sm font-black text-navy-ink">A1</span>
       <div className="leading-tight">
         <p className="font-display text-[15px] font-black text-ink">Ecom Metrics Academy</p>
-        {!compact && <p className="text-xs text-charcoal">Ông chú Ecom · Hiểu số trước khi đốt tiền</p>}
+        {!compact && <p className="text-xs text-charcoal">Hiểu số trước khi đốt tiền</p>}
       </div>
     </div>
   )
@@ -165,7 +165,7 @@ export default function App() {
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.
-            <br />© Ông chú Ecom · A1demy
+            <br /><span className="font-display font-extrabold text-charcoal">Ông chú Ecom</span>
           </footer>
         </div>
       </main>
