@@ -24,6 +24,10 @@
  *    c. Apps Script → Cài đặt dự án (bánh răng) → Thuộc tính tập lệnh → thêm GITHUB_TOKEN = token vừa tạo.
  *       Token chỉ nằm trong Apps Script của anh, không dán vào chat hay repo.
  *
+ * 6. Bật đăng nhập Google/Facebook cho bảng xếp hạng (sau khi tạo dự án Firebase):
+ *    Thuộc tính tập lệnh → thêm FIREBASE_API_KEY = apiKey của Web app Firebase (giá trị công khai, không phải mật khẩu).
+ *    Có thuộc tính này thì bảng xếp hạng chỉ nhận điểm kèm phiên đăng nhập hợp lệ, và người dùng tự xóa được điểm của mình.
+ *
  * Sheet và repo góp ý vẫn riêng tư: người gửi chỉ ghi thêm được dòng mới, không đọc được dữ liệu.
  */
 const HEADERS = ['Thời gian', 'Tên gọi', 'Số Zalo', 'Bán ở đâu', 'Doanh thu tháng', 'Cần hỗ trợ', 'Trang gửi', 'Nguồn', 'Tóm tắt khám sức khỏe', 'Đồng ý liên hệ']
@@ -38,6 +42,8 @@ function doPost(e) {
     if (d.website) return out({ ok: true }) // ô bẫy chống bot: người thật không điền
     if (d.type === 'feedback') return feedback(d)
     if (d.type === 'score') return score(d)
+    if (d.type === 'progress') return progress(d)
+    if (d.type === 'delete') return removePlayer(d)
     return withLock(() => lead(d))
   } catch (err) {
     return out({ ok: false, error: 'server' })
@@ -116,9 +122,62 @@ const LB_PATH = 'leaderboard.json'
 const cleanName = (s) => String(s || '').normalize('NFC').replace(/[\u0000-\u001f<>]/g, '').replace(/https?:\/\/\S+|www\.\S+/gi, '')
   .replace(/\d[\d .-]{5,}\d/g, '').replace(/\s+/g, ' ').trim().slice(0, 24) || 'Ẩn danh'
 
-function score(d) {
+// Kiểm tra phiên đăng nhập Firebase: trả uid nếu idToken hợp lệ (hỏi thẳng Firebase, kết quả nhớ 10 phút)
+function verifyToken(idToken) {
+  const key = PropertiesService.getScriptProperties().getProperty('FIREBASE_API_KEY')
+  if (!key || !idToken) return null
+  const cache = CacheService.getScriptCache()
+  const ck = 'tok-' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, String(idToken)))
+  const hit = cache.get(ck)
+  if (hit) return hit
+  const res = UrlFetchApp.fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + encodeURIComponent(key),
+    { method: 'post', contentType: 'application/json', payload: JSON.stringify({ idToken: String(idToken) }), muteHttpExceptions: true })
+  if (res.getResponseCode() !== 200) return null
+  const u = (JSON.parse(res.getContentText()).users || [])[0]
+  if (!u || !u.localId) return null
+  cache.put(ck, u.localId, 600)
+  return u.localId
+}
+const authOn = () => !!PropertiesService.getScriptProperties().getProperty('FIREBASE_API_KEY')
+
+// Người chơi đã đăng nhập: player = 'fb-' + uid và phải khớp phiên đăng nhập. Chưa bật đăng nhập: chấp nhận mã ngẫu nhiên của trình duyệt.
+function checkPlayer(d) {
   const player = String(d.player || '')
-  if (!/^[a-z0-9-]{8,40}$/.test(player)) return out({ ok: false, error: 'player' })
+  if (authOn()) {
+    const uid = verifyToken(d.idToken)
+    if (!uid) return { error: 'auth' }
+    if (player !== 'fb-' + uid) return { error: 'player' }
+    return { player }
+  }
+  if (!/^[a-z0-9-]{8,40}$/.test(player)) return { error: 'player' }
+  return { player }
+}
+
+function progress(d) {
+  const c = checkPlayer(d)
+  if (c.error) return out({ ok: false, error: c.error })
+  const r = readFile(LB_PATH)
+  if (!r.ok) return out(r)
+  const x = r.text ? JSON.parse(r.text).players[c.player] : null
+  return out({ ok: true, name: x ? x.name : '', scores: x ? x.scores : {} })
+}
+
+function removePlayer(d) {
+  const c = checkPlayer(d)
+  if (c.error) return out({ ok: false, error: c.error })
+  const res = updateFile(LB_PATH, (text) => {
+    const lb = text ? JSON.parse(text) : { players: {} }
+    delete lb.players[c.player]
+    return JSON.stringify(lb)
+  }, 'Xóa điểm theo yêu cầu')
+  if (res.ok) CacheService.getScriptCache().remove('lb-top')
+  return out(res)
+}
+
+function score(d) {
+  const c = checkPlayer(d)
+  if (c.error) return out({ ok: false, error: c.error })
+  const player = c.player
   const scores = {}
   for (const [pb, v] of Object.entries(d.scores || {})) {
     if (/^pb_\d{2}_[a-z0-9_]{2,60}$/.test(pb) && [0, 10, 20, 30].indexOf(Number(v)) >= 0) scores[pb] = Number(v)

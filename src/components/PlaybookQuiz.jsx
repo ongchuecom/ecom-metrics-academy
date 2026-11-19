@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { playbooks } from '../data/index.js'
-import { GAM, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, ensurePlayer } from '../lib/quiz.js'
+import { GAM, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, ensurePlayer, QUIZ_EVENT, accountPlayer } from '../lib/quiz.js'
 import { postJSON, hasEndpoint } from '../lib/api.js'
+import { useAuth, authEnabled } from '../lib/auth.jsx'
 import RankBadge from './RankBadge.jsx'
 
 // Trắc nghiệm thực chiến cuối mỗi Playbook: chấm ngay khi nộp, hiện giải thích từng câu.
@@ -14,17 +15,28 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
   const [result, setResult] = useState(null) // { score, official }
   const [name, setName] = useState(store.name)
   const [sync, setSync] = useState('idle') // idle | sending | done | error
+  const { user, getToken, openLogin } = useAuth()
+  // điểm vừa được đồng bộ với tài khoản ở nơi khác → đọc lại
+  useEffect(() => {
+    const f = () => { const s = loadQuiz(); setStore(s); setName((n) => n || s.name) }
+    window.addEventListener(QUIZ_EVENT, f); return () => window.removeEventListener(QUIZ_EVENT, f)
+  }, [])
+  useEffect(() => { if (user && !name) setName(user.name.slice(0, 24)) }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
   if (!quiz.length) return null
+  // Có đăng nhập thì bảng xếp hạng chỉ nhận điểm gắn với tài khoản
+  const needLogin = authEnabled && !user
 
   const first = store.first[p.playbook_id]
   const done = !!result
   const allAnswered = quiz.every((q) => answers[q.question_id])
 
   const publish = async (s, nm) => {
-    if (!hasEndpoint || !nm) return
+    if (!hasEndpoint || !nm || needLogin) return
     setSync('sending')
     try {
-      await postJSON({ type: 'score', player: s.player, name: nm, scores: s.first })
+      const idToken = authEnabled ? await getToken() : undefined
+      if (user) s = { ...s, player: accountPlayer(user.uid) }
+      await postJSON({ type: 'score', player: s.player, name: nm, scores: s.first, ...(idToken ? { idToken } : {}) })
       const next = { ...s, name: nm, synced: Object.fromEntries(Object.keys(s.first).map((k) => [k, true])) }
       saveQuiz(next); setStore(next); setSync('done')
     } catch { setSync('error') }
@@ -33,7 +45,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
   const submit = () => {
     const score = quiz.reduce((a, q) => a + (answers[q.question_id] === q.correct_option ? q.points : 0), 0)
     const official = first === undefined
-    let s = ensurePlayer(store)
+    let s = user ? { ...store, player: accountPlayer(user.uid) } : ensurePlayer(store)
     s = { ...s, last: { ...s.last, [p.playbook_id]: { score, at: new Date().toISOString() } }, ...(official ? { first: { ...s.first, [p.playbook_id]: score } } : {}) }
     saveQuiz(s); setStore(s); setResult({ score, official })
     if (official && s.name) publish(s, s.name)
@@ -112,7 +124,14 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
             )}
           </div>
 
-          {hasEndpoint && result.official && (
+          {hasEndpoint && result.official && needLogin && (
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <button type="button" onClick={() => openLogin('Đăng nhập để lưu điểm này vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')}
+                className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng xếp hạng</button>
+              <span className="text-xs text-muted">Điểm vẫn được giữ trên máy này, đăng nhập lúc nào cũng đưa lên được.</span>
+            </div>
+          )}
+          {hasEndpoint && result.official && !needLogin && (
             store.name ? (
               <p className="mt-3 text-sm text-charcoal">
                 {sync === 'sending' ? 'Đang cập nhật bảng xếp hạng…' : sync === 'error' ? <span className="text-coral">Chưa cập nhật được bảng xếp hạng. <button type="button" onClick={() => publish(store, store.name)} className="font-semibold underline">Thử lại</button></span> : <>Đã cập nhật bảng xếp hạng với tên <b className="text-ink">{store.name}</b>.</>}

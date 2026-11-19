@@ -26,3 +26,8 @@ export function ensurePlayer(s) {
   const id = (crypto.randomUUID?.() || Math.random().toString(36).slice(2) + Date.now().toString(36)).toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 36)
   return { ...s, player: id }
 }
+
+// Báo cho các khối trắc nghiệm / bảng xếp hạng đang mở đọc lại điểm sau khi đồng bộ
+export const QUIZ_EVENT = 'ema-quiz-changed'
+export const notifyQuiz = () => window.dispatchEvent(new Event(QUIZ_EVENT))
+export const accountPlayer = (uid) => 'fb-' + uid

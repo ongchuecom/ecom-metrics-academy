@@ -17,6 +17,7 @@
     "feedback:summary": "node scripts/feedback-summary.mjs"
   },
   "dependencies": {
+    "firebase": "^11.10.0",
     "katex": "^0.16.11",
     "react": "18.3.1",
     "react-dom": "18.3.1"

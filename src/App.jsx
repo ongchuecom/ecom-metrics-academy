@@ -3,6 +3,10 @@ import { metricById, metricsMaster, playbookById, LEARNING_PATH } from './data/i
 import { href, parse } from './lib/route.js'
 import { PlaybookPage } from './components/Playbooks.jsx'
 import Leaderboard from './components/Leaderboard.jsx'
+import Privacy from './components/Privacy.jsx'
+import { LoginDialog, AccountButton } from './components/Login.jsx'
+import { useAuth } from './lib/auth.jsx'
+import { syncAccount } from './lib/sync.js'
 import Sidebar from './components/Sidebar.jsx'
 import MetricLesson, { H2 } from './components/MetricLesson.jsx'
 import MetricSimulator from './components/MetricSimulator.jsx'
@@ -83,6 +87,9 @@ export default function App() {
   const openHome = useCallback(() => go({ type: 'home' }), [go])
   const openHealth = useCallback(() => go({ type: 'health' }), [go])
   const openLeaderboard = useCallback(() => go({ type: 'leaderboard' }), [go])
+  // Đăng nhập xong thì gộp điểm trắc nghiệm trên máy với điểm theo tài khoản
+  const { user, getToken } = useAuth()
+  useEffect(() => { if (user) syncAccount(user, getToken).catch(() => {}) }, [user?.uid]) // eslint-disable-line react-hooks/exhaustive-deps
   const setTab = useCallback((t) => go({ type: 'metric', id: route.id, tab: t }, { replace: true, scroll: false }), [go, route.id])
 
   // Link cũ dạng #id → đường dẫn mới; nút Back/Forward
@@ -97,7 +104,8 @@ export default function App() {
     document.title = route.type === 'metric' ? `${metric.code}: ${metric.vi_name} · ${TITLE}`
       : route.type === 'pb' ? `${playbookById[route.id].title} · ${TITLE}`
       : route.type === 'health' ? `Khám sức khỏe shop · ${TITLE}`
-      : route.type === 'leaderboard' ? `Bảng xếp hạng trắc nghiệm · ${TITLE}` : `${TITLE} · Ông chú Ecom`
+      : route.type === 'leaderboard' ? `Bảng xếp hạng trắc nghiệm · ${TITLE}`
+      : route.type === 'privacy' ? `Chính sách riêng tư · ${TITLE}` : `${TITLE} · Ông chú Ecom`
   }, [route, metric])
 
   // Phím tắt tìm kiếm: Ctrl/⌘ + K hoặc "/"
@@ -128,6 +136,7 @@ export default function App() {
 
   return (
     <div className="min-h-full lg:flex">
+      <LoginDialog />
       <SearchDialog open={searching} onClose={() => setSearching(false)} onSelectMetric={select} onOpenPlaybook={openPlaybook} />
 
       {/* Thanh trên cùng trên mobile */}
@@ -135,6 +144,7 @@ export default function App() {
         <Brand compact onHome={openHome} />
         <div className="flex shrink-0 items-center gap-2">
           <SearchButton variant="icon" onClick={() => setSearching(true)} />
+          <AccountButton variant="icon" />
           <button onClick={() => setDrawer(true)} className="flex items-center gap-2 rounded-full bg-white px-3.5 py-2 font-display text-sm font-bold text-brand-600" aria-expanded={drawer}>
             <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden="true"><path d="M3 5h14v2H3zM3 9h14v2H3zM3 13h14v2H3z" /></svg>
             Mục lục
@@ -164,6 +174,7 @@ export default function App() {
           <SearchButton onClick={() => setSearching(true)} />
           <button onClick={openHealth} className="w-full rounded-xl bg-white/15 px-3 py-2 text-left text-sm font-bold text-white hover:bg-white/25">Khám sức khỏe shop →</button>
           <button onClick={openLeaderboard} className="w-full rounded-xl px-3 py-1 text-left text-sm font-semibold text-white/90 hover:text-white">Bảng xếp hạng trắc nghiệm →</button>
+          <AccountButton />
         </div>
         {side}
       </aside>
@@ -189,6 +200,7 @@ export default function App() {
 
           {route.type === 'pb' && <PlaybookPage playbook={playbookById[route.id]} onSelectMetric={select} onOpen={openPlaybook} onOpenLeaderboard={openLeaderboard} />}
           {route.type === 'leaderboard' && <Leaderboard onOpenPlaybook={openPlaybook} />}
+          {route.type === 'privacy' && <Privacy />}
 
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
             {pathIdx >= 0 && (
@@ -246,6 +258,7 @@ export default function App() {
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.
             <br /><span className="font-display font-extrabold text-charcoal">Ông chú Ecom</span>
+            {' · '}<a href={href({ type: 'privacy' })} onClick={(e) => { e.preventDefault(); go({ type: 'privacy' }) }} className="underline hover:text-brand-700">Chính sách riêng tư</a>
           </footer>
         </div>
       </main>

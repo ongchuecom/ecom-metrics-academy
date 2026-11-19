@@ -1,21 +1,40 @@
 import { useEffect, useState } from 'react'
 import { playbooks } from '../data/index.js'
-import { GAM, RANK_LIST, rankFor, nextRank, loadQuiz, totalOf } from '../lib/quiz.js'
-import { getJSON, hasEndpoint } from '../lib/api.js'
+import { GAM, RANK_LIST, rankFor, nextRank, loadQuiz, saveQuiz, totalOf, QUIZ_EVENT, accountPlayer } from '../lib/quiz.js'
+import { getJSON, postJSON, hasEndpoint } from '../lib/api.js'
+import { useAuth, authEnabled } from '../lib/auth.jsx'
 import { pbTitle } from './Playbooks.jsx'
 import RankBadge from './RankBadge.jsx'
 
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1]
 
 export default function Leaderboard({ onOpenPlaybook }) {
-  const [me] = useState(loadQuiz)
+  const { user, getToken, openLogin } = useAuth()
+  const [me, setMe] = useState(loadQuiz)
+  const [tick, setTick] = useState(0)
+  const [del, setDel] = useState('idle')
   const [board, setBoard] = useState({ state: hasEndpoint ? 'loading' : 'off' })
   useEffect(() => {
+    const f = () => { setMe(loadQuiz()); setTick((t) => t + 1) }
+    window.addEventListener(QUIZ_EVENT, f); return () => window.removeEventListener(QUIZ_EVENT, f)
+  }, [])
+  const player = user ? accountPlayer(user.uid) : me.player
+  useEffect(() => {
     if (!hasEndpoint) return
-    getJSON({ action: 'leaderboard', ...(me.player ? { me: me.player } : {}) })
+    getJSON({ action: 'leaderboard', ...(player ? { me: player } : {}) })
       .then((j) => setBoard({ state: 'ok', ...j }))
       .catch(() => setBoard({ state: 'error' }))
-  }, [me.player])
+  }, [player, tick])
+
+  // Xóa điểm khỏi bảng xếp hạng (và khỏi máy này) theo yêu cầu người dùng
+  const removeMe = async () => {
+    if (!window.confirm('Xóa toàn bộ điểm của anh/chị khỏi bảng xếp hạng và khỏi máy này? Không hoàn tác được.')) return
+    setDel('sending')
+    try {
+      await postJSON({ type: 'delete', player, idToken: await getToken() })
+      saveQuiz({ player: '', name: '', first: {}, last: {}, synced: {} }); setMe(loadQuiz()); setTick((t) => t + 1); setDel('done')
+    } catch { setDel('error') }
+  }
 
   const total = totalOf(me)
   const rank = rankFor(total)
@@ -55,7 +74,19 @@ export default function Leaderboard({ onOpenPlaybook }) {
             </div>
           </div>
         )}
-        {hasEndpoint && !me.name && total > 0 && <p className="mt-3 text-sm text-charcoal">Anh/chị chưa lên bảng. Làm xong trắc nghiệm một Playbook bất kỳ, nhập tên hiển thị là điểm được đưa lên.</p>}
+        {hasEndpoint && authEnabled && !user && (
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <button onClick={() => openLogin('Đăng nhập để lưu điểm vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')} className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng</button>
+            <span className="text-xs text-muted">Google hoặc Facebook. Điểm trên máy này được đưa lên tài khoản.</span>
+          </div>
+        )}
+        {hasEndpoint && !authEnabled && !me.name && total > 0 && <p className="mt-3 text-sm text-charcoal">Anh/chị chưa lên bảng. Làm xong trắc nghiệm một Playbook bất kỳ, nhập tên hiển thị là điểm được đưa lên.</p>}
+        {hasEndpoint && user && (
+          <p className="mt-3 text-xs text-muted">
+            {del === 'done' ? 'Đã xóa điểm của anh/chị.' : del === 'error' ? <span className="text-coral">Chưa xóa được, thử lại sau.</span> : null}{' '}
+            <button onClick={removeMe} disabled={del === 'sending'} className="underline hover:text-coral">Xóa điểm của tôi khỏi bảng xếp hạng</button>
+          </p>
+        )}
       </section>
 
       {/* Bảng chung */}

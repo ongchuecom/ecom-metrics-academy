@@ -72,6 +72,9 @@ for (const p of playbooks) {
 <h2>Chỉ số trong Playbook</h2><ul>${p.linked_metrics.map((id) => byId[id]).filter(Boolean).map((m) => `<li><a href="${SITE + mUrl(m)}">${esc(m.code)}: ${esc(m.vi_name)}</a></li>`).join('')}</ul>`
   urls.push(page(pUrl(p), `${p.title} · Ecom Metrics Academy`, cut(p.summary), body))
 }
+urls.push(page('chinh-sach-rieng-tu/', 'Chính sách riêng tư · Ecom Metrics Academy',
+  'Ecom Metrics Academy thu thập gì khi đăng nhập Google, Facebook, làm trắc nghiệm, góp ý; dùng để làm gì và cách xóa dữ liệu.',
+  '<h1>Chính sách riêng tư</h1><p>Trang này thu thập mã tài khoản, tên hiển thị và ảnh đại diện khi đăng nhập Google hoặc Facebook, điểm trắc nghiệm, góp ý ẩn danh. Hướng dẫn xóa dữ liệu: đăng nhập, vào Bảng xếp hạng, bấm Xóa điểm của tôi.</p>'))
 urls.push(page('bang-xep-hang/', 'Bảng xếp hạng trắc nghiệm thực chiến · Ecom Metrics Academy',
   'Làm 3 câu trắc nghiệm thực chiến cuối mỗi Playbook, cộng điểm, lên cấp bậc từ Tập Sự Sàn TMĐT tới Bậc Thầy Dòng Tiền & Lợi Nhuận.',
   '<h1>Bảng xếp hạng trắc nghiệm thực chiến</h1><p>Mỗi Playbook có 3 câu trắc nghiệm, chấm điểm ngay và có giải thích.</p>'))

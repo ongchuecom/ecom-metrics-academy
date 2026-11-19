@@ -57,5 +57,18 @@
     "website": "https://ongchuecom.com",
     "facebook": "",
     "zalo": ""
+  },
+  "auth": {
+    "_huong_dan": "Đăng nhập Gmail/Facebook qua Firebase Authentication. Dán firebaseConfig của Web app vào firebase (các giá trị này công khai, không phải mật khẩu). Để trống apiKey thì nút đăng nhập ẩn. providers: bật nhà cung cấp nào thì nút đó hiện.",
+    "providers": [
+      "google",
+      "facebook"
+    ],
+    "firebase": {
+      "apiKey": "",
+      "authDomain": "",
+      "projectId": "",
+      "appId": ""
+    }
   }
 }

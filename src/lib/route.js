@@ -4,6 +4,7 @@
 // /playbook/<slug>       → Playbook
 // /kham-suc-khoe         → công cụ khám sức khỏe shop
 // /bang-xep-hang         → bảng xếp hạng trắc nghiệm Playbook
+// /chinh-sach-rieng-tu   → chính sách riêng tư (cần cho đăng nhập Facebook)
 // Link cũ dạng #vn_fin_cm2 hoặc #pb_01_… vẫn mở được.
 import { metricById, playbookById, metricBySlug, playbookBySlug } from '../data/index.js'
 
@@ -14,6 +15,7 @@ export function href(r) {
   if (r.type === 'pb') return `${BASE}playbook/${playbookById[r.id].slug}/`
   if (r.type === 'health') return `${BASE}kham-suc-khoe/`
   if (r.type === 'leaderboard') return `${BASE}bang-xep-hang/`
+  if (r.type === 'privacy') return `${BASE}chinh-sach-rieng-tu/`
   return BASE
 }
 
@@ -32,5 +34,6 @@ export function parse(loc = window.location) {
   if (kind === 'playbook' && playbookBySlug[slug]) return { type: 'pb', id: playbookBySlug[slug].playbook_id }
   if (kind === 'kham-suc-khoe') return { type: 'health' }
   if (kind === 'bang-xep-hang') return { type: 'leaderboard' }
+  if (kind === 'chinh-sach-rieng-tu') return { type: 'privacy' }
   return { type: 'home' }
 }
