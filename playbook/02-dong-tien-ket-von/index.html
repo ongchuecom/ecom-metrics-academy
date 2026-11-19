@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playbook 02: Bài toán Dòng tiền &amp; Kẹt vốn (Lãi trên giấy nhưng hết tiền mặt) · Ecom Metrics Academy</title>
+    <link rel="canonical" href="https://ongchuecom.github.io/ecom-metrics-academy/playbook/02-dong-tien-ket-von/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Playbook 02: Bài toán Dòng tiền &amp; Kẹt vốn (Lãi trên giấy nhưng hết tiền mặt) · Ecom Metrics Academy" />
+    <meta property="og:description" content="Giải mã nghịch lý sổ sách báo lãi trăm triệu mỗi tháng nhưng tài khoản ngân hàng luôn cạn tiền nhập hàng mới." /><meta property="og:url" content="https://ongchuecom.github.io/ecom-metrics-academy/playbook/02-dong-tien-ket-von/" /><meta property="og:locale" content="vi_VN" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#FFDF38" />
+    <meta name="description" content="63 chỉ số vận hành E-commerce theo 7 khâu: video giải thích, sơ đồ phụ thuộc, giả lập và bài tập chẩn đoán. Hiểu số trước khi đốt tiền." />
+    <script type="module" crossorigin src="/ecom-metrics-academy/assets/index-DMLhji_0.js"></script>
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/react-BJsqeLoe.js">
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/katex-DW4SxPVY.js">
+    <link rel="stylesheet" crossorigin href="/ecom-metrics-academy/assets/index-DTclDnRI.css">
+  </head>
+  <body>
+    <div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6"><p><a href="https://ongchuecom.github.io/ecom-metrics-academy/">Ecom Metrics Academy</a></p><h1>Playbook 02: Bài toán Dòng tiền &amp; Kẹt vốn (Lãi trên giấy nhưng hết tiền mặt)</h1><p>Giải mã nghịch lý sổ sách báo lãi trăm triệu mỗi tháng nhưng tài khoản ngân hàng luôn cạn tiền nhập hàng mới.</p>
+<h2>Mối liên hệ cốt lõi</h2><p>Tăng trưởng nóng rất dễ làm chủ shop chết trên đống tài sản vì tiền mặt bị hút hết vào 2 cái hố: hàng nằm trong kho và tiền COD/tiền sàn đang treo chờ đối soát. Chu kỳ kẹt vốn (CCC = Số ngày tồn kho + Số ngày chờ tiền về - Số ngày nợ xưởng) càng dài thì áp lực vay vốn càng lớn.</p>
+<h2>Tình huống: Shop thời trang lãi sổ sách 120 triệu/tháng nhưng phải đi vay nóng nhập hàng</h2><p>Chị Lan kinh doanh thời trang thiết kế, báo cáo sổ sách mỗi tháng lãi ròng 120 triệu, nhưng đến kỳ nhập hàng mới lại cạn tiền mặt.</p><ul><li>Xưởng bắt thanh toán 100% tiền cọc và giao hàng (DPO = 0 ngày).</li><li>Nhập 1 lần bán cả mùa nên hàng nằm trong kho trung bình 65 ngày mới xả hết (DIO = 65 ngày), trong đó 25% vốn nằm chết ở các size lẻ (XS, XXL) quá 90 ngày.</li><li>Khách mua sàn và COD chiếm 85%, từ lúc gửi hàng đến khi đối soát rút được tiền về ngân hàng mất trung bình 14 ngày (DSO = 14 ngày).</li></ul><p><strong>Kết quả:</strong> Chu kỳ kẹt vốn là 65 + 14 - 0 = 79 ngày. Bỏ 1 đồng tiền mặt ra nhập hàng thì hơn 2,5 tháng sau tiền mới quay về túi. Càng bán mạnh càng phải ứng tiền túi ra nhập hàng mới.</p>
+<h2>Ngộ nhận và sai lầm</h2><ul><li>Ngộ nhận: Đánh đồng Lợi nhuận trên báo cáo P&amp;L với Tiền mặt trong két.</li><li>Sai lầm: Ham chiết khấu 5-7% của nhà cung cấp nên ôm lô hàng quá lớn, dẫn đến đọng vốn vào hàng tồn chết (Dead Stock) làm mất khả năng xoay vòng cho các mã trend mới.</li></ul>
+<h2>Việc cần làm</h2><ul><li>Tách riêng tài khoản nhận tiền đối soát sàn/COD và trích ngay tỷ lệ giá vốn + thuế sang một tài khoản riêng, không tiêu lẹm vào tiền xoay vòng.</li><li>Đặt quy tắc xả kho cứng: Mã nào quá 60 ngày không đạt tốc độ bán chuẩn thì lập tức chạy Flash Sale hoặc ghép quà tặng để thu hồi tiền mặt.</li><li>Đàm phán công nợ gối đầu với xưởng (trả trước 50%, 50% còn lại thanh toán sau 15-30 ngày) để kéo giảm chu kỳ kẹt vốn.</li></ul>
+<h2>Chỉ số trong Playbook</h2><ul><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/dio/">DIO: Vòng quay hàng tồn kho (Số ngày hàng nằm kho)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/dead-stock/">Dead Stock: Tỷ lệ hàng tồn chết (Hàng đọng vốn &gt; 90 ngày)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/tien-ket-doi-soat/">Tiền kẹt đối soát: Tiền đang kẹt đối soát (Tiền treo ví / COD chưa về)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/dso/">DSO: Thời gian thu tiền về túi (DSO)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/dpo/">DPO: Thời gian nợ nhà cung cấp (DPO)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ccc/">CCC: Vòng quay tiền mặt (Chu kỳ kẹt vốn - CCC)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/gmroi/">GMROI: Hệ số sinh lời trên vốn tồn kho (GMROI)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/cash-runway/">Cash Runway: Số tháng sống sót còn lại (Cash Runway)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/vong-quay-von-luu-dong/">Vòng quay vốn lưu động: Vòng quay vốn lưu động</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ty-le-cod/">Tỷ lệ COD: Tỷ lệ đơn COD vs Chuyển khoản trước</a></li></ul></main></div>
+  </body>
+</html>

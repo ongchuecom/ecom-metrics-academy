@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playbook 05: Bài toán Chọn hàng, Nhập lô &amp; Bẫy tồn kho cuối mùa · Ecom Metrics Academy</title>
+    <link rel="canonical" href="https://ongchuecom.github.io/ecom-metrics-academy/playbook/05-chon-hang-nhap-lo-bay-ton-kho-cuoi-mua/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Playbook 05: Bài toán Chọn hàng, Nhập lô &amp; Bẫy tồn kho cuối mùa · Ecom Metrics Academy" />
+    <meta property="og:description" content="Tránh cảnh bán đầu mùa lãi đậm nhưng cuối mùa thanh lý lỗ sạch vốn vì ôm hàng theo cảm tính." /><meta property="og:url" content="https://ongchuecom.github.io/ecom-metrics-academy/playbook/05-chon-hang-nhap-lo-bay-ton-kho-cuoi-mua/" /><meta property="og:locale" content="vi_VN" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#FFDF38" />
+    <meta name="description" content="63 chỉ số vận hành E-commerce theo 7 khâu: video giải thích, sơ đồ phụ thuộc, giả lập và bài tập chẩn đoán. Hiểu số trước khi đốt tiền." />
+    <script type="module" crossorigin src="/ecom-metrics-academy/assets/index-DMLhji_0.js"></script>
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/react-BJsqeLoe.js">
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/katex-DW4SxPVY.js">
+    <link rel="stylesheet" crossorigin href="/ecom-metrics-academy/assets/index-DTclDnRI.css">
+  </head>
+  <body>
+    <div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6"><p><a href="https://ongchuecom.github.io/ecom-metrics-academy/">Ecom Metrics Academy</a></p><h1>Playbook 05: Bài toán Chọn hàng, Nhập lô &amp; Bẫy tồn kho cuối mùa</h1><p>Tránh cảnh bán đầu mùa lãi đậm nhưng cuối mùa thanh lý lỗ sạch vốn vì ôm hàng theo cảm tính.</p>
+<h2>Mối liên hệ cốt lõi</h2><p>Nếu ôm quá nhiều ngay từ đầu để lấy giá sỉ rẻ, vốn sẽ kẹt cứng vào hàng tồn chết (Dead Stock); ngược lại nếu nhập rón rén từng ít một, khi Ads vừa lên cam ngon thì lại bị đứt hàng (Stockout), mất sạch đà tăng trưởng.</p>
+<h2>Tình huống: Ôm 1.000 áo khoác để giảm giá nhập 25k/áo nhưng cuối mùa lỗ 20 triệu vì thanh lý size lẻ</h2><p>Anh Tuấn nhập lô áo khoác gió mùa đông từ Quảng Châu. Xưởng báo 140k nếu lấy 300 cái, giảm còn 115k nếu ôm 1.000 cái. Anh Tuấn chốt 1.000 cái (Landed Cost = 125k/áo, tổng vốn 125 triệu).</p><ul><li>Tháng đầu vào mùa lạnh bán chạy được 550 cái giá 299k. Sau phí sàn, ship, Ads (khoảng 45% giá bán), mỗi áo còn lãi khoảng 39.500đ → 550 cái lãi khoảng 21,7 triệu.</li><li>Sang tháng thứ 2 thời tiết ấm lên, 450 cái còn lại (chủ yếu size S và XXL) đứng im trong kho suốt 95 ngày. 45% lô hàng thành hàng tồn chết, và lúc này toàn bộ tồn kho của mã đều là hàng chết.</li><li>Buộc phải thanh lý 450 cái giá 80k/áo (thu về 36 triệu so với 56,25 triệu vốn, lỗ 20,25 triệu).</li></ul><p><strong>Kết quả:</strong> Khoản lỗ thanh lý 20,25 triệu nuốt gần sạch 21,7 triệu lãi của 550 cái bán đầu mùa: cả lô 125 triệu vốn chỉ còn lãi khoảng 1,5 triệu sau gần 4 tháng.</p>
+<h2>Ngộ nhận và sai lầm</h2><ul><li>Ngộ nhận: Đàm phán được giá nhập rẻ hơn 15-20% là chắc chắn biên lợi nhuận sẽ cao hơn. Chỉ đúng nếu bạn bán hết được 100% lô hàng trong vòng 60 ngày.</li><li>Sai lầm: Chia đều số lượng nhập cho tất cả các size/màu thay vì dồn 70% ngân sách nhập vào 2 size/màu phổ biến nhất.</li></ul>
+<h2>Việc cần làm</h2><ul><li>Áp dụng công thức nhập hàng 'Test nhỏ – Bồi nhanh': Lô đầu chỉ nhập đủ bán trong 15-20 ngày để đo phản ứng thị trường.</li><li>Luôn giữ mức tồn kho an toàn tối thiểu 10 ngày cho Top 20% mã hàng chủ lực để không bị tắt Ads giữa chừng vì hết hàng.</li></ul>
+<h2>Chỉ số trong Playbook</h2><ul><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/landed-cost/">Landed Cost: Giá vốn về tới kho (Giá nhập thực tế)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/hero-sku/">Hero SKU: Tỷ lệ hàng bán chủ lực (Hàng gánh doanh thu)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/dio/">DIO: Vòng quay hàng tồn kho (Số ngày hàng nằm kho)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/dead-stock/">Dead Stock: Tỷ lệ hàng tồn chết (Hàng đọng vốn &gt; 90 ngày)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ty-le-dut-hang/">Tỷ lệ đứt hàng: Tỷ lệ đứt hàng (Hết hàng mã đang chạy ngon)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/lead-time/">Lead Time: Thời gian hàng về kho (Lead Time nhập hàng)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/diem-bao-nhap/">Điểm báo nhập: Điểm báo nhập hàng (Reorder Point)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/gmroi/">GMROI: Hệ số sinh lời trên vốn tồn kho (GMROI)</a></li></ul></main></div>
+  </body>
+</html>

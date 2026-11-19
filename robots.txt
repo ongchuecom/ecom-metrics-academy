@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ongchuecom.github.io/ecom-metrics-academy/sitemap.xml
