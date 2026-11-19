@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
-import { stageById, BENCHMARK_LABELS, STAGES, metricById } from '../data/index.js'
+import { stageById, BENCHMARK_LABELS, STAGES } from '../data/index.js'
 import lessons from '../data/lessons.json'
 import ExplainerVideo from './ExplainerVideo.jsx'
 import MetricDependencyGraph from './MetricDependencyGraph.jsx'
@@ -31,35 +31,16 @@ export function H2({ children, id }) {
 }
 
 // Thẻ nội dung trong bài
-function Box({ title, children, className = '' }) {
+function Box({ title, children, className = '', id }) {
   return (
-    <section className={`rounded-2xl bg-stone-50 p-4 sm:p-5 ${className}`}>
+    <section id={id} className={`scroll-mt-20 rounded-2xl bg-stone-50 p-4 sm:p-5 ${className}`}>
       {title && <h3 className="mb-2.5 flex items-center gap-2 text-[15px] font-extrabold text-brand-600"><span className="h-3.5 w-1 rounded-full bg-brand-500" aria-hidden="true" />{title}</h3>}
       {children}
     </section>
   )
 }
 
-// Chỉ số liên quan dạng chữ gọn thay cho sơ đồ lớn
-function Related({ metric, onSelect }) {
-  const r = metric.relationships || {}
-  const rows = [['Bị kéo bởi', r.upstream_drivers], ['Kéo theo', r.downstream_impacts], ['Đánh đổi với', r.trade_offs]]
-    .map(([k, arr]) => [k, (arr || []).map((x) => metricById[x.metric_id]).filter(Boolean)]).filter(([, a]) => a.length)
-  if (!rows.length) return null
-  return (
-    <div className="space-y-1 text-sm">
-      {rows.map(([k, arr]) => (
-        <p key={k} className="text-charcoal">
-          <span className="mr-2 text-muted">{k}:</span>
-          {arr.map((m, i) => <span key={m.metric_id}>{i > 0 && <span className="text-muted"> · </span>}<button onClick={() => onSelect(m.metric_id)} className="font-semibold text-brand-700 hover:underline">{m.code}</button></span>)}
-        </p>
-      ))}
-    </div>
-  )
-}
-
 export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlaybook }) {
-  const [more, setMore] = useState(null)
   const stage = stageById[metric.stage]
   const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
   const L = lessons[metric.metric_id]
@@ -81,7 +62,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
 
       <PlaybookLinks metric={metric} onOpen={onOpenPlaybook} />
 
-      <Box title="Công thức">
+      <Box id="cong-thuc" title="Công thức">
         {metric.formula.latex ? (
           <>
             <div className="rounded-xl bg-brand-50 px-3 py-2"><Latex src={metric.formula.latex} /></div>
@@ -96,13 +77,13 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {(L?.breakdown || first) && (
         <div className="grid gap-4 md:grid-cols-2">
           {L?.breakdown && (
-            <Box title={L.breakdown.title}>
+            <Box id="vi-du" title={L.breakdown.title}>
               <Chart c={L.breakdown.chart} />
               {L.breakdown.after && <p className="mt-3 text-sm leading-relaxed text-body"><Rich text={L.breakdown.after} /></p>}
             </Box>
           )}
           {first && (
-            <Box title={first.title}>
+            <Box id="nguong" title={first.title}>
               <Chart c={first.chart} />
               <div className="prose-lesson mt-2">{first.body.map((p, i) => <p key={i}><Rich text={p} /></p>)}</div>
             </Box>
@@ -118,7 +99,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       ))}
 
       {L?.mistakes && (
-        <Box title="Hay hiểu sai">
+        <Box id="hay-hieu-sai" title="Hay hiểu sai">
           <ul className="space-y-1.5">
             {L.mistakes.map((m) => <li key={m} className="flex gap-2 text-sm leading-relaxed text-body"><span className="font-black text-brand-600">×</span><span>{m}</span></li>)}
           </ul>
@@ -152,14 +133,12 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
         </div>
       )}
 
-      <Related metric={metric} onSelect={onSelect} />
+      <section id="video" className="scroll-mt-20 pt-4">
+        <H2>Xem nhanh 1 phút</H2>
+        <div className="max-w-3xl"><ExplainerVideo key={metric.metric_id} metric={metric} onHomework={onHomework} /></div>
+      </section>
 
-      <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-stone-100 pt-4 text-sm font-semibold">
-        <button onClick={() => setMore((m) => (m === 'video' ? null : 'video'))} className="text-brand-700 hover:underline">{more === 'video' ? 'Ẩn video' : '▶ Xem video giải thích 1 phút'}</button>
-        <button onClick={() => setMore((m) => (m === 'graph' ? null : 'graph'))} className="text-brand-700 hover:underline">{more === 'graph' ? 'Ẩn sơ đồ' : 'Xem sơ đồ phụ thuộc'}</button>
-      </div>
-      {more === 'video' && <ExplainerVideo key={metric.metric_id} metric={metric} onHomework={onHomework} />}
-      {more === 'graph' && <MetricDependencyGraph metric={metric} onSelect={onSelect} />}
+      <div id="so-do" className="scroll-mt-20 pt-4"><MetricDependencyGraph metric={metric} onSelect={onSelect} /></div>
     </article>
   )
 }

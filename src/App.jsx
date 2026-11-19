@@ -13,6 +13,34 @@ import CaseStudy from './components/CaseStudy.jsx'
 import Home from './components/Home.jsx'
 import SearchDialog, { SearchButton } from './components/SearchDialog.jsx'
 import LeadForm from './components/LeadForm.jsx'
+import lessons from './data/lessons.json'
+import cases from './data/cases.json'
+
+// Mục lục trong bài (máy tính): nhảy tới từng phần mà không phải rời trang
+function Toc({ metric, hasPractice }) {
+  const L = lessons[metric.metric_id] || {}
+  const items = [
+    ['cong-thuc', 'Công thức'],
+    L.breakdown && ['vi-du', 'Ví dụ có số'],
+    L.sections?.[0] && ['nguong', L.sections[0].title],
+    L.mistakes && ['hay-hieu-sai', 'Hay hiểu sai'],
+    ['video', 'Xem nhanh 1 phút'],
+    ['so-do', 'Nối với chỉ số nào'],
+    cases[metric.metric_id] && ['tinh-huong', 'Tình huống thực tế'],
+    hasPractice && ['thuc-hanh', 'Tự tay tính'],
+  ].filter(Boolean)
+  return (
+    <nav aria-label="Trong bài này" className="hidden xl:block">
+      <div className="sticky top-10 space-y-1 border-l border-stone-200 pl-4 text-sm">
+        <p className="eyebrow mb-2 text-muted">Trong bài này</p>
+        {items.map(([id, label]) => (
+          <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+            className="block py-0.5 leading-snug text-charcoal hover:text-brand-700">{label}</a>
+        ))}
+      </div>
+    </nav>
+  )
+}
 
 const TABS = [
   { id: 'sim', label: 'Giả lập', desc: 'Kéo thanh trượt, xem ngưỡng cảnh báo', need: 'simulator' },
@@ -133,7 +161,7 @@ export default function App() {
       </aside>
 
       <main className="min-w-0 flex-1">
-        <div className="mx-auto max-w-5xl space-y-10 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+        <div className="mx-auto max-w-6xl space-y-10 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
           {route.type === 'home' && <Home onSelectMetric={select} onOpenPlaybook={openPlaybook} onOpenHealth={openHealth} onSearch={() => setSearching(true)} />}
 
           {route.type === 'health' && (
@@ -153,7 +181,7 @@ export default function App() {
 
           {route.type === 'pb' && <PlaybookPage playbook={playbookById[route.id]} onSelectMetric={select} onOpen={openPlaybook} />}
 
-          {metric && (<>
+          {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
             {pathIdx >= 0 && (
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl bg-brand-50 px-4 py-2 text-sm">
                 <span className="font-display font-extrabold text-brand-700">Lộ trình học · Bài {pathIdx + 1}/{LEARNING_PATH.length}</span>
@@ -200,7 +228,7 @@ export default function App() {
             </nav>
 
             <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
-          </>)}
+          </div><Toc metric={metric} hasPractice={tabs.length > 0} /></div>)}
 
           <Promos compact={route.type !== 'home'} />
 
