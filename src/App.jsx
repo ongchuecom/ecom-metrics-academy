@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { metricById, metricsMaster, playbookById, LEARNING_PATH } from './data/index.js'
 import { href, parse } from './lib/route.js'
 import { PlaybookPage } from './components/Playbooks.jsx'
 import Leaderboard from './components/Leaderboard.jsx'
 import Privacy from './components/Privacy.jsx'
+// trang quản trị chỉ tải khi có người mở /quan-tri/
+const Admin = lazy(() => import('./components/Admin.jsx'))
 import { LoginDialog, AccountButton } from './components/Login.jsx'
 import { useAuth } from './lib/auth.jsx'
 import { syncAccount } from './lib/sync.js'
@@ -108,7 +110,8 @@ export default function App() {
       : route.type === 'pb' ? `${playbookById[route.id].title} · ${TITLE}`
       : route.type === 'health' ? `Khám sức khỏe shop · ${TITLE}`
       : route.type === 'leaderboard' ? `Bảng xếp hạng trắc nghiệm · ${TITLE}`
-      : route.type === 'privacy' ? `Chính sách riêng tư · ${TITLE}` : `${TITLE} · Ông chú Ecom`
+      : route.type === 'privacy' ? `Chính sách riêng tư · ${TITLE}`
+      : route.type === 'admin' ? `Quản trị · ${TITLE}` : `${TITLE} · Ông chú Ecom`
   }, [route, metric])
 
   // Phím tắt tìm kiếm: Ctrl/⌘ + K hoặc "/"
@@ -204,6 +207,7 @@ export default function App() {
           {route.type === 'pb' && <PlaybookPage playbook={playbookById[route.id]} onSelectMetric={select} onOpen={openPlaybook} onOpenLeaderboard={openLeaderboard} />}
           {route.type === 'leaderboard' && <Leaderboard onOpenPlaybook={openPlaybook} />}
           {route.type === 'privacy' && <Privacy />}
+          {route.type === 'admin' && <Suspense fallback={<p className="text-sm text-muted">Đang tải trang quản trị…</p>}><Admin /></Suspense>}
 
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
             {pathIdx >= 0 && (
@@ -256,7 +260,7 @@ export default function App() {
             <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
           </div><Toc metric={metric} hasPractice={tabs.length > 0} /></div>)}
 
-          {route.type !== 'home' && <Promos compact />}
+          {route.type !== 'home' && route.type !== 'admin' && <Promos compact />}
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.

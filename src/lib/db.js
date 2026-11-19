@@ -74,3 +74,17 @@ export async function fetchBoard(uid, { fresh = false } = {}) {
   try { localStorage.setItem(BOARD_KEY, JSON.stringify({ uid: uid || null, at: Date.now(), data })) } catch { /* bỏ qua */ }
   return data
 }
+
+// ===== Quản trị =====
+export async function fetchAllPlayers() {
+  const { db, f } = await store()
+  const snap = await f.getDocs(f.collection(db, 'players'))
+  return snap.docs.map((d) => ({ uid: d.id, ...d.data(), updatedAt: d.data().updatedAt?.toMillis?.() || 0 }))
+}
+
+// Quy tắc Firestore chỉ cho quản trị viên (site.json → admin.uids) xóa bản ghi của người khác
+export async function deletePlayer(uid) {
+  const { db, f } = await store()
+  await f.deleteDoc(f.doc(db, 'players', uid))
+  dropBoardCache()
+}

@@ -43,6 +43,15 @@ Bảng xếp hạng và điểm trắc nghiệm lưu trong **Firestore** (cơ s�
 
 **Khi thêm hay bớt Playbook:** chạy `npm run data:pack` để sinh lại `firestore.rules`, rồi dán lại vào tab Rules.
 
+## 5. Cấp quyền quản trị (2 phút)
+
+Trang quản trị ở `https://ongchuecom.github.io/ecom-metrics-academy/quan-tri/`.
+
+1. Đăng nhập trên web, mở trang quản trị. Trang hiện **mã tài khoản** của anh. Đây là mã do Firebase cấp, không phải email.
+2. Gửi mã đó cho Claude, hoặc tự thêm vào `admin.uids` trong `src/data/site.json`, rồi chạy `npm run data:pack`.
+3. Dán lại `integrations/firestore.rules` vào Firebase → Firestore → Rules → **Publish**. Bước này cho phép quản trị viên xóa tên vi phạm trên bảng xếp hạng.
+4. Xem góp ý ngay trên trang quản trị: tạo một fine-grained token **chỉ-đọc** (Contents: Read-only) cho repo `ecom-metrics-feedback`, rồi dán vào mục Góp ý. Token chỉ lưu trên máy đó.
+
 ## Lưu ý
 
 - **Trình duyệt trong Zalo, Facebook, Messenger:** Google thường chặn đăng nhập ở các trình duyệt nhúng này. Web tự hiện lời nhắc "Mở bằng trình duyệt" cho người dùng.

@@ -1,4 +1,4 @@
-// Sinh integrations/firestore.rules từ src/data/playbooks.json (danh sách Playbook có trắc nghiệm và thang điểm).
+// Sinh integrations/firestore.rules từ src/data/playbooks.json và danh sách quản trị viên (site.json → admin.uids) (danh sách Playbook có trắc nghiệm và thang điểm).
 // Quy tắc bảo đảm: chỉ chủ tài khoản ghi điểm của mình; điểm lần đầu mỗi Playbook không sửa, không xóa từng phần được;
 // mỗi điểm thuộc thang 0..max theo bước points_per_question; total và done phải khớp đúng với các điểm.
 // Dùng: node scripts/gen-firestore-rules.mjs [--check]  (--check: báo lỗi nếu file đang có khác bản sinh ra)
@@ -7,6 +7,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 const OUT = 'integrations/firestore.rules'
 const { playbooks, gamification } = JSON.parse(readFileSync('src/data/playbooks.json', 'utf8'))
 const step = gamification?.points_per_question || 10
+const admins = (JSON.parse(readFileSync('src/data/site.json', 'utf8')).admin?.uids || []).filter((u) => /^[A-Za-z0-9]{10,128}$/.test(u))
 const pbs = playbooks.filter((p) => p.quiz?.length).map((p) => ({ id: p.playbook_id, max: p.quiz.reduce((a, q) => a + q.points, 0) }))
 const allowed = (max) => Array.from({ length: max / step + 1 }, (_, i) => i * step)
 const sum = pbs.map((p) => `s.get('${p.id}', 0)`).join(' + ')
@@ -24,7 +25,12 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == uid && validPlayer(request.resource.data);
       allow update: if request.auth != null && request.auth.uid == uid && validPlayer(request.resource.data)
         && firstAttemptKept(resource.data.scores, request.resource.data.scores);
-      allow delete: if request.auth != null && request.auth.uid == uid;
+      allow delete: if request.auth != null && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Quản trị viên (site.json → admin.uids): được xóa bản ghi vi phạm (tên xấu, spam) trên bảng xếp hạng
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in [${admins.map((u) => `'${u}'`).join(', ')}];
     }
 
     function validPlayer(d) {

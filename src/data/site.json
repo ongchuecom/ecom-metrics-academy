@@ -70,5 +70,9 @@
       "projectId": "",
       "appId": ""
     }
+  },
+  "admin": {
+    "_huong_dan": "Mã tài khoản (uid Firebase) của người quản trị: đăng nhập rồi mở /quan-tri/ để xem mã của mình, dán vào đây, chạy npm run data:pack rồi dán lại integrations/firestore.rules vào Firebase. Dùng uid thay email để không lộ email trong repo công khai.",
+    "uids": []
   }
 }

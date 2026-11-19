@@ -84,5 +84,5 @@ urls.push(page('kham-suc-khoe/', 'Khám sức khỏe shop: tính CM1, CM2, CM3, 
 
 writeFileSync(join(DIST, '404.html'), tpl) // link sâu chưa có trang tĩnh vẫn mở app
 writeFileSync(join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`)
-writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}sitemap.xml\n`)
+writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /ecom-metrics-academy/quan-tri/\nSitemap: ${SITE}sitemap.xml\n`)
 console.log(`Prerender: ${urls.length} trang, sitemap.xml, robots.txt, 404.html`)

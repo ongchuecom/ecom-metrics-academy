@@ -3,7 +3,7 @@
 import { initializeTestEnvironment, assertSucceeds, assertFails } from '@firebase/rules-unit-testing'
 import { doc, setDoc, updateDoc, deleteDoc, getDoc, serverTimestamp, collection, query, orderBy, limit, getDocs } from 'firebase/firestore'
 import { readFileSync } from 'node:fs'
-const env = await initializeTestEnvironment({ projectId: 'ema-test', firestore: { rules: readFileSync(new URL('../integrations/firestore.rules', import.meta.url), 'utf8'), host: '127.0.0.1', port: 8085 } })
+const env = await initializeTestEnvironment({ projectId: 'ema-test', firestore: { rules: readFileSync(new URL('../integrations/firestore.rules', import.meta.url), 'utf8').replace(/request\.auth\.uid in \[[^\]]*\]/, "request.auth.uid in ['adminUid0001']"), host: '127.0.0.1', port: 8085 } })
 const db = (uid) => (uid ? env.authenticatedContext(uid) : env.unauthenticatedContext()).firestore()
 const P = (scores, name = 'Hùng Shop') => ({ name, scores, total: Object.values(scores).reduce((a, b) => a + b, 0), done: Object.keys(scores).length, updatedAt: serverTimestamp() })
 let pass = 0, fail = 0
@@ -31,6 +31,8 @@ await t('tên tiếng Việt có số nhỏ', setDoc(doc(db('c'), 'players/c'), 
 await t('ai cũng đọc được bảng', getDocs(query(collection(db(null), 'players'), orderBy('total', 'desc'), limit(50))), true)
 await t('đọc một người', getDoc(doc(db(null), 'players/alice')), true)
 await t('xóa của người khác', deleteDoc(doc(db('bob'), 'players/alice')), false)
+await t('quản trị viên xóa tên vi phạm', setDoc(doc(db('spammer'), 'players/spammer'), P({ pb_01_profit_reality: 10 }, 'Tên xấu')).then(() => deleteDoc(doc(db('adminUid0001'), 'players/spammer'))), true)
+await t('quản trị viên không sửa điểm người khác', setDoc(doc(db('adminUid0001'), 'players/alice'), P({ pb_01_profit_reality: 30, pb_02_cashflow_trap: 30 })), false)
 await t('tự xóa', deleteDoc(doc(a, 'players/alice')), true)
 await t('ghi collection khác', setDoc(doc(a, 'feedback/x'), { a: 1 }), false)
 console.log(`\n${pass} đạt, ${fail} lỗi`)

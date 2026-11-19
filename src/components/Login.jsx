@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useAuth, authEnabled, authError, inAppBrowser, PROVIDERS } from '../lib/auth.jsx'
 import { href } from '../lib/route.js'
+import { isAdmin } from '../lib/admin.js'
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
@@ -88,6 +89,7 @@ export function AccountButton({ variant = 'side' }) {
         <div className={`absolute z-40 mt-2 w-56 rounded-xl bg-white p-1.5 text-sm shadow-lg ring-1 ring-stone-200 ${variant === 'icon' ? 'right-0' : 'left-0'}`}>
           <p className="truncate px-3 py-2 text-xs text-muted">Đăng nhập bằng {user.provider.includes('facebook') ? 'Facebook' : 'Google'}</p>
           <a href={href({ type: 'leaderboard' })} className="block rounded-lg px-3 py-2 font-semibold text-ink hover:bg-stone-50">Điểm của tôi</a>
+          {isAdmin(user) && <a href={href({ type: 'admin' })} className="block rounded-lg px-3 py-2 font-semibold text-ink hover:bg-stone-50">Quản trị</a>}
           <button onClick={() => { setMenu(false); signOut() }} className="block w-full rounded-lg px-3 py-2 text-left font-semibold text-coral hover:bg-stone-50">Đăng xuất</button>
         </div>
       )}

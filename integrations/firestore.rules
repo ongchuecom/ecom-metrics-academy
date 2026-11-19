@@ -9,7 +9,12 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == uid && validPlayer(request.resource.data);
       allow update: if request.auth != null && request.auth.uid == uid && validPlayer(request.resource.data)
         && firstAttemptKept(resource.data.scores, request.resource.data.scores);
-      allow delete: if request.auth != null && request.auth.uid == uid;
+      allow delete: if request.auth != null && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Quản trị viên (site.json → admin.uids): được xóa bản ghi vi phạm (tên xấu, spam) trên bảng xếp hạng
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in [];
     }
 
     function validPlayer(d) {
