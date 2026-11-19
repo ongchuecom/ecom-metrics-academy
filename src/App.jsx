@@ -53,7 +53,7 @@ function Brand({ compact = false, onHome }) {
   return (
     <a href={href({ type: 'home' })} onClick={(e) => { e.preventDefault(); onHome() }} className="block leading-tight text-white">
       <p className="font-display text-[15px] font-black">Ecom Metrics Academy</p>
-      {!compact && <p className="text-xs text-white/85">Hiểu số trước khi đốt tiền</p>}
+      {!compact && <p className="text-xs text-white/85">Khái niệm Ecom &amp; khởi nghiệp</p>}
     </a>
   )
 }

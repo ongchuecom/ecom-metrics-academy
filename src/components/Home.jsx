@@ -62,11 +62,12 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
         <div>
           <p className="eyebrow text-brand-600">Ecom Metrics Academy · Miễn phí</p>
           <h1 className="mt-2 font-display text-3xl font-black leading-tight text-ink sm:text-[2.6rem]">
-            Học đọc số để shop <span className="marker">có lãi thật</span>, không chỉ có doanh thu
+            Học mọi khái niệm Ecom và khởi nghiệp, <span className="marker">có Ông chú Ecom tham vấn</span>
           </h1>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-body">
-            Đây là nơi học <b>{nM} chỉ số vận hành Ecom</b> và <b>{nP} Playbook tình huống</b> cho chủ shop TikTok Shop, Shopee, Lazada và website.
-            Mỗi chỉ số có công thức, ví dụ số của shop Việt, video bảng giảng một phút và sơ đồ nó kéo theo những chỉ số nào. Viết theo văn phong sách Ecom Truyền Kỳ, nói thẳng, có số.
+            Làm Ecom và khởi nghiệp có cả trăm khái niệm phải hiểu đúng: lãi thật, dòng tiền, tồn kho, quảng cáo, đội ngũ, vận hành…
+            Ở đây mỗi khái niệm được giải thích bằng ví dụ số, biểu đồ và video bảng giảng, theo văn phong sách Ecom Truyền Kỳ: nói thẳng, có số, áp dụng được ngay.
+            Chỗ nào chưa thông thì hỏi thẳng Ông chú Ecom.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <button onClick={onOpenHealth} className="rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Khám sức khỏe shop →</button>
@@ -83,10 +84,11 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
 
       {/* Có gì bên trong */}
       <section aria-labelledby="ben-trong">
-        <H2 id="ben-trong">Bên trong có gì</H2>
+        <H2 id="ben-trong">Đang có gì để học</H2>
+        <p className="-mt-1 mb-4 max-w-3xl text-sm leading-relaxed text-charcoal">Kho khái niệm được thêm dần, mảng đầu tiên là các chỉ số vận hành vì đó là chỗ nhiều shop mất tiền nhất. Các khái niệm mới được rút từ sách Ecom Truyền Kỳ và từ những bài viết hay, Ông chú Ecom duyệt rồi mới lên.</p>
         <dl className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [nM, 'bài chỉ số', 'Từ giá vốn, phí sàn, CM1–CM3 tới ROAS hòa vốn, tồn kho, dòng tiền, đội ngũ. Đi theo 7 khâu của một shop.'],
+            [nM, 'khái niệm chỉ số', 'Từ giá vốn, phí sàn, CM1–CM3 tới ROAS hòa vốn, tồn kho, dòng tiền, đội ngũ. Đi theo 7 khâu của một doanh nghiệp Ecom.'],
             [nP, 'Playbook tình huống', 'Doanh thu cao mà không lãi, lãi trên giấy mà hết tiền, vít Ads khi nào… mỗi Playbook có case, sai lầm hay gặp và việc cần làm.'],
             ['1', 'bản khám sức khỏe shop', 'Điền P&L một tháng, nhận chẩn đoán từng tầng lãi và Playbook nên đọc trước.'],
             ['10', 'bài tập chẩn đoán', 'Bệnh án shop thật, tự tính và tự quyết, sai thì có gợi ý.'],
@@ -104,9 +106,9 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
         <H2 id="danh-cho-ai">Dành cho ai</H2>
         <ul className="grid gap-3 sm:grid-cols-3">
           {[
-            ['Chủ shop, founder', 'Doanh thu đều mà cuối tháng không thấy tiền. Cần biết tiền rò ở tầng nào và sửa chỗ nào trước.'],
-            ['Team Ads, vận hành, kế toán', 'Cần chung một cách tính: ROAS bao nhiêu thì hòa vốn, đơn hoàn tốn bao nhiêu, tiền kẹt ở đâu.'],
-            ['Người mới vào nghề', 'Đi theo lộ trình 10 bài, mỗi bài năm phút đọc, có ví dụ số để tự tính lại.'],
+            ['Người đang khởi nghiệp', 'Mới bắt đầu hoặc sắp bắt đầu làm Ecom. Cần hiểu đúng khái niệm trước khi bỏ tiền, khỏi phải trả học phí bằng tiền thật.'],
+            ['Chủ shop, founder đang vận hành', 'Doanh thu đều mà cuối tháng không thấy tiền, bộ máy phình ra, tiền kẹt. Cần biết vấn đề nằm ở đâu và sửa chỗ nào trước.'],
+            ['Đội ngũ và người mới vào nghề', 'Team Ads, vận hành, kế toán cần chung một cách hiểu và cách tính. Người mới đi theo lộ trình, mỗi bài năm phút đọc.'],
           ].map(([t, d]) => (
             <li key={t} className="rounded-2xl bg-stone-50 p-4">
               <p className="font-display font-extrabold text-ink">{t}</p>
@@ -131,9 +133,9 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             <ul className="mt-4 space-y-2 text-sm leading-relaxed text-body">
               <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Làm online và digital marketing từ 2008, từng là co-founder một công ty digital hơn 100 người.</li>
               <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Ba năm gần đây làm việc cùng khoảng 50 công ty Ecom ở Hà Nội, Đà Nẵng, Sài Gòn, nói chuyện với hàng ngàn founder.</li>
-              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Toàn bộ công thức và cách tính trên trang này đi theo sách Ecom Truyền Kỳ.</li>
+              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Cách hiểu và cách tính trên trang này đi theo sách Ecom Truyền Kỳ.</li>
             </ul>
-            <p className="mt-4 text-sm leading-relaxed text-charcoal">Đọc bài mà vẫn chưa chắc số của shop mình đúng hay sai, cứ hỏi. Ông chú Ecom và đội A1demy trực tiếp trả lời.</p>
+            <p className="mt-4 text-sm leading-relaxed text-charcoal">Mỗi khái niệm trên trang đều qua tay Ông chú Ecom tham vấn. Đọc xong mà vẫn chưa chắc áp vào shop mình thế nào, cứ hỏi, Ông chú Ecom và đội A1demy trực tiếp trả lời.</p>
           </div>
 
           <div>
@@ -219,7 +221,8 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
           {[
             ['Có mất phí không?', 'Không. Toàn bộ bài đọc, video, Playbook và công cụ khám sức khỏe đều miễn phí.'],
             ['Số trong ví dụ lấy ở đâu?', 'Là số minh họa dựng theo shop Việt điển hình, phép tính đều khớp. Số tham khảo chỉ để định hướng, mỗi ngành hàng sẽ khác.'],
-            ['Dùng cho TikTok Shop hay Shopee?', 'Cả hai, và cả website, Lazada. Công thức dùng chung, chỉ cần thay phí sàn, phí ship của kênh mình vào.'],
+            ['Chỉ có chỉ số thôi à?', 'Chỉ số là mảng đầu tiên. Kho khái niệm Ecom và khởi nghiệp được thêm dần từ sách Ecom Truyền Kỳ và những bài viết hay, khái niệm nào cũng có ví dụ số.'],
+            ['Bán kênh nào cũng dùng được?', 'Được. TikTok Shop, Shopee, Lazada hay website đều dùng chung cách hiểu; phần tính toán chỉ cần thay phí sàn, phí ship của kênh mình.'],
             ['Ai viết bài?', 'Ông chú Ecom biên soạn theo sách Ecom Truyền Kỳ, có AI hỗ trợ dựng ví dụ, biểu đồ và video. Bài mới chưa duyệt mang nhãn “Mới · đang duyệt”.'],
           ].map(([q, a]) => (
             <div key={q}>
