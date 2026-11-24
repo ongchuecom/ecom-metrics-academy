@@ -94,8 +94,8 @@ def upsert_source(db, embed_docs, model: str, dim: int, source: str, docs: list)
     rows = []
     for d in docs:
         for i, ch in enumerate(chunk_text(d["text"])):
-            cid = hashlib.sha1(f"{model}|{dim}|{source}|{d.get('ref_id')}|{ch}".encode()).hexdigest()
             title = d["title"] if i == 0 else f"{d['title']} (tiếp)"
+            cid = hashlib.sha1(f"{model}|{dim}|{source}|{d['source_type']}|{d.get('ref_id')}|{title}|{ch}".encode()).hexdigest()
             rows.append((cid, d["source_type"], d.get("ref_id"), title, ch))
     new_ids = {r[0] for r in rows}
     with db.conn() as c:

@@ -17,6 +17,7 @@ from .chat import ChatRequest, SYSTEM_PROMPT, build_prompt, CtxSplitter, TTLCach
 from . import ingest
 
 
+JOB_BEAT_EVERY, JOB_DEAD_AFTER = 20, 120  # giây
 # kết quả thanh toán cần quản trị viên xử lý tay (giao diện AdminAdvisor.jsx dùng đúng bộ này)
 NEED_REVIEW = ("unmatched", "underpaid", "unknown_order", "already_paid", "paid_overpaid")
 
@@ -63,13 +64,13 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
 
     @app.get("/health")
     async def health():
-        index.refresh()
+        await asyncio.to_thread(index.refresh)
         return {"status": "ok", "chunks": len(index.items), "knowledge_version": index.version, "model": s.chat_model, "embed": s.embed_model}
 
     # ---------- tài khoản & thanh toán ----------
     @app.get("/api/me")
     async def me(user: dict = Depends(current_user)):
-        st = billing.status(user["uid"])
+        st = await asyncio.to_thread(billing.status, user["uid"])
         st["plans"] = {k: {"name": v["name"], "amount": v["amount"], "days": v["days"], "daily_quota": v["daily_quota"]} for k, v in PLANS.items()}
         return st
 
@@ -80,26 +81,26 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
     async def create_order(req: OrderReq, user: dict = Depends(current_user)):
         if not limiter.allow("order:" + user["uid"], 10):
             raise HTTPException(429, "Thao tác hơi nhanh, đợi một chút.")
-        return billing.create_order(user["uid"], req.plan)
+        return await asyncio.to_thread(billing.create_order, user["uid"], req.plan)
 
     @app.get("/api/billing/order-status/{code}")
     async def order_status(code: str, user: dict = Depends(current_user)):
-        return billing.order_status(user["uid"], code[:20])
+        return await asyncio.to_thread(billing.order_status, user["uid"], code[:20])
 
     @app.post("/api/billing/webhook/sepay")
     async def sepay(request: Request, authorization: Optional[str] = Header(None)):
         body = await request.json()
-        return billing.handle_sepay(authorization or "", body if isinstance(body, dict) else {})
+        return await asyncio.to_thread(billing.handle_sepay, authorization or "", body if isinstance(body, dict) else {})
 
     # ---------- hỏi đáp ----------
     @app.post("/api/chat")
     async def chat(req: ChatRequest, request: Request, user: dict = Depends(current_user)):
         uid = user["uid"]
-        if not limiter.allow("u:" + uid, s.user_rate_per_min) or not limiter.allow("ip:" + client_ip(request), s.ip_rate_per_min):
+        if (s.user_rate_per_min > 0 and not limiter.allow("u:" + uid, s.user_rate_per_min)) or (s.ip_rate_per_min > 0 and not limiter.allow("ip:" + client_ip(request), s.ip_rate_per_min)):
             raise HTTPException(429, "Anh/chị hỏi hơi nhanh, đợi một phút rồi hỏi tiếp nhé.")
-        st = billing.reserve(uid)  # 402 hết hạn, 429 hết lượt hôm nay
+        st = await asyncio.to_thread(billing.reserve, uid)  # 402 hết hạn, 429 hết lượt hôm nay
         meta = {"type": "meta", "remaining_today": st["remaining_today"], "daily_limit": st["daily_limit"], "plan": st["plan"], "days_left": st["days_left"]}
-        index.refresh()
+        await asyncio.to_thread(index.refresh)  # nạp lại chỉ mục (đọc cả bảng) không được chặn các luồng trả lời khác
         standalone = not req.history and not any(req.shop_context.clean().values())
         ck = cache_key(req.message, str(index.version), req.concept_id)
         cached = qa_cache.get(ck) if standalone else None
@@ -112,6 +113,21 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 yield sse({"type": "done"})
                 return
             delivered = refunded = False
+
+            async def refund_once():
+                # đánh dấu TRƯỚC khi chờ: nếu khách ngắt đúng lúc này, nhánh hủy không trả thêm lần nữa (luồng nền vẫn trả xong)
+                nonlocal refunded
+                if refunded:
+                    return
+                refunded = True
+                try:
+                    await asyncio.to_thread(billing.refund, uid, st["day"])
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    refunded = False  # trả lượt thất bại thật: để nhánh lỗi thử lại
+                    raise
+
             try:
                 search_q = " ".join([req.message] + [x for x in [req.shop_context.kenh, *req.shop_context.van_de[-2:]] if x])
                 async with sem:
@@ -147,8 +163,7 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                     yield sse({"type": "context_update", "shop_context": ctx})
                 if not "".join(answer).strip():
                     # Gemini trả rỗng (bị chặn an toàn, hoặc chỉ có thẻ <ctx>): không tính lượt
-                    refunded = True
-                    billing.refund(uid, st["day"])
+                    await refund_once()
                     yield sse({"type": "error", "message": "Cố vấn chưa trả lời được câu này, anh/chị diễn đạt lại giúp. Lượt hỏi này không bị tính."})
                     return
                 if standalone:
@@ -158,21 +173,40 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 # khách bấm Dừng / đóng trang trước khi nhận được chữ nào: trả lượt
                 if not delivered and not refunded:
                     refunded = True
-                    billing.refund(uid, st["day"])
+                    billing.refund(uid, st["day"])  # đang bị hủy: gọi thẳng (lệnh nhỏ một dòng), không await được nữa
                 raise
             except Exception:
-                refunded = True
-                billing.refund(uid, st["day"])  # lỗi phía mình: trả lại lượt hỏi
+                try:  # lỗi phía mình: trả lại lượt hỏi (đúng một lần)
+                    await refund_once()
+                except Exception:
+                    pass
                 yield sse({"type": "error", "message": "Cố vấn đang bận, anh/chị hỏi lại sau ít phút. Lượt hỏi này không bị tính." if not delivered
                            else "Câu trả lời bị ngắt giữa chừng. Lượt hỏi này không bị tính."})
 
         return StreamingResponse(run(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
     # ---------- quản trị ----------
-    def run_job(kind: str, fn):
-        jid = uuid.uuid4().hex[:12]
-        with db.conn() as c:
-            c.execute("INSERT INTO jobs(id,kind,status,detail,created_at) VALUES(?,?, 'running', '', ?)", (jid, kind, int(time.time())))
+    def run_job(kind: str, fn, key: str = ""):
+        """Mỗi loại việc (cùng key) chỉ chạy một lượt một lúc, kể cả khi bấm hai lần, có hai quản trị viên hay nhiều worker.
+        Việc đang chạy gửi nhịp tim mỗi 20 giây; việc mất nhịp tim quá 2 phút (máy chủ chết giữa chừng) coi như đã chết,
+        được đánh dấu lỗi và không chặn nữa. Việc chạy lâu mấy cũng không bị coi là chết nhầm."""
+        jid, now = uuid.uuid4().hex[:12], int(time.time())
+        kind_key = f"{kind}:{key}" if key else kind
+        with db.tx() as c:
+            c.execute("UPDATE jobs SET status='error', detail=?, finished_at=? WHERE status='running' AND COALESCE(heartbeat, created_at)<?",
+                      ('"Máy chủ dừng khi việc đang chạy, bấm lại để chạy tiếp."', now, now - JOB_DEAD_AFTER))
+            if c.execute("SELECT 1 FROM jobs WHERE kind=? AND status='running'", (kind_key,)).fetchone():
+                raise HTTPException(409, "Việc này đang chạy, đợi xong rồi bấm lại.")
+            c.execute("INSERT INTO jobs(id,kind,status,detail,created_at,heartbeat) VALUES(?,?, 'running', '', ?, ?)", (jid, kind_key, now, now))
+        stop = threading.Event()
+
+        def beat():
+            while not stop.wait(JOB_BEAT_EVERY):
+                try:
+                    with db.conn() as c:
+                        c.execute("UPDATE jobs SET heartbeat=? WHERE id=? AND status='running'", (int(time.time()), jid))
+                except Exception:
+                    pass
 
         def work():
             try:
@@ -180,15 +214,20 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 status, detail = "done", res
             except Exception as e:
                 status, detail = "error", str(e)[:500]
+            stop.set()
             import json as _j
             with db.conn() as c:
                 c.execute("UPDATE jobs SET status=?, detail=?, finished_at=? WHERE id=?", (status, _j.dumps(detail, ensure_ascii=False), int(time.time()), jid))
             index.refresh(force=True)
+        threading.Thread(target=beat, daemon=True).start()
         threading.Thread(target=work, daemon=True).start()  # chạy nền: không chặn người đang chat
         return {"job_id": jid, "status": "running"}
 
     @app.get("/api/admin/overview")
     async def admin_overview(_: dict = Depends(admin_user)):
+        return await asyncio.to_thread(overview)
+
+    def overview():
         now, day = int(time.time()), billing.today()
         with db.conn() as c:
             q = lambda sql, *a: c.execute(sql, a).fetchone()[0]
@@ -208,6 +247,9 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
 
     @app.get("/api/admin/payments")
     async def admin_payments(_: dict = Depends(admin_user)):
+        return await asyncio.to_thread(payments)
+
+    def payments():
         with db.conn() as c:
             return {"payments": [dict(r) for r in c.execute("SELECT * FROM payments ORDER BY received_at DESC LIMIT 200")],
                     "orders": [dict(r) for r in c.execute("SELECT o.*, u.email FROM orders o LEFT JOIN users u ON u.uid=o.uid ORDER BY o.created_at DESC LIMIT 200")]}
@@ -220,18 +262,26 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
 
     @app.post("/api/admin/grant")
     async def admin_grant(req: GrantReq, _: dict = Depends(admin_user)):
-        uid = req.uid
-        if not uid and req.email:
-            with db.conn() as c:
-                r = c.execute("SELECT uid FROM users WHERE lower(email)=lower(?)", (req.email.strip(),)).fetchone()
-            uid = r["uid"] if r else ""
+        uid, email = req.uid.strip(), req.email.strip()
+        if not uid and "@" not in email:
+            raise HTTPException(400, "Nhập email (có @) hoặc mã tài khoản (uid).")
+        if not uid:
+            def lookup():
+                with db.conn() as c:
+                    return c.execute("SELECT uid, name, created_at FROM users WHERE lower(email)=lower(?) ORDER BY created_at", (email,)).fetchall()
+            rows = await asyncio.to_thread(lookup)
+            if len(rows) > 1:
+                # cùng email đăng nhập bằng cả Google và Facebook = hai tài khoản: quản trị viên chọn đúng uid
+                raise HTTPException(409, "Email này có " + str(len(rows)) + " tài khoản (đăng nhập Google và Facebook riêng). Hỏi khách đang dùng tài khoản nào rồi cấp theo mã: "
+                                    + "; ".join(f"{r['uid']} ({r['name'] or 'không tên'})" for r in rows))
+            uid = rows[0]["uid"] if rows else ""
         if not uid:
             raise HTTPException(404, "Không tìm thấy người dùng. Nhờ họ đăng nhập Cố vấn AI một lần rồi cấp.")
-        return billing.admin_grant(uid, req.plan, req.days)
+        return await asyncio.to_thread(billing.admin_grant, uid, req.plan, req.days)
 
     @app.post("/api/admin/knowledge/sync-site")
     async def sync_site(_: dict = Depends(admin_user)):
-        return run_job("sync-site", lambda: ingest.upsert_source(db, gemini.embed_docs, s.embed_model, s.embed_dim, "site", ingest.site_docs(s.site_url)))
+        return await asyncio.to_thread(run_job, "sync-site", lambda: ingest.upsert_source(db, gemini.embed_docs, s.embed_model, s.embed_dim, "site", ingest.site_docs(s.site_url)))
 
     @app.post("/api/admin/knowledge/upload")
     async def upload(file: UploadFile = File(...), title: str = Form(""), _: dict = Depends(admin_user)):
@@ -244,7 +294,7 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
             text = ingest.extract_file_text(name, raw)
             return ingest.upsert_source(db, gemini.embed_docs, s.embed_model, s.embed_dim, f"file:{name}",
                                         [{"source_type": "document", "ref_id": None, "title": title.strip() or name, "text": text}])
-        return run_job("upload", fn)
+        return await asyncio.to_thread(run_job, "upload", fn, name)
 
     class DriveReq(BaseModel):
         folder_id: str = Field(..., pattern=r"^[A-Za-z0-9_-]{10,100}$")
@@ -271,13 +321,13 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 ingest.delete_source(db, g)
             res["removed_files"] = len(gone)
             return res
-        return run_job("sync-drive", fn)
+        return await asyncio.to_thread(run_job, "sync-drive", fn, req.folder_id)
 
     @app.delete("/api/admin/knowledge/source")
     async def delete_source(source: str, _: dict = Depends(admin_user)):
         if source == "site":
             raise HTTPException(400, "Nguồn web chỉ cập nhật bằng Đồng bộ từ web.")
-        return {"deleted_chunks": ingest.delete_source(db, source[:200])}
+        return {"deleted_chunks": await asyncio.to_thread(ingest.delete_source, db, source[:200])}
 
     app.state.db, app.state.billing, app.state.index, app.state.settings = db, billing, index, s
     return app

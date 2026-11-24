@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS chunks (
 );
 CREATE INDEX IF NOT EXISTS chunks_source ON chunks(source);
 CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT);
-CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, kind TEXT, status TEXT, detail TEXT, created_at INTEGER, finished_at INTEGER);
+CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, kind TEXT, status TEXT, detail TEXT, created_at INTEGER, finished_at INTEGER, heartbeat INTEGER);
 """
 
 
@@ -37,6 +37,8 @@ class DB:
         with self.conn() as c:
             c.execute("PRAGMA journal_mode=WAL")
             c.executescript(SCHEMA)
+            if "heartbeat" not in {r[1] for r in c.execute("PRAGMA table_info(jobs)")}:
+                c.execute("ALTER TABLE jobs ADD COLUMN heartbeat INTEGER")
 
     @contextmanager
     def conn(self):

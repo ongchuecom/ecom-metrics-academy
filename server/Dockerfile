@@ -5,6 +5,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY advisor ./advisor
-ENV DB_PATH=/app/data/advisor.db TRUST_PROXY=0
+# Ảnh này dành cho Cloud Run: sau proxy của Google mọi khách cùng một IP nguồn, nên tắt giới hạn theo IP
+# (vẫn còn giới hạn theo tài khoản và hạn mức ngày). Chạy sau nginx của mình thì đặt TRUST_PROXY=1 IP_RATE_PER_MIN=30.
+ENV DB_PATH=/app/data/advisor.db TRUST_PROXY=0 IP_RATE_PER_MIN=0
 EXPOSE 8080
 CMD ["sh", "-c", "uvicorn advisor.app:app --host 0.0.0.0 --port ${PORT:-8080}"]

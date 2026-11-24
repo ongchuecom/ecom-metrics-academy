@@ -62,7 +62,7 @@ class Billing:
         used_n = used["used"] if used else 0
         return {
             "uid": uid, "email": u["email"], "name": u["name"], "plan": plan if active else "expired",
-            "plan_name": PLANS.get(plan, {}).get("name", plan), "is_active": active, "is_trial": active and plan == "trial",
+            "plan_name": PLANS.get(plan, {}).get("name", plan), "is_active": active, "was_paid": plan in PAID_PLANS, "is_trial": active and plan == "trial",
             "is_pro": active and plan in PAID_PLANS, "expires_at": u["expires_at"],
             "days_left": max(0, -(-(u["expires_at"] - now) // 86400)) if active else 0,
             "daily_limit": limit, "used_today": used_n, "remaining_today": max(0, limit - used_n) if active else 0,
@@ -72,7 +72,9 @@ class Billing:
     def reserve(self, uid: str) -> dict:
         st = self.status(uid)
         if not st["is_active"]:
-            raise HTTPException(402, "Hết hạn dùng thử. Nâng cấp gói Pro (200.000đ/tháng hoặc 1.800.000đ/năm) để tiếp tục hỏi Cố vấn AI.")
+            vnd = lambda n: f"{n:,}".replace(",", ".") + "đ"
+            prices = f"{vnd(PLANS['monthly']['amount'])}/tháng hoặc {vnd(PLANS['yearly']['amount'])}/năm"
+            raise HTTPException(402, ("Gói Pro đã hết hạn. Gia hạn" if st["was_paid"] else "Hết hạn dùng thử. Nâng cấp") + f" gói Pro ({prices}) để tiếp tục hỏi Cố vấn AI.")
         day = self.today()
         with self.db.conn() as c:
             c.execute("INSERT INTO usage(uid,day,used) VALUES(?,?,0) ON CONFLICT(uid,day) DO NOTHING", (uid, day))
@@ -120,7 +122,9 @@ class Billing:
         now = int(time.time())
         u = c.execute("SELECT plan, expires_at FROM users WHERE uid=?", (uid,)).fetchone()
         paid_active = u and u["plan"] in PAID_PLANS and u["expires_at"] > now
-        base = u["expires_at"] if paid_active else now  # đang dùng thử thì tính từ hôm nay
+        trial_active = u and u["plan"] == "trial" and u["expires_at"] > now
+        # đang trả tiền: cộng nối tiếp. Gia hạn dùng thử khi còn hạn: cộng nối tiếp. Mua Pro khi đang dùng thử: tính từ hôm nay
+        base = u["expires_at"] if paid_active or (plan == "trial" and trial_active) else now
         # mua gói tháng khi gói năm còn hạn: giữ nhãn gói năm (hạn mức cao hơn), chỉ cộng ngày
         rank = {"trial": 0, "monthly": 1, "yearly": 2}
         new_plan = u["plan"] if paid_active and rank.get(u["plan"], 0) > rank.get(plan, 0) else plan
@@ -176,4 +180,5 @@ class Billing:
             if not c.execute("SELECT 1 FROM users WHERE uid=?", (uid,)).fetchone():
                 raise HTTPException(404, "Người dùng chưa từng đăng nhập Cố vấn AI. Nhờ họ đăng nhập một lần rồi cấp.")
             exp = self._extend(c, uid, plan, days)
-        return {"uid": uid, "plan": plan, "expires_at": exp}
+            actual = c.execute("SELECT plan FROM users WHERE uid=?", (uid,)).fetchone()["plan"]
+        return {"uid": uid, "plan": actual, "expires_at": exp}

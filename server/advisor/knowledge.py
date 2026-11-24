@@ -48,7 +48,7 @@ class KnowledgeIndex:
                 self.version = ver
 
     def search(self, q_vec: np.ndarray, query: str, top_k: int = 4) -> list:
-        self.refresh()
+        # không tự nạp lại ở đây: nơi gọi chạy refresh() trong luồng riêng, để việc đọc cả bảng không chặn vòng sự kiện
         items, matrix, flags = self.snap
         if matrix is None:
             return []

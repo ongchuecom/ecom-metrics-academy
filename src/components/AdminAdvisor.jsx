@@ -8,7 +8,15 @@ const RESULT = { paid: 'Đã kích hoạt', paid_overpaid: 'Kích hoạt (chuy�
 const PLAN = { yearly: 'Pro năm', monthly: 'Pro tháng', trial: 'dùng thử' }
 const JOB = { 'sync-site': 'Đồng bộ web', upload: 'Nạp tài liệu', 'sync-drive': 'Đồng bộ Drive' }
 const STATUS = { running: 'đang chạy', done: 'xong', error: 'lỗi' }
-const jobDetail = (d) => { try { const o = JSON.parse(d); return o.chunks != null ? `${o.chunks} đoạn, nhúng mới ${o.embedded ?? 0}, bỏ ${o.removed ?? 0}` : String(d) } catch { return String(d) } }
+const jobDetail = (d) => {
+  let o
+  try { o = JSON.parse(d) } catch { return String(d) }
+  if (typeof o === 'string') return o
+  if (o?.files != null) return `${o.files} file, nhúng mới ${o.embedded ?? 0} đoạn, gỡ ${o.removed_files ?? 0} file${o.errors?.length ? ` · lỗi: ${o.errors.join('; ')}` : ''}`
+  if (o?.chunks != null) return `${o.chunks} đoạn, nhúng mới ${o.embedded ?? 0}, bỏ ${o.removed ?? 0}`
+  return JSON.stringify(o)
+}
+const jobKind = (k) => { const [kind, ...rest] = String(k).split(':'); return (JOB[kind] || kind) + (rest.length ? ` (${rest.join(':').slice(0, 40)})` : '') }
 // cùng bộ với NEED_REVIEW trong server/advisor/app.py
 const NEED = new Set(['underpaid', 'unmatched', 'unknown_order', 'already_paid', 'paid_overpaid'])
 const Card = ({ label, value, warn }) => (
@@ -58,8 +66,8 @@ export default function AdminAdvisor() {
       <section className="grid gap-8 lg:grid-cols-2">
         <div>
           <H>Cấp Pro thủ công</H>
-          <form className="flex flex-wrap gap-2 text-sm" onSubmit={(e) => { e.preventDefault(); act(() => api('/api/admin/grant', { getToken, method: 'POST', body: { email: grant.email.trim(), plan: grant.plan, days: Number(grant.days) } }), (r) => `Đã cấp ${PLAN[r.plan] || r.plan} tới ${fmt(r.expires_at)}.`) }}>
-            <input value={grant.email} onChange={(e) => setGrant({ ...grant, email: e.target.value })} placeholder="Email người dùng (đã đăng nhập ít nhất một lần)" className="min-w-0 flex-1 rounded-xl px-3 py-1.5 ring-1 ring-stone-200" />
+          <form className="flex flex-wrap gap-2 text-sm" onSubmit={(e) => { e.preventDefault(); act(() => api('/api/admin/grant', { getToken, method: 'POST', body: { ...(grant.email.includes('@') ? { email: grant.email.trim() } : { uid: grant.email.trim() }), plan: grant.plan, days: Number(grant.days) } }), (r) => `Đã cấp ${PLAN[r.plan] || r.plan} tới ${fmt(r.expires_at)}.`) }}>
+            <input value={grant.email} onChange={(e) => setGrant({ ...grant, email: e.target.value })} placeholder="Email hoặc mã tài khoản (uid) người dùng" className="min-w-0 flex-1 rounded-xl px-3 py-1.5 ring-1 ring-stone-200" />
             <select value={grant.plan} onChange={(e) => setGrant({ ...grant, plan: e.target.value })} className="rounded-xl px-2 ring-1 ring-stone-200"><option value="yearly">Pro năm</option><option value="monthly">Pro tháng</option><option value="trial">Gia hạn dùng thử</option></select>
             <input type="number" min={1} max={3660} value={grant.days} onChange={(e) => setGrant({ ...grant, days: e.target.value })} className="w-20 rounded-xl px-2 ring-1 ring-stone-200" aria-label="Số ngày" />
             <button className={btn} disabled={!grant.email.trim()}>Cấp</button>
@@ -83,7 +91,7 @@ export default function AdminAdvisor() {
               {s.source !== 'site' && <button className="text-xs text-coral hover:underline" onClick={() => window.confirm(`Xóa nguồn ${s.source}?`) && act(() => api(`/api/admin/knowledge/source?source=${encodeURIComponent(s.source)}`, { getToken, method: 'DELETE' }), (r) => `Đã xóa ${r.deleted_chunks} đoạn.`)}>Xóa</button>}
             </li>
           ))}</ul>
-          {ov.jobs.length > 0 && <ul className="mt-2 space-y-0.5 text-xs text-charcoal">{ov.jobs.slice(0, 5).map((j) => <li key={j.id}>{fmt(j.created_at)} · {JOB[j.kind] || j.kind} · <b className={j.status === 'error' ? 'text-coral' : ''}>{STATUS[j.status] || j.status}</b> {j.detail && j.status !== 'running' ? `· ${jobDetail(j.detail).slice(0, 160)}` : ''}</li>)}</ul>}
+          {ov.jobs.length > 0 && <ul className="mt-2 space-y-0.5 text-xs text-charcoal">{ov.jobs.slice(0, 5).map((j) => <li key={j.id}>{fmt(j.created_at)} · {jobKind(j.kind)} · <b className={j.status === 'error' ? 'text-coral' : ''}>{STATUS[j.status] || j.status}</b> {j.detail && j.status !== 'running' ? `· ${jobDetail(j.detail).slice(0, 160)}` : ''}</li>)}</ul>}
           <button onClick={load} className="mt-2 text-xs font-semibold text-brand-700 hover:underline">Tải lại</button>
         </div>
       </section>

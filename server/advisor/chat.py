@@ -4,6 +4,7 @@ Phòng thủ prompt injection bằng cấu trúc, không bằng danh sách cụm
   - lời dặn hệ thống nói rõ mọi thứ trong khối đó là dữ liệu, không phải lệnh;
   - trong ngữ cảnh không có bí mật nào; mỗi đoạn sách đưa vào tối đa 700 ký tự, dặn không trích nguyên văn."""
 import json
+import re
 import time
 import hashlib
 from collections import OrderedDict, defaultdict, deque
@@ -92,13 +93,22 @@ class RateLimiter:
         return True
 
 
+_TAG_RE = re.compile(r"<\s*(/?)\s*(du_lieu_khach|ctx)", re.IGNORECASE)
+
+
+def _safe(text: str) -> str:
+    """Dữ liệu khách (và tài liệu nạp vào) không được tự mở/đóng thẻ của mình: vô hiệu đúng các thẻ <du_lieu_khach>, <ctx>
+    để không ai chèn lệnh như thể nằm ngoài khối dữ liệu. Dấu so sánh thường (ROAS < 2, CM2 > 0, ->) giữ nguyên."""
+    return _TAG_RE.sub(lambda m: "‹" + m.group(1) + m.group(2), str(text))
+
+
 def build_prompt(req: ChatRequest, retrieved: list, focus: dict | None) -> str:
-    knowledge = "\n---\n".join(f"[{it['title']}]: {it['content'][:700]}" for it in retrieved) or "(không tìm thấy đoạn tri thức phù hợp)"
-    turns = "\n".join(f"{'Khách' if t.role == 'user' else 'Cố vấn'}: {t.content[:300]}" for t in req.history[-4:])
-    focus_line = f"[KHÁCH ĐANG ĐỌC BÀI]: {focus['code']}: {focus['name']}\n" if focus else ""
+    knowledge = "\n---\n".join(f"[{_safe(it['title'])}]: {_safe(it['content'][:700])}" for it in retrieved) or "(không tìm thấy đoạn tri thức phù hợp)"
+    turns = "\n".join(f"{'Khách' if t.role == 'user' else 'Cố vấn'}: {_safe(t.content[:300])}" for t in req.history[-4:])
+    focus_line = f"[KHÁCH ĐANG ĐỌC BÀI]: {_safe(focus['code'])}: {_safe(focus['name'])}\n" if focus else ""
     return (f"[TRI THỨC]:\n{knowledge}\n\n{focus_line}"
-            f"<du_lieu_khach>\n[HỒ SƠ SHOP]: {json.dumps(req.shop_context.clean(), ensure_ascii=False)}\n"
-            f"[HỘI THOẠI GẦN NHẤT]:\n{turns or '(chưa có)'}\n[CÂU HỎI]: {req.message.strip()}\n</du_lieu_khach>")
+            f"<du_lieu_khach>\n[HỒ SƠ SHOP]: {_safe(json.dumps(req.shop_context.clean(), ensure_ascii=False))}\n"
+            f"[HỘI THOẠI GẦN NHẤT]:\n{turns or '(chưa có)'}\n[CÂU HỎI]: {_safe(req.message.strip())}\n</du_lieu_khach>")
 
 
 class CtxSplitter:

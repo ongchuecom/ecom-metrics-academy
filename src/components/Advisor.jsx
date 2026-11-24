@@ -185,7 +185,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
         </div>
         {me && (
           <div className="shrink-0 rounded-2xl bg-stone-50 px-4 py-2.5 text-xs sm:text-right">
-            <p className={`font-bold ${me.is_active ? 'text-ink' : 'text-coral'}`}>{me.is_pro ? me.plan_name : me.is_trial ? `Dùng thử · còn ${me.days_left} ngày` : 'Đã hết hạn dùng thử'}</p>
+            <p className={`font-bold ${me.is_active ? 'text-ink' : 'text-coral'}`}>{me.is_pro ? me.plan_name : me.is_trial ? `Dùng thử · còn ${me.days_left} ngày` : me.was_paid ? 'Gói Pro đã hết hạn' : 'Đã hết hạn dùng thử'}</p>
             {me.is_active && <p className="text-charcoal">Hôm nay còn {me.remaining_today}/{me.daily_limit} câu</p>}
             {!me.is_pro && <button onClick={() => setUpgrade(true)} className="mt-1 font-semibold text-brand-700 hover:underline">Nâng cấp Pro →</button>}
           </div>
@@ -242,7 +242,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
           {err && <p className="text-sm text-coral" role="alert">{err}</p>}
           {me && !me.is_active ? (
             <div className="rounded-2xl bg-brand-50 p-4 text-sm">
-              <p className="font-bold text-ink">Hết thời gian dùng thử.</p>
+              <p className="font-bold text-ink">{me.was_paid ? 'Gói Pro đã hết hạn.' : 'Hết thời gian dùng thử.'}</p>
               <button onClick={() => setUpgrade(true)} className="mt-2 rounded-full bg-brand-600 px-4 py-2 font-bold text-white">Nâng cấp Pro</button>
             </div>
           ) : (

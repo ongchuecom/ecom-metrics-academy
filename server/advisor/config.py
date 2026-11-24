@@ -13,6 +13,11 @@ PLANS = {
 PAID_PLANS = ("monthly", "yearly")
 
 
+def _int(env, key: str, default: int) -> int:
+    v = (env.get(key) or "").strip()
+    return int(v) if v else default
+
+
 def _list(v: str) -> list:
     return [x.strip() for x in (v or "").split(",") if x.strip()]
 
@@ -61,7 +66,9 @@ class Settings:
             db_path=env.get("DB_PATH", "data/advisor.db"),
             chat_model=env.get("CHAT_MODEL", "gemini-flash-latest"),
             embed_model=env.get("EMBED_MODEL", "gemini-embedding-2"),
-            embed_dim=int(env.get("EMBED_DIM", "768")),
+            embed_dim=_int(env, "EMBED_DIM", 768),
             trust_proxy=env.get("TRUST_PROXY", "0") == "1",
+            user_rate_per_min=_int(env, "USER_RATE_PER_MIN", 8),  # 0 = tắt
+            ip_rate_per_min=_int(env, "IP_RATE_PER_MIN", 30),  # 0 = tắt
             site_url=env.get("SITE_URL", "https://ongchuecom.github.io/ecom-metrics-academy/"),
         )
