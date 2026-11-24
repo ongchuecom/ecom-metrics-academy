@@ -22,7 +22,7 @@
     <div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6"><p><a href="https://ongchuecom.github.io/ecom-metrics-academy/">Ecom Metrics Academy</a></p>
 <h1>Điểm báo nhập: Điểm báo nhập hàng (Reorder Point)</h1>
 <p><strong>Kho còn bao nhiêu thì phải đặt hàng ngay</strong></p>
-<p>Điểm báo nhập (Reorder Point) là mức tồn kho mà chạm tới là phải đặt hàng ngay. Hiểu đơn giản: số bán mỗi ngày nhân số ngày chờ hàng về, cộng thêm một phần tồn kho an toàn. Ví dụ: serum bán 40 chai/ngày, hàng về mất 12 ngày, giữ an toàn 10 ngày, thì điểm báo nhập là 40 × 12 + 400 = 880 chai.</p>
+<p>Điểm báo nhập (Reorder Point) là mức tồn kho mà chạm tới là phải đặt hàng ngay. Hiểu đơn giản: số bán mỗi ngày nhân số ngày chờ hàng về, cộng thêm một phần tồn kho an toàn. Ví dụ: serum bán 40 chai/ngày, hàng về mất 12 ngày, giữ an toàn 10 ngày, thì điểm báo nhập là 40 × 12 + 40 × 10 = 880 chai.</p>
 <p>Đặt thấp quá thì đứt hàng, đúng lúc Ads đang thắng phải tắt. Đặt cao quá thì ôm hàng thừa, tiền nằm kho. Điểm báo nhập là chỗ cân hai cái rủi ro đó bằng con số, thay vì cảm giác của thủ kho.</p>
 <h2>Công thức</h2><p>Điểm báo nhập = (Số đơn bán trung bình mỗi ngày × Số ngày hàng về kho) + Tồn kho an toàn dự phòng</p>
 <h2>Điểm báo nhập chạy thế nào trong thực tế?</h2><p>Kho đầu kỳ 1.400 chai, mỗi ngày bán 40. Ngày 13 chạm 880 thì đặt hàng. 12 ngày sau hàng về, kho còn đúng 400 chai tồn an toàn, chưa đứt ngày nào.</p><p>Nếu chờ còn 480 chai mới đặt, không có tồn an toàn, xưởng trễ 6 ngày là đứt 6 ngày, mất 240 chai. Playbook 04 kể đúng cảnh này: mã serum chủ lực đứt 6 ngày vì thủ kho báo nhập chậm. Cách sửa là cài cảnh báo tồn kho tự động.</p>
