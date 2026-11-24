@@ -38,9 +38,11 @@ for (const m of metrics) {
 
 // ---- khái niệm mới ----
 const TYPES = Object.keys(tax.types)
-const dir = 'content/concepts'
-const conceptFiles = existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.json')).sort() : []
-for (const f of conceptFiles) {
+// Thư mục nháp (EMA_EXTRA) cho agent viết song song tự kiểm bài; EMA_OUT ghi kết quả ra chỗ riêng, không chạm web
+const OUT = process.env.EMA_OUT || ''
+const dirs = ['content/concepts', ...(process.env.EMA_EXTRA ? [process.env.EMA_EXTRA] : [])]
+const conceptFiles = dirs.flatMap((d) => (existsSync(d) ? readdirSync(d).filter((f) => f.endsWith('.json')).sort().map((f) => ({ d, f })) : []))
+for (const { d: dir, f } of conceptFiles) {
   let c
   try { c = read(join(dir, f)) } catch (e) { err(f, 'không đọc được JSON: ' + e.message); continue }
   const id = c.id || f.replace(/\.json$/, '')
@@ -116,14 +118,15 @@ const domains = tax.domains.map((d) => ({
 const catalog = { types: tax.types, domains, items: catalogItems }
 const json = JSON.stringify(catalog)
 catalog.version = createHash('sha1').update(json).digest('hex').slice(0, 10)
-writeFileSync('src/data/catalog.json', JSON.stringify(catalog) + '\n')
+if (OUT) mkdirSync(OUT, { recursive: true })
+writeFileSync(OUT ? join(OUT, 'catalog.json') : 'src/data/catalog.json', JSON.stringify(catalog) + '\n')
 
 // Chỉ mục tìm kiếm (tải khi bấm tìm): tên gọi khác, mã pack, công thức, câu cần nhớ
 const search = Object.fromEntries(items.map(({ full: x }) => [x.metric_id, [x.pack_code || '', (x.aliases || []).join(' | '), x.formula?.readable || '', String(x.lesson?.remember || '').replace(/\*\*/g, '')].join(' ¦ ')]))
-mkdirSync('public/data', { recursive: true })
-writeFileSync('public/data/search.json', JSON.stringify(search))
+mkdirSync(OUT || 'public/data', { recursive: true })
+writeFileSync(join(OUT || 'public/data', 'search.json'), JSON.stringify(search))
 
-const out = 'public/data/c'
+const out = OUT ? join(OUT, 'c') : 'public/data/c'
 rmSync(out, { recursive: true, force: true })
 mkdirSync(out, { recursive: true })
 for (const { full } of items) writeFileSync(join(out, `${full.metric_id}.json`), JSON.stringify(full))

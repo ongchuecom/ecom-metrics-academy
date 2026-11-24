@@ -13,10 +13,13 @@ const args = process.argv.slice(2)
 const ALL = args.includes('--all')
 const only = args.includes('--ids') ? new Set(args[args.indexOf('--ids') + 1].split(',')) : null
 const read = (p) => JSON.parse(readFileSync(p, 'utf8'))
-if (!existsSync('src/data/catalog.json')) { console.error('Chưa có src/data/catalog.json, chạy npm run content trước.'); process.exit(1) }
-const catalog = read('src/data/catalog.json')
-const full = Object.fromEntries(catalog.items.map((c) => [c.id, read(join('public/data/c', `${c.id}.json`))]))
-const newIds = new Set(existsSync('content/concepts') ? readdirSync('content/concepts').filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, '')) : [])
+// EMA_OUT / EMA_EXTRA: kiểm trên bản dựng nháp (xem build-content.mjs)
+const OUT = process.env.EMA_OUT || ''
+const CAT = OUT ? join(OUT, 'catalog.json') : 'src/data/catalog.json'
+if (!existsSync(CAT)) { console.error(`Chưa có ${CAT}, chạy npm run content trước.`); process.exit(1) }
+const catalog = read(CAT)
+const full = Object.fromEntries(catalog.items.map((c) => [c.id, read(join(OUT ? join(OUT, 'c') : 'public/data/c', `${c.id}.json`))]))
+const newIds = new Set(['content/concepts', process.env.EMA_EXTRA].filter((d) => d && existsSync(d)).flatMap((d) => readdirSync(d).filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''))))
 
 const errors = [], warns = []
 const E = (id, m) => errors.push({ id, m }), W = (id, m) => warns.push({ id, m })
