@@ -18,7 +18,7 @@
   "lesson": {
     "subtitle": "Làm đúng luật hết thì shop còn lại bao nhiêu phần trăm lãi?",
     "intro": [
-      "**Chi phí tuân thủ trên doanh thu là phần trăm doanh thu mất đi để kinh doanh đúng luật.** Gồm thuế phải nộp, bảo hiểm và thuế TNCN cho nhân sự, kế toán, hóa đơn điện tử, chữ ký số, và tiền phạt nếu làm sai. Shop giả định bán 10 tỷ/năm, cộng các khoản này được 1.300tr thì tỷ lệ là 1.300tr ÷ 10 tỷ = 13%.",
+      "**Chi phí tuân thủ trên doanh thu là phần trăm doanh thu mất đi để kinh doanh đúng luật.** Gồm thuế phải nộp, bảo hiểm và thuế TNCN (thu nhập cá nhân) cho nhân sự, kế toán, hóa đơn điện tử, chữ ký số, và tiền phạt nếu làm sai. Shop giả định bán 10 tỷ/năm, cộng các khoản này được 1.300tr thì tỷ lệ là 1.300tr ÷ 10 tỷ = 13%.",
       "Sách nói thẳng: trước đây con số này của seller gần như dưới 2%, bằng cách lập hộ kinh doanh hưởng mức thuế tượng trưng hoặc nhận tiền mặt không xuất hóa đơn. Nên tiền lãi của nhiều seller thật ra chính là tiền thuế lách. Khi phải đóng đủ, sách ước cộng cả phạt và thất thoát sẽ mất tầm 14%. Mức thuế cụ thể tùy loại hình, ngành hàng và cách kê khai; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
     ],
     "tree": {
@@ -36,20 +36,20 @@
         "title": "Net margin còn lại khi làm đúng",
         "chart": { "type": "compare", "unit": "%", "labels": ["Làm kiểu cũ", "Làm đúng luật"], "items": [["Lãi trước tuân thủ", 22, 22], ["Chi phí tuân thủ", 2, 13], ["Net margin còn lại", 20, 9]] },
         "body": [
-          "Cùng một shop, lãi trước tuân thủ 22%. Kiểu cũ: 22% − 2% = 20%. Làm đúng: 22% − 13% = 9%. Sách nói đúng như vậy: trước anh em đặt net margin trên 20% mới vui, giờ 7-10% là ổn; ai làm được cao hơn thì hoặc xuất sắc, hoặc đang né thuế.",
-          "Sách cũng viết lại công thức lãi cho đủ: Lãi bằng (Doanh thu trừ phần VAT, chi phí, hao phí, bảo hiểm xã hội, thuế TNCN) nhân 80%, rồi trừ dự phòng rủi ro. Hệ số 80% ở đây là cách sách ước phần thuế trên lợi nhuận; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
+          "Cùng một shop, lãi trước tuân thủ 22%. Net margin (lãi ròng trên doanh thu) kiểu cũ: 22% − 2% = 20%. Làm đúng: 22% − 13% = 9%. Sách nói đúng như vậy: trước anh em đặt net margin trên 20% mới vui, giờ 7-10% là ổn; ai làm được cao hơn thì hoặc xuất sắc, hoặc đang né thuế.",
+          "Công thức lãi viết cho đủ: Lãi bằng (Doanh thu trừ phần VAT, chi phí, hao phí, bảo hiểm xã hội, thuế TNCN) nhân 80%, rồi trừ dự phòng rủi ro. Hệ số 80% ở đây là cách sách ước phần thuế trên lợi nhuận; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
         ]
       },
       {
         "title": "Giảm phần không đáng mất",
         "chart": { "type": "steps", "items": [
-          ["Tính đủ vào giá bán", "Đưa chi phí tuân thủ vào P&L trước khi định giá, đừng để nó ăn vào lãi sau."],
+          ["Tính đủ vào giá bán", "Đưa chi phí tuân thủ vào P&L (báo cáo lãi lỗ) trước khi định giá bán, đừng để nó ăn vào lãi sau."],
           ["Chứng từ đầu vào đầy đủ", "Hàng nhập có hóa đơn, chứng từ, hợp đồng để chi phí được ghi nhận đúng."],
-          ["Hệ thống kế toán, hóa đơn", "Xuất hóa đơn đúng và kịp; sách cảnh báo riêng tội hóa đơn có thể ăn mất phần lớn lãi cả năm."],
+          ["Hệ thống kế toán, hóa đơn", "Xuất hóa đơn đúng và kịp; sai sót hóa đơn có thể ăn mất phần lớn lãi cả năm."],
           ["Dự phòng hằng tháng", "Trích tiền thuế và dự phòng vào tài khoản riêng mỗi tháng, không tiêu vào đó."]
         ] },
         "body": [
-          "Sách kể làm đúng chỗ này mất nhiều năm, và làm đúng sẽ bay mất lãi, nên đây là chuyện đánh đổi chứ không phải thuê kế toán về là xong. Phần thuế đúng thì phải đóng; phần cắt được là tiền phạt và thất thoát do làm sai."
+          "Làm đúng chỗ này mất nhiều năm, và làm đúng sẽ bay mất lãi, nên đây là chuyện đánh đổi chứ không phải thuê kế toán về là xong. Phần thuế đúng thì phải đóng; phần cắt được là tiền phạt và thất thoát do làm sai."
         ]
       }
     ],

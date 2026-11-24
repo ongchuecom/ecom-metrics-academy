@@ -30,7 +30,7 @@
         "title": "Đòn bẩy nào rẻ nhất",
         "chart": { "type": "compare", "unit": "tr", "labels": ["Chi phí để có thêm", "Doanh thu thêm"], "items": [["Thêm 5.000 lượt truy cập", 10, 25], ["Sửa trang bán lên CR 2,2%", 3, 25], ["Combo nâng AOV lên 275k", 2, 25]] },
         "body": [
-          "Thêm 5.000 lượt với CPC 2k thì tốn 5.000 × 2k = 10tr, và tháng sau phải trả tiếp. Sửa ảnh, mô tả, đánh giá để CR lên 2,2% có thể chỉ tốn 3tr một lần mà dùng mãi. Làm combo mua 2 để AOV lên 275k tốn ít hơn nữa.",
+          "Thêm 5.000 lượt với CPC (giá mỗi lượt bấm) 2k thì tốn 5.000 × 2k = 10tr, và tháng sau phải trả tiếp. Sửa ảnh, mô tả, đánh giá để CR lên 2,2% có thể chỉ tốn 3tr một lần mà dùng mãi. Làm combo mua 2 để AOV lên 275k tốn ít hơn nữa.",
           "Trường phái ads thường chỉ biết đẩy traffic. Nhưng khi traffic ngày càng đắt, CR và AOV thường là chỗ rẻ hơn để kéo doanh thu. Chi phí trong ví dụ là số minh họa, mỗi shop phải tự đo."
         ]
       },

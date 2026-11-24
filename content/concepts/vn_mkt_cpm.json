@@ -19,7 +19,7 @@
     "subtitle": "Giá quảng cáo đang đắt lên vì nội dung mình kém, hay vì cả chợ đang tranh mua?",
     "intro": [
       "**CPM là tiền trả cho mỗi 1.000 lượt quảng cáo được hiển thị.** Shop chi 5tr, quảng cáo hiện 125.000 lượt thì CPM = 5tr ÷ 125.000 × 1.000 = 40k.",
-      "Ngày xưa banner được bán theo lượt hiển thị, đo đơn giản bằng impression và click. Giờ nền tảng tối ưu ra đơn, nhưng CPM vẫn là giá gốc của traffic. Mọi chỉ số phía sau (CPC, CPL, CPA) đều đứng trên CPM. CPM tăng 50% mà CTR, tỷ lệ chốt không đổi thì giá mỗi đơn cũng tăng 50%."
+      "Ngày xưa banner được bán theo lượt hiển thị, đo đơn giản bằng lượt hiển thị (impression) và click. Giờ nền tảng tối ưu ra đơn, nhưng CPM vẫn là giá gốc của traffic. Mọi chỉ số phía sau (CPC giá mỗi click, CPL giá mỗi lead, CPA giá mỗi đơn) đều đứng trên CPM. CPM tăng 50% mà CTR, tỷ lệ chốt không đổi thì giá mỗi đơn cũng tăng 50%."
     ],
     "tree": {
       "title": "CPM đẩy CPA thế nào",

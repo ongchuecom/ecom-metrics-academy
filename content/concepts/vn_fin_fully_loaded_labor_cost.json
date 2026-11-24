@@ -18,8 +18,8 @@
   "lesson": {
     "subtitle": "Tuyển một người lương 10tr thì thật ra công ty tốn bao nhiêu?",
     "intro": [
-      "**Chi phí nhân sự toàn phần là tổng tiền công ty bỏ ra cho một người, không chỉ số lương người đó nhận.** Sách ước: làm đúng luật thì phải đóng thêm khoảng 20% trên khoản lương, nhân sự nhận về 10tr thì công ty đóng thêm 2tr nữa: 10tr × 20% = 2tr. Hệ số là 12tr ÷ 10tr = 1,2 lần.",
-      "Nhiều seller lập hộ kinh doanh, thuê người không có hợp đồng nên trả lương là xong, và quen tính chi phí người bằng đúng số lương. Khi phải làm đúng thì bảo hiểm, thuế TNCN cộng lại thành một khoản rất lớn, nhất là với mô hình lương thấp hoa hồng cao. Tỷ lệ đóng cụ thể thay đổi theo quy định và mức lương, hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
+      "**Chi phí nhân sự toàn phần là tổng tiền công ty bỏ ra cho một người, không chỉ số lương người đó nhận.** Sách ước: làm đúng luật thì phải đóng thêm khoảng 20% trên khoản lương. Nhân sự nhận về 10tr thì công ty đóng thêm 10tr × 20% = 2tr nữa. Hệ số là 12tr ÷ 10tr = 1,2 lần.",
+      "Nhiều seller lập hộ kinh doanh, thuê người không có hợp đồng nên trả lương là xong, và quen tính chi phí người bằng đúng số lương. Khi phải làm đúng thì bảo hiểm, thuế TNCN (thu nhập cá nhân) cộng lại thành một khoản rất lớn, nhất là với mô hình lương thấp hoa hồng cao. Tỷ lệ đóng cụ thể tùy quy định từng thời kỳ và mức lương, hãy kiểm tra với kế toán hoặc cơ quan thuế."
     ],
     "tree": {
       "title": "Chi phí nhân sự toàn phần được tạo ra từ đâu",
@@ -36,8 +36,8 @@
         "title": "Mỗi người phải làm ra bao nhiêu mới đáng tuyển",
         "chart": { "type": "compare", "unit": "tr", "labels": ["Tính theo lương", "Tính toàn phần"], "items": [["Chi phí 1 người mỗi tháng", 10, 14.3], ["Doanh thu cần để trả (biên 25%)", 40, 57.2]] },
         "body": [
-          "Chi phí toàn phần mỗi người mỗi tháng: 860tr ÷ 12 ÷ 5 = 14,3tr, không phải 10tr. Shop còn 25% lãi sau giá vốn, phí sàn và Ads thì một người cần làm ra 14,3tr ÷ 25% = 57,2tr doanh thu mỗi tháng chỉ để trả chính họ. Tính theo lương thì chỉ thấy 10tr ÷ 25% = 40tr, hụt gần 17tr.",
-          "Vì thế sách gợi ý hướng đi: đầu tư công nghệ để tăng năng suất, giảm thâm dụng lao động. Cần tăng doanh số thì nâng công cụ trước, tuyển thêm người sau."
+          "Chi phí toàn phần mỗi người mỗi tháng: 860tr ÷ 12 ÷ 5 = 14,3tr, không phải 10tr. Shop còn 25% lãi sau giá vốn, phí sàn và Ads thì một người cần làm ra 14,3tr ÷ 25% = 57,2tr doanh thu mỗi tháng chỉ để trả chính họ. Tính theo lương thì chỉ thấy 10tr ÷ 25% = 40tr, hụt 57,2tr − 40tr = 17,2tr.",
+          "Vì thế hướng đi là: đầu tư công nghệ để tăng năng suất, giảm thâm dụng lao động. Cần tăng doanh số thì nâng công cụ trước, tuyển thêm người sau."
         ]
       },
       {

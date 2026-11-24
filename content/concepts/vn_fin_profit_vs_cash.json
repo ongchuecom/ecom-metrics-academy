@@ -30,7 +30,7 @@
         "title": "Công nợ không phải là tiền",
         "chart": { "type": "compare", "unit": "tr", "labels": ["Trên giấy", "Thu được thật"], "items": [["Phải thu từ đối tác lớn", 600, 250], ["Tiền sàn chờ đối soát", 150, 135], ["Hàng tồn tính theo giá vốn", 400, 220]] },
         "body": [
-          "Sách kể một case: người bạn tính số tiền phải thu đang có 6 tỉ, nghĩ dẹp công ty cổ đông vẫn chia nhau 6 tỉ. Sáu tháng sau dẹp thật thì không có xu nào để chia, vì không thu được nửa số đó trong khi chi phí vẫn tăng.",
+          "Sách kể một case: người bạn tính số tiền phải thu đang có 6 tỉ, nghĩ nếu dẹp công ty thì cổ đông vẫn chia nhau 6 tỉ. Sáu tháng sau dẹp thật thì không có xu nào để chia, vì không thu được nửa số đó trong khi chi phí vẫn tăng.",
           "Biểu đồ là một shop giả định: phải thu 600tr nhưng đòi được 250tr, hàng tồn 400tr xả ra chỉ được 220tr. Tổng trên giấy 600tr + 150tr + 400tr = 1.150tr, thu về thật 250tr + 135tr + 220tr = 605tr, gần một nửa bốc hơi."
         ]
       },

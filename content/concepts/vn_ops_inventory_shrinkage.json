@@ -40,14 +40,14 @@
     "breakdown": {
       "title": "Bóc 240 sản phẩm bị hụt",
       "chart": { "type": "bars", "unit": "cái", "items": [["Xuất không ghi sổ (quà tặng, mẫu KOC, đổi hàng)", 90, "focus"], ["Nhập thiếu so với phiếu", 60], ["Thất lạc, mất", 50], ["Hỏng khi lưu kho", 40]] },
-      "after": "Cộng lại 90 + 60 + 50 + 40 = 240. Gần một nửa không phải bị trộm, mà là hàng lấy ra gửi KOC, tặng khách, đổi size mà không ai ghi phiếu. Giá vốn 50k thì 240 cái là 240 × 50k = **12tr**, trên kho trị giá 12.000 × 50k = 600tr."
+      "after": "Cộng lại 90 + 60 + 50 + 40 = 240. Hơn một phần ba (90 cái) không phải bị trộm, mà là hàng lấy ra gửi KOC, tặng khách, đổi size mà không ai ghi phiếu. Giá vốn 50k thì 240 cái là 240 × 50k = **12tr**, trên kho trị giá 12.000 × 50k = 600tr."
     },
     "sections": [
       {
         "title": "Siết quy trình thì hụt giảm bao nhiêu",
         "chart": { "type": "compare", "unit": "tr", "labels": ["Trước", "Sau khi siết"], "items": [["Hàng hụt mỗi tháng", 12, 3]] },
         "body": [
-          "Shop giả định áp ba việc: mọi hàng ra khỏi kho đều phải có phiếu, kể cả mẫu KOC; nhập hàng đếm đối chiếu phiếu trước khi ký nhận; kiểm kê xoay vòng mỗi tuần một nhóm SKU. Hao hụt từ 2% xuống 0,5%, tức 600tr × 0,5% = 3tr mỗi tháng.",
+          "Shop giả định áp ba việc: mọi hàng ra khỏi kho đều phải có phiếu, kể cả mẫu KOC; nhập hàng đếm đối chiếu phiếu trước khi ký nhận; kiểm kê xoay vòng mỗi tuần một nhóm SKU (mã hàng). Hao hụt từ 2% xuống 0,5%, tức 600tr × 0,5% = 3tr mỗi tháng.",
           "Tiết kiệm 12tr − 3tr = 9tr mỗi tháng, chưa tính tiền không phải nhập bù, không bán âm kho, không hủy đơn vì tưởng còn hàng."
         ]
       },

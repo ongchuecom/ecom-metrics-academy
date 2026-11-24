@@ -17,13 +17,13 @@
   "lesson": {
     "subtitle": "Báo cáo cả năm lãi, sao rút ra không được đồng nào?",
     "intro": [
-      "**Lãi màn hình là lãi có thật trên P&L nhưng không cầm được về tay, vì biên mỏng và tiền nằm hết ở hàng tồn.** Shop bán 2,4 tỷ/năm, Net margin 7%: 2,4 tỷ × 7% = 168tr lãi cả năm. Nhưng để bán đều phải giữ hàng đủ 3 tháng, doanh thu mỗi tháng 2,4 tỷ ÷ 12 = 200tr, giá vốn 35% thì tiền nằm trong kho là 200tr × 35% × 3 = 210tr. Lãi cả năm còn không bằng số tiền đang nằm trong kho.",
+      "**Lãi màn hình là lãi có thật trên P&L nhưng không cầm được về tay, vì biên mỏng và tiền nằm hết ở hàng tồn.** Shop bán 2,4 tỷ/năm, Net margin (biên lãi ròng) 7%: 2,4 tỷ × 7% = 168tr lãi cả năm. Nhưng để bán đều phải giữ hàng đủ 3 tháng. Doanh thu mỗi tháng 2,4 tỷ ÷ 12 = 200tr, giá vốn 35% thì tiền nằm trong kho là 200tr × 35% × 3 = 210tr. Lãi cả năm còn không bằng số tiền đang nằm trong kho.",
       "Sách cảnh báo: sàn sẽ tiếp tục tăng phí, tuân thủ ngày càng tốn, nên các P&L dựa trên định giá bán rẻ sẽ không còn margin để xoay xở. Nếu có lãi cũng chỉ là lãi màn hình, tiền nằm hết ở tồn kho lẫn rủi ro. Chỉ cần một lô hàng chậm phải xả lỗ là lãi cả năm bay mất."
     ],
     "breakdown": {
       "title": "Lãi cả năm so với tiền đang nằm trong kho",
       "chart": { "type": "bars", "unit": "tr", "items": [["Lãi ròng cả năm (7%)", 168, "keep"], ["Tiền nằm ở hàng tồn 3 tháng", 210, "focus"], ["Lỗ khi xả một lô hàng chậm", -60, "loss"]] },
-      "after": "Lãi 168tr thì 210tr đã nằm trong kho. Xả lỗ một lô chậm mất 60tr nữa thì tiền mặt thật cuối năm còn âm. Đó là lý do sách nói **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
+      "after": "Lãi cả năm 168tr, trong khi 210tr tiền đang nằm trong kho. Xả lỗ một lô chậm mất 60tr nữa thì tiền mặt thật cuối năm còn âm. Đó là lý do sách nói **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
     },
     "sections": [
       {
@@ -43,7 +43,7 @@
           ["Tăng tốc độ ra hàng", "Ra hàng nhanh thì cùng doanh số cần ít tồn hơn, tiền quay về sớm hơn."]
         ] },
         "body": [
-          "Sách nói khi gộp thêm kênh bán, tốc độ ra hàng nhanh hơn thì tồn kho duy trì thấp hơn. Cùng một biên lãi, tiền nằm trong kho ít đi là tiền thật nhiều lên."
+          "Khi gộp thêm kênh bán, tốc độ ra hàng nhanh hơn thì tồn kho duy trì thấp hơn. Cùng một biên lãi, tiền nằm trong kho ít đi là tiền thật nhiều lên."
         ]
       }
     ],

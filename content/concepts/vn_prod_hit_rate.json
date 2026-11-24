@@ -42,7 +42,7 @@
         "xLabel": "Sản phẩm thứ",
         "unit": "tr",
         "lossBelowZero": true,
-        "points": [[1, -250], [2, -500], [3, -750], [4, -1000], [5, 0], [6, 1000]],
+        "points": [[1, -250], [2, -500], [3, -750], [4, -1000], [5, 0]],
         "now": { "x": 5, "label": "Gỡ xong sau 1 tháng" }
       },
       "after": "Bốn sản phẩm đầu mỗi cái lỗ 250tr: 250tr × 4 = 1.000tr, tức 1 tỷ. Sản phẩm thứ 5 thắng, lãi 1 tỷ trong tháng đầu là về 0. Hit rate ở đây là 1 ÷ 5 = 20%. Shop chỉ đi tới được sản phẩm thứ 5 nếu đã **để dành sẵn tiền thua** cho 4 cái trước."

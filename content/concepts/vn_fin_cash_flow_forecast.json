@@ -18,7 +18,7 @@
     "subtitle": "Làm sao biết trước tuần nào shop sẽ hết tiền?",
     "intro": [
       "**Dự báo dòng tiền là bảng thu chi dự kiến theo từng tuần, tính ra số dư cuối mỗi tuần.** Tiền vào ghi theo ngày tiền về thật (sàn đối soát, COD trả), tiền ra ghi theo ngày đến hạn (nhà cung cấp, lương, thuê kho, Ads, thuế). Shop đầu tháng có 200tr, nhìn bảng mới thấy tuần thứ 4 hụt 20tr dù cả tháng vẫn lãi.",
-      "Sách nói khi chưa biết nên đi tiếp hay lùi lại, hãy quay lại nhìn P&L, Cashflow và Forecast. Dòng tiền và lợi nhuận như cánh chim báo bão. Cái khó của Ecom là ngày trả nhà cung cấp và ngày sàn trả tiền lệch nhau; không có bảng dự báo thì chỉ biết thiếu tiền khi đã thiếu."
+      "Sách nói khi chưa biết nên đi tiếp hay lùi lại, hãy quay lại nhìn P&L (lãi lỗ), Cashflow (dòng tiền) và Forecast (dự báo). Dòng tiền và lợi nhuận như cánh chim báo bão. Cái khó của Ecom là ngày trả nhà cung cấp và ngày sàn trả tiền lệch nhau; không có bảng dự báo thì chỉ biết thiếu tiền khi đã thiếu."
     ],
     "breakdown": {
       "title": "Số dư cuối tuần của một shop trong 8 tuần",

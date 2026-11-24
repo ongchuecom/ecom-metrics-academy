@@ -31,7 +31,7 @@
         "chart": { "type": "compare", "unit": "%", "labels": ["Tháng 9", "Tháng 10"], "items": [["Bấm / hiển thị", 2, 2.1], ["Để lại số / bấm", 25, 24], ["Liên hệ được / lead", 80, 60], ["Chốt / liên hệ được", 37.5, 38]] },
         "body": [
           "Tháng 10 đơn giảm. Nhìn tổng thì tưởng do ads, nhưng tách tầng ra mới thấy quảng cáo và tỷ lệ chốt vẫn vậy. Thứ tụt là tỷ lệ liên hệ được: từ 80% xuống 60%, vì đội gọi chậm, khách đã mua chỗ khác.",
-          "Với 500 lead một ngày, tụt 20 điểm là mất 500 × 20% = 100 khách liên hệ được, tức khoảng 100 × 37,5% = 37,5 đơn mỗi ngày. Sửa đúng chỗ là thêm người gọi hoặc gọi trong 5 phút đầu, không phải tăng ngân sách ads."
+          "Với 500 lead (người để lại số) một ngày, tụt 20 điểm là mất 500 × 20% = 100 khách liên hệ được, tức khoảng 100 × 37,5% = 37,5 đơn mỗi ngày. Sửa đúng chỗ là thêm người gọi hoặc gọi trong 5 phút đầu, không phải tăng ngân sách ads."
         ]
       },
       {

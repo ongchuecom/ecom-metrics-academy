@@ -18,12 +18,12 @@
     "subtitle": "Shop có nhiều team, nhiều sản phẩm, làm sao biết hôm nay chỗ nào đang lỗ?",
     "intro": [
       "**P&L hằng ngày là bảng lãi lỗ mỗi ngày, chi phí nào cũng được gắn vào đúng doanh thu nó tạo ra.** Cuối ngày nhìn vào là biết team TikTok lãi 1,5tr, team Shopee lãi 5tr, team Facebook lỗ 3,2tr, chứ không chỉ biết cả shop lãi 1,5tr + 5tr − 3,2tr = 3,3tr.",
-      "Sách mô tả nó đơn giản là một file Google Sheet tổng hợp số liệu chính để ra quyết định. Doanh thu là tiền mình nhận về tài khoản, không phải GMV. Chi phí gồm phí sàn, ship, Ads, hoa hồng, voucher, hàng, quà tặng, thuế, phân bổ chi tiết cho từng doanh thu. Quan trọng nhất: nếu lỗ hay giảm thì xảy ra ở đâu, và vì sao."
+      "Sách mô tả nó đơn giản là một file Google Sheet tổng hợp số liệu chính để ra quyết định. Doanh thu là tiền mình nhận về tài khoản, không phải GMV (tổng giá trị đơn đặt). Chi phí gồm phí sàn, ship, Ads, hoa hồng, voucher, hàng, quà tặng, thuế, phân bổ chi tiết cho từng doanh thu. Quan trọng nhất: nếu lỗ hay giảm thì xảy ra ở đâu, và vì sao."
     ],
     "breakdown": {
       "title": "Một ngày của 3 team, lãi sau chi phí trực tiếp",
       "chart": { "type": "bars", "unit": "tr", "items": [["Team TikTok, sản phẩm A", 1.5], ["Team Shopee, sản phẩm B", 5, "keep"], ["Team Facebook, sản phẩm A", -3.2, "focus"], ["Cả shop", 3.3]] },
-      "after": "Nhìn tổng thì shop vẫn lãi 3,3tr, chẳng ai lo. Bóc theo team mới thấy **team Facebook đang lỗ 3,2tr mỗi ngày**, ăn gần hết phần lãi của team TikTok. Trừ thêm 3tr chi phí chung mỗi ngày thì cả shop chỉ còn 3,3tr − 3tr = 0,3tr."
+      "after": "Nhìn tổng thì shop vẫn lãi 3,3tr, chẳng ai lo. Bóc theo team mới thấy **team Facebook đang lỗ 3,2tr mỗi ngày**, ăn gần một nửa phần lãi của hai team kia. Trừ thêm 3tr chi phí chung mỗi ngày thì cả shop chỉ còn 3,3tr − 3tr = 0,3tr."
     },
     "sections": [
       {

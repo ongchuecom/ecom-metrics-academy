@@ -17,8 +17,8 @@
   "lesson": {
     "subtitle": "Sản phẩm này đã đáng để dồn tiền scale chưa?",
     "intro": [
-      "**Sản phẩm ngàn đơn là sản phẩm qua được sáu bài test trước khi dồn lực scale.** Có lãi (tầm 10% net margin là đủ), tăng trưởng đều theo tháng, hợp xu thế tiêu dùng, hợp năng lực team, có nhiều hướng mở rộng, và các chỉ số CPA, ROAS, LTV ổn định. Ví dụ sản phẩm giá 150k bán 1.000 đơn/ngày thì doanh thu 1.000 đơn × 150k = 150tr/ngày, lãi ròng 10% là 150tr × 10% = 15tr/ngày.",
-      "Chỉ cần lên được 100 đơn/ngày mà vẫn đạt đủ tiêu chí thì mốc ngàn đơn tới rất nhanh. Ngược lại, thiếu tiêu chí mà cố scale thì càng bán càng bất ổn. Có những sản phẩm đã lên vài trăm đơn vẫn bị đóng để dồn lực cho sản phẩm Hero, theo quy tắc 80-20."
+      "**Sản phẩm ngàn đơn là sản phẩm qua được sáu bài test trước khi dồn lực scale.** Có lãi (tầm 10% net margin, tức lãi ròng trên doanh thu, là đủ), tăng trưởng đều theo tháng, hợp xu thế tiêu dùng, hợp năng lực team, có nhiều hướng mở rộng, và các chỉ số CPA, ROAS, LTV (giá trị vòng đời khách) ổn định. Ví dụ sản phẩm giá 150k bán 1.000 đơn/ngày thì doanh thu 1.000 đơn × 150k = 150tr/ngày, lãi ròng 10% là 150tr × 10% = 15tr/ngày.",
+      "Chỉ cần lên được 100 đơn/ngày mà vẫn đạt đủ tiêu chí thì mốc ngàn đơn tới rất nhanh. Ngược lại, thiếu tiêu chí mà cố scale thì càng bán càng bất ổn. Có những sản phẩm đã lên vài trăm đơn vẫn bị đóng để dồn lực cho sản phẩm Hero (sản phẩm chủ lực), theo quy tắc 80-20."
     ],
     "breakdown": {
       "title": "Sáu dấu hiệu của sản phẩm ngàn đơn",
@@ -30,7 +30,7 @@
           ["Hợp xu thế", "Đi cùng hướng tiêu dùng của khách, không đi ngược sóng."],
           ["Hợp năng lực team", "Team đủ sức làm content, vận hành, chăm khách cho sản phẩm này."],
           ["Nhiều hướng mở rộng", "Online sang offline, lẻ sang sỉ, thêm kênh affiliate."],
-          ["Chỉ số ổn định", "CPA, ROAS, LTV, ARPU, ROI không nhảy loạn khi tăng ngân sách."]
+          ["Chỉ số ổn định", "CPA, ROAS, LTV, ARPU (doanh thu trung bình mỗi khách), ROI không nhảy loạn khi tăng ngân sách."]
         ]
       },
       "after": "Sáu dấu hiệu này đi cùng nhau. Lãi mà không tăng trưởng là sản phẩm nuôi được shop nhỏ, không phải ngàn đơn. Tăng mà chỉ số nhảy loạn thì scale lên là cháy tiền."

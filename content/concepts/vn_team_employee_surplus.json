@@ -38,7 +38,7 @@
     "breakdown": {
       "title": "Ba nhân sự cùng team, một tháng",
       "chart": { "type": "bars", "unit": "tr", "items": [["Bạn A", 40, "keep"], ["Bạn B", 15], ["Bạn C", -4, "loss"]] },
-      "after": "A: 60tr − 15tr − 5tr = 40tr. B: 30tr − 12tr − 3tr = 15tr. C: 20tr − 18tr − 6tr = **−4tr**. C nhận lương cao hơn B mà còn làm leader tốn công kèm hơn, nên đang âm. Nhìn bảng lương thì không thấy, phải tính thặng dư mới thấy."
+      "after": "A: 60tr − 15tr − 5tr = 40tr. B: 30tr − 12tr − 3tr = 15tr. C: 20tr − 18tr − 6tr = **−4tr**. C nhận lương cao hơn B, lại bắt leader tốn công kèm nhiều hơn, nên đang âm. Nhìn bảng lương thì không thấy, phải tính thặng dư mới thấy."
     },
     "sections": [
       {

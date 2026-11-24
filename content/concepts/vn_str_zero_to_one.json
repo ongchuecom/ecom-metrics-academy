@@ -17,13 +17,13 @@
   "lesson": {
     "subtitle": "Khởi nghiệp bao giờ mới gọi là qua được giai đoạn bấp bênh?",
     "intro": [
-      "**Từ 0 lên 1 là lúc việc kinh doanh đem về thu nhập ổn định gấp đôi mức lương nếu anh chị đi làm thuê.** Ví dụ đi làm được 20tr/tháng thì ngưỡng One là 20 × 2 = 40tr lãi ròng mỗi tháng, đều đặn nhiều tháng liền.",
+      "**Từ 0 lên 1 là lúc việc kinh doanh đem về thu nhập ổn định gấp đôi mức lương nếu anh chị đi làm thuê.** Ví dụ đi làm được 20tr/tháng thì ngưỡng One (mốc \"1\") là 20 × 2 = 40tr lãi ròng mỗi tháng, đều đặn nhiều tháng liền.",
       "Vì sao phải gấp đôi mà không phải bằng? Vì phần chênh 20tr chính là đệm cho những cú bất ngờ: hàng lỗi cả lô, tài khoản Ads bị khóa, sàn đổi phí. Thường mất 1–3 năm mới tới One, và chỉ 20–30% người khởi nghiệp tới được. Chưa tới cũng đừng sốt ruột vì người khác giàu nhanh, mỗi người một con đường."
     ],
     "breakdown": {
       "title": "Lương đi làm 20tr thì shop phải bán bao nhiêu",
       "chart": { "type": "bars", "unit": "tr", "items": [["Lương nếu đi làm thuê", 20], ["Ngưỡng One (gấp đôi)", 40, "focus"], ["Doanh thu cần, Net margin 8%", 500, "keep"]] },
-      "after": "Cần 40tr lãi ròng mỗi tháng. Shop có Net margin 8% thì doanh thu phải đạt 40tr ÷ 8% = **500tr/tháng**. Net margin chỉ 5% thì cần 40tr ÷ 5% = 800tr, xa hơn nhiều."
+      "after": "Cần 40tr lãi ròng mỗi tháng. Shop có Net margin (lãi ròng trên doanh thu) 8% thì doanh thu phải đạt 40tr ÷ 8% = **500tr/tháng**. Net margin chỉ 5% thì cần 40tr ÷ 5% = 800tr, xa hơn nhiều."
     },
     "sections": [
       {

@@ -18,7 +18,7 @@
     "subtitle": "Công ty đông người rồi, làm sao để mỗi team tự lo lãi lỗ?",
     "intro": [
       "**Khoán P&L theo team là chia công ty thành nhiều team, mỗi team một bảng lãi lỗ, một ngân sách và một mức chia lợi nhuận theo doanh số.** Mỗi team nắm một vài sản phẩm, một vài kênh hoặc một thị trường, vài chục người, có thể chạy tới doanh số triệu đô mỗi tháng. Đội vận hành chung đóng vai hậu cần.",
-      "Có nơi cả chục team ở chung một khu nhà, mỗi team một nước, chia sẻ công thức và dữ liệu cho nhau. Có nơi ngồi chung một văn phòng, chia P&L riêng, trao quyền mạnh nhưng soát số liên tục. Kiểu nào thì cốt lõi vẫn là: chia để trị, trao quyền và cơ chế, siết kỷ cương và đào thải, lấy số ra nói chuyện."
+      "Có nơi cả chục team ở chung một khu nhà, mỗi team nắm một nước (một thị trường), chia sẻ công thức và dữ liệu cho nhau. Có nơi ngồi chung một văn phòng, chia P&L riêng, trao quyền mạnh nhưng soát số liên tục. Kiểu nào thì cốt lõi vẫn là: chia để trị, trao quyền và cơ chế, siết kỷ cương và đào thải, lấy số ra nói chuyện."
     ],
     "breakdown": {
       "title": "P&L một team doanh thu 2 tỷ/tháng",
@@ -40,7 +40,7 @@
           ["Chia team", "Theo sản phẩm, kênh hoặc thị trường. Ranh giới phải rõ để doanh thu và chi phí không bị lẫn."],
           ["Giao ngân sách", "Mỗi team có trần chi Ads, nhân sự, mẫu thử. Vượt trần phải xin."],
           ["Lên P&L hằng ngày", "Mỗi team xem được lãi lỗ theo ngày, theo sản phẩm, theo kênh."],
-          ["Chia theo mốc", "Lợi nhuận càng lớn, tỷ lệ chia càng cao, và công bố trước khi chạy."],
+          ["Chia theo mốc", "Doanh số vượt mốc càng cao, tỷ lệ chia lợi nhuận càng cao, và công bố trước khi chạy."],
           ["Soát và đào thải", "Team lỗ nhiều tháng không có giải pháp thì gộp hoặc đóng, người giỏi chuyển sang team khác."]
         ] },
         "body": [

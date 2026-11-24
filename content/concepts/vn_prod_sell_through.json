@@ -20,7 +20,7 @@
   "lesson": {
     "subtitle": "Lô hàng nhập về đã bán được bao nhiêu, tiền vốn đã quay về chưa?",
     "intro": [
-      "**Sell-through là số hàng đã bán chia số hàng có để bán trong kỳ.** Nhập 2.000 sản phẩm, 30 ngày bán được 700 thì sell-through 30 ngày = 700 ÷ 2.000 = 35%. Còn 65% lô vẫn nằm trong kho dưới dạng tiền.",
+      "**Sell-through là số hàng đã bán chia số hàng có để bán trong kỳ.** Nhập 2.000 sản phẩm, 30 ngày bán được 700 thì sell-through 30 ngày = 700 ÷ 2.000 = 35%. Còn 65% lô vẫn nằm trong kho, tức tiền vốn vẫn kẹt ở đó.",
       "Doanh thu tổng có thể trông lớn, nhưng shop phải ứng tiền trước cho nhập hàng, branding, ads, KOC. Nếu không bán hết khoảng 50% lượng hàng thì nhiều khả năng cạn tiền mặt. Sóng KOC, Livestream vừa rồi nhiều team đổ tiền làm hàng, cuối cùng hàng chất đống, nợ chồng nợ: đó là sell-through thấp."
     ],
     "tree": {

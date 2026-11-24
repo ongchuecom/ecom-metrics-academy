@@ -23,7 +23,7 @@
     "breakdown": {
       "title": "Một kho 500 SKU cần bao nhiêu quy trình",
       "chart": { "type": "bars", "unit": "tr", "items": [["Giá trị kho", 4000], ["Thất thoát nếu sai 5%", 200, "loss"]] },
-      "after": "Kho 500 SKU, ngàn đơn mỗi ngày, giá trị hàng 4 tỷ, 10 người làm. Việc ở kho gồm điện nước, kệ, bao bì, in ấn, đóng gói, nhập, xuất, hoàn, kiểm kê, cháy nổ… mỗi việc cần vài quy trình, cộng lại gần 99 cái. Không viết chi tiết thì hư hỏng, sai lệch: tỷ lệ sai 5% là 4 tỷ × 5% = **200tr** mất đi."
+      "after": "Kho 500 SKU (mã hàng), ngàn đơn mỗi ngày, giá trị hàng 4 tỷ, 10 người làm. Việc ở kho gồm điện nước, kệ, bao bì, in ấn, đóng gói, nhập, xuất, hoàn, kiểm kê, cháy nổ… mỗi việc cần vài quy trình, cộng lại 99 cái. Không viết chi tiết thì hư hỏng, sai lệch: tỷ lệ sai 5% là 4 tỷ × 5% = **200tr** mất đi mỗi tháng."
     },
     "sections": [
       {
