@@ -1,0 +1,58 @@
+{
+  "id": "vn_fin_fully_loaded_labor_cost",
+  "type": "metric",
+  "domain": "06_finance_unit_econ",
+  "topic": "thue-tuan-thu",
+  "code": "Chi phí nhân sự toàn phần",
+  "vi_name": "Chi phí nhân sự toàn phần (Fully-loaded Labor Cost: lương + BHXH + thuế TNCN)",
+  "definition": "Tổng số tiền công ty thật sự bỏ ra cho một nhân sự, không chỉ lương nhân viên nhận về: cộng thêm bảo hiểm phần công ty đóng, thuế TNCN công ty gánh thay nếu trả lương net, công cụ, quản lý và dự phòng. Đem chia cho lương để ra hệ số, sách ước khoảng 1,2 lần.",
+  "aliases": ["fully-loaded labor cost", "chi phí thật của một nhân sự", "hệ số chi phí lương"],
+  "related": ["vn_team_gp_per_staff", "vn_fin_opex_ratio", "vn_fin_breakeven_rev", "vn_fin_net_profit", "vn_team_rev_per_media_buyer"],
+  "playbook_refs": [],
+  "formula": { "readable": "Chi phí nhân sự toàn phần = Lương gộp + Bảo hiểm phần công ty đóng + Thuế TNCN công ty gánh thay (nếu trả lương net) + Công cụ, quản lý, đào tạo + Dự phòng rủi ro. Hệ số = Chi phí toàn phần ÷ Lương gộp" },
+  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Fully-loaded Labor Cost). Hệ số khoảng 1,2 lần và các ví dụ lấy theo sách Ecom Truyền Kỳ; mức đóng cụ thể phải kiểm tra với kế toán." },
+  "risk": "high",
+  "review": "draft",
+  "batch": "2026-11-24-a",
+  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 2727-2730 (thuế TNCN, bảo hiểm khi tuyển nhân sự), 3375-3376 (đúng luật phải đóng thêm khoảng 20% trên lương), 3442 (5 người quỹ lương 50tr thành 60tr/tháng)" }],
+  "lesson": {
+    "subtitle": "Tuyển một người lương 10tr thì thật ra công ty tốn bao nhiêu?",
+    "intro": [
+      "**Chi phí nhân sự toàn phần là tổng tiền công ty bỏ ra cho một người, không chỉ số lương người đó nhận.** Sách ước: làm đúng luật thì phải đóng thêm khoảng 20% trên khoản lương, nhân sự nhận về 10tr thì công ty đóng thêm 2tr nữa: 10tr × 20% = 2tr. Hệ số là 12tr ÷ 10tr = 1,2 lần.",
+      "Nhiều seller lập hộ kinh doanh, thuê người không có hợp đồng nên trả lương là xong, và quen tính chi phí người bằng đúng số lương. Khi phải làm đúng thì bảo hiểm, thuế TNCN cộng lại thành một khoản rất lớn, nhất là với mô hình lương thấp hoa hồng cao. Tỷ lệ đóng cụ thể thay đổi theo quy định và mức lương, hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
+    ],
+    "tree": {
+      "title": "Chi phí nhân sự toàn phần được tạo ra từ đâu",
+      "note": "Lương chỉ là phần nổi. Muốn hạ chi phí mỗi người mà không hạ thu nhập thì tăng năng suất ↑ bằng công cụ, quy trình, để cần ít người hơn cho cùng doanh số.",
+      "expr": { "label": "Chi phí nhân sự toàn phần", "eq": [{ "label": "Lương gộp" }, "+", { "label": "Bảo hiểm công ty đóng" }, "+", { "label": "Thuế TNCN gánh thay" }, "+", { "label": "Công cụ, quản lý" }, "+", { "label": "Dự phòng rủi ro" }] }
+    },
+    "breakdown": {
+      "title": "Đội 5 người, quỹ lương 50tr/tháng, tính cả năm",
+      "chart": { "type": "bars", "unit": "tr", "items": [["Quỹ lương cả năm", 600], ["Cộng bảo hiểm, thuế, quản lý", 720], ["Cộng dự phòng rủi ro", 800], ["Cộng công cụ, hệ thống", 860, "focus"]] },
+      "after": "Ví dụ trong sách: 5 người quỹ lương 50tr, cộng thuế, bảo hiểm, team building, quản lý thành 50tr × 1,2 = 60tr/tháng, cả năm 60tr × 12 = 720tr. Tính cả dự phòng vì dễ bị phạt và rắc rối thì lên 800tr, cộng công cụ 60tr/năm: 800tr + 60tr = 860tr. So với quỹ lương 50tr × 12 = 600tr, hệ số thật là 860tr ÷ 600tr = **1,43 lần**."
+    },
+    "sections": [
+      {
+        "title": "Mỗi người phải làm ra bao nhiêu mới đáng tuyển",
+        "chart": { "type": "compare", "unit": "tr", "labels": ["Tính theo lương", "Tính toàn phần"], "items": [["Chi phí 1 người mỗi tháng", 10, 14.3], ["Doanh thu cần để trả (biên 25%)", 40, 57.2]] },
+        "body": [
+          "Chi phí toàn phần mỗi người mỗi tháng: 860tr ÷ 12 ÷ 5 = 14,3tr, không phải 10tr. Shop còn 25% lãi sau giá vốn, phí sàn và Ads thì một người cần làm ra 14,3tr ÷ 25% = 57,2tr doanh thu mỗi tháng chỉ để trả chính họ. Tính theo lương thì chỉ thấy 10tr ÷ 25% = 40tr, hụt gần 17tr.",
+          "Vì thế sách gợi ý hướng đi: đầu tư công nghệ để tăng năng suất, giảm thâm dụng lao động. Cần tăng doanh số thì nâng công cụ trước, tuyển thêm người sau."
+        ]
+      },
+      {
+        "title": "Cẩn thận với lương thấp hoa hồng cao",
+        "body": [
+          "Mô hình seller hay trả lương cứng thấp, hoa hồng cao. Hoa hồng cũng là thu nhập chịu thuế TNCN, và nếu đã hứa nhân viên nhận đủ số tiền thì phần thuế đó công ty gánh. Sách tính nhẩm: thu nhập 100tr/tháng thì sơ sơ 20-30tr thuế TNCN, con số này ai đóng?",
+          "Trước khi chốt cơ chế lương, ghi rõ trong hợp đồng là lương gộp hay lương net, và nhờ kế toán tính thử cả bảo hiểm lẫn thuế cho vài mức thu nhập. Người làm freelancer, CTV cũng cần làm rõ từ đầu ai chịu thuế."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy số lương nhân viên nhận để tính điểm hòa vốn, quên phần bảo hiểm, thuế, công cụ, quản lý.",
+      "Hứa lương net cho người hoa hồng cao mà chưa tính phần thuế TNCN công ty phải gánh.",
+      "Tuyển thêm người mỗi khi muốn tăng doanh số, thay vì nâng năng suất bằng công cụ và quy trình."
+    ],
+    "remember": "Một người lương 10tr không tốn 10tr; tính đủ toàn phần rồi mới quyết tuyển và chốt cơ chế lương."
+  }
+}

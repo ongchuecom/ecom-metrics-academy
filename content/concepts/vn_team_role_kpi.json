@@ -1,0 +1,57 @@
+{
+  "id": "vn_team_role_kpi",
+  "type": "framework",
+  "domain": "07_team_operations",
+  "topic": "hieu-suat-doi-ngu",
+  "code": "KPI theo vai trò",
+  "vi_name": "KPI theo vai trò (Content, Ads, Telesale, Leader)",
+  "definition": "Cách giao cho mỗi vị trí đúng một vài chỉ số mà chính người đó điều khiển được, rồi nối các chỉ số đó lên mục tiêu của công ty và xuống mục tiêu cá nhân, để cả đội kéo cùng một hướng.",
+  "aliases": ["KPI từng vị trí", "bộ chỉ số theo team", "KPI cá nhân"],
+  "related": ["vn_fin_breakeven_roas", "vn_ret_repeat_rate", "vn_team_creative_win_rate", "vn_fin_net_profit", "vn_team_chat_cvr"],
+  "playbook_refs": [],
+  "basis": { "type": "custom", "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Quản trị hòa hợp giữa Số liệu và Năng lượng): KPI chi tiết tới từng team và cá nhân, leader đo lợi nhuận và tăng trưởng, content đo chuyển đổi, Ads đo ROAS, telesale đo khách hài lòng và khách mua lại." },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-24-a",
+  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1286-1291, mục Quản trị hòa hợp giữa Số liệu và Năng lượng" }],
+  "lesson": {
+    "subtitle": "Giao KPI gì cho từng người để không ai chạy lệch?",
+    "intro": [
+      "**KPI theo vai trò là giao cho mỗi vị trí đúng chỉ số mà người đó tự kéo lên được, và mọi chỉ số đều nối về mục tiêu chung.** Leader đo lợi nhuận và tăng trưởng. Content đo chuyển đổi. Ads đo ROAS. Telesale đo khách hài lòng và khách mua lại.",
+      "Giao cả đội một KPI doanh thu thì ai cũng thấy mình có công, mà khi lỗ không ai thấy mình có lỗi. KPI phải minh bạch, đo được, hợp với từng nhóm, từng người, từng giai đoạn. Khi KPI rõ rồi thì cứ thế mà chiến: ngoài bàn nhậu thân đến đâu, vào việc cứ KPI mà nói chuyện."
+    ],
+    "breakdown": {
+      "title": "Mỗi vai trò một bộ chỉ số",
+      "chart": { "type": "steps", "items": [
+        ["Leader", "Lợi nhuận và tăng trưởng của cả team. Không chỉ doanh thu, vì doanh thu lỗ thì càng bán càng chết."],
+        ["Content", "Chuyển đổi: video, bài viết ra bao nhiêu đơn, tỷ lệ creative thắng, chứ không phải lượt xem."],
+        ["Ads", "ROAS so với ROAS hòa vốn, CPA trong mức cho phép, tỷ trọng Ads trên doanh thu."],
+        ["Telesale", "Khách hài lòng và khách mua lại, kèm tỷ lệ chốt. Chỉ đo số đơn thì sẽ có đơn ẩu, bom nhiều."]
+      ] },
+      "after": "Mỗi người chỉ nên có 2–3 chỉ số chính. Nhiều hơn thì không ai nhớ, và không biết ưu tiên cái nào khi các chỉ số kéo ngược nhau."
+    },
+    "sections": [
+      {
+        "title": "Bẻ mục tiêu công ty xuống từng vai trò",
+        "chart": { "type": "funnel", "items": [["Doanh thu mục tiêu tháng (tr)", 1000], ["Ngân sách Ads 25% (tr)", 250], ["Đơn chốt mỗi ngày", 160], ["Đơn mỗi telesale mỗi ngày", 40]] },
+        "body": [
+          "Shop giả định đặt mục tiêu 1 tỷ doanh thu mỗi tháng, AOV 250k, nghĩa là 1 tỷ ÷ 250k = 4.000 đơn. Ngân sách Ads cho phép 25%, tức 1 tỷ × 25% = 250tr, nên KPI của Ads là ROAS 1 tỷ ÷ 250tr = **4**.",
+          "Bán 25 ngày thì mỗi ngày cần 4.000 ÷ 25 = 160 đơn. Đội 4 telesale thì KPI mỗi người là 160 ÷ 4 = **40 đơn/ngày**, kèm tỷ lệ khách hài lòng. Content được giao số video mỗi tuần và số creative thắng để Ads có đủ đạn chạy."
+        ]
+      },
+      {
+        "title": "Nối KPI công ty với mục tiêu cá nhân",
+        "body": [
+          "KPI chạy mạnh nhất khi nó trùng với điều người đó muốn. Leader muốn mua căn chung cư 3 tỷ để lập gia đình, thì KPI của bạn ấy là 40 tỷ doanh số, tương đương 100.000 khách, mỗi khách 40 tỷ ÷ 100.000 = 400k. Cuối năm bạn mua nhà, sếp mua quà tân gia.",
+          "Muốn vậy thì cơ chế thưởng phải gắn thẳng vào KPI, và mỗi người phải xem được số của mình hằng ngày, không phải chờ cuối tháng sếp báo."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Giao Ads KPI doanh thu mà không kèm ROAS hay CPA, Ads cứ vít ngân sách cho đủ số dù đang lỗ.",
+      "Giao telesale KPI số đơn chốt mà không đo đơn giao thành công và khách mua lại.",
+      "Đặt KPI vượt ngưỡng quá xa so với nội lực, đội kiệt sức và bỏ đi giữa chừng."
+    ],
+    "remember": "Mỗi vai trò giữ 2–3 chỉ số mình tự kéo được, và mọi chỉ số đều cộng lại ra mục tiêu công ty."
+  }
+}

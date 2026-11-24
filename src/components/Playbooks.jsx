@@ -11,9 +11,7 @@ export const pbTitle = (p) => p.title.replace(/^Playbook\s*\d+\s*:\s*/i, '')
 // Trên trang chỉ số: các Playbook có nhắc tới chỉ số này
 export function PlaybookLinks({ metric, onOpen }) {
   const list = (metric.playbook_refs || []).map((id) => playbookById[id]).filter(Boolean)
-  if (!list.length) return (
-    <p className="text-sm text-muted">Chỉ số này chưa nằm trong Playbook tình huống nào.</p>
-  )
+  if (!list.length) return null // bài chưa thuộc Playbook nào: không hiện dòng thừa
   return (
     <div>
       <p className="eyebrow text-muted">Playbook tình huống có chỉ số này · {list.length}</p>

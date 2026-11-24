@@ -10,7 +10,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 817, 943",
       "why": "Biết mỗi số điện thoại/inbox từ quảng cáo tốn bao nhiêu để tính ngược ra chi phí mỗi đơn khi telesale chốt.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Chi phí nghìn lượt hiển thị (CPM)",
@@ -21,7 +22,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 705-716, 838",
       "why": "Theo dõi giá mua traffic đang đắt lên hay rẻ đi để biết lỗi ở nội dung hay ở thị trường đấu giá.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Chi phí mỗi lượt nhấp (CPC)",
@@ -32,7 +34,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 713, 838, 1177",
       "why": "Đặt ngưỡng CPC tối đa chấp nhận được dựa trên tỷ lệ chuyển đổi và lãi mỗi đơn.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Performance marketing (Marketing đo lường theo kết quả)",
@@ -43,7 +46,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 897-911, 928-929",
       "why": "Chuyển từ chạy quảng cáo theo cảm tính sang đo từng đồng chi ra tạo bao nhiêu đơn và lãi.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Đo lường theo tầng phễu khách hàng (Funnel L1→L8 kiểu Topica)",
@@ -54,7 +58,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 132, 605, 903-911",
       "why": "Tách phễu thành từng bước (hiển thị → lead → liên hệ → chốt) để biết đơn rơi ở khâu nào mà sửa đúng chỗ.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tracking chuyển đổi (Pixel / Conversion API)",
@@ -65,7 +70,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 715-716, 822, 901",
       "why": "Gắn đo lường đúng để thuật toán Facebook/Google/TikTok tối ưu ra đơn thật thay vì ra click.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Mô hình Lead gen – Telesale",
@@ -76,7 +82,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 792, 817, 929, 942-943",
       "why": "Thiết kế dòng quảng cáo → thu số → gọi chốt và tính lãi/lỗ cho cả chuỗi trước khi bơm ngân sách.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Năng suất telesale (Đơn chốt / telesale / ngày)",
@@ -87,7 +94,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 817, 943-944",
       "why": "Định biên số telesale cần thuê theo lượng lead và so sánh hiệu suất từng người.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Hệ số markup (Giá bán / Giá vốn)",
@@ -98,7 +106,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 162, 517, 698",
       "why": "Định giá nhanh khi nhập hàng và tránh nhầm markup với biên lãi gộp khi tính lời.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tỷ lệ hoa hồng affiliate (Commission rate)",
@@ -109,7 +118,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 988-989",
       "why": "Đặt mức hoa hồng đủ hấp dẫn affiliate mà vẫn còn lãi sau phí sàn và giá vốn.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Bán hàng đa kênh (Multi-channel / Omnichannel)",
@@ -120,7 +130,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 757-761, 804, 945, 970",
       "why": "Phân bổ hàng và ngân sách giữa sàn, web, social để không chết khi một kênh sập.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tỷ trọng doanh thu kênh lớn nhất (Channel concentration)",
@@ -131,7 +142,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 718, 937, 945, 1215",
       "why": "Đo mức phụ thuộc vào một nền tảng (tài khoản ads, sàn) để biết khi nào phải đa dạng kênh.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Quy trình chuẩn để nhân bản (SOP)",
@@ -142,7 +154,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 915-917, 1181-1182, 1204-1210",
       "why": "Viết lại cách làm thắng thành quy trình để nhân viên mới làm được và mở thêm team, thêm kênh.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "KPI theo vai trò (Content – Ads – Telesale – Leader)",
@@ -153,7 +166,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1286-1291",
       "why": "Giao đúng chỉ số cho từng vị trí và nối KPI công ty với mục tiêu cá nhân để cả đội chạy cùng hướng.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Thặng dư trên mỗi nhân sự (Employee Surplus)",
@@ -164,7 +178,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1430-1443",
       "why": "Tính giá trị một nhân sự tạo ra trừ thu nhập và chi phí đào tạo/quản lý để biết nên giữ, đầu tư hay thay người nào.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Khoán P&L theo team",
@@ -175,7 +190,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1455-1462, 2245",
       "why": "Chia công ty thành các P&L riêng có ngân sách và mức chia lợi nhuận theo doanh số để mỗi team tự chịu lãi lỗ.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Cấu trúc chi phí Ecom trên doanh thu",
@@ -198,7 +214,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1688, 1739",
       "why": "Theo dõi tổng tiền ads chia tổng doanh thu (cả tự nhiên) để giữ dưới ngưỡng cho phép, ví dụ dưới 20%.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Lợi nhuận trên giấy và tiền thật (Profit vs Cash)",
@@ -209,7 +226,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2000, 2303-2307, 2558-2561",
       "why": "Hiểu vì sao có lãi trên báo cáo mà vẫn cạn tiền do tồn kho và công nợ, để quản trị bằng báo cáo dòng tiền.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Dự báo dòng tiền (Cash Flow Forecast)",
@@ -220,7 +238,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1836, 2468, 2578-2597",
       "why": "Lập bảng thu chi dự kiến theo tuần/tháng để biết ngày nào thiếu tiền trả nhà cung cấp, lương, thuế trước khi xảy ra.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Lương cứng thấp cộng khoán theo KPI",
@@ -231,7 +250,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1739, 1782, 1822, 2122",
       "why": "Thiết kế thu nhập gắn % doanh số theo mốc để nhân sự cùng hưởng thành quả và quỹ lương co giãn theo kết quả.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tỷ lệ hao hụt tồn kho (Inventory Shrinkage)",
@@ -242,7 +262,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2203, 2452-2456",
       "why": "Đo phần hàng mất, hỏng, lệch kiểm kê so với sổ (vd 2% x 10k đơn x 50k = 10 triệu/ngày) để siết quy trình kho.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "P&L hằng ngày theo team, sản phẩm, kênh",
@@ -253,7 +274,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1773-1785",
       "why": "Phân bổ mọi chi phí vào từng doanh thu để biết mỗi ngày lỗ ở đâu, vì sao, và xử lý ngay.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tiêu chí sản phẩm ngàn đơn",
@@ -264,7 +286,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1762-1769",
       "why": "Chấm sản phẩm theo lãi ròng ~10%, tăng trưởng, xu thế, năng lực team, hướng mở rộng và chỉ số ổn định trước khi scale.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Quy trình R&D sản phẩm dựa trên dữ liệu sàn",
@@ -275,7 +298,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1750-1758, 2282-2284",
       "why": "Dùng tool phân tích sàn, social listening và khoảng trống thị trường để chọn, thử và định lượng sản phẩm mới.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tỷ lệ thành công sản phẩm mới (Product Hit Rate)",
@@ -286,7 +310,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1769-1770, 1828",
       "why": "Đo số sản phẩm thắng trên số tung ra để đặt ngân sách test (vd thua 4 lỗ 1 tỷ, 1 sản phẩm thắng gỡ lại trong 1 tháng).",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tỷ lệ bán hết hàng nhập (Sell-through Rate)",
@@ -297,7 +322,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2559, 1659",
       "why": "Đo % lô hàng đã bán trong kỳ để biết khi nào vốn quay về và tránh cạn tiền khi bán chưa nổi 50% lô.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Cơ cấu chi phí chuẩn (Cost Structure)",
@@ -308,7 +334,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2975-2992",
       "why": "Chủ shop so từng dòng chi phí (giá vốn, nền tảng, logistics, marketing, chiết khấu, hư hao) với ngưỡng chuẩn để biết mô hình có đủ chỗ cho lãi sau thuế hay không.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Phương trình doanh thu (Traffic × Tỷ lệ chuyển đổi × AOV)",
@@ -319,7 +346,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 3012-3020",
       "why": "Tách doanh thu thành traffic, chuyển đổi và giá trị đơn để biết đòn bẩy nào rẻ nhất và giao đúng việc cho người chạy ads, làm content, làm sản phẩm.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Lãi màn hình (lãi trên sổ nhưng tiền nằm ở tồn kho)",
@@ -330,7 +358,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2658, 2668",
       "why": "Giúp chủ shop phân biệt lãi báo cáo với tiền mặt thật khi tiền lãi bị giam trong tồn kho và công nợ.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Bán đúng giá: đánh đổi giá và sản lượng (Price-Volume Trade-off)",
@@ -341,7 +370,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2655-2659",
       "why": "Tính xem tăng giá (99k lên 199k) và chấp nhận ít đơn hơn có làm lãi gộp và tiền mặt tốt hơn không khi phí sàn liên tục tăng.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Giá vốn theo quy mô đặt hàng (Economies of Scale / chiết khấu khối lượng)",
@@ -352,7 +382,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2667-2668, 2988-2989",
       "why": "Cân nhắc đặt 5.000 thay vì 1.000 sản phẩm để giá vốn giảm từ 30% xuống 18% so với rủi ro đọng vốn tồn kho.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Chi phí nhân sự toàn phần (Fully-loaded Labor Cost: lương + BHXH + thuế TNCN)",
@@ -363,7 +394,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2727-2730, 3375-3376, 3442",
       "why": "Tính đúng chi phí thật của mỗi nhân sự (thường bằng khoảng 1,2 lần lương) trước khi tuyển hoặc đặt cơ chế lương thấp hoa hồng cao.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Thuê người hay đầu tư công nghệ (Labor vs Automation)",
@@ -374,7 +406,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2744-2749, 3435-3445",
       "why": "So chi phí một năm của đội 5 người với phương án công nghệ cộng 2,5 người để chọn mô hình ít thâm dụng lao động, dễ tăng giảm quy mô.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Ngân sách vốn khởi nghiệp Ecom tối thiểu (Startup Capital Budget)",
@@ -385,7 +418,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 3083-3099",
       "why": "Lập dự toán khoảng 500 triệu chia theo hàng có chứng từ, pháp lý, content, vận hành, ads và dự phòng trước khi quyết định ra làm riêng.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Hộ kinh doanh hay công ty (chọn loại hình kinh doanh)",
@@ -396,7 +430,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 3051-3080",
       "why": "So hộ kinh doanh và công ty về thuế, khả năng định giá, vay vốn, thu hút nhân tài để chọn loại hình hợp với mức doanh thu và tham vọng.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Tiêu chí chọn ngách hẹp (Niche Selection)",
@@ -407,7 +442,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 3149-3168, 3925-3927, 2680-2684",
       "why": "Chấm một ngách theo các tiêu chí: tay to chưa vào, margin ban đầu tốt, hợp chính sách, hợp năng lực lõi, huy động được nguồn lực rẻ.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Chi phí tuân thủ trên doanh thu (Compliance Cost Ratio)",
@@ -418,7 +454,8 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2715, 2726, 3087, 3373-3376",
       "why": "Cộng thuế, BHXH, kế toán, hóa đơn, tiền phạt thành một tỷ lệ trên doanh thu để biết biên lãi thật khi làm đúng luật (net margin còn 7-10%).",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-24-a"
     },
     {
       "name": "Công thức doanh thu: Traffic × CR × AOV (Revenue Equation)",

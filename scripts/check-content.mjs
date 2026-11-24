@@ -126,7 +126,7 @@ const defTok = Object.fromEntries(catalog.items.map((c) => [c.id, tokens(full[c.
 
 // ---------- 4, 5 ----------
 // khớp trọn từ có dấu (tránh 'phát' bị hiểu là 'phạt')
-const RISKY = /(?<!\p{L})(thuế|luật|nghị định|thông tư|phạt|hóa đơn|hoá đơn|bảo hiểm xã hội|hợp đồng|quyết toán|truy thu)(?!\p{L})/iu
+const RISKY = /(?<!\p{L})(thuế|(?<!(kỷ|kỉ|quy|định) )luật|nghị định|thông tư|phạt|hóa đơn|hoá đơn|bảo hiểm xã hội|hợp đồng|quyết toán|truy thu)(?!\p{L})/iu
 
 for (const c of catalog.items) {
   const id = c.id, x = full[id], L = x.lesson
