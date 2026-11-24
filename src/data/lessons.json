@@ -2521,7 +2521,7 @@
           ]
         ]
       },
-      "after": "Doanh thu 1,5 tỷ, CM3 240tr nhìn rất ngon. Trừ cố định và thuế thì **bỏ túi 0 đồng**. Không trích trước thì 80tr mỗi tháng đó vẫn bị tiêu như tiền lãi."
+      "after": "Doanh thu 1,5 tỷ, CM3 240tr nhìn rất ngon. Trừ cố định và thuế thì **bỏ túi 0 đồng**. Thuế ở đây tính trên doanh thu (VAT, thuế khoán), không tính trên lãi, nên lãi bằng 0 vẫn phải nộp đủ. Không trích trước thì 80tr mỗi tháng đó vẫn bị tiêu như tiền lãi."
     },
     "sections": [
       {
@@ -3747,7 +3747,7 @@
     ],
     "tree": {
       "title": "CPA được tạo ra từ đâu",
-      "note": "CPA giảm khi CPM (giá 1.000 lượt hiển thị) ↓, CTR ↑, CVR ↑. CTR và CVR nhân với nhau ở mẫu số, nên hai cái cùng tụt là CPA vọt lên rất nhanh.",
+      "note": "CPA giảm khi CPM (giá 1.000 lượt hiển thị) ↓, CTR ↑, CVR (tức CR, tỷ lệ chuyển đổi) ↑. CTR và CVR nhân với nhau ở mẫu số, nên hai cái cùng tụt là CPA vọt lên rất nhanh.",
       "expr": {
         "label": "CPA",
         "eq": [
@@ -6312,8 +6312,8 @@
           }
         },
         "body": [
-          "Theo sách Ecom Truyền Kỳ, cơ cấu chi phí Ecom từ 2025 chỉ chừa chi phí vận hành chung (văn phòng, định phí) 4% và chi phí nhân sự 5% doanh thu. Ngưỡng an toàn nên giữ: định phí dưới 12–15%.",
-          "Shop trên đang 12%. Doanh thu chững 20% còn 800tr là tỷ lệ nhảy lên 15%, chạm trần. Nếu tuyển thêm 4 người, quỹ lương tăng 48tr/tháng, định phí lên 168tr, tức **16,8%** dù vẫn bán 1 tỷ. Dùng tool tự động 15tr/tháng thay vì tuyển thì chỉ 13,5%."
+          "Theo sách Ecom Truyền Kỳ, cơ cấu chi phí Ecom từ 2025 chỉ chừa chi phí vận hành chung (văn phòng, định phí) 4% và chi phí nhân sự 5% doanh thu, cộng lại 4% + 5% = 9%. Shop trên đang 12%, đã cao hơn mức của sách 3 điểm.",
+          "Doanh thu chững 20% còn 800tr là tỷ lệ nhảy lên 15%, vượt xa mức 9%. Nếu tuyển thêm 4 người, quỹ lương tăng 48tr/tháng, định phí lên 168tr, tức **16,8%** dù vẫn bán 1 tỷ. Dùng tool tự động 15tr/tháng thay vì tuyển thì chỉ 13,5%."
         ]
       }
     ],
@@ -6419,7 +6419,7 @@
         },
         "body": [
           "Theo sách Ecom Truyền Kỳ, khi thuế phải đóng đủ thì Net margin 7–10% là ổn rồi. Với 1,5 tỷ doanh thu, 7% là khoảng 105tr mỗi tháng.",
-          "Huy có hai đòn bẩy. Kéo CM3 từ 16% lên 20% doanh thu (deal giá vốn, tắt nhóm Ads lỗ): CM3 lên 300tr. Cắt 30% định phí, mức mà sách kể các công ty của tác giả đã làm được: 160tr còn 112tr. Lãi ròng lên **108tr, Net margin 7,2%**."
+          "Huy có hai đòn bẩy. Kéo CM3 từ 16% lên 20% doanh thu (deal giá vốn, tắt nhóm Ads lỗ): CM3 lên 300tr. Cắt 30% định phí, mức mà sách kể các công ty của tác giả đã làm được: 160tr còn 112tr. Doanh thu giữ 1,5 tỷ nên dự phòng thuế vẫn 80tr: 300tr − 112tr − 80tr = 108tr. Lãi ròng lên **108tr, Net margin 7,2%**."
         ]
       }
     ],
@@ -6929,7 +6929,7 @@
     "subtitle": "Bỏ tiền đầu tư thì bao lâu mới lấy lại vốn?",
     "intro": [
       "**Thời gian hoàn vốn là số tháng để một khoản đầu tư trả lại đủ tiền đã bỏ ra.** Ví dụ: bỏ 900tr xây bộ AI agent, mỗi tháng lãi ròng tăng thêm 75tr. Hoàn vốn sau 900 ÷ 75 = 12 tháng.",
-      "Thay người bằng AI, mua máy đóng gói, chuyển kho mới đều là bài toán này. Cái hay của AI là bắt mình trả tiền cho kết quả. Nhưng nếu chỉ tính tiền mua mà quên chi phí duy trì, và chỉ tính kịch bản đẹp, thì payback 12 tháng trên giấy dễ thành 2 năm ngoài đời."
+      "Thay người bằng AI, mua máy đóng gói, chuyển kho mới đều là bài toán này. Nhưng nếu chỉ tính tiền mua mà quên chi phí duy trì, và chỉ tính kịch bản đẹp, thì payback 12 tháng trên giấy dễ thành 2 năm ngoài đời."
     ],
     "tree": {
       "title": "Thời gian hoàn vốn được tạo ra từ đâu",
@@ -7050,7 +7050,7 @@
             ],
             [
               "Tính kịch bản xấu",
-              "Lợi chỉ bằng một nửa trong 6 tháng đầu thì hoàn vốn mấy tháng?"
+              "Lợi thấp hơn nhiều trong 6 tháng đầu (ví dụ trên chỉ 30tr thay vì 75tr) thì hoàn vốn mấy tháng?"
             ],
             [
               "So với Cash Runway",

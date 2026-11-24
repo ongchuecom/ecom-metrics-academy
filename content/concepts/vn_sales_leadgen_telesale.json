@@ -21,9 +21,9 @@
       "Mô hình này cực thịnh 2015-2020 với mỹ phẩm, quần áo, phụ kiện, thực phẩm chức năng, spa. Nó làm ra tiền rất nhanh, nhưng chỉ cần một khâu yếu là cả chuỗi lỗ: lead đắt, gọi chậm, chốt kém hay hoàn nhiều. Nhiều đội phụ thuộc ads và mở rộng quá nhanh nên khi tài khoản bị quét hàng loạt thì bế tắc."
     ],
     "breakdown": {
-      "title": "Lãi lỗ (P&L) một ngày của chuỗi ads, telesale, giao hàng",
+      "title": "Một shop giả định: giá bán 350k, giá vốn 100k, lãi lỗ (P&L) một ngày",
       "chart": { "type": "bars", "unit": "tr", "items": [["Doanh thu đơn giao (120 × 350k)", 42], ["Quảng cáo", 10, "focus"], ["Giá vốn (120 × 100k)", 12], ["Ship, đóng gói (150 × 30k)", 4.5], ["Lương 3 telesale", 1.2], ["Lãi trong ngày", 14.3, "keep"]] },
-      "after": "500 lead, chốt 30% được 150 đơn, giao thành công 80% còn 120 đơn. Lãi = 42tr − 10tr − 12tr − 4,5tr − 1,2tr = **14,3tr**. Ship tính cho cả 150 đơn vì đơn hoàn vẫn mất phí."
+      "after": "Shop này khác ví dụ trong sách nên lãi mỗi đơn cũng khác. 500 lead, chốt 30% được 150 đơn, giao thành công 80% còn 120 đơn. Lãi = 42tr − 10tr − 12tr − 4,5tr − 1,2tr = **14,3tr**. Ship tính cho cả 150 đơn vì đơn hoàn vẫn mất phí."
     },
     "sections": [
       {

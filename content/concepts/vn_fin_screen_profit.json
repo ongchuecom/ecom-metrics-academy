@@ -23,7 +23,7 @@
     "breakdown": {
       "title": "Lãi cả năm so với tiền đang nằm trong kho",
       "chart": { "type": "bars", "unit": "tr", "items": [["Lãi ròng cả năm (7%)", 168, "keep"], ["Tiền nằm ở hàng tồn 3 tháng", 210, "focus"], ["Lỗ khi xả một lô hàng chậm", -60, "loss"]] },
-      "after": "Lãi cả năm 168tr, trong khi 210tr tiền đang nằm trong kho. Xả lỗ một lô chậm mất 60tr nữa thì tiền mặt thật cuối năm còn âm. Đó là lý do sách nói **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
+      "after": "Lãi cả năm 168tr còn nhỏ hơn 210tr tiền phải giữ trong kho, nên gần như không rút ra được. Xả lỗ một lô chậm mất 60tr thì lãi còn 168tr − 60tr = 108tr, mà vẫn nằm trong hàng. Đó là lý do sách nói **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
     },
     "sections": [
       {
