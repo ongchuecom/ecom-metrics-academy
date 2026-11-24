@@ -148,7 +148,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
     const patchLast = (fn) => setState((s) => { const ms = [...s.messages]; ms[ms.length - 1] = fn(ms[ms.length - 1]); return { ...s, messages: ms } })
     abort.current = new AbortController()
     try {
-      await streamChat({ message: msg, history, shop_context: state.shop || {}, concept_id: conceptId }, {
+      const end = await streamChat({ message: msg, history, shop_context: state.shop || {}, concept_id: conceptId }, {
         getToken, signal: abort.current.signal,
         onEvent: (e) => {
           if (e.type === 'meta') setMe((m) => (m ? { ...m, remaining_today: e.remaining_today, daily_limit: e.daily_limit } : m))
@@ -158,6 +158,10 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
           else if (e.type === 'error') { patchLast((m) => ({ ...m, error: e.message })); refreshMe() }
         },
       })
+      // Bấm Dừng hoặc mạng đứt: giữ câu hỏi và phần đã trả lời, ghi chú rõ thay vì để "Đang nghĩ…" mãi
+      if (end === 'stopped') patchLast((m) => ({ ...m, note: m.text ? 'Đã dừng.' : 'Đã dừng trước khi Cố vấn trả lời. Lượt hỏi này không bị tính.' }))
+      else if (end === 'cut') patchLast((m) => (m.error ? m : { ...m, error: 'Kết nối bị ngắt giữa chừng, anh/chị hỏi lại giúp.' }))
+      else if (end === 'done') patchLast((m) => (m.text || m.error ? m : { ...m, error: 'Cố vấn chưa trả lời được câu này, anh/chị diễn đạt lại giúp.' }))
       setConceptId('')
     } catch (e) {
       setState((s) => ({ ...s, messages: s.messages.slice(0, -2) }))
@@ -226,7 +230,8 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
               <div key={i} className="ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-brand-600 px-4 py-2.5 text-[15px] text-white">{m.text}</div>
             ) : (
               <div key={i} className="max-w-[95%] rounded-2xl rounded-bl-md bg-stone-50 px-4 py-3">
-                {m.text ? <Answer text={m.text} /> : !m.error && <p className="text-sm text-muted">Đang nghĩ…</p>}
+                {m.text ? <Answer text={m.text} /> : !m.error && !m.note && <p className="text-sm text-muted">{busy && i === state.messages.length - 1 ? 'Đang nghĩ…' : 'Chưa có câu trả lời.'}</p>}
+                {m.note && <p className="mt-1 text-xs text-muted">{m.note}</p>}
                 {m.error && <p className="text-sm text-coral">{m.error}</p>}
                 <Refs refs={m.refs} onOpen={openRef} />
               </div>

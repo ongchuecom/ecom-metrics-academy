@@ -14,7 +14,7 @@ BONUS_EACH, BONUS_MAX, BONUS_FLOOR, MIN_SCORE = 0.06, 0.18, 0.35, 0.40
 class KnowledgeIndex:
     def __init__(self, db, model: str, dim: int):
         self.db, self.model, self.dim = db, model, dim
-        self.items, self.matrix, self.flags = [], None, None
+        self.snap = ([], None, None)  # (items, matrix, flags) thay nguyên khối, đọc một lần mỗi câu hỏi
         self.version, self._checked, self._lock = None, 0.0, threading.Lock()
 
     def _load(self):
@@ -27,10 +27,14 @@ class KnowledgeIndex:
                 continue
             vecs.append(v.astype(np.float16))
             items.append({"id": r["id"], "source_type": r["source_type"], "ref_id": r["ref_id"], "title": r["title"] or "", "content": r["content"]})
-        self.items = items
-        self.matrix = np.vstack(vecs) if vecs else None
+        matrix = np.vstack(vecs) if vecs else None
         hay = [f"{it['title']} {it['content'][:400]}".lower() for it in items]
-        self.flags = np.array([[kw in h for kw in DOMAIN_KEYWORDS] for h in hay], dtype=np.float32) if items else None
+        flags = np.array([[kw in h for kw in DOMAIN_KEYWORDS] for h in hay], dtype=np.float32) if items else None
+        self.snap = (items, matrix, flags)
+
+    @property
+    def items(self):
+        return self.snap[0]
 
     def refresh(self, force: bool = False):
         now = time.time()
@@ -45,13 +49,14 @@ class KnowledgeIndex:
 
     def search(self, q_vec: np.ndarray, query: str, top_k: int = 4) -> list:
         self.refresh()
-        if self.matrix is None:
+        items, matrix, flags = self.snap
+        if matrix is None:
             return []
-        scores = (self.matrix @ q_vec.astype(np.float16)).astype(np.float32)
+        scores = (matrix @ q_vec.astype(np.float16)).astype(np.float32)
         ql = query.lower()
         hit = np.array([kw in ql for kw in DOMAIN_KEYWORDS], dtype=np.float32)
         if hit.any():
-            bonus = np.minimum(self.flags @ hit * BONUS_EACH, BONUS_MAX)
+            bonus = np.minimum(flags @ hit * BONUS_EACH, BONUS_MAX)
             scores = scores + np.where(scores >= BONUS_FLOOR, bonus, 0)
         top = np.argsort(-scores)[:top_k]
-        return [{**self.items[i], "score": float(scores[i])} for i in top if scores[i] >= MIN_SCORE]
+        return [{**items[i], "score": float(scores[i])} for i in top if scores[i] >= MIN_SCORE]

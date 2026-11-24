@@ -1,5 +1,5 @@
 """Đồng bộ thư mục Google Drive (tùy chọn): cần file khóa Service Account có quyền đọc thư mục đó.
-Mỗi file Drive là một nguồn `drive:<fileId>`; file bị xóa khỏi thư mục thì tri thức của nó cũng bị xóa."""
+Mỗi file Drive là một nguồn `drive:<folderId>:<fileId>`; file bị xóa khỏi thư mục thì tri thức của nó cũng bị xóa."""
 import io
 import os
 

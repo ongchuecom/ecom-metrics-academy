@@ -17,6 +17,10 @@ from .chat import ChatRequest, SYSTEM_PROMPT, build_prompt, CtxSplitter, TTLCach
 from . import ingest
 
 
+# kết quả thanh toán cần quản trị viên xử lý tay (giao diện AdminAdvisor.jsx dùng đúng bộ này)
+NEED_REVIEW = ("unmatched", "underpaid", "unknown_order", "already_paid", "paid_overpaid")
+
+
 def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) -> FastAPI:
     s = settings or Settings.from_env()
     db = DB(s.db_path)
@@ -107,7 +111,7 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 yield sse({"type": "delta", "text": cached["answer"]})
                 yield sse({"type": "done"})
                 return
-            delivered = False
+            delivered = refunded = False
             try:
                 search_q = " ".join([req.message] + [x for x in [req.shop_context.kenh, *req.shop_context.van_de[-2:]] if x])
                 async with sem:
@@ -121,9 +125,10 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 yield sse({"type": "refs", "refs": refs[:4]})
                 focus = None
                 if req.concept_id:
-                    hit = next((it for it in index.items if it["ref_id"] == req.concept_id), None)
+                    hits = [it for it in index.items if it["ref_id"] == req.concept_id]
+                    hit = next((it for it in hits if not it["title"].endswith(" (tiếp)")), hits[0] if hits else None)
                     if hit:
-                        code, _, name = hit["title"].partition(": ")
+                        code, _, name = hit["title"].replace(" (tiếp)", "").partition(": ")
                         focus = {"code": code, "name": name}
                 sp, answer = CtxSplitter(), []
                 async with sem:
@@ -140,10 +145,23 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                     yield sse({"type": "delta", "text": tail})
                 if ctx:
                     yield sse({"type": "context_update", "shop_context": ctx})
-                if standalone and answer:
+                if not "".join(answer).strip():
+                    # Gemini trả rỗng (bị chặn an toàn, hoặc chỉ có thẻ <ctx>): không tính lượt
+                    refunded = True
+                    billing.refund(uid, st["day"])
+                    yield sse({"type": "error", "message": "Cố vấn chưa trả lời được câu này, anh/chị diễn đạt lại giúp. Lượt hỏi này không bị tính."})
+                    return
+                if standalone:
                     qa_cache.set(ck, {"answer": "".join(answer).strip(), "refs": refs[:4]})
                 yield sse({"type": "done"})
+            except (asyncio.CancelledError, GeneratorExit):
+                # khách bấm Dừng / đóng trang trước khi nhận được chữ nào: trả lượt
+                if not delivered and not refunded:
+                    refunded = True
+                    billing.refund(uid, st["day"])
+                raise
             except Exception:
+                refunded = True
                 billing.refund(uid, st["day"])  # lỗi phía mình: trả lại lượt hỏi
                 yield sse({"type": "error", "message": "Cố vấn đang bận, anh/chị hỏi lại sau ít phút. Lượt hỏi này không bị tính." if not delivered
                            else "Câu trả lời bị ngắt giữa chừng. Lượt hỏi này không bị tính."})
@@ -181,7 +199,7 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 "questions_today": q("SELECT COALESCE(SUM(used),0) FROM usage WHERE day=?", day),
                 "questions_7d": q("SELECT COALESCE(SUM(used),0) FROM usage WHERE day>=date(?, '-6 day')", day),
                 "revenue_30d": q("SELECT COALESCE(SUM(amount),0) FROM orders WHERE status='paid' AND paid_at>?", now - 30 * 86400),
-                "payments_need_review": q("SELECT COUNT(*) FROM payments WHERE result IN ('unmatched','underpaid','unknown_order')"),
+                "payments_need_review": q(f"SELECT COUNT(*) FROM payments WHERE result IN ({','.join('?' * len(NEED_REVIEW))})", *NEED_REVIEW),
                 "chunks": q("SELECT COUNT(*) FROM chunks"),
             }
             data["sources"] = [dict(r) for r in c.execute("SELECT source, COUNT(*) AS chunks, MAX(updated_at) AS updated_at FROM chunks GROUP BY source ORDER BY source")]
@@ -241,13 +259,14 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
             from .drive import drive_docs
             files = drive_docs(req.folder_id, creds)
             res = {"files": len(files), "errors": [f"{f['name']}: {f['error']}" for f in files if "error" in f][:20], "embedded": 0}
-            keep = set()
+            # khóa nguồn gắn với thư mục, để đồng bộ thư mục B không đụng tới tri thức của thư mục A
+            prefix = f"drive:{req.folder_id}:"
+            keep = {prefix + f["id"] for f in files}  # file lỗi tạm thời vẫn giữ tri thức cũ
             for f in files:
                 if "doc" in f:
-                    keep.add(f"drive:{f['id']}")
-                    res["embedded"] += ingest.upsert_source(db, gemini.embed_docs, s.embed_model, s.embed_dim, f"drive:{f['id']}", [f["doc"]])["embedded"]
-            with db.conn() as c:  # file đã bị xóa khỏi thư mục Drive: xóa tri thức của nó
-                gone = [r["source"] for r in c.execute("SELECT DISTINCT source FROM chunks WHERE source LIKE 'drive:%'") if r["source"] not in keep]
+                    res["embedded"] += ingest.upsert_source(db, gemini.embed_docs, s.embed_model, s.embed_dim, prefix + f["id"], [f["doc"]])["embedded"]
+            with db.conn() as c:  # chỉ xóa file đã biến khỏi CHÍNH thư mục này
+                gone = [r["source"] for r in c.execute("SELECT DISTINCT source FROM chunks WHERE substr(source, 1, ?) = ?", (len(prefix), prefix)) if r["source"] not in keep]
             for g in gone:
                 ingest.delete_source(db, g)
             res["removed_files"] = len(gone)

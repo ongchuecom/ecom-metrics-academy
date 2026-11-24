@@ -1,5 +1,6 @@
 """Cấu hình đọc từ biến môi trường (.env). Thiếu khóa bí mật thì từ chối khởi động, không bao giờ dùng giá trị mặc định."""
 import os
+import re
 from dataclasses import dataclass, field
 
 REQUIRED = ["GEMINI_API_KEY", "FIREBASE_PROJECT_ID", "SEPAY_WEBHOOK_KEY", "BANK_BIN", "BANK_ACCOUNT", "BANK_ACCOUNT_NAME"]
@@ -38,7 +39,12 @@ class Settings:
 
     @classmethod
     def from_env(cls, env=None) -> "Settings":
-        env = os.environ if env is None else env
+        if env is None:
+            # systemd EnvironmentFile không bỏ chú thích cuối dòng: "KEY=abc   # ghi chú" → cắt phần "   # ghi chú"
+            for k, v in list(os.environ.items()):
+                if k.isupper() and re.search(r"\s#", v):
+                    os.environ[k] = re.split(r"\s+#", v, maxsplit=1)[0].strip()
+            env = os.environ
         missing = [k for k in REQUIRED if not env.get(k)]
         if missing:
             raise RuntimeError("Thiếu biến môi trường bắt buộc: " + ", ".join(missing) + ". Điền vào file .env rồi khởi động lại.")

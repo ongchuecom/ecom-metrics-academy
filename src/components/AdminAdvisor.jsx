@@ -4,12 +4,13 @@ import { api, fmtVnd } from '../lib/advisor.js'
 
 // Quản trị máy chủ Cố vấn AI: số liệu, tri thức, cấp Pro, thanh toán cần xử lý tay
 const fmt = (s) => (s ? new Date(s * 1000).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' }) : '–')
-const RESULT = { paid: 'Đã kích hoạt', paid_overpaid: 'Kích hoạt (chuyển dư)', underpaid: 'Chuyển thiếu', unmatched: 'Không có mã đơn', unknown_order: 'Mã đơn lạ', already_paid: 'Đơn đã trả trước đó', ignored: 'Bỏ qua' }
+const RESULT = { paid: 'Đã kích hoạt', paid_overpaid: 'Kích hoạt (chuyển dư)', underpaid: 'Chuyển thiếu', unmatched: 'Không có mã đơn', unknown_order: 'Mã đơn lạ', already_paid: 'Trả lần hai cho đơn đã kích hoạt', ignored: 'Bỏ qua' }
 const PLAN = { yearly: 'Pro năm', monthly: 'Pro tháng', trial: 'dùng thử' }
 const JOB = { 'sync-site': 'Đồng bộ web', upload: 'Nạp tài liệu', 'sync-drive': 'Đồng bộ Drive' }
 const STATUS = { running: 'đang chạy', done: 'xong', error: 'lỗi' }
 const jobDetail = (d) => { try { const o = JSON.parse(d); return o.chunks != null ? `${o.chunks} đoạn, nhúng mới ${o.embedded ?? 0}, bỏ ${o.removed ?? 0}` : String(d) } catch { return String(d) } }
-const NEED = new Set(['underpaid', 'unmatched', 'unknown_order', 'paid_overpaid'])
+// cùng bộ với NEED_REVIEW trong server/advisor/app.py
+const NEED = new Set(['underpaid', 'unmatched', 'unknown_order', 'already_paid', 'paid_overpaid'])
 const Card = ({ label, value, warn }) => (
   <div className="rounded-2xl bg-stone-50 p-4"><p className="text-xs font-semibold text-muted">{label}</p><p className={`mt-1 font-display text-2xl font-black ${warn ? 'text-coral' : 'text-ink'}`}>{value ?? '–'}</p></div>
 )

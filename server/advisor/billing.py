@@ -13,6 +13,16 @@ from .config import PLANS, PAID_PLANS
 
 CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # bỏ O/0, I/1 dễ gõ nhầm khi chuyển khoản tay
 CODE_RE = re.compile(r"EMA[A-HJ-NP-Z2-9]{8}")
+_WORD_RE = re.compile(r"(?<![A-Z0-9])EMA[A-HJ-NP-Z2-9]{8}(?![A-Z0-9])")
+_ANY_RE = re.compile(r"(?=(EMA[A-HJ-NP-Z2-9]{8}))")
+
+
+def code_candidates(content: str) -> list:
+    """Mã đơn có thể nằm trong nội dung chuyển khoản. Ưu tiên mã đứng riêng một từ; sau đó mới tới mã bị ngân hàng
+    chèn dấu cách/gạch (ghép lại rồi tìm mọi vị trí, kể cả chồng nhau). Mã thật được chọn bằng cách đối chiếu bảng orders."""
+    out = [m.group(0) for m in _WORD_RE.finditer(content)]
+    out += [m.group(1) for m in _ANY_RE.finditer(re.sub(r"[\s\-_.]", "", content))]
+    return list(dict.fromkeys(out))
 
 
 def new_order_code() -> str:
@@ -112,7 +122,8 @@ class Billing:
         paid_active = u and u["plan"] in PAID_PLANS and u["expires_at"] > now
         base = u["expires_at"] if paid_active else now  # đang dùng thử thì tính từ hôm nay
         # mua gói tháng khi gói năm còn hạn: giữ nhãn gói năm (hạn mức cao hơn), chỉ cộng ngày
-        new_plan = "yearly" if paid_active and u["plan"] == "yearly" else plan
+        rank = {"trial": 0, "monthly": 1, "yearly": 2}
+        new_plan = u["plan"] if paid_active and rank.get(u["plan"], 0) > rank.get(plan, 0) else plan
         exp = base + days * 86400
         c.execute("UPDATE users SET plan=?, expires_at=? WHERE uid=?", (new_plan, exp, uid))
         return exp
@@ -126,8 +137,8 @@ class Billing:
             raise HTTPException(400, "missing id")
         amount = int(body.get("transferAmount") or 0)
         content = f"{body.get('content') or ''} {body.get('description') or ''}".upper()
-        m = CODE_RE.search(content.replace(" ", "").replace("-", ""))
-        code = m.group(0) if m else None
+        cands = code_candidates(content)
+        code = cands[0] if cands else None
         now = int(time.time())
         with self.db.tx() as c:
             if c.execute("SELECT 1 FROM payments WHERE sepay_id=?", (sid,)).fetchone():
@@ -138,6 +149,9 @@ class Billing:
             elif not code:
                 result = "unmatched"
             else:
+                found = [x for x in cands if c.execute("SELECT 1 FROM orders WHERE code=?", (x,)).fetchone()]
+                pending = [x for x in found if c.execute("SELECT 1 FROM orders WHERE code=? AND status='pending'", (x,)).fetchone()]
+                code = (pending or found or [code])[0]
                 o = c.execute("SELECT uid, plan, amount, status FROM orders WHERE code=?", (code,)).fetchone()
                 if not o:
                     result = "unknown_order"

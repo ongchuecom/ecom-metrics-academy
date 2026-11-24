@@ -147,3 +147,77 @@ def test_ingest_from_built_site():
     ids = {d["ref_id"] for d in docs}
     assert "vn_fin_breakeven_roas" in ids and "pb_01_profit_reality" in ids and len(docs) > 100
     assert all(len(ch) <= 1300 for d in docs for ch in ingest.chunk_text(d["text"]))
+
+
+# ---------- hồi quy sau lần rà soát thứ hai ----------
+def test_order_code_found_after_name_letters(env):
+    c = env["client"]
+    c.get("/api/me", headers=H("u20"))
+    o = c.post("/api/billing/create-order", json={"plan": "monthly"}, headers=H("u20")).json()
+    # ghép bỏ dấu cách sẽ tạo "EMANHHUNGC…" trước mã thật; phải vẫn khớp đúng đơn
+    body = {"id": 2001, "transferType": "in", "transferAmount": 200000, "content": f"LE MANH HUNG CHUYEN {o['order_code']}"}
+    assert c.post("/api/billing/webhook/sepay", json=body, headers=SEPAY).json()["result"] == "paid"
+    o2 = c.post("/api/billing/create-order", json={"plan": "yearly"}, headers=H("u20")).json()
+    body = {"id": 2002, "transferType": "in", "transferAmount": 1800000, "content": f"MBVCB.123 TRAN THI EMA {o2['order_code'][3:7]}-{o2['order_code'][7:]} GD 99"}
+    assert c.post("/api/billing/webhook/sepay", json=body, headers=SEPAY).json()["result"] == "paid"
+
+
+def test_admin_trial_grant_does_not_downgrade_paid(env):
+    c, app = env["client"], env["app"]
+    c.get("/api/me", headers=H("u21"))
+    o = c.post("/api/billing/create-order", json={"plan": "monthly"}, headers=H("u21")).json()
+    c.post("/api/billing/webhook/sepay", json={"id": 2101, "transferType": "in", "transferAmount": 200000, "content": o["order_code"]}, headers=SEPAY)
+    before = c.get("/api/me", headers=H("u21")).json()
+    r = c.post("/api/admin/grant", json={"uid": "u21", "plan": "trial", "days": 7}, headers=H("admin1"))
+    assert r.status_code == 200
+    after = c.get("/api/me", headers=H("u21")).json()
+    assert after["plan"] == "monthly" and after["is_pro"] and after["daily_limit"] == before["daily_limit"]
+    assert after["expires_at"] == before["expires_at"] + 7 * 86400
+
+
+def test_empty_answer_refunds_and_reports(env):
+    c, g = env["client"], env["gemini"]
+    c.get("/api/me", headers=H("u22"))
+    g.pieces = ['<ctx>{"sp":"áo"}</ctx>']  # chỉ có thẻ ẩn, không có chữ cho khách
+    ev = read_sse(c.post("/api/chat", json={"message": "Câu hỏi bị chặn"}, headers=H("u22")))
+    assert ev[-1]["type"] == "error" and not any(e["type"] == "delta" for e in ev)
+    assert c.get("/api/me", headers=H("u22")).json()["used_today"] == 0
+
+
+def test_need_review_count_includes_second_payment(env):
+    c = env["client"]
+    c.get("/api/me", headers=H("u23"))
+    o = c.post("/api/billing/create-order", json={"plan": "monthly"}, headers=H("u23")).json()
+    for i in (2301, 2302):
+        c.post("/api/billing/webhook/sepay", json={"id": i, "transferType": "in", "transferAmount": 200000, "content": o["order_code"]}, headers=SEPAY)
+    assert c.get("/api/admin/overview", headers=H("admin1")).json()["payments_need_review"] == 1
+
+
+def test_site_sync_fails_instead_of_dropping_playbooks(tmp_path):
+    (tmp_path / "data" / "c").mkdir(parents=True)
+    (tmp_path / "data" / "search.json").write_text("{}")
+    with pytest.raises(FileNotFoundError):
+        ingest.site_docs(str(tmp_path))
+
+
+def test_env_trailing_comments_are_stripped(monkeypatch):
+    for k, v in {"GEMINI_API_KEY": "abc   # aistudio", "FIREBASE_PROJECT_ID": "p1", "SEPAY_WEBHOOK_KEY": "s" * 30 + "  # ghi chú",
+                 "BANK_BIN": "970422  # MB", "BANK_ACCOUNT": "0123", "BANK_ACCOUNT_NAME": "NGUYEN VAN A   # viết hoa",
+                 "EMBED_DIM": "768        # đổi thì đồng bộ lại", "TRUST_PROXY": "1   # sau nginx"}.items():
+        monkeypatch.setenv(k, v)
+    s = Settings.from_env()
+    assert s.embed_dim == 768 and s.trust_proxy and s.bank_bin == "970422" and s.bank_account_name == "NGUYEN VAN A"
+    assert s.sepay_webhook_key == "s" * 30
+    import os
+    assert os.environ["GEMINI_API_KEY"] == "abc"
+
+
+def test_index_swap_is_atomic(env):
+    from advisor.knowledge import KnowledgeIndex
+    idx = KnowledgeIndex.__new__(KnowledgeIndex)
+    import numpy as np
+    v = fake_vec("cm2 lãi gộp")
+    idx.snap = ([{"id": "a", "source_type": "concept", "ref_id": "x", "title": "CM2", "content": "cm2"}], np.vstack([v]).astype(np.float16), np.zeros((1, 26), dtype=np.float32))
+    idx.refresh = lambda force=False: None
+    assert idx.search(v, "cm2")[0]["ref_id"] == "x"
+    assert idx.items[0]["id"] == "a"

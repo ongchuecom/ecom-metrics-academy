@@ -71,10 +71,8 @@ def site_docs(base: str, get=None) -> list:
             return json.load(f)
     ids = list(fetch("data/search.json").keys())
     docs = [concept_doc(fetch(f"data/c/{i}.json")) for i in ids]
-    try:
-        docs += [playbook_doc(p) for p in fetch("data/playbooks.json")["playbooks"]]
-    except Exception:
-        pass
+    # lỗi ở đây phải làm hỏng cả lượt đồng bộ: nếu nuốt lỗi, upsert_source sẽ coi mọi đoạn Playbook là cũ và xóa sạch
+    docs += [playbook_doc(p) for p in fetch("data/playbooks.json")["playbooks"]]
     return docs
 
 
