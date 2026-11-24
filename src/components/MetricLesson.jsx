@@ -84,7 +84,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {!metric.formula?.readable && L?.tree && <Box id="cong-thuc" title="Cấu trúc"><FormulaTree tree={L.tree} onSelect={onSelect} /></Box>}
 
       {(L?.breakdown || first) && (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 2xl:grid-cols-2">
           {L?.breakdown && (
             <Box id="vi-du" title={L.breakdown.title}>
               <Chart c={L.breakdown.chart} />

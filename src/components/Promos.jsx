@@ -41,7 +41,7 @@ export function ProductCards() {
             </div>
           )}
           <div className="flex flex-1 flex-col p-4 pt-3">
-            {it.desc && <p className="flex-1 text-sm leading-relaxed text-charcoal">{it.desc}</p>}
+            {it.desc && <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-charcoal">{it.desc}</p>}
             <a href={it.url} target="_blank" rel="noopener noreferrer"
               className="mt-4 self-start rounded-lg bg-brand-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-brand-700">
               {it.cta || 'Xem chi tiết'} →

@@ -12,24 +12,35 @@ const IMPACT = {
 function NodeCard({ rel, kind, onSelect, delay }) {
   const target = metricById[rel.metric_id]
   const s = IMPACT[kind]
+  // Gọn một dòng: mã + tên. Chỉ nghịch chiều và đánh đổi mới có dấu hiệu (đó là điều cần chú ý); ghi chú dài để trong tooltip.
+  const mark = kind === 'inverse' || kind === 'trade'
   const body = (
-    <>
-      <div className="flex flex-wrap items-center gap-1.5">
-        <span className="font-display font-bold text-ink">{target ? target.code : rel.metric_id}</span>
-        <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${s.badge}`} title={s.label}>
-          {s.sign} {s.label}
-        </span>
-      </div>
-      {target && <p className="text-xs text-charcoal">{target.vi_name}</p>}
-      {rel.note && <p className="mt-1 text-xs leading-snug text-body">{rel.note}</p>}
-    </>
+    <span className="flex items-baseline gap-2">
+      <span className="shrink-0 font-semibold text-ink">{target ? target.code : rel.metric_id}</span>
+      <span className="min-w-0 truncate text-xs text-muted">{target?.vi_name}</span>
+      {mark && <span className={`ml-auto shrink-0 rounded px-1 text-[10px] font-semibold ${s.badge}`}>{s.sign} {s.label}</span>}
+    </span>
   )
-  const cls = `fade-up block w-full rounded-xl bg-stone-50 p-3 text-left`
-  if (!target) return <div className={`${cls} opacity-60`} style={{ animationDelay: `${delay}ms` }}>{body}<p className="mt-1 text-[10px] text-stone-400">Chưa có bài học</p></div>
+  const cls = `fade-up block w-full rounded-lg px-3 py-2 text-left ring-1 ring-stone-200`
+  const tip = [target?.vi_name, rel.note].filter(Boolean).join(' · ')
+  if (!target) return <div className={`${cls} opacity-60`} title="Chưa có bài học" style={{ animationDelay: `${delay}ms` }}>{body}</div>
   return (
-    <button onClick={() => onSelect(rel.metric_id)} className={`${cls} transition hover:bg-brand-50`} style={{ animationDelay: `${delay}ms` }}>
+    <button onClick={() => onSelect(rel.metric_id)} title={tip} className={`${cls} transition hover:bg-stone-50`} style={{ animationDelay: `${delay}ms` }}>
       {body}
     </button>
+  )
+}
+
+// Khái niệm liên quan: hàng nút gọn, tên đầy đủ trong tooltip
+function Chips({ list, onSelect }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {list.map((r) => {
+        const t = metricById[r.metric_id]
+        return t ? <button key={r.metric_id} onClick={() => onSelect(r.metric_id)} title={t.vi_name}
+          className="rounded-full px-3 py-1 text-sm font-semibold text-ink ring-1 ring-stone-200 hover:bg-stone-50">{t.code}</button> : null
+      })}
+    </div>
   )
 }
 
@@ -52,10 +63,7 @@ function FlowArrow() {
 function Column({ title, hint, children, empty }) {
   return (
     <div className="min-w-0 space-y-2">
-      <div>
-        <p className="eyebrow text-charcoal">{title}</p>
-        {hint && <p className="text-[11px] text-muted">{hint}</p>}
-      </div>
+      <p className="eyebrow text-muted" title={hint}>{title}</p>
       {children}
       {empty && <p className="rounded-xl border border-dashed border-stone-300 p-3 text-xs text-stone-400">{empty}</p>}
     </div>
@@ -67,20 +75,13 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
   // Khái niệm không có quan hệ nhân quả rõ ràng: chỉ hiện nhóm "Liên quan"
   if (!up.length && !down.length && !trade.length) return related.length ? (
     <section aria-label="Khái niệm liên quan" className="space-y-3">
-      <SectionTitle eyebrow="Liên quan" title={`Học ${metric.code} xong, đọc tiếp`} desc="Bấm vào một thẻ để mở bài." />
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{related.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind="link" onSelect={onSelect} delay={i * 60} />)}</div>
+      <SectionTitle title={`Học ${metric.code} xong, đọc tiếp`} />
+      <Chips list={related} onSelect={onSelect} />
     </section>
   ) : null
   return (
     <section aria-label="Sơ đồ phụ thuộc chỉ số" className="space-y-4">
-      <SectionTitle eyebrow="Sơ đồ phụ thuộc" title={`${metric.code} đứng ở đâu trong cỗ máy?`} desc="Bấm vào một thẻ để học chỉ số đó."
-        right={
-          <div className="flex flex-wrap gap-1.5 text-[11px]">
-            {Object.entries(IMPACT).map(([k, s]) => (
-              <span key={k} className={`rounded-full px-2 py-0.5 font-semibold ring-1 ${s.badge}`}>{s.sign} {s.label}</span>
-            ))}
-          </div>
-        } />
+      <SectionTitle title={`${metric.code} đứng ở đâu trong cỗ máy?`} />
       <div className="py-1">
       <div className="grid items-center gap-2 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,0.8fr)_auto_minmax(0,1fr)] md:gap-3">
         <Column title="Đầu vào" hint="Chỉ số kéo chỉ số này lên/xuống" empty={up.length ? null : 'Chỉ số gốc, không phụ thuộc chỉ số nào trong hệ thống.'}>
@@ -88,7 +89,6 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
         </Column>
         <FlowArrow />
         <div key={metric.metric_id} className="fade-up rounded-2xl bg-white p-4 text-center ring-2 ring-brand-500">
-          <p className="eyebrow text-muted">Đang học</p>
           <p className="font-display text-2xl font-bold text-ink">{metric.code}</p>
           <p className="text-xs text-charcoal">{metric.vi_name}</p>
         </div>
@@ -107,8 +107,8 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
       </div>
       {related.length > 0 && (
         <div>
-          <p className="eyebrow mb-2 text-charcoal">Khái niệm liên quan</p>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{related.map((r, i) => <NodeCard key={r.metric_id} rel={r} kind="link" onSelect={onSelect} delay={i * 60} />)}</div>
+          <p className="eyebrow mb-2 text-muted">Liên quan</p>
+          <Chips list={related} onSelect={onSelect} />
         </div>
       )}
     </section>

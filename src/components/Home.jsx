@@ -11,12 +11,12 @@ const short = (p) => pbTitle(p).replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1]
 const H2 = ({ children, id }) => <h2 id={id} className="mb-3 scroll-mt-20 text-lg font-bold text-ink">{children}</h2>
 
-function Door({ eyebrow, title, text, onClick, strong }) {
+function Door({ eyebrow, title, onClick, strong }) {
   return (
     <button onClick={onClick} className={`group flex h-full flex-col rounded-2xl p-4 text-left transition sm:p-5 ${strong ? 'bg-ink' : 'bg-white ring-1 ring-stone-200 hover:ring-stone-300'}`}>
       <span className={`eyebrow ${strong ? 'text-white/70' : 'text-muted'}`}>{eyebrow}</span>
       <span className={`mt-1.5 font-display text-lg font-bold leading-snug ${strong ? 'text-white' : 'text-ink'}`}>{title}</span>
-      <span className={`mt-1 flex-1 text-sm leading-relaxed ${strong ? 'text-white/80' : 'text-charcoal'}`}>{text}</span>
+      <span className="flex-1" />
       <span className={`mt-3 text-sm font-bold ${strong ? 'text-white' : 'text-ink'}`}>Bắt đầu →</span>
     </button>
   )
@@ -42,7 +42,7 @@ function BoardPeek() {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-sm leading-relaxed text-body">Net Sales 800tr mà chỉ còn <b className="board-mark">276tr</b> để chạy Ads. Mỗi bài đều bóc số kiểu này.</p>
+      <p className="mt-4 text-sm text-body">Net Sales 800tr, chỉ còn <b className="board-mark">276tr</b> để chạy Ads.</p>
     </figure>
   )
 }
@@ -63,34 +63,26 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
   ].filter(Boolean)
 
   return (
-    <div className="space-y-14">
-      {/* 1. Đây là gì */}
-      <header className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+    <div className="space-y-16">
+      {/* 1. Đây là gì: một câu, vài khái niệm để bấm thử, một nút */}
+      <header className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div>
-          <p className="eyebrow text-muted">Ecom Metrics Academy · Miễn phí</p>
-          <h1 className="mt-2 font-display text-3xl font-bold leading-tight text-ink sm:text-[2.6rem]">
+          <h1 className="font-display text-3xl font-bold leading-tight text-ink sm:text-[2.6rem]">
             Học mọi khái niệm Ecom và khởi nghiệp, <span className="text-brand-600">có Ông chú Ecom tham vấn</span>
           </h1>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-body">
-            Làm Ecom và khởi nghiệp có cả trăm khái niệm phải hiểu đúng: lãi thật, dòng tiền, tồn kho, quảng cáo, đội ngũ, vận hành…
-            Ở đây mỗi khái niệm được giải thích bằng ví dụ số, biểu đồ và video bảng giảng, theo văn phong sách Ecom Truyền Kỳ: nói thẳng, có số, áp dụng được ngay.
-            Chỗ nào chưa thông thì hỏi thẳng Ông chú Ecom.
-          </p>
-          <div className="mt-5">
-            <p className="text-sm font-semibold text-charcoal">Bấm thử một khái niệm:</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {TERMS.filter((id) => metricById[id]).map((id) => (
-                <button key={id} onClick={() => onSelectMetric(id)} title={metricById[id].subtitle || metricById[id].vi_name}
-                  className="rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-ink ring-1 ring-stone-200 transition hover:bg-brand-50 hover:ring-brand-500">
-                  {metricById[id].code}
-                </button>
-              ))}
-              <button onClick={onSearch} className="rounded-full px-3 py-1.5 text-sm font-semibold text-brand-700 hover:underline">Tìm khái niệm khác →</button>
-            </div>
+          <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-charcoal">Mỗi khái niệm một bài ngắn: ví dụ số, biểu đồ, video bảng giảng. Miễn phí.</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {TERMS.filter((id) => metricById[id]).slice(0, 8).map((id) => (
+              <button key={id} onClick={() => onSelectMetric(id)} title={metricById[id].subtitle || metricById[id].vi_name}
+                className="rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-ink ring-1 ring-stone-200 transition hover:bg-brand-50 hover:ring-brand-500">
+                {metricById[id].code}
+              </button>
+            ))}
+            <button onClick={onSearch} className="rounded-full px-3 py-1.5 text-sm font-semibold text-brand-700 hover:underline">Tìm khái niệm khác →</button>
           </div>
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2">
             <button onClick={onOpenHealth} className="rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Khám sức khỏe shop →</button>
-            <a href="#ai-giai-dap" className="text-sm font-semibold text-brand-700 hover:underline">Ai giải đáp cho mình?</a>
+            <span className="text-sm text-muted">{nM} khái niệm · {nP} Playbook</span>
           </div>
         </div>
         <BoardPeek />
@@ -99,149 +91,92 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
       {/* Sản phẩm của Ông chú Ecom */}
       <section aria-labelledby="san-pham">
         <H2 id="san-pham">Học sâu hơn cùng Ông chú Ecom</H2>
-        <p className="-mt-1 mb-4 max-w-3xl text-sm leading-relaxed text-charcoal">Trang này miễn phí và là phần nhập môn. Muốn đi sâu, có người kèm và có anh em cùng làm thì đăng ký các chương trình dưới đây.</p>
         <ProductCards />
       </section>
 
-      {/* Ai giải đáp */}
-      <section id="ai-giai-dap" aria-labelledby="ai-giai-dap-h" className="scroll-mt-20">
-        <H2 id="ai-giai-dap-h">Ai giải đáp cho anh chị</H2>
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-          <div className="rounded-2xl p-5 ring-1 ring-stone-200 sm:p-6">
-            <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-stone-100 text-base font-semibold text-ink" aria-hidden="true">ÔC</span>
-              <div>
-                <p className="font-display text-xl font-bold text-ink">Ông chú Ecom</p>
-                <p className="text-sm text-charcoal">Tác giả sách Ecom Truyền Kỳ · A1demy</p>
-              </div>
-            </div>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-body">
-              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Làm online và digital marketing từ 2008, từng là co-founder một công ty digital hơn 100 người.</li>
-              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Ba năm gần đây làm việc cùng khoảng 50 công ty Ecom ở Hà Nội, Đà Nẵng, Sài Gòn, nói chuyện với hàng ngàn founder.</li>
-              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />Cách hiểu và cách tính trên trang này đi theo sách Ecom Truyền Kỳ.</li>
-            </ul>
-            <p className="mt-4 text-sm leading-relaxed text-charcoal">Mỗi khái niệm trên trang đều qua tay Ông chú Ecom tham vấn. Đọc xong mà vẫn chưa chắc áp vào shop mình thế nào, cứ hỏi, Ông chú Ecom và đội A1demy trực tiếp trả lời.</p>
-          </div>
-
-          <div>
-            <p className="font-display text-base font-bold text-ink">Hỏi thế nào</p>
-            <ol className="mt-3 space-y-4">
-              {[
-                hasForm ? ['Nhắn riêng qua Zalo', 'Để lại tên và số Zalo ở form ngay dưới. Ông chú Ecom nhắn lại trong vài ngày, xem cùng số của shop.']
-                  : ['Nhắn trực tiếp', 'Nhắn qua kênh bên dưới, kể ngắn shop đang bán ở đâu, doanh thu tháng và chỗ đang vướng.'],
-                hasForm ? ['Khám sức khỏe shop rồi gửi kèm', 'Điền P&L một tháng ở trang Khám sức khỏe. Bản chẩn đoán được gửi kèm khi anh chị để lại Zalo, khỏi phải kể lại từ đầu.']
-                  : ['Khám sức khỏe shop trước', 'Điền P&L một tháng ở trang Khám sức khỏe để biết tiền rò ở tầng nào, rồi hỏi đúng chỗ đó.'],
-                hasForm && ['Góp ý ngay dưới mỗi bài', 'Chấm sao và ghi chỗ khó hiểu, ẩn danh. Cứ 2 ngày góp ý được đọc lại và bài được sửa cho dễ hiểu hơn.'],
-              ].filter(Boolean).map(([t, d], i) => (
-                <li key={t} className="flex gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 font-display text-sm font-bold text-white">{i + 1}</span>
-                  <div><p className="font-bold text-ink">{t}</p><p className="mt-0.5 text-sm leading-relaxed text-charcoal">{d}</p></div>
-                </li>
-              ))}
-            </ol>
-            {channels.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {channels.map((x) => (
-                  <a key={x.href} href={x.href} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink ring-1 ring-stone-200 hover:ring-brand-500">{x.label} →</a>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        {hasForm && <div className="mt-6"><LeadForm source="trang-chu" /></div>}
-      </section>
-
-      {/* Có gì bên trong */}
-      <section aria-labelledby="ben-trong">
-        <H2 id="ben-trong">Đang có gì để học</H2>
-        <p className="-mt-1 mb-4 max-w-3xl text-sm leading-relaxed text-charcoal">Kho khái niệm được thêm dần, mảng đầu tiên là các chỉ số vận hành vì đó là chỗ nhiều shop mất tiền nhất. Các khái niệm mới được rút từ sách Ecom Truyền Kỳ và từ những bài viết hay, Ông chú Ecom duyệt rồi mới lên.</p>
-        <dl className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            [nM, 'khái niệm chỉ số', 'Từ giá vốn, phí sàn, CM1–CM3 tới ROAS hòa vốn, tồn kho, dòng tiền, đội ngũ. Đi theo 7 khâu của một doanh nghiệp Ecom.'],
-            [nP, 'Playbook tình huống', 'Doanh thu cao mà không lãi, lãi trên giấy mà hết tiền, vít Ads khi nào… mỗi Playbook có case, sai lầm hay gặp và việc cần làm.'],
-            ['1', 'bản khám sức khỏe shop', 'Điền P&L một tháng, nhận chẩn đoán từng tầng lãi và Playbook nên đọc trước.'],
-            ['10', 'bài tập chẩn đoán', 'Bệnh án shop thật, tự tính và tự quyết, sai thì có gợi ý.'],
-          ].map(([n, t, d]) => (
-            <div key={t} className="border-t border-stone-200 pt-3">
-              <dt><span className="font-display text-3xl font-bold text-ink">{n}</span> <span className="font-bold text-ink">{t}</span></dt>
-              <dd className="mt-1 text-sm leading-relaxed text-charcoal">{d}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* Bắt đầu từ nỗi đau */}
+      {/* Bắt đầu từ nỗi đau: chỉ tên, không mô tả */}
       <section aria-labelledby="bat-dau">
         <H2 id="bat-dau">Shop anh đang gặp chuyện gì?</H2>
         <div className="grid gap-3 sm:grid-cols-3">
-          <Door strong eyebrow="Nhập số shop mình" title="Khám sức khỏe shop" text="Điền P&L một tháng, nhận chẩn đoán và Playbook nên đọc." onClick={onOpenHealth} />
-          <Door eyebrow={`Playbook ${num(pb1)}`} title="Doanh thu cao mà không có lãi" text={pb1.summary} onClick={() => onOpenPlaybook(pb1.playbook_id)} />
-          <Door eyebrow={`Playbook ${num(pb2)}`} title="Lãi trên giấy mà hết tiền" text={pb2.summary} onClick={() => onOpenPlaybook(pb2.playbook_id)} />
+          <Door strong eyebrow="Nhập số shop mình" title="Khám sức khỏe shop" onClick={onOpenHealth} />
+          <Door eyebrow={`Playbook ${num(pb1)}`} title="Doanh thu cao mà không có lãi" onClick={() => onOpenPlaybook(pb1.playbook_id)} />
+          <Door eyebrow={`Playbook ${num(pb2)}`} title="Lãi trên giấy mà hết tiền" onClick={() => onOpenPlaybook(pb2.playbook_id)} />
         </div>
       </section>
 
       <section id="lo-trinh" aria-labelledby="lo-trinh-h">
         <H2 id="lo-trinh-h">Lộ trình theo vai trò</H2>
-        <div className="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="tablist" aria-label="Chọn lộ trình">
+        <div className="no-scrollbar -mx-4 mb-5 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="tablist" aria-label="Chọn lộ trình">
           {PATHS.map((p) => (
             <button key={p.id} role="tab" aria-selected={path.id === p.id} onClick={() => setPathId(p.id)}
               className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${path.id === p.id ? 'bg-ink text-white' : 'bg-stone-100 text-body hover:bg-stone-200'}`}>{p.title}</button>
           ))}
         </div>
-        <p className="mb-3 text-sm text-charcoal"><b className="text-ink">{path.who}.</b> {path.desc} {path.items.length} bài.</p>
-        <ol className="grid gap-x-6 sm:grid-cols-2">
-          {path.items.map((id, i) => {
-            const m = metricById[id]
-            return (
-              <li key={id}>
-                <button onClick={() => startPath(id)} className="flex w-full items-baseline gap-3 border-b border-stone-100 py-2.5 text-left hover:bg-brand-50">
-                  <span className="w-6 shrink-0 text-right font-display text-sm font-bold text-brand-600">{i + 1}</span>
-                  <span className="min-w-0">
-                    <span className="font-display font-bold text-ink">{m.code}</span>
-                    <span className="ml-2 text-sm text-charcoal">{m.subtitle || m.vi_name}</span>
-                  </span>
-                </button>
-              </li>
-            )
-          })}
+        {/* chỉ hiện tên ngắn từng bài; câu giải thích nằm trong bài */}
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+          {path.items.map((id, i) => (
+            <li key={id} className="flex items-center gap-1.5">
+              {i > 0 && <span className="text-stone-300" aria-hidden="true">→</span>}
+              <button onClick={() => startPath(id)} title={metricById[id].subtitle || metricById[id].vi_name}
+                className="rounded-lg px-2.5 py-1 text-sm font-semibold text-ink ring-1 ring-stone-200 hover:bg-stone-50">{metricById[id].code}</button>
+            </li>
+          ))}
         </ol>
-        <button onClick={() => startPath(path.items[0])} className="mt-4 rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Bắt đầu lộ trình “{path.title}” →</button>
+        <button onClick={() => startPath(path.items[0])} className="mt-5 rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Bắt đầu · {path.items.length} bài →</button>
       </section>
 
       <section aria-labelledby="playbooks-h">
         <H2 id="playbooks-h">{nP} Playbook tình huống</H2>
-        <ul className="grid gap-2 sm:grid-cols-2">
+        <ul className="grid gap-x-8 sm:grid-cols-2">
           {playbooks.map((p) => (
             <li key={p.playbook_id}>
-              <button onClick={() => onOpenPlaybook(p.playbook_id)} className="flex h-full w-full gap-3 rounded-xl bg-stone-50 p-3 text-left hover:bg-brand-50">
-                <span className="font-display text-lg font-bold leading-none text-brand-600">{num(p)}</span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-bold leading-snug text-ink">{short(p)}</span>
-                  <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-charcoal">{p.case_study.title}</span>
-                </span>
+              <button onClick={() => onOpenPlaybook(p.playbook_id)} className="flex w-full items-baseline gap-3 border-b border-stone-100 py-3 text-left hover:text-brand-700">
+                <span className="w-6 shrink-0 text-sm font-semibold text-muted">{num(p)}</span>
+                <span className="min-w-0 text-[15px] font-semibold leading-snug text-ink">{short(p)}</span>
               </button>
             </li>
           ))}
         </ul>
       </section>
 
-      {/* Hỏi nhanh */}
+      {/* Ai giải đáp: một dòng giới thiệu + cách liên hệ */}
+      <section id="ai-giai-dap" aria-labelledby="ai-giai-dap-h" className="scroll-mt-20">
+        <H2 id="ai-giai-dap-h">Ai giải đáp cho anh chị</H2>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+          <div className="flex min-w-0 flex-1 basis-80 items-center gap-3">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-stone-100 text-base font-semibold text-ink" aria-hidden="true">ÔC</span>
+            <div className="min-w-0">
+              <p className="text-lg font-bold text-ink">Ông chú Ecom</p>
+              <p className="text-sm text-charcoal">Tác giả sách Ecom Truyền Kỳ · làm Ecom từ 2008, đồng hành cùng khoảng 50 công ty Ecom</p>
+            </div>
+          </div>
+          {channels.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {channels.map((x) => (
+                <a key={x.href} href={x.href} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-ink ring-1 ring-stone-200 hover:ring-brand-500">{x.label} →</a>
+              ))}
+            </div>
+          )}
+        </div>
+        {hasForm && <div className="mt-6"><LeadForm source="trang-chu" /></div>}
+      </section>
+
+      {/* Hỏi nhanh: gập lại, bấm mới mở */}
       <section aria-labelledby="hoi-nhanh">
         <H2 id="hoi-nhanh">Hỏi nhanh</H2>
-        <dl className="grid gap-x-8 gap-y-4 md:grid-cols-2">
+        <div className="divide-y divide-stone-100 border-y border-stone-100">
           {[
             ['Có mất phí không?', 'Không. Toàn bộ bài đọc, video, Playbook và công cụ khám sức khỏe đều miễn phí.'],
             ['Số trong ví dụ lấy ở đâu?', 'Là số minh họa dựng theo shop Việt điển hình, phép tính đều khớp. Số tham khảo chỉ để định hướng, mỗi ngành hàng sẽ khác.'],
-            ['Chỉ có chỉ số thôi à?', 'Chỉ số là mảng đầu tiên. Kho khái niệm Ecom và khởi nghiệp được thêm dần từ sách Ecom Truyền Kỳ và những bài viết hay, khái niệm nào cũng có ví dụ số.'],
             ['Bán kênh nào cũng dùng được?', 'Được. TikTok Shop, Shopee, Lazada hay website đều dùng chung cách hiểu; phần tính toán chỉ cần thay phí sàn, phí ship của kênh mình.'],
-            ['Ai viết bài?', 'Ông chú Ecom biên soạn theo sách Ecom Truyền Kỳ, có AI hỗ trợ dựng ví dụ, biểu đồ và video. Bài mới chưa duyệt mang nhãn “Mới · đang duyệt”.'],
+            ['Ai viết bài?', 'Ông chú Ecom biên soạn theo sách Ecom Truyền Kỳ, có AI hỗ trợ dựng ví dụ, biểu đồ và video. Bài mới chưa duyệt mang nhãn “mới”.'],
           ].map(([q, a]) => (
-            <div key={q}>
-              <dt className="font-bold text-ink">{q}</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-charcoal">{a}</dd>
-            </div>
+            <details key={q} className="group py-3">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-ink">{q}<span className="text-muted transition group-open:rotate-45" aria-hidden="true">+</span></summary>
+              <p className="mt-2 text-sm leading-relaxed text-charcoal">{a}</p>
+            </details>
           ))}
-        </dl>
+        </div>
       </section>
     </div>
   )

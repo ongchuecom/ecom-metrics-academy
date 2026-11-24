@@ -13,8 +13,7 @@ function Item({ m, active, onSelect }) {
       <button onClick={() => onSelect(m.metric_id)} onMouseEnter={() => prefetchConcept(m.metric_id)} aria-current={active ? 'page' : undefined}
         className={`relative flex w-full items-baseline gap-2 rounded-lg py-1.5 pl-5 pr-2 text-left transition ${active ? 'bg-stone-100 text-ink' : 'text-body hover:bg-stone-50'}`}>
         {active && <span className="absolute inset-y-2 left-1.5 w-0.5 rounded-full bg-brand-600" aria-hidden="true" />}
-        <span className="shrink-0 text-[13px] font-semibold">{m.code}</span>
-        <span className={`min-w-0 truncate text-xs ${active ? 'text-charcoal' : 'text-muted'}`}>{m.vi_name}</span>
+        <span className="min-w-0 truncate text-[13px] font-medium" title={m.vi_name}>{m.code}</span>
         {m.review === 'draft' && <span className="shrink-0 self-center rounded bg-stone-100 px-1 text-[10px] font-medium text-charcoal" title="Mới, đang duyệt">mới</span>}
         {(m.simulator || m.diagnostic_homework) && <span className="ml-auto h-1.5 w-1.5 shrink-0 self-center rounded-full bg-stone-300" title="Có giả lập hoặc bài tập" />}
       </button>
@@ -46,7 +45,6 @@ export default function Sidebar({ selected, onSelect, selectedPb, onOpenPlaybook
       </div>
       {view === 'pb' ? (
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-6 lg:px-4">
-          <p className="px-2 pb-2 text-xs leading-snug text-muted">Tình huống thực chiến, mỗi bài nối với các khái niệm liên quan.</p>
           <PlaybookNav selected={selectedPb} onOpen={onOpenPlaybook} />
         </div>
       ) : (

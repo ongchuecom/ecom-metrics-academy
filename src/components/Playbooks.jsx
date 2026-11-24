@@ -14,16 +14,13 @@ export function PlaybookLinks({ metric, onOpen }) {
   if (!list.length) return null // bài chưa thuộc Playbook nào: không hiện dòng thừa
   return (
     <div>
-      <p className="eyebrow text-muted">Playbook tình huống có chỉ số này · {list.length}</p>
+      <p className="eyebrow text-muted">Playbook có chỉ số này</p>
       <ul className="mt-2 grid gap-2 sm:grid-cols-2">
         {list.map((p) => (
           <li key={p.playbook_id}>
-            <button onClick={() => onOpen(p.playbook_id)} className="group flex h-full w-full gap-3 rounded-xl bg-stone-50 p-3 text-left transition hover:bg-brand-50">
-              <span className="font-display text-lg font-bold leading-none text-brand-600">{num(p)}</span>
-              <span className="min-w-0">
-                <span className="block text-sm font-bold leading-snug text-ink group-hover:text-brand-700">{pbTitle(p)}</span>
-                <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-charcoal">{p.summary}</span>
-              </span>
+            <button onClick={() => onOpen(p.playbook_id)} title={p.summary} className="group flex h-full w-full items-baseline gap-2.5 rounded-lg px-3 py-2 text-left ring-1 ring-stone-200 transition hover:bg-stone-50">
+              <span className="text-sm font-semibold text-muted">{num(p)}</span>
+              <span className="min-w-0 text-sm font-semibold leading-snug text-ink group-hover:text-brand-700">{pbTitle(p).replace(/\s*\(.*\)\s*$/, '')}</span>
             </button>
           </li>
         ))}
@@ -55,17 +52,14 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeader
 
       <section>
         <h2 className="mb-3 text-lg font-bold text-ink">Chỉ số trong Playbook này · {metrics.length}</h2>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {byStage.map((g) => (
             <div key={g.id}>
               <p className="eyebrow mb-1.5 text-muted">{g.label}</p>
               <div className="flex flex-wrap gap-2">
                 {g.items.map((m) => (
-                  <button key={m.metric_id} onClick={() => onSelectMetric(m.metric_id)} title={m.definition}
-                    className="rounded-lg bg-stone-50 px-3 py-1.5 text-left transition hover:bg-brand-50">
-                    <span className="block font-display text-sm font-bold text-ink">{m.code}</span>
-                    <span className="block text-[11px] text-charcoal">{m.vi_name}</span>
-                  </button>
+                  <button key={m.metric_id} onClick={() => onSelectMetric(m.metric_id)} title={m.vi_name}
+                    className="rounded-full px-3 py-1 text-sm font-semibold text-ink ring-1 ring-stone-200 transition hover:bg-stone-50">{m.code}</button>
                 ))}
               </div>
             </div>

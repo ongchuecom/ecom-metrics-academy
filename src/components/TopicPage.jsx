@@ -39,8 +39,7 @@ export default function TopicPage({ id, onSelectMetric, onOpenTopic, onOpenPlayb
                 {m.type && m.type !== 'metric' && <span className="rounded bg-white px-1.5 py-0.5 text-[10px] font-bold text-charcoal ring-1 ring-stone-200">{TYPES[m.type]?.label}</span>}
                 {m.review === 'draft' && <span className="rounded bg-lemon px-1.5 py-0.5 text-[10px] font-bold text-navy-ink">Mới · đang duyệt</span>}
               </span>
-              <span className="mt-0.5 text-xs text-muted">{m.vi_name}</span>
-              <span className="mt-1.5 line-clamp-2 text-sm leading-snug text-body">{m.subtitle || m.definition}</span>
+              <span className="mt-1 line-clamp-2 text-sm leading-snug text-body">{m.subtitle || m.definition}</span>
             </button>
           </li>
         ))}
