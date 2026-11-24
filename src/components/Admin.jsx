@@ -8,12 +8,14 @@ import { isAdmin, ADMIN_UIDS, getGhToken, setGhToken, fetchFeedback, downloadCSV
 import { GAM, RANK_LIST, rankFor } from '../lib/quiz.js'
 import { href } from '../lib/route.js'
 import RankBadge from './RankBadge.jsx'
+import AdminAdvisor from './AdminAdvisor.jsx'
+import { advisorEnabled, ADVISOR } from '../lib/advisor.js'
 
 // Trang quản trị (/quan-tri/): chạy hoàn toàn trên trình duyệt, đọc dữ liệu bằng quyền của người quản trị.
 // Người chơi: Firestore (xóa được nhờ quy tắc isAdmin). Góp ý: repo riêng trên GitHub qua token chỉ-đọc lưu trên máy.
 
 const REPO = 'https://github.com/ongchuecom/ecom-metrics-academy'
-const TABS = [['tong-quan', 'Tổng quan', true], ['nguoi-choi', 'Người chơi', true], ['gop-y', 'Góp ý', true], ['noi-dung', 'Nội dung', false], ['cai-dat', 'Cài đặt', false]]
+const TABS = [['tong-quan', 'Tổng quan', true], ['nguoi-choi', 'Người chơi', true], ['gop-y', 'Góp ý', true], ['co-van', 'Cố vấn AI', true], ['noi-dung', 'Nội dung', false], ['cai-dat', 'Cài đặt', false]]
 const fmtDate = (ms) => (ms ? new Date(ms).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' }) : '–')
 const avg = (a) => (a.length ? Math.round((a.reduce((x, y) => x + y, 0) / a.length) * 10) / 10 : null)
 const pageName = (id) => metricById[id]?.code || (playbookById[id] ? `Playbook ${id.match(/pb_(\d+)/)?.[1]}` : id)
@@ -86,6 +88,7 @@ export default function Admin() {
       ) : tab === 'tong-quan' ? <Overview players={players} fb={fb} token={token} go={setTab} />
         : tab === 'nguoi-choi' ? <Players players={players} reload={loadPlayers} />
         : tab === 'gop-y' ? <Feedback fb={fb} token={token} setToken={(t) => { setGhToken(t); setToken(t); setFb({ state: 'idle', rows: [] }) }} reload={() => loadFeedback()} />
+        : tab === 'co-van' ? (advisorEnabled ? <AdminAdvisor /> : <p className="text-sm text-charcoal">Chưa nối máy chủ Cố vấn AI: điền site.json → advisor.endpoint sau khi triển khai server/ (xem integrations/SETUP-CO-VAN-AI.md).</p>)
         : tab === 'noi-dung' ? <Content />
         : <Settings user={user} admin={admin} players={players} token={token} />}
     </article>
@@ -399,6 +402,7 @@ function Settings({ user, admin, players, token }) {
           <Status ok={ADMIN_UIDS.length > 0} label="Quản trị viên" note={ADMIN_UIDS.length ? `${ADMIN_UIDS.length} tài khoản` : 'Chưa có mã quản trị trong site.json → admin.uids'} />
           <Status ok={players.state === 'ok'} label="Firestore (bảng xếp hạng)" note={players.state === 'ok' ? 'Đọc được' : 'Chưa kiểm tra được: cần tạo Firestore và dán firestore.rules'} />
           <Status ok={!!site.lead?.endpoint} label="Apps Script (form Zalo, góp ý)" note={site.lead?.endpoint ? 'Đã có URL ứng dụng web' : 'Chưa có lead.endpoint trong site.json'} />
+          <Status ok={advisorEnabled} label="Máy chủ Cố vấn AI" note={ADVISOR ? ADVISOR : 'Chưa có advisor.endpoint trong site.json (xem integrations/SETUP-CO-VAN-AI.md)'} />
           <Status ok={!!token} label="Token đọc góp ý trên máy này" note={token ? 'Đã lưu' : 'Dán ở mục Góp ý'} />
           <Status ok={!!site.contact?.zalo || !!site.contact?.facebook} label="Kênh nhắn trực tiếp ở trang chủ" note="site.json → contact.zalo / contact.facebook" />
           <Status ok={promosTemp === 0} label="Link đăng ký sách, khóa học, VCCA" note={promosTemp ? `${promosTemp} link còn trỏ tạm về ongchuecom.com` : 'Đã có link thật'} />

@@ -126,6 +126,9 @@ const search = Object.fromEntries(items.map(({ full: x }) => [x.metric_id, [x.pa
 mkdirSync(OUT || 'public/data', { recursive: true })
 writeFileSync(join(OUT || 'public/data', 'search.json'), JSON.stringify(search))
 
+// Playbook công khai cho máy chủ Cố vấn AI nạp tri thức (server/advisor/ingest.py)
+writeFileSync(join(OUT || 'public/data', 'playbooks.json'), JSON.stringify({ playbooks: read('src/data/playbooks.json').playbooks }))
+
 const out = OUT ? join(OUT, 'c') : 'public/data/c'
 rmSync(out, { recursive: true, force: true })
 mkdirSync(out, { recursive: true })

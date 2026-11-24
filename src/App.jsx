@@ -7,6 +7,8 @@ import Privacy from './components/Privacy.jsx'
 import TopicPage from './components/TopicPage.jsx'
 // trang quản trị chỉ tải khi có người mở /quan-tri/
 const Admin = lazy(() => import('./components/Admin.jsx'))
+const Advisor = lazy(() => import('./components/Advisor.jsx'))
+import { advisorEnabled } from './lib/advisor.js'
 import { LoginDialog, AccountButton } from './components/Login.jsx'
 import { useAuth } from './lib/auth.jsx'
 import { syncAccount } from './lib/sync.js'
@@ -109,6 +111,7 @@ export default function App() {
   const openHealth = useCallback(() => go({ type: 'health' }), [go])
   const openLeaderboard = useCallback(() => go({ type: 'leaderboard' }), [go])
   const openTopic = useCallback((id) => go({ type: 'topic', id }), [go])
+  const openAdvisor = useCallback((about) => go({ type: 'advisor', about: about || '' }), [go])
   // Đăng nhập xong thì gộp điểm trắc nghiệm trên máy với điểm theo tài khoản
   const { user } = useAuth()
   useEffect(() => { if (user) syncAccount(user).catch(() => {}) }, [user?.uid]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -131,7 +134,8 @@ export default function App() {
       : route.type === 'leaderboard' ? `Bảng xếp hạng trắc nghiệm · ${TITLE}`
       : route.type === 'privacy' ? `Chính sách riêng tư · ${TITLE}`
       : route.type === 'admin' ? `Quản trị · ${TITLE}`
-      : route.type === 'topic' ? `${topicById[route.id]?.label} · ${TITLE}` : `${TITLE} · Ông chú Ecom`
+      : route.type === 'topic' ? `${topicById[route.id]?.label} · ${TITLE}`
+      : route.type === 'advisor' ? `Cố vấn AI · ${TITLE}` : `${TITLE} · Ông chú Ecom`
   }, [route, metric])
 
   // Phím tắt tìm kiếm: Ctrl/⌘ + K hoặc "/"
@@ -191,6 +195,7 @@ export default function App() {
               <span className="flex items-baseline gap-4">
                 <button onClick={openHome} className="font-display text-lg font-black text-ink">Trang chủ</button>
                 <button onClick={openLeaderboard} className="text-sm font-semibold text-brand-700">Bảng xếp hạng</button>
+                {advisorEnabled && <button onClick={() => openAdvisor()} className="text-sm font-semibold text-brand-700">Cố vấn AI</button>}
               </span>
               <button onClick={() => setDrawer(false)} className="rounded-full bg-stone-100 px-3 py-1.5 text-sm font-semibold text-body">Đóng</button>
             </div>
@@ -204,6 +209,7 @@ export default function App() {
           <Brand onHome={openHome} />
           <SearchButton onClick={() => setSearching(true)} />
           <button onClick={openHealth} className="w-full rounded-xl bg-white/15 px-3 py-2 text-left text-sm font-bold text-white hover:bg-white/25">Khám sức khỏe shop →</button>
+          {advisorEnabled && <button onClick={() => openAdvisor()} className="w-full rounded-xl bg-white/15 px-3 py-2 text-left text-sm font-bold text-white hover:bg-white/25">Hỏi Cố vấn AI →</button>}
           <button onClick={openLeaderboard} className="w-full rounded-xl px-3 py-1 text-left text-sm font-semibold text-white/90 hover:text-white">Bảng xếp hạng trắc nghiệm →</button>
           <AccountButton />
         </div>
@@ -233,6 +239,7 @@ export default function App() {
           {route.type === 'leaderboard' && <Leaderboard onOpenPlaybook={openPlaybook} />}
           {route.type === 'privacy' && <Privacy />}
           {route.type === 'topic' && <TopicPage key={route.id} id={route.id} onSelectMetric={select} onOpenTopic={openTopic} onOpenPlaybook={openPlaybook} />}
+          {route.type === 'advisor' && <Suspense fallback={<p className="text-sm text-muted">Đang tải Cố vấn AI…</p>}><Advisor key={route.about} initialConceptId={route.about} onSelectMetric={select} onOpenPlaybook={openPlaybook} /></Suspense>}
           {route.type === 'admin' && <Suspense fallback={<p className="text-sm text-muted">Đang tải trang quản trị…</p>}><Admin /></Suspense>}
 
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
@@ -270,7 +277,8 @@ export default function App() {
               </section>
             )}
 
-            <p className="text-sm text-charcoal">Muốn tính {metric.code} bằng số của shop mình? <button onClick={openHealth} className="font-semibold text-brand-700 hover:underline">Khám sức khỏe shop →</button></p>
+            <p className="text-sm text-charcoal">Muốn tính {metric.code} bằng số của shop mình? <button onClick={openHealth} className="font-semibold text-brand-700 hover:underline">Khám sức khỏe shop →</button>
+              {advisorEnabled && <> hoặc <button onClick={() => openAdvisor(metric.metric_id)} className="font-semibold text-brand-700 hover:underline">hỏi Cố vấn AI về {metric.code} →</button></>}</p>
 
             <PageFeedback key={metric.metric_id} page={metric.metric_id} title={`${metric.code}: ${metric.subtitle || metric.vi_name}`} shareText={metric.definition} />
 
@@ -288,7 +296,7 @@ export default function App() {
             <LeadForm compact source={metric.metric_id} title={`Muốn biết ${metric.code} của shop mình đang ổn chưa?`} text="Để lại tên và số Zalo, Ông chú Ecom nhắn riêng để xem cùng anh." />
           </div>{full && <Toc metric={full} hasPractice={tabs.length > 0} />}</div>)}
 
-          {route.type !== 'home' && route.type !== 'admin' && <Promos compact />}
+          {route.type !== 'home' && route.type !== 'admin' && route.type !== 'advisor' && <Promos compact />}
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.

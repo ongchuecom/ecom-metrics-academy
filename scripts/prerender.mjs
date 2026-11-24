@@ -84,6 +84,12 @@ for (const p of playbooks) {
 urls.push(page('chinh-sach-rieng-tu/', 'Chính sách riêng tư · Ecom Metrics Academy',
   'Ecom Metrics Academy thu thập gì khi đăng nhập Google, Facebook, làm trắc nghiệm, góp ý; dùng để làm gì và cách xóa dữ liệu.',
   '<h1>Chính sách riêng tư</h1><p>Trang này thu thập mã tài khoản, tên hiển thị và ảnh đại diện khi đăng nhập Google hoặc Facebook, điểm trắc nghiệm, góp ý ẩn danh. Hướng dẫn xóa dữ liệu: đăng nhập, vào Bảng xếp hạng, bấm Xóa điểm của tôi.</p>'))
+const advisorPage = page('hoi-dap/', 'Cố vấn AI thực chiến Ecom và khởi nghiệp · Ecom Metrics Academy',
+  'Hỏi đáp với Cố vấn AI theo các khái niệm và Playbook của Ecom Metrics Academy, văn phong sách Ecom Truyền Kỳ. Dùng thử 7 ngày miễn phí.',
+  '<h1>Cố vấn AI thực chiến</h1><p>Hỏi đáp về chỉ số, dòng tiền, quảng cáo, vận hành shop. Câu trả lời dẫn tới bài khái niệm liên quan. Dùng thử 7 ngày miễn phí khi đăng nhập Google hoặc Facebook.</p>')
+// Chỉ đưa vào sitemap khi đã nối máy chủ Cố vấn AI và bật đăng nhập
+const siteCfg = JSON.parse(readFileSync('src/data/site.json', 'utf8'))
+if (siteCfg.advisor?.endpoint && siteCfg.auth?.firebase?.apiKey) urls.push(advisorPage)
 urls.push(page('bang-xep-hang/', 'Bảng xếp hạng trắc nghiệm thực chiến · Ecom Metrics Academy',
   'Làm 3 câu trắc nghiệm thực chiến cuối mỗi Playbook, cộng điểm, lên cấp bậc từ Tập Sự Sàn TMĐT tới Bậc Thầy Dòng Tiền & Lợi Nhuận.',
   '<h1>Bảng xếp hạng trắc nghiệm thực chiến</h1><p>Mỗi Playbook có 3 câu trắc nghiệm, chấm điểm ngay và có giải thích.</p>'))

@@ -8,6 +8,7 @@
 // /bang-xep-hang         → bảng xếp hạng trắc nghiệm Playbook
 // /chinh-sach-rieng-tu   → chính sách riêng tư (cần cho đăng nhập Facebook)
 // /quan-tri              → trang quản trị (không có trong sitemap)
+// /hoi-dap               → Cố vấn AI (?ve=<id khái niệm> khi hỏi từ trong bài)
 // Link cũ dạng #vn_fin_cm2 hoặc #pb_01_… vẫn mở được.
 import { metricById, playbookById, metricBySlug, playbookBySlug, topicById } from '../data/index.js'
 
@@ -21,6 +22,7 @@ export function href(r) {
   if (r.type === 'leaderboard') return `${BASE}bang-xep-hang/`
   if (r.type === 'privacy') return `${BASE}chinh-sach-rieng-tu/`
   if (r.type === 'admin') return `${BASE}quan-tri/`
+  if (r.type === 'advisor') return `${BASE}hoi-dap/${r.about ? `?ve=${encodeURIComponent(r.about)}` : ''}`
   return BASE
 }
 
@@ -42,5 +44,6 @@ export function parse(loc = window.location) {
   if (kind === 'bang-xep-hang') return { type: 'leaderboard' }
   if (kind === 'chinh-sach-rieng-tu') return { type: 'privacy' }
   if (kind === 'quan-tri') return { type: 'admin' }
+  if (kind === 'hoi-dap') return { type: 'advisor', about: new URLSearchParams(loc.search).get('ve') || '' }
   return { type: 'home' }
 }

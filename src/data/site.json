@@ -74,5 +74,9 @@
   "admin": {
     "_huong_dan": "Mã tài khoản (uid Firebase) của người quản trị: đăng nhập rồi mở /quan-tri/ để xem mã của mình, dán vào đây, chạy npm run data:pack rồi dán lại integrations/firestore.rules vào Firebase. Dùng uid thay email để không lộ email trong repo công khai.",
     "uids": []
+  },
+  "advisor": {
+    "_huong_dan": "Địa chỉ máy chủ Cố vấn AI (server/, ví dụ https://api.ten-mien.vn). Để trống thì mục Cố vấn AI ẩn. Cần bật đăng nhập (auth.firebase) trước.",
+    "endpoint": ""
   }
 }

@@ -1,0 +1,18 @@
+[Unit]
+Description=Ecom Metrics Academy - Co van AI
+After=network-online.target
+
+[Service]
+User=ecomadvisor
+WorkingDirectory=/opt/ecom-advisor
+EnvironmentFile=/opt/ecom-advisor/.env
+ExecStart=/opt/ecom-advisor/venv/bin/uvicorn advisor.app:app --host 127.0.0.1 --port 8000 --workers 2 --proxy-headers --forwarded-allow-ips 127.0.0.1
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ecom-advisor/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

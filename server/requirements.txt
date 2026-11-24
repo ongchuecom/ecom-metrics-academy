@@ -1,0 +1,14 @@
+fastapi>=0.115
+uvicorn[standard]>=0.32
+numpy>=1.26
+pydantic>=2.9
+google-genai>=1.0
+google-auth>=2.35
+requests>=2.32
+python-multipart>=0.0.12
+pypdf>=5.0
+python-docx>=1.1
+python-dotenv>=1.0
+# tùy chọn: đồng bộ Google Drive
+google-api-python-client>=2.150
+cryptography>=43
