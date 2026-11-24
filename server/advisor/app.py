@@ -34,6 +34,7 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
         from .auth import FirebaseVerifier
         verifier = FirebaseVerifier(s.firebase_project_id)
     qa_cache, limiter = TTLCache(400, 3600), RateLimiter()
+    bg_tasks = set()  # giữ tham chiếu tác vụ trả lượt để không bị thu dọn khi khách đã ngắt
     sem = asyncio.Semaphore(s.gemini_concurrency)
     concepts = {}  # id → {code,name} để biết khách đang đọc bài nào (nạp từ chunks)
 
@@ -120,8 +121,13 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                 if refunded:
                     return
                 refunded = True
+                # chạy trong tác vụ riêng được che (shield) và giữ tham chiếu: khách ngắt giữa chừng thì tác vụ vẫn chạy tới cùng,
+                # không bị hủy khi chưa kịp vào hàng đợi luồng
+                t = asyncio.ensure_future(asyncio.to_thread(billing.refund, uid, st["day"]))
+                bg_tasks.add(t)
+                t.add_done_callback(bg_tasks.discard)
                 try:
-                    await asyncio.to_thread(billing.refund, uid, st["day"])
+                    await asyncio.shield(t)
                 except asyncio.CancelledError:
                     raise
                 except Exception:

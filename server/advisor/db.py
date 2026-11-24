@@ -37,6 +37,11 @@ class DB:
         with self.conn() as c:
             c.execute("PRAGMA journal_mode=WAL")
             c.executescript(SCHEMA)
+        self._migrate()
+
+    def _migrate(self):
+        # kiểm tra và thêm cột trong CÙNG một giao dịch ghi độc quyền: hai worker khởi động cùng lúc không đụng nhau
+        with self.tx() as c:
             if "heartbeat" not in {r[1] for r in c.execute("PRAGMA table_info(jobs)")}:
                 c.execute("ALTER TABLE jobs ADD COLUMN heartbeat INTEGER")
 

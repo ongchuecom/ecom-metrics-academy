@@ -99,9 +99,14 @@ def upsert_source(db, embed_docs, model: str, dim: int, source: str, docs: list)
             rows.append((cid, d["source_type"], d.get("ref_id"), title, ch))
     new_ids = {r[0] for r in rows}
     with db.conn() as c:
-        have = {r["id"] for r in c.execute("SELECT id FROM chunks WHERE source=? AND model=? AND dim=?", (source, model, dim))}
+        old = c.execute("SELECT id, title, content, embedding FROM chunks WHERE source=? AND model=? AND dim=?", (source, model, dim)).fetchall()
+    have = {r["id"] for r in old}
+    # vector chỉ phụ thuộc tiêu đề + nội dung: đoạn đổi id (đổi loại, đổi cách tính id) mà chữ giữ nguyên thì dùng lại, không gọi Gemini
+    reuse = {(r["title"], r["content"]): r["embedding"] for r in old}
     todo = [r for r in rows if r[0] not in have]
-    vecs = embed_docs([doc_text(r[3], r[4]) for r in todo]) if todo else []
+    fresh = [r for r in todo if (r[3], r[4]) not in reuse]
+    fresh_vecs = iter(embed_docs([doc_text(r[3], r[4]) for r in fresh]) if fresh else [])
+    vecs = [np.frombuffer(reuse[(r[3], r[4])], dtype=np.float32) if (r[3], r[4]) in reuse else next(fresh_vecs) for r in todo]
     now = int(time.time())
     with db.tx() as c:
         for r, v in zip(todo, vecs):
@@ -112,7 +117,7 @@ def upsert_source(db, embed_docs, model: str, dim: int, source: str, docs: list)
         # đoạn của mô hình embedding cũ không dùng được nữa
         c.execute("DELETE FROM chunks WHERE source=? AND (model<>? OR dim<>?)", (source, model, dim))
         c.execute("INSERT INTO meta(key,value) VALUES('knowledge_version',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value", (str(time.time_ns()),))
-    return {"source": source, "chunks": len(rows), "embedded": len(todo), "removed": len(stale)}
+    return {"source": source, "chunks": len(rows), "embedded": len(fresh), "removed": len(stale)}
 
 
 def delete_source(db, source: str) -> int:

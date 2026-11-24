@@ -37,15 +37,17 @@ class KnowledgeIndex:
         return self.snap[0]
 
     def refresh(self, force: bool = False):
-        now = time.time()
-        if not force and now - self._checked < 10:
+        if not force and time.time() - self._checked < 10:
             return
-        self._checked = now
-        ver = self.db.meta_get("knowledge_version", "0")
-        if force or ver != self.version:
-            with self._lock:
+        with self._lock:
+            # xét lại trong khóa: luồng nào đến sau lúc luồng khác đang nạp sẽ chờ nạp xong, không đi tiếp với chỉ mục rỗng
+            if not force and time.time() - self._checked < 10:
+                return
+            ver = self.db.meta_get("knowledge_version", "0")
+            if force or ver != self.version:
                 self._load()
                 self.version = ver
+            self._checked = time.time()  # chỉ ghi nhận sau khi chỉ mục mới đã sẵn sàng
 
     def search(self, q_vec: np.ndarray, query: str, top_k: int = 4) -> list:
         # không tự nạp lại ở đây: nơi gọi chạy refresh() trong luồng riêng, để việc đọc cả bảng không chặn vòng sự kiện

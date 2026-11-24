@@ -292,7 +292,7 @@ def test_chunk_id_changes_with_type():
     doc = {"source_type": "metric", "ref_id": "k1", "title": "K1", "text": "Nội dung bài viết đủ dài để thành một đoạn tri thức hoàn chỉnh."}
     ingest.upsert_source(d, emb, "m", 64, "site", [doc])
     r = ingest.upsert_source(d, emb, "m", 64, "site", [{**doc, "source_type": "framework"}])
-    assert r["embedded"] == 1 and r["removed"] == 1
+    assert r["embedded"] == 0 and r["removed"] == 1  # chữ không đổi: dùng lại vector, không gọi Gemini
     with d.conn() as c:
         assert [x["source_type"] for x in c.execute("SELECT source_type FROM chunks")] == ["framework"]
 
@@ -334,3 +334,114 @@ def test_user_rate_zero_means_off(env):
     env["s"].user_rate_per_min = 0
     c.get("/api/me", headers=H("u41"))
     assert c.post("/api/chat", json={"message": "hỏi thử một câu"}, headers=H("u41")).status_code == 200
+
+
+
+# ---------- hồi quy theo bản rà soát 110a7ab ----------
+def test_refund_survives_disconnect_while_queued(env):
+    """Khách ngắt đúng lúc lệnh trả lượt còn xếp hàng chờ luồng: lượt vẫn phải được trả."""
+    import asyncio, concurrent.futures, httpx
+    app, g = env["app"], env["gemini"]
+    g.pieces = ['<ctx>{"sp":"áo"}</ctx>']  # trả rỗng → đi nhánh trả lượt
+    env["client"].get("/api/me", headers=H("u50"))
+
+    async def scenario():
+        loop = asyncio.get_running_loop()
+        pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        loop.set_default_executor(pool)
+        hold = threading.Event()
+        orig = app.state.billing.refund
+        entered = asyncio.Event()
+
+        def spy(*a):
+            return orig(*a)
+        app.state.billing.refund = spy
+        real_to_thread = asyncio.to_thread
+
+        async def watched(fn, *a, **k):
+            if fn is spy:
+                loop.run_in_executor(None, hold.wait, 5)  # chiếm luồng duy nhất ngay lúc này: lệnh trả lượt phải xếp hàng
+                entered.set()
+            return await real_to_thread(fn, *a, **k)
+        asyncio.to_thread = watched
+        try:
+            async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t") as c:
+                async def go():
+                    async with c.stream("POST", "/api/chat", json={"message": "câu hỏi bị chặn"}, headers=H("u50")) as r:
+                        async for _ in r.aiter_bytes():
+                            pass
+                task = asyncio.ensure_future(go())
+                await asyncio.wait_for(entered.wait(), 3)
+                await asyncio.sleep(0.05)
+                task.cancel()  # khách ngắt khi lệnh trả lượt còn trong hàng đợi
+                try:
+                    await task
+                except asyncio.CancelledError:
+                    pass
+            hold.set()
+            await asyncio.sleep(0.3)
+        finally:
+            asyncio.to_thread = real_to_thread
+            app.state.billing.refund = orig
+            hold.set()
+    asyncio.run(scenario())
+    assert env["client"].get("/api/me", headers=H("u50")).json()["used_today"] == 0
+
+
+def test_two_workers_migrate_old_db_together(tmp_path):
+    import sqlite3
+    from advisor.db import DB
+    p = str(tmp_path / "old.db")
+    con = sqlite3.connect(p)  # CSDL kiểu cũ: bảng jobs chưa có cột heartbeat
+    con.execute("CREATE TABLE jobs (id TEXT PRIMARY KEY, kind TEXT, status TEXT, detail TEXT, created_at INTEGER, finished_at INTEGER)")
+    con.commit(); con.close()
+    errs, start = [], threading.Barrier(4)
+
+    def boot():
+        start.wait()
+        try:
+            DB(p)
+        except Exception as e:
+            errs.append(e)
+    ts = [threading.Thread(target=boot) for _ in range(4)]
+    [t.start() for t in ts]; [t.join() for t in ts]
+    assert not errs
+    assert "heartbeat" in [r[1] for r in sqlite3.connect(p).execute("PRAGMA table_info(jobs)")]
+
+
+def test_concurrent_first_load_waits_for_index(env):
+    """Luồng thứ hai tới khi luồng đầu đang nạp chỉ mục phải chờ, không đi tiếp với chỉ mục rỗng."""
+    from advisor.db import DB
+    from advisor.knowledge import KnowledgeIndex
+    import tempfile, os
+    d = DB(os.path.join(tempfile.mkdtemp(), "k.db"))
+    emb = lambda texts: [fake_vec(t) for t in texts]
+    ingest.upsert_source(d, emb, "m", 64, "site", [{"source_type": "metric", "ref_id": "cm2", "title": "CM2: Lãi gộp", "text": "CM2 là lãi gộp sau phí sàn và vận chuyển, chỉ số quan trọng."}])
+    idx = KnowledgeIndex(d, "m", 64)
+    real = idx._load
+
+    def slow():
+        time.sleep(0.3)
+        real()
+    idx._load = slow
+    out = []
+    t1 = threading.Thread(target=idx.refresh); t1.start(); time.sleep(0.05)
+    t2 = threading.Thread(target=lambda: (idx.refresh(), out.append(len(idx.items)))); t2.start()
+    t1.join(); t2.join()
+    assert out == [1]
+
+
+def test_resync_after_id_change_reuses_vectors():
+    from advisor.db import DB
+    import tempfile, os
+    d = DB(os.path.join(tempfile.mkdtemp(), "r.db"))
+    calls = []
+    emb = lambda texts: (calls.append(len(texts)), [fake_vec(t) for t in texts])[1]
+    docs = [{"source_type": "metric", "ref_id": f"k{i}", "title": f"K{i}", "text": f"Nội dung khái niệm số {i} đủ dài để thành đoạn."} for i in range(5)]
+    ingest.upsert_source(d, emb, "m", 64, "site", docs)
+    with d.conn() as c:  # giả lập id kiểu cũ (cách tính id đã đổi)
+        c.execute("UPDATE chunks SET id = 'old-' || id")
+    r = ingest.upsert_source(d, emb, "m", 64, "site", docs)
+    assert calls == [5] and r["embedded"] == 0 and r["removed"] == 5
+    with d.conn() as c:
+        assert c.execute("SELECT COUNT(*) FROM chunks").fetchone()[0] == 5
