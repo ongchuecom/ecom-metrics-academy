@@ -125,7 +125,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
           {authEnabled && result.official && needLogin && (
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <button type="button" onClick={() => openLogin('Đăng nhập để lưu điểm này vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')}
-                className="rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng xếp hạng</button>
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-bold text-white hover:bg-brand-700">Đăng nhập để lên bảng xếp hạng</button>
               <span className="text-xs text-muted">Điểm vẫn được giữ trên máy này, đăng nhập lúc nào cũng đưa lên được.</span>
             </div>
           )}
@@ -139,7 +139,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
                 <label htmlFor={`ten-${p.playbook_id}`} className="w-full text-sm font-semibold text-ink">Lên bảng xếp hạng với tên:</label>
                 <input id={`ten-${p.playbook_id}`} value={name} onChange={(e) => setName(e.target.value)} maxLength={24} placeholder="Ví dụ: Hùng Shop Giày"
                   className="min-w-0 flex-1 rounded-xl bg-white px-3 py-2 text-sm text-ink ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500 sm:max-w-xs" />
-                <button type="submit" disabled={!cleanName(name) || sync === 'sending'} className="rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white disabled:opacity-50">{sync === 'sending' ? 'Đang gửi…' : 'Lên bảng'}</button>
+                <button type="submit" disabled={!cleanName(name) || sync === 'sending'} className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-50">{sync === 'sending' ? 'Đang gửi…' : 'Lên bảng'}</button>
                 <span className="w-full text-xs text-muted">Chỉ hiện tên này và điểm. Không ghi số điện thoại hay đường link vào tên.{sync === 'error' && <span className="text-coral"> Chưa gửi được, thử lại giúp.</span>}</span>
               </form>
             )

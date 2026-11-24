@@ -6,7 +6,7 @@ const IMPACT = {
   direct: { label: 'Thuận chiều', sign: '↑ ↑', badge: 'bg-stone-100 text-ink ring-stone-300', edge: 'border-l-stone-400' },
   inverse: { label: 'Nghịch chiều', sign: '↑ ↓', badge: 'bg-coral/10 text-coral ring-coral/30', edge: 'border-l-coral' },
   link: { label: 'Liên quan', sign: '↔', badge: 'bg-stone-100 text-charcoal ring-stone-200', edge: '' },
-  trade: { label: 'Đánh đổi', sign: '⇄', badge: 'bg-marker text-navy-ink ring-amber-300', edge: 'border-l-marker' },
+  trade: { label: 'Đánh đổi', sign: '⇄', badge: 'bg-marker text-navy-ink ring-brand-200', edge: 'border-l-marker' },
 }
 
 function NodeCard({ rel, kind, onSelect, delay }) {

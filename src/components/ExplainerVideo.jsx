@@ -323,7 +323,7 @@ export default function ExplainerVideo({ metric, onHomework }) {
           </div>
           {/* Thanh điều khiển */}
           <div className="flex items-center gap-3 border-t border-stone-100 px-3 py-2">
-            <button onClick={toggle} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-white" aria-label={playing ? 'Tạm dừng' : 'Phát'}>
+            <button onClick={toggle} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white" aria-label={playing ? 'Tạm dừng' : 'Phát'}>
               <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden="true">{playing ? <path d="M5 4h3v12H5zM12 4h3v12h-3z" /> : <path d="M6 4l11 6-11 6z" />}</svg>
             </button>
             <div className="flex min-w-0 flex-1 gap-1">

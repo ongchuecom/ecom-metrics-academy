@@ -118,7 +118,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {(L?.remember || L?.quote) && (
         <div className="grid items-start gap-4 md:grid-cols-2">
           {L?.remember && (
-            <div className="rounded-2xl border-l-4 border-lemon bg-[#FFFBE6] p-4 text-ink sm:p-5">
+            <div className="rounded-2xl border-l-4 border-sun bg-brand-50 p-4 text-ink sm:p-5">
               <p className="eyebrow">Nhớ một câu</p>
               <p className="mt-1 font-display text-base font-bold leading-snug">{L.remember}</p>
             </div>

@@ -106,7 +106,7 @@ function Gate({ user, ready, openLogin }) {
   if (!user) return (
     <div className="rounded-2xl bg-stone-50 p-5">
       <p className="text-sm text-body">Đăng nhập bằng tài khoản quản trị để xem.</p>
-      <button onClick={() => openLogin('Đăng nhập bằng tài khoản quản trị viên.')} className="mt-3 rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập</button>
+      <button onClick={() => openLogin('Đăng nhập bằng tài khoản quản trị viên.')} className="mt-3 rounded-lg bg-brand-600 px-4 py-2 text-sm font-bold text-white hover:bg-brand-700">Đăng nhập</button>
     </div>
   )
   return (
@@ -190,7 +190,7 @@ function Players({ players, reload }) {
                   <td className="py-2 pr-3"><a href={href({ type: 'pb', id: s.pb.playbook_id })} className="font-semibold text-ink hover:text-brand-700">{s.pb.title.replace(/^Playbook\s*/, '').replace(/:.*$/, '')}</a></td>
                   <td className="num pr-3">{s.n}</td>
                   <td className={`num pr-3 font-bold ${s.avg != null && s.avg < s.max / 2 ? 'text-coral' : 'text-ink'}`}>{s.avg ?? '–'}/{s.max}</td>
-                  <td><span className="flex h-3 w-48 overflow-hidden rounded bg-stone-100">{s.dist.map((n, i) => <span key={i} title={`${i * 10} điểm: ${n} người`} style={{ width: `${s.n ? (n / s.n) * 100 : 0}%`, background: ['#B42318', '#F38714', '#FFD200', '#15803D'][Math.min(3, Math.round((i / (s.dist.length - 1)) * 3))] }} />)}</span></td>
+                  <td><span className="flex h-3 w-48 overflow-hidden rounded bg-stone-100">{s.dist.map((n, i) => <span key={i} title={`${i * 10} điểm: ${n} người`} style={{ width: `${s.n ? (n / s.n) * 100 : 0}%`, background: ['#B42318', '#F38714', '#FFA45C', '#15803D'][Math.min(3, Math.round((i / (s.dist.length - 1)) * 3))] }} />)}</span></td>
                 </tr>
               ))}
             </tbody>
@@ -258,7 +258,7 @@ function Feedback({ fb, token, setToken, reload }) {
       </ol>
       <form className="flex flex-wrap gap-2" onSubmit={(e) => { e.preventDefault(); if (draft.trim()) setToken(draft.trim()) }}>
         <input type="password" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="github_pat_…" autoComplete="off" className="min-w-0 flex-1 rounded-xl bg-white px-3 py-2 ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500" />
-        <button className="rounded-lg bg-ink px-4 py-2 font-bold text-white">Lưu trên máy này</button>
+        <button className="rounded-lg bg-brand-600 px-4 py-2 font-bold text-white hover:bg-brand-700">Lưu trên máy này</button>
       </form>
       <p className="text-xs text-muted">Token chỉ lưu trong trình duyệt của máy này, không gửi đi đâu ngoài GitHub. Đừng dùng token có quyền ghi.</p>
     </div>
@@ -351,7 +351,7 @@ function Content() {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <H2>Khái niệm · {list.length}</H2>
           {[['all', 'Tất cả'], ['draft', 'Chờ duyệt'], ['high', 'Cần duyệt từng bài'], ['added', 'Có nguồn bài viết'], ['missing', 'Thiếu bài đọc']].map(([k, l]) => (
-            <button key={k} onClick={() => setFilter(k)} className={`rounded-full px-3 py-1 text-xs font-semibold ${filter === k ? 'bg-ink text-white' : 'bg-stone-100 text-body'}`}>{l} · {counts[k]}</button>
+            <button key={k} onClick={() => setFilter(k)} className={`rounded-full px-3 py-1 text-xs font-semibold ${filter === k ? 'bg-brand-100 text-brand-800' : 'bg-stone-100 text-body'}`}>{l} · {counts[k]}</button>
           ))}
         </div>
         <div className="mb-3 flex flex-wrap gap-2 text-sm">

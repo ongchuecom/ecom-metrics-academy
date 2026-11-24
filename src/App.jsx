@@ -263,7 +263,7 @@ export default function App() {
             {pathIdx >= 0 && (
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-stone-100 pb-3 text-sm">
                 <span className="text-charcoal"><span className="font-medium text-ink">{path.title}</span> · bài {pathIdx + 1}/{LEARNING_PATH.length}</span>
-                <span className="flex gap-0.5" aria-hidden="true">{LEARNING_PATH.map((id, i) => <i key={id} className={`h-1 w-3 rounded-full ${i <= pathIdx ? 'bg-ink' : 'bg-stone-200'}`} />)}</span>
+                <span className="flex gap-0.5" aria-hidden="true">{LEARNING_PATH.map((id, i) => <i key={id} className={`h-1 w-3 rounded-full ${i <= pathIdx ? 'bg-brand-500' : 'bg-brand-100'}`} />)}</span>
                 {next && <button onClick={() => select(next.metric_id)} className="ml-auto font-medium text-ink hover:text-brand-700">Tiếp: {next.code} →</button>}
               </div>
             )}

@@ -196,7 +196,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
         <div className="rounded-2xl bg-brand-50 p-5">
           <p className="font-display text-lg font-bold text-ink">Đăng nhập để dùng thử 7 ngày miễn phí</p>
           <p className="mt-1 text-sm text-charcoal">Mỗi ngày 15 câu hỏi. Hết hạn thì nâng cấp Pro {fmtVnd(200000)}/tháng hoặc {fmtVnd(1800000)}/năm.</p>
-          <button onClick={() => openLogin('Đăng nhập để hỏi Cố vấn AI. Tài khoản mới được dùng thử 7 ngày.')} className="mt-3 rounded-lg bg-ink px-5 py-2.5 text-sm font-bold text-white">Đăng nhập Google / Facebook</button>
+          <button onClick={() => openLogin('Đăng nhập để hỏi Cố vấn AI. Tài khoản mới được dùng thử 7 ngày.')} className="mt-3 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-700">Đăng nhập Google / Facebook</button>
         </div>
       ) : (
         <>
@@ -208,7 +208,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
                   <input key={k} value={shop[k] || ''} maxLength={80} placeholder={l} onChange={(e) => setState((s) => ({ ...s, shop: { ...s.shop, [k]: e.target.value } }))}
                     className="min-w-0 flex-1 rounded-lg bg-white px-2 py-1 ring-1 ring-stone-200" />
                 ))}
-                <button className="rounded-lg bg-ink px-3 py-1 text-white">Lưu</button>
+                <button className="rounded-lg bg-brand-600 px-3 py-1 text-white hover:bg-brand-700">Lưu</button>
               </form>
             ) : (
               <>

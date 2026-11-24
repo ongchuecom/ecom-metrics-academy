@@ -77,7 +77,7 @@ export default function Leaderboard({ onOpenPlaybook }) {
         )}
         {hasEndpoint && authEnabled && !user && (
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <button onClick={() => openLogin('Đăng nhập để lưu điểm vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')} className="rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng</button>
+            <button onClick={() => openLogin('Đăng nhập để lưu điểm vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')} className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-bold text-white hover:bg-brand-700">Đăng nhập để lên bảng</button>
             <span className="text-xs text-muted">Google hoặc Facebook. Điểm trên máy này được đưa lên tài khoản.</span>
           </div>
         )}

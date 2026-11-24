@@ -24,7 +24,7 @@ export default function TopicPage({ id, onSelectMetric, onOpenTopic, onOpenPlayb
       {types.length > 1 && (
         <div className="flex flex-wrap gap-2">
           {[['all', 'Tất cả', items.length], ...types.map((k) => [k, TYPES[k]?.label || k, items.filter((m) => (m.type || 'metric') === k).length])].map(([k, l, n]) => (
-            <button key={k} onClick={() => setType(k)} className={`rounded-full px-3 py-1 text-sm font-semibold ${type === k ? 'bg-ink text-white' : 'bg-stone-100 text-body hover:bg-stone-200'}`}>{l} · {n}</button>
+            <button key={k} onClick={() => setType(k)} className={`rounded-full px-3 py-1 text-sm font-semibold ${type === k ? 'bg-brand-100 text-brand-800' : 'bg-stone-100 text-body hover:bg-stone-200'}`}>{l} · {n}</button>
           ))}
         </div>
       )}

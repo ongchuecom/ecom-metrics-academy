@@ -13,18 +13,18 @@ const H2 = ({ children, id }) => <h2 id={id} className="mb-3 scroll-mt-20 text-l
 
 function Door({ eyebrow, title, onClick, strong }) {
   return (
-    <button onClick={onClick} className={`group flex h-full flex-col rounded-2xl p-4 text-left transition sm:p-5 ${strong ? 'bg-ink' : 'bg-white ring-1 ring-stone-200 hover:ring-stone-300'}`}>
-      <span className={`eyebrow ${strong ? 'text-white/70' : 'text-muted'}`}>{eyebrow}</span>
-      <span className={`mt-1.5 font-display text-lg font-bold leading-snug ${strong ? 'text-white' : 'text-ink'}`}>{title}</span>
+    <button onClick={onClick} className={`group flex h-full flex-col rounded-2xl p-4 text-left transition sm:p-5 ${strong ? 'bg-lemon hover:bg-brand-200' : 'bg-white ring-1 ring-stone-200 hover:ring-stone-300'}`}>
+      <span className={`eyebrow ${strong ? 'text-navy-ink/80' : 'text-muted'}`}>{eyebrow}</span>
+      <span className={`mt-1.5 font-display text-lg font-bold leading-snug ${strong ? 'text-navy-ink' : 'text-ink'}`}>{title}</span>
       <span className="flex-1" />
-      <span className={`mt-3 text-sm font-bold ${strong ? 'text-white' : 'text-ink'}`}>Bắt đầu →</span>
+      <span className={`mt-3 text-sm font-bold ${strong ? 'text-navy-ink' : 'text-ink'}`}>Bắt đầu →</span>
     </button>
   )
 }
 
 // Minh họa trên trang chủ: một góc bảng giảng, giống video giải thích trong từng bài
 function BoardPeek() {
-  const bars = [['Giá vốn', 320, '#D6D3D1'], ['Phí sàn', 144, '#A8A29E'], ['Ship, đóng gói, hoàn', 60, '#A8A29E'], ['CM2 còn lại', 276, '#FFD200']]
+  const bars = [['Giá vốn', 320, '#D6D3D1'], ['Phí sàn', 144, '#A8A29E'], ['Ship, đóng gói, hoàn', 60, '#A8A29E'], ['CM2 còn lại', 276, '#FFA45C']]
   return (
     <figure className="board relative overflow-hidden rounded-2xl p-5 ring-1 ring-stone-200" aria-label="Ví dụ một bài: CM2 từ Net Sales 800tr">
       <p className="eyebrow text-muted">Ví dụ trong bài CM2</p>
@@ -109,7 +109,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
         <div className="no-scrollbar -mx-4 mb-5 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="tablist" aria-label="Chọn lộ trình">
           {PATHS.map((p) => (
             <button key={p.id} role="tab" aria-selected={path.id === p.id} onClick={() => setPathId(p.id)}
-              className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${path.id === p.id ? 'bg-ink text-white' : 'bg-stone-100 text-body hover:bg-stone-200'}`}>{p.title}</button>
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${path.id === p.id ? 'bg-brand-100 text-brand-800' : 'bg-stone-100 text-body hover:bg-stone-200'}`}>{p.title}</button>
           ))}
         </div>
         {/* chỉ hiện tên ngắn từng bài; câu giải thích nằm trong bài */}

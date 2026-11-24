@@ -68,7 +68,7 @@ export default function CaseStudy({ metric, onSelect }) {
     <section id="tinh-huong" className="scroll-mt-20 space-y-5">
       <SectionTitle eyebrow="Tình huống thực tế" title={c.title} tone="orange" desc={`Video ${c.duration} · ${c.note}`} />
 
-      <div className="overflow-hidden rounded-2xl bg-ink">
+      <div className="overflow-hidden rounded-2xl bg-brand-50">
         <div className="relative aspect-video">
           {play ? (
             <iframe src={BASE + c.video} title={c.title} className="absolute inset-0 h-full w-full" allow="autoplay; fullscreen" allowFullScreen />

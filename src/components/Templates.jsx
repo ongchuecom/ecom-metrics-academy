@@ -107,7 +107,7 @@ function Sheet({ t }) {
                 <tr key={r.k} className={r.strong ? 'font-semibold' : ''}>
                   <td className="border border-stone-200 px-2 py-1 text-center text-xs text-stone-400">{i + 2}</td>
                   <td className="border border-stone-200 px-2 py-1">{r.label}</td>
-                  <td className={`border border-stone-200 px-1 py-0.5 text-right ${isInput ? 'bg-amber-50' : 'bg-white'}`}>
+                  <td className={`border border-stone-200 px-1 py-0.5 text-right ${isInput ? 'bg-brand-50' : 'bg-white'}`}>
                     {isInput ? (
                       <input type="number" inputMode="decimal" step={r.fmt === 'pct' ? 0.01 : 'any'} value={inputs[r.k]}
                         onChange={(e) => setInputs((s) => ({ ...s, [r.k]: e.target.value === '' ? 0 : Number(e.target.value) }))}

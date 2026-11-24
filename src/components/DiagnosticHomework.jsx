@@ -25,7 +25,7 @@ function LockedTask({ task, index }) {
         Bước {index} · {task.type === 'numeric_input' ? 'Tính toán' : 'Quyết định chiến lược'}
       </p>
       <p className="mt-1 text-stone-500">{task.question}</p>
-      <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-ink px-3 py-1 text-xs font-semibold text-white">Giải đúng bước {index - 1} để mở khóa</p>
+      <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-1 text-xs font-semibold text-white hover:bg-brand-700">Giải đúng bước {index - 1} để mở khóa</p>
     </div>
   )
 }

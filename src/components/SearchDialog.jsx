@@ -109,7 +109,7 @@ export default function SearchDialog({ open, onClose, onSelectMetric, onOpenPlay
               <li key={it.kind + it.id}>
                 <button onClick={() => go(it)} onMouseEnter={() => setActive(i)}
                   className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left ${i === active ? 'bg-brand-50' : ''}`}>
-                  <span className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-bold ${it.kind === 'pb' ? 'bg-brand-600 text-white' : it.kind === 'topic' ? 'bg-ink text-white' : 'bg-stone-100 text-charcoal'}`}>{it.meta}</span>
+                  <span className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-bold ${it.kind === 'pb' ? 'bg-brand-600 text-white' : it.kind === 'topic' ? 'bg-brand-100 text-brand-800' : 'bg-stone-100 text-charcoal'}`}>{it.meta}</span>
                   <span className="min-w-0">
                     <span className="block font-display text-sm font-bold text-ink">{it.title}</span>
                     <span className="line-clamp-1 block text-xs text-charcoal">{it.sub}</span>

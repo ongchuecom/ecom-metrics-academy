@@ -56,7 +56,7 @@ export function SpendBars({ bars }) {
             <span className="flex items-center gap-2">
               <span className="h-3 rounded-r-[4px] transition-opacity" style={{
                 width: `${Math.max(1.5, (Math.abs(v) / max) * 100)}%`,
-                background: kind === 'focus' ? (oneFocus ? '#F05025' : '#A8A29E') : kind === 'keep' ? '#FFD200' : kind === 'loss' ? '#B42318' : '#D6D3D1',
+                background: kind === 'focus' ? (oneFocus ? '#F05025' : '#A8A29E') : kind === 'keep' ? '#FFA45C' : kind === 'loss' ? '#B42318' : '#D6D3D1',
                 opacity: hover == null || hover === i ? 1 : 0.45,
               }} />
               <span className={`num shrink-0 font-bold ${v < 0 ? 'text-coral' : 'text-ink'}`}>{nf(v)}{un(bars.unit)}</span>
@@ -111,7 +111,7 @@ export function LineChart({ c }) {
         )}
         {c.now && (() => { const nx2 = X(c.now.x), ny = Y(at(c.now.x)), right = nx2 < W * 0.6; return (
           <g>
-            <circle cx={nx2} cy={ny} r="5" fill="#FFD200" stroke="#1A1A1A" strokeWidth="1.5" />
+            <circle cx={nx2} cy={ny} r="5" fill="#FFA45C" stroke="#1A1A1A" strokeWidth="1.5" />
             <text x={nx2 + (right ? 8 : -8)} y={ny + 16} textAnchor={right ? 'start' : 'end'} fontSize="11" fontWeight="700" fill="#1A1A1A">{c.now.label}</text>
           </g>) })()}
         {hx != null && (() => { const yy = at(hx), tx = Math.min(W - 150, Math.max(P.l, X(hx) + 8)); return (
