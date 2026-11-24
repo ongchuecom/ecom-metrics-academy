@@ -146,14 +146,26 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
         ck = cache_key(req.message, str(index.version), req.concept_id)
         cached = qa_cache.get(ck) if standalone else None
 
+        async def confirm_delivered():
+            """Chỉ tính lượt khi khách còn kết nối sau khi mảnh chữ đã gửi. Máy chủ ASGI (uvicorn, giao thức < 2.4)
+            lặng lẽ bỏ qua dữ liệu gửi cho khách đã ngắt, nên "gửi xong" chưa có nghĩa là khách đã nhận."""
+            if hold.settled:
+                return True
+            if await request.is_disconnected():
+                return False
+            hold.mark_delivered()
+            return True
+
         async def run():
-            delivered = False  # chỉ đặt True SAU khi một mảnh chữ đã gửi xong tới khách
+            delivered = False  # đã gửi chữ thật (không phải khoảng trắng) và khách còn kết nối
             try:
                 yield sse(meta)
                 if cached:
                     yield sse({"type": "refs", "refs": cached["refs"]})
                     yield sse({"type": "delta", "text": cached["answer"]})
-                    hold.mark_delivered()
+                    if not await confirm_delivered():
+                        hold.release()  # khách đã ngắt: câu trả lời trong bộ nhớ đệm chưa tới tay họ
+                        return
                     yield sse({"type": "done"})
                     return
                 search_q = " ".join([req.message] + [x for x in [req.shop_context.kenh, *req.shop_context.van_de[-2:]] if x])
@@ -180,14 +192,15 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                         if out:
                             answer.append(out)
                             yield sse({"type": "delta", "text": out})
-                            delivered = True
-                            hold.mark_delivered()
+                            # chỉ chữ thật mới tính là đã trả lời: mảnh toàn khoảng trắng mà sau đó trống thì vẫn trả lượt
+                            if out.strip() and not delivered:
+                                delivered = await confirm_delivered()
                 tail, ctx = sp.finish()
                 if tail:
                     answer.append(tail)
                     yield sse({"type": "delta", "text": tail})
-                    delivered = True
-                    hold.mark_delivered()
+                    if tail.strip() and not delivered:
+                        delivered = await confirm_delivered()
                 if ctx:
                     yield sse({"type": "context_update", "shop_context": ctx})
                 if not "".join(answer).strip():

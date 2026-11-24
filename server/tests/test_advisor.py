@@ -507,3 +507,92 @@ def test_unchanged_resync_reads_no_vectors():
     d.conn = traced
     ingest.upsert_source(d, emb, "m", 64, "site", docs)  # không có gì đổi
     assert not [q for q in sqls if q.lstrip().upper().startswith("SELECT") and "embedding" in q]
+
+
+# ---------- hồi quy theo bản rà soát 208388a ----------
+def _raw_disconnected_chat(app, uid, message, spec="2.3"):
+    """Gọi ASGI trực tiếp: khách gửi câu hỏi rồi ngắt ngay; dữ liệu gửi sau đó bị bỏ lặng lẽ như uvicorn làm."""
+    import asyncio, json as _j
+    body = _j.dumps({"message": message}).encode()
+    scope = {"type": "http", "asgi": {"version": "3.0", "spec_version": spec}, "http_version": "1.1", "method": "POST", "scheme": "http",
+             "path": "/api/chat", "raw_path": b"/api/chat", "query_string": b"", "root_path": "", "client": ("1.2.3.4", 1), "server": ("t", 80),
+             "headers": [(b"host", b"t"), (b"content-type", b"application/json"), (b"authorization", f"Bearer tok-{uid}".encode())]}
+    st = {"first": True, "gone": False, "chunks": []}
+
+    async def receive():
+        if st["first"]:
+            st["first"] = False
+            return {"type": "http.request", "body": body, "more_body": False}
+        st["gone"] = True
+        return {"type": "http.disconnect"}
+
+    async def send(m):
+        if not st["gone"] and m["type"] == "http.response.body":
+            st["chunks"].append(m.get("body", b""))
+
+    async def go():
+        try:
+            await app(scope, receive, send)
+        except Exception:
+            pass
+        await asyncio.sleep(0.3)
+    asyncio.run(go())
+    return sum(b'"delta"' in x for x in st["chunks"])
+
+
+def test_disconnected_client_not_charged_for_cached_answer(env):
+    c = env["client"]
+    c.get("/api/me", headers=H("u60"))
+    c.post("/api/chat", json={"message": "CM2 là gì"}, headers=H("u60"))  # vào bộ nhớ đệm
+    assert c.get("/api/me", headers=H("u60")).json()["used_today"] == 1
+    got = _raw_disconnected_chat(env["app"], "u60", "CM2 là gì")
+    assert got == 0 and c.get("/api/me", headers=H("u60")).json()["used_today"] == 1
+
+
+def test_disconnected_client_not_charged_for_streamed_answer(env):
+    c = env["client"]
+    c.get("/api/me", headers=H("u61"))
+    got = _raw_disconnected_chat(env["app"], "u61", "Câu hỏi chưa có trong bộ nhớ đệm")
+    assert got == 0 and c.get("/api/me", headers=H("u61")).json()["used_today"] == 0
+
+
+def test_whitespace_only_answer_is_refunded(env):
+    c, g = env["client"], env["gemini"]
+    c.get("/api/me", headers=H("u62"))
+    g.pieces = ["\n", "   ", '<ctx>{"sp":"áo"}</ctx>']  # chỉ có khoảng trắng rồi thẻ ẩn
+    ev = read_sse(c.post("/api/chat", json={"message": "câu bị chặn"}, headers=H("u62")))
+    assert ev[-1]["type"] == "error"
+    assert c.get("/api/me", headers=H("u62")).json()["used_today"] == 0
+
+
+def test_source_deleted_mid_sync_does_not_crash():
+    from advisor.db import DB
+    from contextlib import contextmanager
+    import tempfile, os
+    d = DB(os.path.join(tempfile.mkdtemp(), "del.db"))
+    emb = lambda texts: [fake_vec(t) for t in texts]
+    docs = [{"source_type": "document", "ref_id": None, "title": "Tài liệu", "text": "Nội dung tài liệu đủ dài để thành một đoạn tri thức hoàn chỉnh."}]
+    ingest.upsert_source(d, emb, "m", 64, "file:a.pdf", docs)
+    with d.conn() as c:
+        c.execute("UPDATE chunks SET id='old-id'")  # buộc nhánh dùng lại vector
+    real = d.conn
+
+    class Conn:  # chen việc Xóa nguồn vào đúng giữa bước đọc danh sách đoạn và bước đọc vector
+        def __init__(self, c):
+            self.c = c
+
+        def execute(self, sql, *a):
+            if sql.startswith("SELECT embedding FROM chunks WHERE id="):
+                ingest.delete_source(d, "file:a.pdf")
+            return self.c.execute(sql, *a)
+
+        def __getattr__(self, k):
+            return getattr(self.c, k)
+
+    @contextmanager
+    def deleting():
+        with real() as c:
+            yield Conn(c)
+    d.conn = deleting
+    r = ingest.upsert_source(d, emb, "m", 64, "file:a.pdf", docs)
+    assert r["chunks"] == 1

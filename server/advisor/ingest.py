@@ -106,12 +106,16 @@ def upsert_source(db, embed_docs, model: str, dim: int, source: str, docs: list)
     reuse, want = {}, {(r[3], r[4]) for r in todo}
     if want:
         with db.conn() as c:
+            ids = {}
             for r in c.execute("SELECT id, title, content FROM chunks WHERE source=? AND model=? AND dim=?", (source, model, dim)):
                 k = (r["title"], r["content"])
-                if k in want and k not in reuse:
-                    reuse[k] = r["id"]
-            for k, cid in list(reuse.items()):
-                reuse[k] = c.execute("SELECT embedding FROM chunks WHERE id=?", (cid,)).fetchone()["embedding"]
+                if k in want and k not in ids:
+                    ids[k] = r["id"]
+            for k, cid in ids.items():
+                # nguồn có thể vừa bị xóa (quản trị viên bấm Xóa giữa lúc đồng bộ): đoạn biến mất thì nhúng lại, không sập
+                row = c.execute("SELECT embedding FROM chunks WHERE id=?", (cid,)).fetchone()
+                if row is not None:
+                    reuse[k] = row["embedding"]
     fresh = [r for r in todo if (r[3], r[4]) not in reuse]
     fresh_vecs = iter(embed_docs([doc_text(r[3], r[4]) for r in fresh]) if fresh else [])
     vecs = [np.frombuffer(reuse[(r[3], r[4])], dtype=np.float32) if (r[3], r[4]) in reuse else next(fresh_vecs) for r in todo]
