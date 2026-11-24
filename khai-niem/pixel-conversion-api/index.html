@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel / Conversion API là gì? Tracking chuyển đổi (Pixel / Conversion API): giải thích, ví dụ · Ecom Metrics Academy</title>
+    <meta name="description" content="Tracking chuyển đổi là gắn mã đo (Pixel trên trình duyệt, Conversion API gửi từ máy chủ) để nền tảng quảng cáo biết ai đã xem, thêm giỏ, mua hàng. Shop thật…" />
+    <link rel="canonical" href="https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/pixel-conversion-api/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Pixel / Conversion API là gì? Tracking chuyển đổi (Pixel / Conversion API): giải thích, ví dụ · Ecom Metrics Academy" />
+    <meta property="og:description" content="Tracking chuyển đổi là gắn mã đo (Pixel trên trình duyệt, Conversion API gửi từ máy chủ) để nền tảng quảng cáo biết ai đã xem, thêm giỏ, mua hàng. Shop thật…" /><meta property="og:url" content="https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/pixel-conversion-api/" /><meta property="og:locale" content="vi_VN" />
+    <meta property="og:image" content="https://ongchuecom.github.io/ecom-metrics-academy/og.png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#FFDF38" />
+    <script type="module" crossorigin src="/ecom-metrics-academy/assets/index-BY8-gDCl.js"></script>
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/react-BJsqeLoe.js">
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/katex-DW4SxPVY.js">
+    <link rel="stylesheet" crossorigin href="/ecom-metrics-academy/assets/index-QVl1KeKJ.css">
+  </head>
+  <body>
+    <div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6"><p><a href="https://ongchuecom.github.io/ecom-metrics-academy/">Ecom Metrics Academy</a></p>
+<h1>Pixel / Conversion API: Tracking chuyển đổi (Pixel / Conversion API)</h1>
+<p><strong>Vì sao trình quảng cáo báo ít đơn hơn thực tế, và máy tối ưu nhầm khách?</strong></p>
+<p>Tracking chuyển đổi là gắn mã đo (Pixel trên trình duyệt, Conversion API gửi từ máy chủ) để nền tảng quảng cáo biết ai đã xem, thêm giỏ, mua hàng. Shop thật có 100 đơn từ quảng cáo nhưng Pixel chỉ ghi được 70 thì nền tảng chỉ học từ 70 người mua đó, và báo ROAS thấp hơn thực tế.</p>
+<p>Từ khoảng 2015 Google và Facebook cho chạy tối ưu chuyển đổi: ngân sách đủ lớn và đo lường đúng quy tắc thì hệ thống tự biết phân phối cho người sẽ mua. Các nền tảng làm web, landing page lớn lên nhờ giải bài toán tracking này. Đo sai thì máy tối ưu ra click, ra người tò mò, không ra đơn.</p>
+
+<h2>Đo thiếu thì cắt nhầm quảng cáo đang lãi</h2><p>Chi 10tr, đơn trung bình 300k. Trình quảng cáo ghi 70 đơn: 70 × 300k = 21tr, ROAS = 21tr ÷ 10tr = 2,1. Đơn thật là 100: 100 × 300k = 30tr, ROAS = 30tr ÷ 10tr = 3.</p><p>ROAS hòa vốn của shop là 2,5 thì nhìn số báo cáo sẽ tắt chiến dịch, trong khi thực tế nó đang lãi. Đo thiếu 30% vừa làm quyết định sai, vừa làm máy học chậm.</p>
+<h2>Đơn đặt chưa phải đơn thật</h2><p>Với hàng COD, sự kiện mua hàng được ghi lúc khách bấm đặt, không phải lúc nhận hàng. Tỷ lệ hoàn 25% thì 100 đơn báo về chỉ còn 75 đơn tiền về. Shop lớn gửi ngược đơn giao thành công lên nền tảng hoặc tự tính lại ROAS trên đơn giao được, để máy học từ người nhận hàng chứ không phải người bom hàng.</p>
+<h2>Hay hiểu sai</h2><ul><li>Chọn tối ưu cho lượt click hoặc lượt xem trang vì rẻ, rồi thắc mắc sao không ra đơn.</li><li>Gắn Pixel một lần rồi để đó, không đối chiếu với số đơn thật nên đo lệch nhiều tháng không biết.</li><li>Bắn sự kiện mua hàng hai lần cho một đơn, báo cáo đẹp nhưng máy học sai.</li></ul>
+<p><strong>Nhớ một câu:</strong> Máy quảng cáo chỉ thông minh bằng tín hiệu mình gửi: đo đúng tới đơn thật thì nó mới tìm ra người mua thật.</p>
+
+<h2>Khái niệm liên quan</h2><ul><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/cpa/">CPA: Chi phí quảng cáo trên mỗi đơn hàng (CPA)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/roas-hoa-von/">ROAS hòa vốn: ROAS hòa vốn (Điểm hòa vốn quảng cáo)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/rto/">RTO: Tỷ lệ hoàn hàng (Tỷ lệ bom hàng / RTO)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/doanh-thu-tu-nhien/">Doanh thu tự nhiên: Tỷ lệ doanh thu tự nhiên vs Quảng cáo</a></li></ul></main></div>
+  </body>
+</html>
