@@ -122,7 +122,8 @@ const jacc = (a, b) => { let i = 0; for (const x of a) if (b.has(x)) i++; return
 const defTok = Object.fromEntries(catalog.items.map((c) => [c.id, tokens(full[c.id].definition)]))
 
 // ---------- 4, 5 ----------
-const RISKY = /thu[eế]|lu[aậ]t|ngh[iị] đ[iị]nh|th[oô]ng t[uư]|ph[aạ]t|h[oó]a đ[oơ]n|b[aả]o hi[eể]m x[aã] h[oộ]i|h[oợ]p đ[oồ]ng|quy[eế]t to[aá]n/i
+// khớp trọn từ có dấu (tránh 'phát' bị hiểu là 'phạt')
+const RISKY = /(?<!\p{L})(thuế|luật|nghị định|thông tư|phạt|hóa đơn|hoá đơn|bảo hiểm xã hội|hợp đồng|quyết toán|truy thu)(?!\p{L})/iu
 
 for (const c of catalog.items) {
   const id = c.id, x = full[id], L = x.lesson
@@ -153,7 +154,7 @@ for (const c of catalog.items) {
   }
   // rủi ro
   const all = [x.definition, ...textsOf(L).map(([, t]) => t)].join(' ')
-  if (newIds.has(id) && RISKY.test(fold(all) + ' ' + all) && x.risk !== 'high') E(id, 'bài nhắc thuế, luật, hóa đơn, phạt… phải đặt risk "high" để duyệt từng bài')
+  if (newIds.has(id) && RISKY.test(all.normalize('NFC')) && x.risk !== 'high') E(id, 'bài nhắc thuế, luật, hóa đơn, phạt… phải đặt risk "high" để duyệt từng bài')
   // khẩu vị
   if (/Ông chú Ecom|A1demy/i.test(textsOf(L).map(([, t]) => t).join(' '))) E(id, 'không chèn tên thương hiệu (Ông chú Ecom, A1demy) vào bài')
   if (newIds.has(id) && !x.sources?.length) E(id, 'khái niệm mới phải ghi sources (lấy từ đâu)')

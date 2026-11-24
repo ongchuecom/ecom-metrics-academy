@@ -1,4 +1,5 @@
-import { metricById, metricsMaster, playbooks, playbookById, LEARNING_PATH } from '../data/index.js'
+import { useState } from 'react'
+import { metricById, metricsMaster, playbooks, playbookById, PATHS } from '../data/index.js'
 import site from '../data/site.json'
 import { pbTitle } from './Playbooks.jsx'
 import LeadForm from './LeadForm.jsx'
@@ -48,6 +49,10 @@ function BoardPeek() {
 
 export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onSearch }) {
   const pb1 = playbookById.pb_01_profit_reality, pb2 = playbookById.pb_02_cashflow_trap
+  // lộ trình đang xem trên trang chủ; bấm vào bài thì ghi nhớ lộ trình để thanh tiến độ trong bài đi theo
+  const [pathId, setPathId] = useState(() => { try { return localStorage.getItem('ema-path') || PATHS[0].id } catch { return PATHS[0].id } })
+  const path = PATHS.find((p) => p.id === pathId) || PATHS[0]
+  const startPath = (id) => { try { localStorage.setItem('ema-path', path.id) } catch { /* bỏ qua */ } onSelectMetric(id) }
   const nM = metricsMaster.length, nP = playbooks.length
   const c = site.contact || {}
   const hasForm = !!site.lead?.endpoint
@@ -176,13 +181,20 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
       </section>
 
       <section id="lo-trinh" aria-labelledby="lo-trinh-h">
-        <H2 id="lo-trinh-h">Lộ trình học từ đầu</H2>
+        <H2 id="lo-trinh-h">Lộ trình theo vai trò</H2>
+        <div className="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="tablist" aria-label="Chọn lộ trình">
+          {PATHS.map((p) => (
+            <button key={p.id} role="tab" aria-selected={path.id === p.id} onClick={() => setPathId(p.id)}
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${path.id === p.id ? 'bg-ink text-white' : 'bg-stone-100 text-body hover:bg-stone-200'}`}>{p.title}</button>
+          ))}
+        </div>
+        <p className="mb-3 text-sm text-charcoal"><b className="text-ink">{path.who}.</b> {path.desc} {path.items.length} bài.</p>
         <ol className="grid gap-x-6 sm:grid-cols-2">
-          {LEARNING_PATH.map((id, i) => {
+          {path.items.map((id, i) => {
             const m = metricById[id]
             return (
               <li key={id}>
-                <button onClick={() => onSelectMetric(id)} className="flex w-full items-baseline gap-3 border-b border-stone-100 py-2.5 text-left hover:bg-brand-50">
+                <button onClick={() => startPath(id)} className="flex w-full items-baseline gap-3 border-b border-stone-100 py-2.5 text-left hover:bg-brand-50">
                   <span className="w-6 shrink-0 text-right font-display text-sm font-black text-brand-600">{i + 1}</span>
                   <span className="min-w-0">
                     <span className="font-display font-extrabold text-ink">{m.code}</span>
@@ -193,6 +205,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             )
           })}
         </ol>
+        <button onClick={() => startPath(path.items[0])} className="mt-4 rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Bắt đầu lộ trình “{path.title}” →</button>
       </section>
 
       <section aria-labelledby="playbooks-h">

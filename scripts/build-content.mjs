@@ -89,6 +89,9 @@ for (const { full: x } of items) for (const r of x.relationships?.related || [])
   if (o) { o.relationships.related = o.relationships.related || []; if (!o.relationships.related.some((z) => z.metric_id === x.metric_id)) o.relationships.related.push({ metric_id: x.metric_id }) }
 }
 
+// Lộ trình theo vai trò: id phải tồn tại
+for (const p of read('src/data/paths.json').paths) for (const id of p.items) if (!ids.has(id)) err(`lộ trình ${p.id}`, `id không tồn tại: ${id}`)
+
 if (errors.length) { console.error('✗ Nội dung chưa hợp lệ:\n' + errors.map((e) => '  ' + e).join('\n')); process.exit(1) }
 
 // ---- xuất ----

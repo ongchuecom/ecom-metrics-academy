@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
-import { metricById, metricsMaster, playbookById, LEARNING_PATH, topicById } from './data/index.js'
+import { metricById, metricsMaster, playbookById, PATHS, pathById, topicById } from './data/index.js'
 import { href, parse } from './lib/route.js'
 import { PlaybookPage } from './components/Playbooks.jsx'
 import Leaderboard from './components/Leaderboard.jsx'
@@ -151,7 +151,12 @@ export default function App() {
   }, [setTab])
 
   // Bài trước / tiếp: theo lộ trình nếu bài nằm trong lộ trình, còn lại theo thứ tự khâu
-  const pathIdx = metric ? LEARNING_PATH.indexOf(metric.metric_id) : -1
+  // Lộ trình đang theo: lộ trình người đọc chọn (lưu trên máy) nếu có bài này, không thì lộ trình đầu tiên chứa bài này
+  const chosen = (() => { try { return pathById[localStorage.getItem('ema-path')] } catch { return null } })()
+  const path = metric ? (chosen?.items.includes(metric.metric_id) ? chosen : PATHS.find((p) => p.items.includes(metric.metric_id))) : null
+  const LEARNING_PATH = path?.items || []
+  const pathIdx = metric && path ? LEARNING_PATH.indexOf(metric.metric_id) : -1
+  // ngoài lộ trình: bài trước/tiếp theo thứ tự trong cùng chủ đề rồi tới chủ đề sau
   const order = pathIdx >= 0 ? LEARNING_PATH : metricsMaster.map((m) => m.metric_id)
   const at = metric ? order.indexOf(metric.metric_id) : -1
   const prev = metricById[order[at - 1]], next = metricById[order[at + 1]]
@@ -233,7 +238,7 @@ export default function App() {
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
             {pathIdx >= 0 && (
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl bg-brand-50 px-4 py-2 text-sm">
-                <span className="font-display font-extrabold text-brand-700">Lộ trình học · Bài {pathIdx + 1}/{LEARNING_PATH.length}</span>
+                <span className="font-display font-extrabold text-brand-700">{path.title} · Bài {pathIdx + 1}/{LEARNING_PATH.length}</span>
                 <span className="flex gap-1" aria-hidden="true">{LEARNING_PATH.map((id, i) => <i key={id} className={`h-1.5 w-4 rounded-full ${i <= pathIdx ? 'bg-brand-500' : 'bg-brand-100'}`} />)}</span>
                 {next && <button onClick={() => select(next.metric_id)} className="ml-auto font-semibold text-brand-700 hover:underline">Tiếp: {next.code} →</button>}
               </div>

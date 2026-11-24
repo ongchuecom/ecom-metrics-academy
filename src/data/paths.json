@@ -1,0 +1,15 @@
+{
+  "_huong_dan": "Lộ trình học theo vai trò. items là id khái niệm theo thứ tự đọc (build sẽ báo lỗi nếu id không tồn tại). Lộ trình đầu tiên là lộ trình mặc định.",
+  "paths": [
+    { "id": "lai-that", "title": "Lãi thật của một đơn hàng", "who": "Ai cũng nên đọc trước", "desc": "Đi từ tiền thật của một đơn tới dòng tiền, mỗi bài năm phút.",
+      "items": ["vn_fin_net_sales", "vn_fin_cm1", "vn_fin_platform_fee", "vn_fin_cm2", "vn_fin_breakeven_roas", "vn_mkt_cpa", "vn_sales_aov", "vn_fin_cm3", "vn_fin_net_profit", "vn_fin_ccc"] },
+    { "id": "khoi-nghiep", "title": "Người mới khởi nghiệp", "who": "Sắp hoặc mới bắt đầu làm Ecom", "desc": "Biết khi nào là qua giai đoạn bấp bênh, tiền đủ sống bao lâu, bán bao nhiêu thì không lỗ.",
+      "items": ["vn_str_zero_to_one", "vn_fin_net_sales", "vn_fin_cm2", "vn_fin_breakeven_roas", "vn_fin_opex_ratio", "vn_fin_breakeven_rev", "vn_fin_cash_runway", "vn_fin_ccc", "vn_fin_payback_period"] },
+    { "id": "chu-shop", "title": "Chủ shop đang vận hành", "who": "Đã có doanh thu đều, muốn lãi dày và bớt rò tiền", "desc": "Tìm chỗ rò tiền: doanh thu lỗ, hoàn hàng, tồn kho, tiền kẹt, bộ máy phình.",
+      "items": ["vn_fin_cm3", "vn_fin_net_profit", "vn_fin_loss_revenue_share", "vn_ops_rto_rate", "vn_ops_dio", "vn_ops_dead_stock", "vn_fin_pending_payout", "vn_fin_reconciliation_gap", "vn_team_gp_per_staff", "vn_fin_tax_reserve"] },
+    { "id": "team-ads", "title": "Team Ads & nội dung", "who": "Media buyer, người làm nội dung, KOC", "desc": "Chạy Ads có lãi: từ video, tỷ lệ nhấp, chuyển đổi tới ROAS hòa vốn và giá trị khách.",
+      "items": ["vn_mkt_hook_rate", "vn_mkt_ctr", "vn_sales_pdp_cvr", "vn_mkt_cpa", "vn_sales_aov", "vn_fin_cm2", "vn_fin_breakeven_roas", "vn_team_creative_win_rate", "vn_mkt_organic_vs_paid", "vn_ret_clv"] },
+    { "id": "ke-toan", "title": "Kế toán & tài chính", "who": "Kế toán, người giữ tiền của shop", "desc": "Đối soát, thuế, hóa đơn, công nợ và vòng quay tiền.",
+      "items": ["vn_fin_net_sales", "vn_fin_platform_fee", "vn_fin_tax_reserve", "vn_fin_vat_input_ratio", "vn_fin_pending_payout", "vn_fin_reconciliation_gap", "vn_fin_dso", "vn_fin_dpo", "vn_fin_ccc", "vn_fin_working_capital_turnover"] }
+  ]
+}

@@ -43,8 +43,8 @@ for (const [old, now] of Object.entries({ 'tien-lech-so': 'chenh-lech-doi-soat' 
 export const playbookBySlug = Object.fromEntries(playbooks.map((p) => [p.slug, p]))
 export const topicBySlug = topicById // id chủ đề đã là slug
 
-// Lộ trình học từ đầu: đi từ tiền thật của 1 đơn tới dòng tiền
-export const LEARNING_PATH = [
-  'vn_fin_net_sales', 'vn_fin_cm1', 'vn_fin_platform_fee', 'vn_fin_cm2', 'vn_fin_breakeven_roas',
-  'vn_mkt_cpa', 'vn_sales_aov', 'vn_fin_cm3', 'vn_fin_net_profit', 'vn_fin_ccc',
-]
+// Lộ trình theo vai trò (src/data/paths.json); lộ trình đầu tiên là mặc định
+import pathsData from './paths.json'
+export const PATHS = pathsData.paths
+export const pathById = Object.fromEntries(PATHS.map((p) => [p.id, p]))
+export const LEARNING_PATH = PATHS[0].items

@@ -6,10 +6,11 @@ import ExplainerVideo from './ExplainerVideo.jsx'
 import MetricDependencyGraph from './MetricDependencyGraph.jsx'
 import { FormulaTree, Chart } from './LessonVisuals.jsx'
 import { PlaybookLinks } from './Playbooks.jsx'
+import { linkify } from '../lib/glossary.jsx'
 
-// **đậm** → <b>
-export function Rich({ text }) {
-  return text.split('**').map((s, i) => (i % 2 ? <b key={i}>{s}</b> : s))
+// **đậm** → <b>; phần chữ thường được tự gắn link thuật ngữ khi có g (ngữ cảnh gắn link của bài)
+export function Rich({ text, g }) {
+  return text.split('**').map((s, i) => (i % 2 ? <b key={i}>{s}</b> : g ? <span key={i}>{linkify(s, { ...g, keyPrefix: `${i}-` })}</span> : s))
 }
 
 function Latex({ src }) {
@@ -45,6 +46,8 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
   const topic = topicById[metric.topic]
   const L = metric.lesson
   const isMetric = metric.type === 'metric' || !metric.type
+  // gắn link thuật ngữ theo thứ tự đọc, mỗi khái niệm một lần trong bài
+  const g = { selfId: metric.metric_id, used: new Set(), onSelect }
   const bench = Object.entries(metric.benchmarks || {}).filter(([, v]) => v)
   const [first, ...rest] = L?.sections || []
   return (
@@ -61,7 +64,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
           <p className="mt-2 max-w-3xl rounded-lg bg-stone-50 px-3 py-2 text-xs leading-relaxed text-charcoal"><b className="text-ink">{isMetric ? 'Chỉ số tự xây.' : 'Khái niệm tự xây.'}</b> {metric.basis.note}</p>
         )}
         <div className="prose-lesson mt-3 max-w-3xl">
-          {(L?.intro || [metric.definition]).map((p, i) => <p key={i}><Rich text={p} /></p>)}
+          {(L?.intro || [metric.definition]).map((p, i) => <p key={i}><Rich text={p} g={g} /></p>)}
         </div>
       </header>
 
@@ -85,13 +88,13 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
           {L?.breakdown && (
             <Box id="vi-du" title={L.breakdown.title}>
               <Chart c={L.breakdown.chart} />
-              {L.breakdown.after && <p className="mt-3 text-sm leading-relaxed text-body"><Rich text={L.breakdown.after} /></p>}
+              {L.breakdown.after && <p className="mt-3 text-sm leading-relaxed text-body"><Rich text={L.breakdown.after} g={g} /></p>}
             </Box>
           )}
           {first && (
             <Box id="nguong" title={first.title}>
               <Chart c={first.chart} />
-              <div className="prose-lesson mt-2">{first.body.map((p, i) => <p key={i}><Rich text={p} /></p>)}</div>
+              <div className="prose-lesson mt-2">{first.body.map((p, i) => <p key={i}><Rich text={p} g={g} /></p>)}</div>
             </Box>
           )}
         </div>
@@ -100,14 +103,14 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {rest.map((s) => (
         <Box key={s.title} title={s.title}>
           {s.chart && <div className="mb-3"><Chart c={s.chart} /></div>}
-          <div className="prose-lesson">{s.body.map((p, i) => <p key={i}><Rich text={p} /></p>)}</div>
+          <div className="prose-lesson">{s.body.map((p, i) => <p key={i}><Rich text={p} g={g} /></p>)}</div>
         </Box>
       ))}
 
       {L?.mistakes && (
         <Box id="hay-hieu-sai" title="Hay hiểu sai">
           <ul className="space-y-1.5">
-            {L.mistakes.map((m) => <li key={m} className="flex gap-2 text-sm leading-relaxed text-body"><span className="font-black text-brand-600">×</span><span>{m}</span></li>)}
+            {L.mistakes.map((m) => <li key={m} className="flex gap-2 text-sm leading-relaxed text-body"><span className="font-black text-brand-600">×</span><span><Rich text={m} g={g} /></span></li>)}
           </ul>
         </Box>
       )}
