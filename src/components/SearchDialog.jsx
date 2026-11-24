@@ -51,15 +51,15 @@ function search(index, q) {
 export function SearchButton({ onClick, variant = 'side' }) {
   if (variant === 'icon') {
     return (
-      <button onClick={onClick} aria-label="Tìm kiếm" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30">
+      <button onClick={onClick} aria-label="Tìm kiếm" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-ink ring-1 ring-stone-200 hover:bg-stone-50">
         <svg viewBox="0 0 20 20" className="h-[18px] w-[18px] fill-none stroke-current" strokeWidth="2" aria-hidden="true"><circle cx="9" cy="9" r="6" /><path d="M13.5 13.5 17 17" strokeLinecap="round" /></svg>
       </button>
     )
   }
   return (
-    <button onClick={onClick} className="flex w-full items-center gap-2 rounded-xl bg-white/95 px-3 py-2 text-left text-sm text-muted shadow-sm hover:bg-white">
+    <button onClick={onClick} className="flex w-full items-center gap-2 rounded-lg bg-white px-3 py-2 text-left text-sm text-muted ring-1 ring-stone-200 transition hover:ring-stone-300">
       <svg viewBox="0 0 20 20" className="h-4 w-4 fill-none stroke-current" strokeWidth="2" aria-hidden="true"><circle cx="9" cy="9" r="6" /><path d="M13.5 13.5 17 17" strokeLinecap="round" /></svg>
-      <span className="flex-1">Tìm khái niệm, chủ đề…</span>
+      <span className="flex-1 truncate">Tìm khái niệm…</span>
       <kbd className="rounded bg-stone-100 px-1.5 py-0.5 font-sans text-[11px] text-charcoal">Ctrl K</kbd>
     </button>
   )
@@ -111,7 +111,7 @@ export default function SearchDialog({ open, onClose, onSelectMetric, onOpenPlay
                   className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left ${i === active ? 'bg-brand-50' : ''}`}>
                   <span className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-bold ${it.kind === 'pb' ? 'bg-brand-600 text-white' : it.kind === 'topic' ? 'bg-ink text-white' : 'bg-stone-100 text-charcoal'}`}>{it.meta}</span>
                   <span className="min-w-0">
-                    <span className="block font-display text-sm font-extrabold text-ink">{it.title}</span>
+                    <span className="block font-display text-sm font-bold text-ink">{it.title}</span>
                     <span className="line-clamp-1 block text-xs text-charcoal">{it.sub}</span>
                   </span>
                 </button>

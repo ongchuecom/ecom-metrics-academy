@@ -20,9 +20,9 @@ const jobKind = (k) => { const [kind, ...rest] = String(k).split(':'); return (J
 // cùng bộ với NEED_REVIEW trong server/advisor/app.py
 const NEED = new Set(['underpaid', 'unmatched', 'unknown_order', 'already_paid', 'paid_overpaid'])
 const Card = ({ label, value, warn }) => (
-  <div className="rounded-2xl bg-stone-50 p-4"><p className="text-xs font-semibold text-muted">{label}</p><p className={`mt-1 font-display text-2xl font-black ${warn ? 'text-coral' : 'text-ink'}`}>{value ?? '–'}</p></div>
+  <div className="rounded-2xl bg-stone-50 p-4"><p className="text-xs font-semibold text-muted">{label}</p><p className={`mt-1 font-display text-2xl font-bold ${warn ? 'text-coral' : 'text-ink'}`}>{value ?? '–'}</p></div>
 )
-const H = ({ children }) => <h3 className="mb-2 text-base font-extrabold text-brand-600">{children}</h3>
+const H = ({ children }) => <h3 className="mb-2 text-base font-bold text-ink">{children}</h3>
 const btn = 'rounded-xl bg-white px-3 py-1.5 text-sm font-semibold ring-1 ring-stone-200 hover:ring-brand-500 disabled:opacity-50'
 
 export default function AdminAdvisor() {

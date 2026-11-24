@@ -35,7 +35,7 @@ export default function LeadForm({ source, summary, title, text, compact = false
 
   if (state === 'done') return (
     <section className="rounded-2xl bg-brand-50 p-5">
-      <p className="font-display text-lg font-extrabold text-ink">Đã nhận, cảm ơn {f.name.trim()}!</p>
+      <p className="font-display text-lg font-bold text-ink">Đã nhận, cảm ơn {f.name.trim()}!</p>
       <p className="mt-1 text-sm text-body">Ông chú Ecom sẽ nhắn Zalo số {normPhone(f.zalo)} trong vài ngày tới.</p>
     </section>
   )
@@ -43,8 +43,8 @@ export default function LeadForm({ source, summary, title, text, compact = false
   const input = 'w-full rounded-xl bg-white px-3 py-2.5 text-sm text-ink ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500'
   return (
     <section className={`rounded-2xl bg-stone-50 ${compact ? 'p-4' : 'p-4 sm:p-6'}`} aria-label="Để lại Zalo">
-      <p className="eyebrow text-brand-600">Tư vấn 1-1 qua Zalo</p>
-      <h2 className="mt-1 font-display text-lg font-extrabold leading-snug text-ink sm:text-xl">{title || 'Muốn Ông chú Ecom xem giúp số của shop?'}</h2>
+      <p className="eyebrow text-muted">Tư vấn 1-1 qua Zalo</p>
+      <h2 className="mt-1 font-display text-lg font-bold leading-snug text-ink sm:text-xl">{title || 'Muốn Ông chú Ecom xem giúp số của shop?'}</h2>
       <p className="mt-1 text-sm leading-relaxed text-charcoal">{text || 'Để lại tên và số Zalo. Mình nhắn riêng, gửi kèm bảng tính P&L và gợi ý chỗ nên sửa trước.'}</p>
       <form onSubmit={submit} className="mt-4 grid gap-2 sm:grid-cols-2" noValidate>
         <input className={input} placeholder="Tên gọi" value={f.name} onChange={set('name')} autoComplete="name" aria-label="Tên gọi" maxLength={80} />
@@ -71,7 +71,7 @@ export default function LeadForm({ source, summary, title, text, compact = false
         </label>
         {err && <p className="text-sm font-semibold text-coral sm:col-span-2">{err}</p>}
         {state === 'error' && <p className="text-sm font-semibold text-coral sm:col-span-2">Chưa gửi được, anh/chị thử lại sau ít phút.</p>}
-        <button type="submit" disabled={state === 'sending'} className="rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-60 sm:col-span-2 sm:justify-self-start">
+        <button type="submit" disabled={state === 'sending'} className="rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-60 sm:col-span-2 sm:justify-self-start">
           {state === 'sending' ? 'Đang gửi…' : 'Gửi số Zalo'}
         </button>
       </form>

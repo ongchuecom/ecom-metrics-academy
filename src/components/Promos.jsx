@@ -13,7 +13,7 @@ function Cover({ item, i }) {
   return (
     <div className="flex h-full w-full flex-col justify-between p-4" style={st}>
       <span className="eyebrow opacity-90">{item.kind}</span>
-      <span className="font-display text-2xl font-black uppercase leading-[1.05]">{item.title}</span>
+      <span className="font-display text-2xl font-bold uppercase leading-[1.05]">{item.title}</span>
     </div>
   )
 }
@@ -29,21 +29,21 @@ export function ProductCards() {
             <>
               <div className="aspect-[16/9] overflow-hidden"><img src={it.image} alt={it.title} loading="lazy" className="h-full w-full object-cover" /></div>
               <div className="px-4 pt-4">
-                <p className="eyebrow text-brand-600">{it.kind}</p>
-                <h3 className="mt-1 font-display text-lg font-extrabold leading-snug text-ink">{it.title}</h3>
+                <p className="eyebrow text-muted">{it.kind}</p>
+                <h3 className="mt-1 font-display text-lg font-bold leading-snug text-ink">{it.title}</h3>
               </div>
             </>
           ) : (
             // chưa có ảnh: dải màu gọn mang tên sản phẩm, không lặp lại tên bên dưới
-            <div className={`px-4 py-4 ${i === 0 ? 'book-band text-white' : 'bg-brand-50 text-brand-700'}`}>
-              <p className={`eyebrow ${i === 0 ? 'text-white/85' : ''}`}>{it.kind}</p>
-              <h3 className={`mt-1 font-display text-xl font-black uppercase leading-tight ${i === 0 ? "text-white" : "text-ink"}`}>{it.title}</h3>
+            <div className="px-4 pt-4">
+              <p className="eyebrow text-muted">{it.kind}</p>
+              <h3 className="mt-1 text-lg font-semibold leading-snug text-ink">{it.title}</h3>
             </div>
           )}
           <div className="flex flex-1 flex-col p-4 pt-3">
             {it.desc && <p className="flex-1 text-sm leading-relaxed text-charcoal">{it.desc}</p>}
             <a href={it.url} target="_blank" rel="noopener noreferrer"
-              className="mt-4 self-start rounded-full bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white hover:bg-brand-700">
+              className="mt-4 self-start rounded-lg bg-brand-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-brand-700">
               {it.cta || 'Xem chi tiết'} →
             </a>
           </div>
@@ -73,7 +73,7 @@ export default function Promos({ compact = false }) {
             className="group w-[68%] shrink-0 snap-start overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200/70 transition hover:ring-brand-500 sm:w-auto">
             <div className="aspect-[4/3] overflow-hidden sm:aspect-[16/9]"><Cover item={it} i={i} /></div>
             <div className="flex items-center justify-between gap-2 px-4 py-3">
-              <span className="font-display font-extrabold leading-snug text-ink">{it.title}</span>
+              <span className="font-display font-bold leading-snug text-ink">{it.title}</span>
               <span className="shrink-0 font-bold text-brand-600 transition group-hover:translate-x-0.5" aria-hidden="true">→</span>
             </div>
           </a>

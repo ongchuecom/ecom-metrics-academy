@@ -24,15 +24,15 @@ const pageHref = (id) => (metricById[id] ? href({ type: 'metric', id }) : playbo
 const Card = ({ label, value, note, warn }) => (
   <div className="rounded-2xl bg-stone-50 p-4">
     <p className="text-xs font-semibold text-muted">{label}</p>
-    <p className={`mt-1 font-display text-2xl font-black ${warn ? 'text-coral' : 'text-ink'}`}>{value ?? '–'}</p>
+    <p className={`mt-1 font-display text-2xl font-bold ${warn ? 'text-coral' : 'text-ink'}`}>{value ?? '–'}</p>
     {note && <p className="mt-0.5 text-xs text-charcoal">{note}</p>}
   </div>
 )
-const H2 = ({ children }) => <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />{children}</h2>
+const H2 = ({ children }) => <h2 className="mb-3 text-lg font-bold text-ink">{children}</h2>
 const Bar = ({ v, max, color = '#F05025' }) => <span className="block h-2.5 rounded-r" style={{ width: `${max ? Math.max(2, (v / max) * 100) : 0}%`, background: color }} />
 const Status = ({ ok, label, note }) => (
   <li className="flex gap-3 py-2">
-    <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-black text-white ${ok ? 'bg-ok' : 'bg-stone-300'}`}>{ok ? '✓' : '!'}</span>
+    <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white ${ok ? 'bg-ok' : 'bg-stone-300'}`}>{ok ? '✓' : '!'}</span>
     <span className="min-w-0 text-sm"><b className="text-ink">{label}</b>{note && <span className="block text-charcoal">{note}</span>}</span>
   </li>
 )
@@ -70,8 +70,8 @@ export default function Admin() {
     <article className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="eyebrow text-brand-600">Ecom Metrics Academy</p>
-          <h1 className="mt-1 font-display text-2xl font-black text-ink sm:text-3xl">Quản trị</h1>
+          <p className="eyebrow text-muted">Ecom Metrics Academy</p>
+          <h1 className="mt-1 font-display text-2xl font-bold text-ink sm:text-3xl">Quản trị</h1>
         </div>
         {user && <p className="text-xs text-muted">Đăng nhập: {user.name || 'tài khoản'} · {admin ? 'quản trị viên' : 'chưa có quyền quản trị'}</p>}
       </header>
@@ -106,7 +106,7 @@ function Gate({ user, ready, openLogin }) {
   if (!user) return (
     <div className="rounded-2xl bg-stone-50 p-5">
       <p className="text-sm text-body">Đăng nhập bằng tài khoản quản trị để xem.</p>
-      <button onClick={() => openLogin('Đăng nhập bằng tài khoản quản trị viên.')} className="mt-3 rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập</button>
+      <button onClick={() => openLogin('Đăng nhập bằng tài khoản quản trị viên.')} className="mt-3 rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập</button>
     </div>
   )
   return (
@@ -258,7 +258,7 @@ function Feedback({ fb, token, setToken, reload }) {
       </ol>
       <form className="flex flex-wrap gap-2" onSubmit={(e) => { e.preventDefault(); if (draft.trim()) setToken(draft.trim()) }}>
         <input type="password" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="github_pat_…" autoComplete="off" className="min-w-0 flex-1 rounded-xl bg-white px-3 py-2 ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500" />
-        <button className="rounded-full bg-ink px-4 py-2 font-bold text-white">Lưu trên máy này</button>
+        <button className="rounded-lg bg-ink px-4 py-2 font-bold text-white">Lưu trên máy này</button>
       </form>
       <p className="text-xs text-muted">Token chỉ lưu trong trình duyệt của máy này, không gửi đi đâu ngoài GitHub. Đừng dùng token có quyền ghi.</p>
     </div>

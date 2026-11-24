@@ -24,8 +24,8 @@ function Latex({ src }) {
 // Tiêu đề khu vực lớn (dùng ngoài bài đọc)
 export function H2({ children, id }) {
   return (
-    <h2 id={id} className="mb-3 flex scroll-mt-20 items-center gap-2 text-lg font-extrabold text-brand-600">
-      <span className="h-4 w-1 rounded-full bg-brand-500" aria-hidden="true" />{children}
+    <h2 id={id} className="mb-3 scroll-mt-20 text-lg font-bold text-ink">
+      {children}
     </h2>
   )
 }
@@ -34,7 +34,7 @@ export function H2({ children, id }) {
 function Box({ title, children, className = '', id }) {
   return (
     <section id={id} className={`scroll-mt-20 rounded-2xl bg-stone-50 p-4 sm:p-5 ${className}`}>
-      {title && <h3 className="mb-2.5 flex items-center gap-2 text-[15px] font-extrabold text-brand-600"><span className="h-3.5 w-1 rounded-full bg-brand-500" aria-hidden="true" />{title}</h3>}
+      {title && <h3 className="mb-2.5 text-[15px] font-bold text-ink">{title}</h3>}
       {children}
     </section>
   )
@@ -53,9 +53,9 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
   return (
     <article className="space-y-4">
       <header className="pb-2">
-        <p className="eyebrow text-brand-600">{stageNo}. {stage?.label}{topic ? ` · ${topic.label}` : ''}{!isMetric && TYPES[metric.type] ? ` · ${TYPES[metric.type].label}` : ''}</p>
+        <p className="eyebrow text-muted">{stageNo}. {stage?.label}{topic ? ` · ${topic.label}` : ''}{!isMetric && TYPES[metric.type] ? ` · ${TYPES[metric.type].label}` : ''}</p>
         <div className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h1 className="font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
           <span className="text-sm text-muted">{metric.vi_name}</span>
           {metric.review === 'draft' && <span className="rounded-full bg-lemon px-2 py-0.5 text-[11px] font-bold text-navy-ink" title="Bài sinh thêm từ bài viết, Ông chú Ecom chưa duyệt">Mới · đang duyệt</span>}
         </div>
@@ -73,11 +73,11 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {metric.formula?.readable && <Box id="cong-thuc" title="Công thức">
         {metric.formula.latex ? (
           <>
-            <div className="rounded-xl bg-brand-50 px-3 py-2"><Latex src={metric.formula.latex} /></div>
-            <p className="mt-2 text-sm leading-relaxed text-lime-ink">{metric.formula.readable}</p>
+            <div className="rounded-lg bg-white px-3 py-2 ring-1 ring-stone-200"><Latex src={metric.formula.latex} /></div>
+            <p className="mt-2 text-sm leading-relaxed text-charcoal">{metric.formula.readable}</p>
           </>
         ) : (
-          <p className="rounded-xl bg-brand-50 px-4 py-3 text-[15px] font-semibold leading-relaxed text-lime-ink">{metric.code} = {metric.formula.readable}</p>
+          <p className="rounded-lg bg-white px-4 py-3 text-[15px] font-medium leading-relaxed text-ink ring-1 ring-stone-200">{metric.code} = {metric.formula.readable}</p>
         )}
         {L?.tree && <div className="mt-5 border-t border-stone-100 pt-4"><FormulaTree tree={L.tree} onSelect={onSelect} /></div>}
       </Box>}
@@ -110,7 +110,7 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {L?.mistakes && (
         <Box id="hay-hieu-sai" title="Hay hiểu sai">
           <ul className="space-y-1.5">
-            {L.mistakes.map((m) => <li key={m} className="flex gap-2 text-sm leading-relaxed text-body"><span className="font-black text-brand-600">×</span><span><Rich text={m} g={g} /></span></li>)}
+            {L.mistakes.map((m) => <li key={m} className="flex gap-2 text-sm leading-relaxed text-body"><span className="font-bold text-brand-600">×</span><span><Rich text={m} g={g} /></span></li>)}
           </ul>
         </Box>
       )}
@@ -118,9 +118,9 @@ export default function MetricLesson({ metric, onSelect, onHomework, onOpenPlayb
       {(L?.remember || L?.quote) && (
         <div className="grid items-start gap-4 md:grid-cols-2">
           {L?.remember && (
-            <div className="rounded-2xl bg-lemon p-4 text-navy-ink sm:p-5">
+            <div className="rounded-2xl border-l-4 border-lemon bg-[#FFFBE6] p-4 text-ink sm:p-5">
               <p className="eyebrow">Nhớ một câu</p>
-              <p className="mt-1 font-display text-base font-extrabold leading-snug">{L.remember}</p>
+              <p className="mt-1 font-display text-base font-bold leading-snug">{L.remember}</p>
             </div>
           )}
           {L?.quote && (

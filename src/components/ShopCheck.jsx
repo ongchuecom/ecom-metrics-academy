@@ -168,15 +168,15 @@ export default function ShopCheck({ onSelectMetric, onOpenPlaybook }) {
                 <div className="mt-3 rotate-[-0.6deg] rounded-2xl bg-white px-4 py-3 shadow-[0_8px_24px_rgba(31,42,68,0.10)]">
                   <ul className="divide-y divide-dashed divide-stone-200 text-sm">
                     {rows.map(([label, val, kind, id]) => (
-                      <li key={label} className={`flex items-baseline justify-between gap-3 py-1.5 ${kind ? 'font-display font-extrabold text-ink' : 'text-body'}`}>
+                      <li key={label} className={`flex items-baseline justify-between gap-3 py-1.5 ${kind ? 'font-display font-bold text-ink' : 'text-body'}`}>
                         {id ? <button onClick={() => onSelectMetric(id)} className="text-left hover:text-brand-700 hover:underline">{label}</button> : <span>{label}</span>}
                         <span className={`num shrink-0 ${val < 0 && !kind ? 'text-coral' : ''}`}>{val < 0 ? '−' : ''}{tr(Math.abs(val))}</span>
                       </li>
                     ))}
                   </ul>
                   <div className="mt-1 flex items-end justify-between border-t-2 border-dashed border-stone-300 pt-2">
-                    <button onClick={() => onSelectMetric('vn_fin_net_profit')} className="font-display text-base font-black uppercase text-ink hover:text-brand-700">Lãi ròng</button>
-                    <span className={`num text-3xl font-black ${r.profit >= 0 ? 'text-ok' : 'text-coral'}`}>{r.profit < 0 ? '−' : ''}{tr(Math.abs(r.profit))}</span>
+                    <button onClick={() => onSelectMetric('vn_fin_net_profit')} className="font-display text-base font-bold uppercase text-ink hover:text-brand-700">Lãi ròng</button>
+                    <span className={`num text-3xl font-bold ${r.profit >= 0 ? 'text-ok' : 'text-coral'}`}>{r.profit < 0 ? '−' : ''}{tr(Math.abs(r.profit))}</span>
                   </div>
                   <p className="text-right text-xs text-muted">{nf(r.netPct)}% Net Sales</p>
                 </div>
@@ -186,19 +186,19 @@ export default function ShopCheck({ onSelectMetric, onOpenPlaybook }) {
                 {kpis.map(([k, val, id]) => (
                   <button key={k} onClick={() => onSelectMetric(id)} className="rounded-xl bg-stone-50 p-3 text-left hover:bg-brand-50">
                     <span className="block text-[11px] font-semibold text-charcoal">{k}</span>
-                    <span className="num block text-lg font-black text-ink">{val}</span>
+                    <span className="num block text-lg font-bold text-ink">{val}</span>
                   </button>
                 ))}
               </section>
 
               <section>
-                <h3 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Chẩn đoán · {findings.length} điểm</h3>
+                <h3 className="mb-3 text-lg font-bold text-ink">Chẩn đoán · {findings.length} điểm</h3>
                 <ul className="space-y-3">
                   {findings.map((x) => (
                     <li key={x.title} className={`rounded-2xl p-4 ${LV[x.level][1]}`}>
                       <p className="flex items-center gap-2">
                         <span className={`rounded bg-white px-1.5 py-0.5 text-[11px] font-bold ${LV[x.level][2]}`}>{LV[x.level][0]}</span>
-                        <span className="font-display font-extrabold text-ink">{x.title}</span>
+                        <span className="font-display font-bold text-ink">{x.title}</span>
                       </p>
                       <p className="mt-1.5 text-sm leading-relaxed text-body">{x.text}</p>
                       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">

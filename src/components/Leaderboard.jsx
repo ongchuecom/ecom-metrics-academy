@@ -45,8 +45,8 @@ export default function Leaderboard({ onOpenPlaybook }) {
   return (
     <article className="space-y-10">
       <header>
-        <p className="eyebrow text-brand-600">Trắc nghiệm thực chiến</p>
-        <h1 className="mt-1.5 font-display text-2xl font-black leading-tight text-ink sm:text-3xl">Bảng xếp hạng</h1>
+        <p className="eyebrow text-muted">Trắc nghiệm thực chiến</p>
+        <h1 className="mt-1.5 font-display text-2xl font-bold leading-tight text-ink sm:text-3xl">Bảng xếp hạng</h1>
         <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-charcoal">
           Mỗi Playbook có 3 câu trắc nghiệm, mỗi câu {GAM.points_per_question} điểm, tổng {GAM.max_total_score} điểm cho {playbooks.length} Playbook.
           Chỉ lần nộp đầu tiên của mỗi Playbook được tính, làm lại chỉ để luyện tập.
@@ -55,9 +55,9 @@ export default function Leaderboard({ onOpenPlaybook }) {
 
       {/* Điểm của mình */}
       <section className="rounded-2xl bg-brand-50 p-4 sm:p-5" aria-label="Điểm của bạn">
-        <p className="eyebrow text-brand-700">Điểm của bạn</p>
+        <p className="eyebrow text-muted">Điểm của bạn</p>
         <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <p className="font-display text-3xl font-black text-ink">{total}<span className="text-lg text-muted">/{GAM.max_total_score}</span></p>
+          <p className="font-display text-3xl font-bold text-ink">{total}<span className="text-lg text-muted">/{GAM.max_total_score}</span></p>
           <RankBadge rank={rank} />
           <span className="text-sm text-charcoal">{Object.keys(me.first).length}/{playbooks.length} Playbook đã làm</span>
           {board.state === 'ok' && board.me && <span className="text-sm font-semibold text-ink">Đang đứng thứ {board.me.pos}/{board.total}</span>}
@@ -77,7 +77,7 @@ export default function Leaderboard({ onOpenPlaybook }) {
         )}
         {hasEndpoint && authEnabled && !user && (
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <button onClick={() => openLogin('Đăng nhập để lưu điểm vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')} className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng</button>
+            <button onClick={() => openLogin('Đăng nhập để lưu điểm vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')} className="rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng</button>
             <span className="text-xs text-muted">Google hoặc Facebook. Điểm trên máy này được đưa lên tài khoản.</span>
           </div>
         )}
@@ -92,7 +92,7 @@ export default function Leaderboard({ onOpenPlaybook }) {
 
       {/* Bảng chung */}
       <section aria-labelledby="top-h">
-        <h2 id="top-h" className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Top 50</h2>
+        <h2 id="top-h" className="mb-3 text-lg font-bold text-ink">Top 50</h2>
         {board.state === 'off' && <p className="rounded-2xl bg-stone-50 p-4 text-sm text-charcoal">Bảng xếp hạng chung sẽ mở khi web bật đăng nhập. Điểm của anh/chị vẫn được lưu trên máy này và sẽ đưa lên được sau.</p>}
         {board.state === 'loading' && <p className="text-sm text-muted">Đang tải bảng xếp hạng…</p>}
         {board.state === 'error' && <p className="text-sm text-coral">Chưa tải được bảng xếp hạng, thử tải lại trang sau ít phút.</p>}
@@ -102,7 +102,7 @@ export default function Leaderboard({ onOpenPlaybook }) {
               const mine = !!uid && r.uid === uid
               return (
                 <li key={r.pos} className={`grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 sm:grid-cols-[3rem_minmax(0,1fr)_auto_auto] ${mine ? 'bg-brand-50' : ''}`}>
-                  <span className={`text-center font-display font-black ${r.pos <= 3 ? 'text-brand-600 text-lg' : 'text-muted'}`}>{r.pos}</span>
+                  <span className={`text-center font-display font-bold ${r.pos <= 3 ? 'text-brand-600 text-lg' : 'text-muted'}`}>{r.pos}</span>
                   <span className="min-w-0">
                     <span className="block truncate font-semibold text-ink">{r.name}{mine && <span className="ml-1.5 text-xs font-bold text-brand-700">(bạn)</span>}</span>
                     <span className="mt-0.5 block sm:hidden"><RankBadge rank={rankFor(r.score)} small /></span>
@@ -118,12 +118,12 @@ export default function Leaderboard({ onOpenPlaybook }) {
 
       {/* Thang cấp bậc */}
       <section aria-labelledby="cap-bac-h">
-        <h2 id="cap-bac-h" className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Cấp bậc</h2>
+        <h2 id="cap-bac-h" className="mb-3 text-lg font-bold text-ink">Cấp bậc</h2>
         <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {RANK_LIST.map((r) => (
             <li key={r.title} className={`rounded-2xl p-4 ${r.title === rank.title ? 'bg-brand-50 ring-2 ring-brand-500' : 'bg-stone-50'}`}>
               <RankBadge rank={r} />
-              <p className="mt-2 font-display text-lg font-black text-ink">{r.min_score}–{r.max_score} <span className="text-sm font-semibold text-muted">điểm</span></p>
+              <p className="mt-2 font-display text-lg font-bold text-ink">{r.min_score}–{r.max_score} <span className="text-sm font-semibold text-muted">điểm</span></p>
             </li>
           ))}
         </ul>

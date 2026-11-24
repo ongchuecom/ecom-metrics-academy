@@ -11,7 +11,7 @@ function Node({ n, onSelect, depth }) {
   const m = n.id && metricById[n.id]
   const arrow = n.dir === 'up' ? '↑' : n.dir === 'down' ? '↓' : ''
   const chip = (
-    <span className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 font-display text-sm font-extrabold ${depth === 0 ? 'bg-brand-600 text-white' : 'bg-white text-ink ring-1 ring-stone-200'} ${m ? 'transition hover:ring-brand-500' : ''}`}>
+    <span className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 font-display text-sm font-bold ${depth === 0 ? 'bg-brand-600 text-white' : 'bg-white text-ink ring-1 ring-stone-200'} ${m ? 'transition hover:ring-brand-500' : ''}`}>
       {n.label}{arrow && <span className="text-brand-600">{arrow}</span>}
     </span>
   )
@@ -196,7 +196,7 @@ export function Matrix({ c }) {
           <span key={'y' + r} className="flex items-center pr-1 text-[11px] font-bold text-muted [writing-mode:vertical-rl] rotate-180">{c.y[r]}</span>,
           ...row.map((cell, k) => (
             <div key={r + '-' + k} className={`rounded-xl p-2.5 ${tone[cell.tone] || tone.mid}`}>
-              <p className={`font-display text-[13px] font-extrabold ${cell.tone === 'good' ? 'text-brand-600' : cell.tone === 'bad' ? 'text-coral' : 'text-ink'}`}>{cell.title}</p>
+              <p className={`font-display text-[13px] font-bold ${cell.tone === 'good' ? 'text-brand-600' : cell.tone === 'bad' ? 'text-coral' : 'text-ink'}`}>{cell.title}</p>
               <p className="mt-0.5 leading-snug text-body">{cell.text}</p>
             </div>
           )),
@@ -214,7 +214,7 @@ export function Steps({ c }) {
       <ol className="space-y-2">
         {c.items.map(([t, d], i) => (
           <li key={t} className="flex gap-3">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 font-display text-xs font-black text-brand-600">{i + 1}</span>
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 font-display text-xs font-bold text-brand-600">{i + 1}</span>
             <p className="text-[13px] leading-snug text-body"><b className="text-ink">{t}.</b> {d}</p>
           </li>
         ))}

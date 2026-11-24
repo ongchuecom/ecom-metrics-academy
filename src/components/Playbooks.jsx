@@ -19,7 +19,7 @@ export function PlaybookLinks({ metric, onOpen }) {
         {list.map((p) => (
           <li key={p.playbook_id}>
             <button onClick={() => onOpen(p.playbook_id)} className="group flex h-full w-full gap-3 rounded-xl bg-stone-50 p-3 text-left transition hover:bg-brand-50">
-              <span className="font-display text-lg font-black leading-none text-brand-600">{num(p)}</span>
+              <span className="font-display text-lg font-bold leading-none text-brand-600">{num(p)}</span>
               <span className="min-w-0">
                 <span className="block text-sm font-bold leading-snug text-ink group-hover:text-brand-700">{pbTitle(p)}</span>
                 <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-charcoal">{p.summary}</span>
@@ -43,18 +43,18 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeader
   return (
     <article className="space-y-8">
       <header>
-        <p className="eyebrow text-brand-600">Playbook {num(p)} · Tình huống thực chiến</p>
-        <h1 className="mt-1.5 font-display text-2xl font-black leading-tight text-ink sm:text-3xl">{pbTitle(p)}</h1>
+        <p className="eyebrow text-muted">Playbook {num(p)} · Tình huống thực chiến</p>
+        <h1 className="mt-1.5 font-display text-2xl font-bold leading-tight text-ink sm:text-3xl">{pbTitle(p)}</h1>
         <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-charcoal">{p.summary}</p>
       </header>
 
       <section className="rounded-2xl border-l-4 border-brand-500 bg-brand-50 p-4 sm:p-5">
-        <p className="eyebrow text-brand-700">Mối liên hệ cốt lõi</p>
+        <p className="eyebrow text-muted">Mối liên hệ cốt lõi</p>
         <p className="mt-1.5 text-[15px] leading-relaxed text-ink">{p.core_correlation}</p>
       </section>
 
       <section>
-        <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Chỉ số trong Playbook này · {metrics.length}</h2>
+        <h2 className="mb-3 text-lg font-bold text-ink">Chỉ số trong Playbook này · {metrics.length}</h2>
         <div className="space-y-3">
           {byStage.map((g) => (
             <div key={g.id}>
@@ -63,7 +63,7 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeader
                 {g.items.map((m) => (
                   <button key={m.metric_id} onClick={() => onSelectMetric(m.metric_id)} title={m.definition}
                     className="rounded-lg bg-stone-50 px-3 py-1.5 text-left transition hover:bg-brand-50">
-                    <span className="block font-display text-sm font-extrabold text-ink">{m.code}</span>
+                    <span className="block font-display text-sm font-bold text-ink">{m.code}</span>
                     <span className="block text-[11px] text-charcoal">{m.vi_name}</span>
                   </button>
                 ))}
@@ -74,9 +74,9 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeader
       </section>
 
       <section>
-        <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Tình huống</h2>
+        <h2 className="mb-3 text-lg font-bold text-ink">Tình huống</h2>
         <div className="rounded-2xl bg-stone-50 p-4 sm:p-5">
-          <h3 className="font-display text-base font-extrabold leading-snug text-ink">{c.title}</h3>
+          <h3 className="font-display text-base font-bold leading-snug text-ink">{c.title}</h3>
           <p className="mt-2 text-[15px] leading-relaxed text-body">{c.context}</p>
           <ul className="mt-3 space-y-1.5">
             {c.breakdown.map((b) => <li key={b} className="flex gap-2 text-sm leading-relaxed text-body"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />{b}</li>)}
@@ -90,7 +90,7 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeader
 
       <div className="grid gap-6 md:grid-cols-2">
         <section>
-          <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Ngộ nhận và sai lầm</h2>
+          <h2 className="mb-3 text-lg font-bold text-ink">Ngộ nhận và sai lầm</h2>
           <ul className="space-y-3">
             {p.myths_and_mistakes.map((x) => (
               <li key={x.detail} className="text-sm leading-relaxed text-body">
@@ -100,7 +100,7 @@ export function PlaybookPage({ playbook: p, onSelectMetric, onOpen, onOpenLeader
           </ul>
         </section>
         <section>
-          <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Việc cần làm</h2>
+          <h2 className="mb-3 text-lg font-bold text-ink">Việc cần làm</h2>
           <ul className="space-y-2">
             {p.action_checklist.map((a, i) => (
               <li key={a}>
@@ -143,7 +143,7 @@ export function PlaybookNav({ selected, onOpen }) {
             <button onClick={() => onOpen(p.playbook_id)} aria-current={on ? 'page' : undefined}
               className={`relative flex w-full items-baseline gap-2 rounded-lg px-3 py-1.5 text-left transition ${on ? 'bg-brand-50 text-ink' : 'text-body hover:bg-stone-50'}`}>
               {on && <span className="absolute inset-y-1.5 left-0 w-1 rounded-full bg-brand-600" aria-hidden="true" />}
-              <span className="shrink-0 font-display text-xs font-black text-brand-600">{num(p)}</span>
+              <span className="shrink-0 font-display text-xs font-bold text-brand-600">{num(p)}</span>
               <span className="min-w-0 text-[13px] leading-snug">{pbTitle(p).replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')}</span>
             </button>
           </li>

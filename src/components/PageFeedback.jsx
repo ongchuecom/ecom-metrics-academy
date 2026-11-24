@@ -92,7 +92,7 @@ export default function PageFeedback({ page, title, shareText }) {
     <section aria-label="Đánh giá và chia sẻ bài" className="rounded-2xl bg-stone-50 p-4 sm:p-5">
       {ENDPOINT && (
         <div className="mb-5">
-          <p className="font-display text-base font-extrabold text-ink">Bài này có dễ hiểu không?</p>
+          <p className="font-display text-base font-bold text-ink">Bài này có dễ hiểu không?</p>
           <div className="mt-2"><Stars value={rating} hover={hover} onHover={setHover} onPick={pick} disabled={state === 'sending'} /></div>
           {state === 'queued' ? (
             <p className="mt-3 text-sm font-semibold text-charcoal">Đã giữ góp ý trên máy, mạng hoặc máy chủ đang bận nên sẽ tự gửi lại ở lần mở trang sau. Cảm ơn anh/chị.</p>
@@ -109,7 +109,7 @@ export default function PageFeedback({ page, title, shareText }) {
                 className="mt-1.5 w-full rounded-xl bg-white px-3 py-2.5 text-sm text-ink ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500" />
               <input value={trap} onChange={(e) => setTrap(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" name="website" />
               <div className="mt-2 flex flex-wrap items-center gap-3">
-                <button type="submit" disabled={!comment.trim() || state === 'sending'} className="rounded-full bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-50">
+                <button type="submit" disabled={!comment.trim() || state === 'sending'} className="rounded-lg bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-50">
                   {state === 'sending' ? 'Đang gửi…' : 'Gửi góp ý'}
                 </button>
                 <span className="text-xs text-muted">Không cần tên hay số điện thoại. Đừng ghi thông tin cá nhân vào đây.</span>

@@ -73,13 +73,13 @@ function Upgrade({ getToken, onClose, onPaid, plans }) {
         <button onClick={onClose} className="absolute right-4 top-4 rounded-full bg-stone-100 px-3 py-1 text-sm font-semibold text-body">Đóng</button>
         {paid ? (
           <div className="py-6 text-center">
-            <p className="font-display text-2xl font-black text-ink">Đã kích hoạt gói Pro</p>
+            <p className="font-display text-2xl font-bold text-ink">Đã kích hoạt gói Pro</p>
             <p className="mt-2 text-sm text-charcoal">Cảm ơn anh/chị. Hỏi tiếp ngay được rồi.</p>
-            <button onClick={onClose} className="mt-5 rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white">Tiếp tục hỏi</button>
+            <button onClick={onClose} className="mt-5 rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white">Tiếp tục hỏi</button>
           </div>
         ) : !order ? (
           <>
-            <h2 id="up-h" className="font-display text-xl font-black text-ink">Nâng cấp Cố vấn AI Pro</h2>
+            <h2 id="up-h" className="font-display text-xl font-bold text-ink">Nâng cấp Cố vấn AI Pro</h2>
             <p className="mt-1.5 text-sm text-charcoal">Hỏi đáp mỗi ngày với Cố vấn AI, câu trả lời bám đúng các khái niệm và Playbook trên web.</p>
             <div className="mt-4 grid gap-2">
               {['yearly', 'monthly'].map((k) => P[k] && (
@@ -88,16 +88,16 @@ function Upgrade({ getToken, onClose, onPaid, plans }) {
                     <input type="radio" name="plan" checked={plan === k} onChange={() => setPlan(k)} className="accent-brand-600" />
                     <span><span className="block font-bold text-ink">{P[k].name}</span><span className="text-xs text-charcoal">{P[k].daily_quota} câu mỗi ngày · {P[k].days} ngày{k === 'yearly' ? ' · rẻ hơn 600.000đ so với trả tháng' : ''}</span></span>
                   </span>
-                  <span className="font-display font-black text-ink">{fmtVnd(P[k].amount)}</span>
+                  <span className="font-display font-bold text-ink">{fmtVnd(P[k].amount)}</span>
                 </label>
               ))}
             </div>
             {err && <p className="mt-3 text-sm text-coral">{err}</p>}
-            <button onClick={create} className="mt-5 w-full rounded-full bg-brand-600 px-5 py-3 font-display font-bold text-white hover:bg-brand-700">Thanh toán bằng chuyển khoản QR →</button>
+            <button onClick={create} className="mt-5 w-full rounded-lg bg-brand-600 px-5 py-3 font-display font-bold text-white hover:bg-brand-700">Thanh toán bằng chuyển khoản QR →</button>
           </>
         ) : (
           <>
-            <h2 id="up-h" className="font-display text-xl font-black text-ink">Quét mã để thanh toán</h2>
+            <h2 id="up-h" className="font-display text-xl font-bold text-ink">Quét mã để thanh toán</h2>
             <p className="mt-1 text-sm text-charcoal">{order.plan_name} · <b className="text-ink">{fmtVnd(order.amount)}</b></p>
             <img src={order.qr_url} alt={`Mã VietQR thanh toán ${fmtVnd(order.amount)}, nội dung ${order.transfer_content}`} className="mx-auto mt-4 w-64 rounded-xl ring-1 ring-stone-200" />
             <dl className="mt-4 space-y-1.5 rounded-2xl bg-stone-50 p-4 text-sm">
@@ -134,7 +134,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
 
   if (!advisorEnabled) return (
     <article className="max-w-2xl space-y-3">
-      <h1 className="font-display text-3xl font-black text-ink">Cố vấn AI</h1>
+      <h1 className="font-display text-3xl font-bold text-ink">Cố vấn AI</h1>
       <p className="text-[15px] text-charcoal">Cố vấn AI đang được chuẩn bị. Trong lúc chờ, anh/chị dùng ô tìm kiếm hoặc Khám sức khỏe shop.</p>
     </article>
   )
@@ -179,8 +179,8 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
     <article className="mx-auto flex max-w-3xl flex-col gap-4">
       <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div className="min-w-0 flex-1 basis-72">
-          <p className="eyebrow text-brand-600">Hỏi đáp thực chiến</p>
-          <h1 className="mt-1 font-display text-2xl font-black text-ink sm:text-3xl">Cố vấn AI</h1>
+          <p className="eyebrow text-muted">Hỏi đáp thực chiến</p>
+          <h1 className="mt-1 font-display text-2xl font-bold text-ink sm:text-3xl">Cố vấn AI</h1>
           <p className="mt-1 text-sm text-charcoal">Trả lời theo các khái niệm và Playbook trên web, văn phong sách Ecom Truyền Kỳ. Không thay cho kế toán hay luật sư.</p>
         </div>
         {me && (
@@ -194,9 +194,9 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
 
       {!ready ? <p className="text-sm text-muted">Đang kiểm tra đăng nhập…</p> : !user ? (
         <div className="rounded-2xl bg-brand-50 p-5">
-          <p className="font-display text-lg font-extrabold text-ink">Đăng nhập để dùng thử 7 ngày miễn phí</p>
+          <p className="font-display text-lg font-bold text-ink">Đăng nhập để dùng thử 7 ngày miễn phí</p>
           <p className="mt-1 text-sm text-charcoal">Mỗi ngày 15 câu hỏi. Hết hạn thì nâng cấp Pro {fmtVnd(200000)}/tháng hoặc {fmtVnd(1800000)}/năm.</p>
-          <button onClick={() => openLogin('Đăng nhập để hỏi Cố vấn AI. Tài khoản mới được dùng thử 7 ngày.')} className="mt-3 rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-white">Đăng nhập Google / Facebook</button>
+          <button onClick={() => openLogin('Đăng nhập để hỏi Cố vấn AI. Tài khoản mới được dùng thử 7 ngày.')} className="mt-3 rounded-lg bg-ink px-5 py-2.5 text-sm font-bold text-white">Đăng nhập Google / Facebook</button>
         </div>
       ) : (
         <>
@@ -243,7 +243,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
           {me && !me.is_active ? (
             <div className="rounded-2xl bg-brand-50 p-4 text-sm">
               <p className="font-bold text-ink">{me.was_paid ? 'Gói Pro đã hết hạn.' : 'Hết thời gian dùng thử.'}</p>
-              <button onClick={() => setUpgrade(true)} className="mt-2 rounded-full bg-brand-600 px-4 py-2 font-bold text-white">Nâng cấp Pro</button>
+              <button onClick={() => setUpgrade(true)} className="mt-2 rounded-lg bg-brand-600 px-4 py-2 font-bold text-white">Nâng cấp Pro</button>
             </div>
           ) : (
             <form className="sticky bottom-3 flex items-end gap-2 rounded-2xl bg-white p-2 shadow-lg ring-1 ring-stone-200" onSubmit={(e) => { e.preventDefault(); send() }}>
@@ -251,7 +251,7 @@ export default function Advisor({ initialConceptId, onSelectMetric, onOpenPlaybo
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
                 className="min-h-[44px] flex-1 resize-none bg-transparent px-2 py-1.5 text-[15px] text-ink outline-none" aria-label="Câu hỏi" />
               {busy ? <button type="button" onClick={() => abort.current?.abort()} className="rounded-full bg-stone-200 px-4 py-2 text-sm font-bold text-ink">Dừng</button>
-                : <button disabled={!input.trim()} className="rounded-full bg-brand-600 px-4 py-2 text-sm font-bold text-white disabled:opacity-40">Gửi</button>}
+                : <button disabled={!input.trim()} className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-bold text-white disabled:opacity-40">Gửi</button>}
             </form>
           )}
         </>

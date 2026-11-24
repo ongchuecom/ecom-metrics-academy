@@ -45,7 +45,7 @@ export default function Resources({ metric }) {
         <div className="flex flex-col justify-between gap-3 rounded-2xl bg-stone-50 p-4">
           <div>
             <p className="eyebrow text-muted">Google Drive</p>
-            <p className="mt-1 font-display text-base font-extrabold leading-snug text-ink">{folder.title}</p>
+            <p className="mt-1 font-display text-base font-bold leading-snug text-ink">{folder.title}</p>
             <p className="mt-1 text-sm text-charcoal">Toàn bộ video, slide, bảng tính của khóa ở một chỗ.</p>
           </div>
           {folder.url ? (

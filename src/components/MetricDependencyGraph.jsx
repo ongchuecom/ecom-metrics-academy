@@ -15,7 +15,7 @@ function NodeCard({ rel, kind, onSelect, delay }) {
   const body = (
     <>
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="font-display font-extrabold text-ink">{target ? target.code : rel.metric_id}</span>
+        <span className="font-display font-bold text-ink">{target ? target.code : rel.metric_id}</span>
         <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${s.badge}`} title={s.label}>
           {s.sign} {s.label}
         </span>
@@ -88,8 +88,8 @@ export default function MetricDependencyGraph({ metric, onSelect }) {
         </Column>
         <FlowArrow />
         <div key={metric.metric_id} className="fade-up rounded-2xl bg-white p-4 text-center ring-2 ring-brand-500">
-          <p className="eyebrow text-brand-600">Đang học</p>
-          <p className="font-display text-2xl font-black text-ink">{metric.code}</p>
+          <p className="eyebrow text-muted">Đang học</p>
+          <p className="font-display text-2xl font-bold text-ink">{metric.code}</p>
           <p className="text-xs text-charcoal">{metric.vi_name}</p>
         </div>
         <FlowArrow />

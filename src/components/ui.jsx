@@ -8,16 +8,13 @@ export function Card({ children, className = '', highlight = false }) {
   )
 }
 
-// Tiêu đề khu vực: thanh màu mảnh mép trái + nhãn chữ hoa nhỏ + tít Montserrat
-// Tiêu đề khu vực: cùng kiểu với tiêu đề trong bài (thanh cam mảnh + chữ cam đỏ)
+// Tiêu đề khu vực: chữ đen, không vạch màu; màu cam để dành cho nút và mục đang chọn
 export function SectionTitle({ eyebrow, title, desc, right }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-2">
       <div>
         {eyebrow && <p className="eyebrow text-muted">{eyebrow}</p>}
-        <h2 className="mt-1 flex items-center gap-2.5 text-lg font-extrabold leading-tight text-brand-600">
-          <span className="h-4 w-1 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />{title}
-        </h2>
+        <h2 className="mt-1 text-lg font-bold leading-tight text-ink">{title}</h2>
         {desc && <p className="mt-1.5 text-sm text-charcoal">{desc}</p>}
       </div>
       {right}
@@ -30,7 +27,7 @@ export function Slider({ label, hint, value, min, max, step, onChange, format })
     <label className="block">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-sm font-medium text-body">{label}</span>
-        <span className="num shrink-0 text-sm font-extrabold text-brand-700">{format(value)}</span>
+        <span className="num shrink-0 text-sm font-bold text-brand-700">{format(value)}</span>
       </div>
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} className="mt-1 w-full" />
       {hint && <p className="text-xs text-muted">{hint}</p>}

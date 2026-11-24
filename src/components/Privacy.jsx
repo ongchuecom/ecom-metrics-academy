@@ -3,7 +3,7 @@ import site from '../data/site.json'
 // Chính sách riêng tư: cần cho đăng nhập Facebook (Privacy Policy URL và hướng dẫn xóa dữ liệu)
 const S = ({ title, children }) => (
   <section className="space-y-2">
-    <h2 className="font-display text-lg font-extrabold text-ink">{title}</h2>
+    <h2 className="font-display text-lg font-bold text-ink">{title}</h2>
     <div className="space-y-2 text-[15px] leading-relaxed text-body">{children}</div>
   </section>
 )
@@ -13,8 +13,8 @@ export default function Privacy() {
   return (
     <article className="max-w-3xl space-y-7">
       <header>
-        <p className="eyebrow text-brand-600">Ecom Metrics Academy</p>
-        <h1 className="mt-1.5 font-display text-2xl font-black text-ink sm:text-3xl">Chính sách riêng tư</h1>
+        <p className="eyebrow text-muted">Ecom Metrics Academy</p>
+        <h1 className="mt-1.5 font-display text-2xl font-bold text-ink sm:text-3xl">Chính sách riêng tư</h1>
         <p className="mt-2 text-sm text-muted">Cập nhật ngày 19/11/2026</p>
       </header>
 

@@ -9,15 +9,15 @@ import { ProductCards } from './Promos.jsx'
 const TERMS = ['vn_fin_cm2', 'vn_fin_breakeven_roas', 'vn_fin_ccc', 'vn_ops_rto_rate', 'vn_fin_opex_ratio', 'vn_ret_clv', 'vn_fin_cash_runway', 'vn_fin_payback_period', 'vn_ops_dead_stock', 'vn_mkt_hook_rate']
 const short = (p) => pbTitle(p).replace(/^Bài toán\s*/i, '').replace(/\s*\(.*\)\s*$/, '')
 const num = (p) => (p.playbook_id.match(/pb_(\d+)/) || [])[1]
-const H2 = ({ children, id }) => <h2 id={id} className="mb-3 flex scroll-mt-20 items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />{children}</h2>
+const H2 = ({ children, id }) => <h2 id={id} className="mb-3 scroll-mt-20 text-lg font-bold text-ink">{children}</h2>
 
 function Door({ eyebrow, title, text, onClick, strong }) {
   return (
-    <button onClick={onClick} className={`group flex h-full flex-col rounded-2xl p-4 text-left transition sm:p-5 ${strong ? 'book-band' : 'bg-stone-50 hover:bg-brand-50'}`}>
-      <span className={`eyebrow ${strong ? 'text-white/85' : 'text-brand-600'}`}>{eyebrow}</span>
-      <span className={`mt-1.5 font-display text-lg font-extrabold leading-snug ${strong ? 'text-white' : 'text-ink'}`}>{title}</span>
-      <span className={`mt-1 flex-1 text-sm leading-relaxed ${strong ? 'text-white/90' : 'text-charcoal'}`}>{text}</span>
-      <span className={`mt-3 text-sm font-bold ${strong ? 'text-white' : 'text-brand-600'}`}>Bắt đầu →</span>
+    <button onClick={onClick} className={`group flex h-full flex-col rounded-2xl p-4 text-left transition sm:p-5 ${strong ? 'bg-ink' : 'bg-white ring-1 ring-stone-200 hover:ring-stone-300'}`}>
+      <span className={`eyebrow ${strong ? 'text-white/70' : 'text-muted'}`}>{eyebrow}</span>
+      <span className={`mt-1.5 font-display text-lg font-bold leading-snug ${strong ? 'text-white' : 'text-ink'}`}>{title}</span>
+      <span className={`mt-1 flex-1 text-sm leading-relaxed ${strong ? 'text-white/80' : 'text-charcoal'}`}>{text}</span>
+      <span className={`mt-3 text-sm font-bold ${strong ? 'text-white' : 'text-ink'}`}>Bắt đầu →</span>
     </button>
   )
 }
@@ -28,7 +28,7 @@ function BoardPeek() {
   return (
     <figure className="board relative overflow-hidden rounded-2xl p-5 ring-1 ring-stone-200" aria-label="Ví dụ một bài: CM2 từ Net Sales 800tr">
       <p className="eyebrow text-muted">Ví dụ trong bài CM2</p>
-      <p className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-2 font-display text-xl font-extrabold leading-tight">
+      <p className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-2 font-display text-xl font-bold leading-tight">
         <span className="text-brand-600">CM2</span><span className="text-muted">=</span>
         {['CM1↑', 'Phí sàn↓', 'Ship↓', 'Hoàn↓'].map((t, i) => (
           <span key={t} className="flex items-baseline gap-2">{i > 0 && <span className="text-muted">−</span>}<span className="border-b-2 border-ink/80 px-0.5">{t.slice(0, -1)}<span className="text-brand-600">{t.slice(-1)}</span></span></span>
@@ -67,9 +67,9 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
       {/* 1. Đây là gì */}
       <header className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div>
-          <p className="eyebrow text-brand-600">Ecom Metrics Academy · Miễn phí</p>
-          <h1 className="mt-2 font-display text-3xl font-black leading-tight text-ink sm:text-[2.6rem]">
-            Học mọi khái niệm Ecom và khởi nghiệp, <span className="marker">có Ông chú Ecom tham vấn</span>
+          <p className="eyebrow text-muted">Ecom Metrics Academy · Miễn phí</p>
+          <h1 className="mt-2 font-display text-3xl font-bold leading-tight text-ink sm:text-[2.6rem]">
+            Học mọi khái niệm Ecom và khởi nghiệp, <span className="text-brand-600">có Ông chú Ecom tham vấn</span>
           </h1>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-body">
             Làm Ecom và khởi nghiệp có cả trăm khái niệm phải hiểu đúng: lãi thật, dòng tiền, tồn kho, quảng cáo, đội ngũ, vận hành…
@@ -89,7 +89,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             </div>
           </div>
           <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <button onClick={onOpenHealth} className="rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Khám sức khỏe shop →</button>
+            <button onClick={onOpenHealth} className="rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Khám sức khỏe shop →</button>
             <a href="#ai-giai-dap" className="text-sm font-semibold text-brand-700 hover:underline">Ai giải đáp cho mình?</a>
           </div>
         </div>
@@ -107,11 +107,11 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
       <section id="ai-giai-dap" aria-labelledby="ai-giai-dap-h" className="scroll-mt-20">
         <H2 id="ai-giai-dap-h">Ai giải đáp cho anh chị</H2>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-          <div className="rounded-2xl bg-brand-50 p-5 sm:p-6">
+          <div className="rounded-2xl p-5 ring-1 ring-stone-200 sm:p-6">
             <div className="flex items-center gap-3">
-              <span className="book-band flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-display text-lg font-black text-white" aria-hidden="true">ÔC</span>
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-stone-100 text-base font-semibold text-ink" aria-hidden="true">ÔC</span>
               <div>
-                <p className="font-display text-xl font-black text-ink">Ông chú Ecom</p>
+                <p className="font-display text-xl font-bold text-ink">Ông chú Ecom</p>
                 <p className="text-sm text-charcoal">Tác giả sách Ecom Truyền Kỳ · A1demy</p>
               </div>
             </div>
@@ -124,7 +124,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
           </div>
 
           <div>
-            <p className="font-display text-base font-extrabold text-ink">Hỏi thế nào</p>
+            <p className="font-display text-base font-bold text-ink">Hỏi thế nào</p>
             <ol className="mt-3 space-y-4">
               {[
                 hasForm ? ['Nhắn riêng qua Zalo', 'Để lại tên và số Zalo ở form ngay dưới. Ông chú Ecom nhắn lại trong vài ngày, xem cùng số của shop.']
@@ -134,7 +134,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
                 hasForm && ['Góp ý ngay dưới mỗi bài', 'Chấm sao và ghi chỗ khó hiểu, ẩn danh. Cứ 2 ngày góp ý được đọc lại và bài được sửa cho dễ hiểu hơn.'],
               ].filter(Boolean).map(([t, d], i) => (
                 <li key={t} className="flex gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 font-display text-sm font-black text-white">{i + 1}</span>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 font-display text-sm font-bold text-white">{i + 1}</span>
                   <div><p className="font-bold text-ink">{t}</p><p className="mt-0.5 text-sm leading-relaxed text-charcoal">{d}</p></div>
                 </li>
               ))}
@@ -162,8 +162,8 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             ['1', 'bản khám sức khỏe shop', 'Điền P&L một tháng, nhận chẩn đoán từng tầng lãi và Playbook nên đọc trước.'],
             ['10', 'bài tập chẩn đoán', 'Bệnh án shop thật, tự tính và tự quyết, sai thì có gợi ý.'],
           ].map(([n, t, d]) => (
-            <div key={t} className="border-t-2 border-brand-500 pt-3">
-              <dt><span className="font-display text-3xl font-black text-ink">{n}</span> <span className="font-bold text-ink">{t}</span></dt>
+            <div key={t} className="border-t border-stone-200 pt-3">
+              <dt><span className="font-display text-3xl font-bold text-ink">{n}</span> <span className="font-bold text-ink">{t}</span></dt>
               <dd className="mt-1 text-sm leading-relaxed text-charcoal">{d}</dd>
             </div>
           ))}
@@ -195,9 +195,9 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             return (
               <li key={id}>
                 <button onClick={() => startPath(id)} className="flex w-full items-baseline gap-3 border-b border-stone-100 py-2.5 text-left hover:bg-brand-50">
-                  <span className="w-6 shrink-0 text-right font-display text-sm font-black text-brand-600">{i + 1}</span>
+                  <span className="w-6 shrink-0 text-right font-display text-sm font-bold text-brand-600">{i + 1}</span>
                   <span className="min-w-0">
-                    <span className="font-display font-extrabold text-ink">{m.code}</span>
+                    <span className="font-display font-bold text-ink">{m.code}</span>
                     <span className="ml-2 text-sm text-charcoal">{m.subtitle || m.vi_name}</span>
                   </span>
                 </button>
@@ -205,7 +205,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
             )
           })}
         </ol>
-        <button onClick={() => startPath(path.items[0])} className="mt-4 rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Bắt đầu lộ trình “{path.title}” →</button>
+        <button onClick={() => startPath(path.items[0])} className="mt-4 rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700">Bắt đầu lộ trình “{path.title}” →</button>
       </section>
 
       <section aria-labelledby="playbooks-h">
@@ -214,7 +214,7 @@ export default function Home({ onSelectMetric, onOpenPlaybook, onOpenHealth, onS
           {playbooks.map((p) => (
             <li key={p.playbook_id}>
               <button onClick={() => onOpenPlaybook(p.playbook_id)} className="flex h-full w-full gap-3 rounded-xl bg-stone-50 p-3 text-left hover:bg-brand-50">
-                <span className="font-display text-lg font-black leading-none text-brand-600">{num(p)}</span>
+                <span className="font-display text-lg font-bold leading-none text-brand-600">{num(p)}</span>
                 <span className="min-w-0">
                   <span className="block text-sm font-bold leading-snug text-ink">{short(p)}</span>
                   <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-charcoal">{p.case_study.title}</span>

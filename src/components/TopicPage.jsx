@@ -16,8 +16,8 @@ export default function TopicPage({ id, onSelectMetric, onOpenTopic, onOpenPlayb
   return (
     <article className="space-y-8">
       <header>
-        <p className="eyebrow text-brand-600">{STAGES.findIndex((s) => s.id === d.id) + 1}. {d.label} · Chủ đề</p>
-        <h1 className="mt-1.5 font-display text-2xl font-black text-ink sm:text-3xl">{t.label}</h1>
+        <p className="eyebrow text-muted">{STAGES.findIndex((s) => s.id === d.id) + 1}. {d.label} · Chủ đề</p>
+        <h1 className="mt-1.5 font-display text-2xl font-bold text-ink sm:text-3xl">{t.label}</h1>
         <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-charcoal">{t.desc || d.desc} {items.length} bài.</p>
       </header>
 
@@ -35,7 +35,7 @@ export default function TopicPage({ id, onSelectMetric, onOpenTopic, onOpenPlayb
             <button onClick={() => onSelectMetric(m.metric_id)} onMouseEnter={() => prefetchConcept(m.metric_id)}
               className="flex h-full w-full flex-col rounded-xl bg-stone-50 p-3.5 text-left transition hover:bg-brand-50">
               <span className="flex flex-wrap items-center gap-2">
-                <span className="font-display font-extrabold text-ink">{m.code}</span>
+                <span className="font-display font-bold text-ink">{m.code}</span>
                 {m.type && m.type !== 'metric' && <span className="rounded bg-white px-1.5 py-0.5 text-[10px] font-bold text-charcoal ring-1 ring-stone-200">{TYPES[m.type]?.label}</span>}
                 {m.review === 'draft' && <span className="rounded bg-lemon px-1.5 py-0.5 text-[10px] font-bold text-navy-ink">Mới · đang duyệt</span>}
               </span>
@@ -48,7 +48,7 @@ export default function TopicPage({ id, onSelectMetric, onOpenTopic, onOpenPlayb
 
       {pbs.length > 0 && (
         <section>
-          <h2 className="mb-2 text-sm font-extrabold text-brand-600">Playbook tình huống liên quan</h2>
+          <h2 className="mb-2 text-sm font-bold text-ink">Playbook tình huống liên quan</h2>
           <div className="flex flex-wrap gap-2">
             {pbs.map((p) => <button key={p.playbook_id} onClick={() => onOpenPlaybook(p.playbook_id)} className="rounded-full bg-white px-3 py-1.5 text-sm text-ink ring-1 ring-stone-200 hover:ring-brand-500">{pbTitle(p).replace(/\s*\(.*\)\s*$/, '')}</button>)}
           </div>
@@ -57,7 +57,7 @@ export default function TopicPage({ id, onSelectMetric, onOpenTopic, onOpenPlayb
 
       {siblings.length > 0 && (
         <section>
-          <h2 className="mb-2 text-sm font-extrabold text-brand-600">Cùng lĩnh vực {d.label.toLowerCase()}</h2>
+          <h2 className="mb-2 text-sm font-bold text-ink">Cùng lĩnh vực {d.label.toLowerCase()}</h2>
           <div className="flex flex-wrap gap-2">
             {siblings.map((x) => <button key={x.id} onClick={() => onOpenTopic(x.id)} className="rounded-full bg-stone-100 px-3 py-1.5 text-sm font-semibold text-body hover:bg-brand-50">{x.label} · {x.n}</button>)}
           </div>

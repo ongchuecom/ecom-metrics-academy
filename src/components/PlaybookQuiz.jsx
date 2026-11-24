@@ -57,7 +57,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
 
   return (
     <section id="trac-nghiem" aria-labelledby="trac-nghiem-h" className="scroll-mt-20">
-      <h2 id="trac-nghiem-h" className="mb-1 flex items-center gap-2 text-lg font-extrabold text-brand-600"><span className="h-4 w-1 rounded-full bg-brand-500" />Trắc nghiệm thực chiến</h2>
+      <h2 id="trac-nghiem-h" className="mb-1 text-lg font-bold text-ink">Trắc nghiệm thực chiến</h2>
       <p className="mb-4 text-sm text-charcoal">
         {quiz.length} câu · {max} điểm. Chấm ngay khi nộp, có giải thích từng câu.
         {first !== undefined && !done && <> Lần đầu anh/chị được <b className="text-ink">{first}/{max}</b>, điểm này đã tính vào bảng xếp hạng; làm lại để luyện tập.</>}
@@ -69,7 +69,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
           const right = picked === q.correct_option
           return (
             <li key={q.question_id} className="rounded-2xl bg-stone-50 p-4 sm:p-5">
-              <p className="text-[15px] font-semibold leading-relaxed text-ink"><span className="mr-1.5 font-display font-black text-brand-600">Câu {i + 1}.</span>{q.question}</p>
+              <p className="text-[15px] font-semibold leading-relaxed text-ink"><span className="mr-1.5 font-display font-bold text-brand-600">Câu {i + 1}.</span>{q.question}</p>
               <div role="radiogroup" aria-label={`Câu ${i + 1}`} className="mt-3 grid gap-2">
                 {q.options.map((o) => {
                   const chosen = picked === o.id
@@ -80,7 +80,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
                     <button key={o.id} type="button" role="radio" aria-checked={chosen} disabled={done}
                       onClick={() => setAnswers((a) => ({ ...a, [q.question_id]: o.id }))}
                       className={`flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm leading-relaxed text-body transition ${tone}`}>
-                      <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-display text-xs font-black ${done && isCorrect ? 'bg-ok text-white' : done && chosen ? 'bg-coral text-white' : chosen ? 'bg-brand-600 text-white' : 'bg-stone-100 text-ink'}`}>{o.id}</span>
+                      <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-display text-xs font-bold ${done && isCorrect ? 'bg-ok text-white' : done && chosen ? 'bg-coral text-white' : chosen ? 'bg-brand-600 text-white' : 'bg-stone-100 text-ink'}`}>{o.id}</span>
                       <span className="pt-0.5">{o.text}</span>
                     </button>
                   )
@@ -100,13 +100,13 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
       {!done ? (
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <button type="button" onClick={submit} disabled={!allAnswered}
-            className="rounded-full bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-50">Nộp bài</button>
+            className="rounded-lg bg-brand-600 px-5 py-2.5 font-display text-sm font-bold text-white hover:bg-brand-700 disabled:opacity-50">Nộp bài</button>
           {!allAnswered && <span className="text-sm text-muted">Trả lời đủ {quiz.length} câu để nộp.</span>}
         </div>
       ) : (
         <div className="mt-5 rounded-2xl bg-brand-50 p-4 sm:p-5">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <p className="font-display text-3xl font-black text-ink">{result.score}<span className="text-lg text-muted">/{max}</span></p>
+            <p className="font-display text-3xl font-bold text-ink">{result.score}<span className="text-lg text-muted">/{max}</span></p>
             <p className="text-sm font-semibold text-charcoal">{result.official ? 'Điểm chính thức của Playbook này.' : `Lần luyện tập. Điểm chính thức vẫn là lần đầu: ${first}/${max}.`}</p>
           </div>
           <div className="mt-3 border-t border-brand-100 pt-3">
@@ -125,7 +125,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
           {authEnabled && result.official && needLogin && (
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <button type="button" onClick={() => openLogin('Đăng nhập để lưu điểm này vào tài khoản và lên bảng xếp hạng. Đổi máy vẫn giữ nguyên điểm.')}
-                className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng xếp hạng</button>
+                className="rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white">Đăng nhập để lên bảng xếp hạng</button>
               <span className="text-xs text-muted">Điểm vẫn được giữ trên máy này, đăng nhập lúc nào cũng đưa lên được.</span>
             </div>
           )}
@@ -139,7 +139,7 @@ export default function PlaybookQuiz({ playbook: p, onOpenLeaderboard }) {
                 <label htmlFor={`ten-${p.playbook_id}`} className="w-full text-sm font-semibold text-ink">Lên bảng xếp hạng với tên:</label>
                 <input id={`ten-${p.playbook_id}`} value={name} onChange={(e) => setName(e.target.value)} maxLength={24} placeholder="Ví dụ: Hùng Shop Giày"
                   className="min-w-0 flex-1 rounded-xl bg-white px-3 py-2 text-sm text-ink ring-1 ring-stone-200 outline-none focus:ring-2 focus:ring-brand-500 sm:max-w-xs" />
-                <button type="submit" disabled={!cleanName(name) || sync === 'sending'} className="rounded-full bg-ink px-4 py-2 text-sm font-bold text-white disabled:opacity-50">{sync === 'sending' ? 'Đang gửi…' : 'Lên bảng'}</button>
+                <button type="submit" disabled={!cleanName(name) || sync === 'sending'} className="rounded-lg bg-ink px-4 py-2 text-sm font-bold text-white disabled:opacity-50">{sync === 'sending' ? 'Đang gửi…' : 'Lên bảng'}</button>
                 <span className="w-full text-xs text-muted">Chỉ hiện tên này và điểm. Không ghi số điện thoại hay đường link vào tên.{sync === 'error' && <span className="text-coral"> Chưa gửi được, thử lại giúp.</span>}</span>
               </form>
             )

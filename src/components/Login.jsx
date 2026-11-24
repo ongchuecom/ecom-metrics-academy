@@ -18,7 +18,7 @@ const FacebookIcon = () => (
 export function Avatar({ user, size = 32 }) {
   const st = { width: size, height: size }
   if (user.photo) return <img src={user.photo} alt="" referrerPolicy="no-referrer" style={st} className="shrink-0 rounded-full object-cover ring-2 ring-white" />
-  return <span style={st} className="flex shrink-0 items-center justify-center rounded-full bg-white font-display text-sm font-black text-brand-600">{(user.name || '?').trim().charAt(0).toUpperCase()}</span>
+  return <span style={st} className="flex shrink-0 items-center justify-center rounded-full bg-white font-display text-sm font-bold text-brand-600">{(user.name || '?').trim().charAt(0).toUpperCase()}</span>
 }
 
 export function LoginDialog() {
@@ -44,7 +44,7 @@ export function LoginDialog() {
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-labelledby="login-h">
       <button className="absolute inset-0 bg-ink/40" onClick={onClose} aria-label="Đóng" tabIndex={-1} />
       <div ref={ref} tabIndex={-1} className="fade-up relative w-full max-w-sm rounded-t-3xl bg-white p-6 outline-none sm:rounded-3xl">
-        <h2 id="login-h" className="font-display text-xl font-black text-ink">Đăng nhập</h2>
+        <h2 id="login-h" className="font-display text-xl font-bold text-ink">Đăng nhập</h2>
         <p className="mt-1.5 text-sm leading-relaxed text-charcoal">{reason || 'Để lưu điểm trắc nghiệm trên mọi thiết bị và lên bảng xếp hạng bằng tên thật.'}</p>
         {inAppBrowser() && (
           <p className="mt-3 rounded-xl bg-lemon/60 px-3 py-2 text-xs leading-relaxed text-navy-ink">
@@ -72,16 +72,16 @@ export function AccountButton({ variant = 'side' }) {
   const onLogin = () => openLogin()
   const [menu, setMenu] = useState(false)
   if (!authEnabled) return null
-  if (!ready) return <span className={variant === 'icon' ? 'h-9 w-9 rounded-full bg-white/30' : 'block h-9 rounded-xl bg-white/15'} aria-hidden="true" />
+  if (!ready) return <span className={variant === 'icon' ? 'h-9 w-9 rounded-full bg-stone-100' : 'block h-9 rounded-lg bg-stone-100'} aria-hidden="true" />
   if (!user) return variant === 'icon'
-    ? <button onClick={onLogin} aria-label="Đăng nhập" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30">
+    ? <button onClick={onLogin} aria-label="Đăng nhập" className="flex h-9 w-9 items-center justify-center rounded-lg text-ink ring-1 ring-stone-200 hover:bg-stone-50">
         <svg viewBox="0 0 20 20" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8" aria-hidden="true"><circle cx="10" cy="7" r="3.2" /><path d="M3.8 17c.9-3 3.3-4.6 6.2-4.6s5.3 1.6 6.2 4.6" strokeLinecap="round" /></svg>
       </button>
-    : <button onClick={onLogin} className="w-full rounded-xl bg-white px-3 py-2 text-left text-sm font-bold text-brand-700 hover:bg-brand-50">Đăng nhập (Google, Facebook)</button>
+    : <button onClick={onLogin} className="w-full rounded-lg px-2.5 py-1.5 text-left text-sm font-semibold text-brand-700 hover:bg-stone-50">Đăng nhập (Google, Facebook)</button>
   return (
     <div className="relative">
       <button onClick={() => setMenu((m) => !m)} aria-expanded={menu} aria-label="Tài khoản"
-        className={variant === 'icon' ? 'flex items-center rounded-full' : 'flex w-full items-center gap-2 rounded-xl bg-white/15 px-2 py-1.5 text-left text-sm font-semibold text-white hover:bg-white/25'}>
+        className={variant === 'icon' ? 'flex items-center rounded-full' : 'flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-medium text-ink hover:bg-stone-50'}>
         <Avatar user={user} size={variant === 'icon' ? 36 : 28} />
         {variant !== 'icon' && <span className="min-w-0 flex-1 truncate">{user.name || 'Tài khoản'}</span>}
       </button>

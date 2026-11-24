@@ -62,10 +62,24 @@ const tabsFor = (m) => TABS.filter((t) => !t.need || m?.[t.need])
 
 function Brand({ compact = false, onHome }) {
   return (
-    <a href={href({ type: 'home' })} onClick={(e) => { e.preventDefault(); onHome() }} className="block leading-tight text-white">
-      <p className="font-display text-[15px] font-black">Ecom Metrics Academy</p>
-      {!compact && <p className="text-xs text-white/85">Khái niệm Ecom &amp; khởi nghiệp</p>}
+    <a href={href({ type: 'home' })} onClick={(e) => { e.preventDefault(); onHome() }} className="flex items-center gap-2.5 leading-tight">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-[13px] font-bold text-white" aria-hidden="true">E</span>
+      <span>
+        <span className="block text-[15px] font-semibold text-ink">Ecom Metrics Academy</span>
+        {!compact && <span className="block text-xs text-muted">Khái niệm Ecom &amp; khởi nghiệp</span>}
+      </span>
     </a>
+  )
+}
+
+// Mục điều hướng phụ ở thanh bên: biểu tượng nét mảnh + chữ, chỉ mục đang mở mới có màu
+function SideLink({ onClick, active, icon, children }) {
+  return (
+    <button onClick={onClick} aria-current={active ? 'page' : undefined}
+      className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left text-sm transition ${active ? 'bg-stone-100 font-semibold text-ink' : 'text-body hover:bg-stone-50 hover:text-ink'}`}>
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 shrink-0 fill-none stroke-current ${active ? 'text-brand-600' : 'text-muted'}`} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={icon} /></svg>
+      {children}
+    </button>
   )
 }
 
@@ -76,7 +90,7 @@ function LessonSkeleton({ metric, error }) {
   return (
     <article className="space-y-4" aria-busy={!error}>
       <header>
-        <h1 className="font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
+        <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">{metric.code}</h1>
         <p className="mt-1 text-sm text-muted">{metric.vi_name}</p>
         {metric.subtitle && <p className="mt-1 text-base font-semibold text-charcoal">{metric.subtitle}</p>}
         <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-body">{metric.definition}</p>
@@ -175,12 +189,12 @@ export default function App() {
       <SearchDialog open={searching} onClose={() => setSearching(false)} onSelectMetric={select} onOpenPlaybook={openPlaybook} onOpenTopic={openTopic} />
 
       {/* Thanh trên cùng trên mobile */}
-      <header className="book-band sticky top-0 z-30 flex items-center justify-between gap-2 px-4 py-2.5 lg:hidden">
+      <header className="sticky top-0 z-30 flex items-center justify-between gap-2 border-b border-stone-200 bg-white/90 px-4 py-2.5 backdrop-blur lg:hidden">
         <Brand compact onHome={openHome} />
         <div className="flex shrink-0 items-center gap-2">
           <SearchButton variant="icon" onClick={() => setSearching(true)} />
           <AccountButton variant="icon" />
-          <button onClick={() => setDrawer(true)} className="flex items-center gap-2 rounded-full bg-white px-3.5 py-2 font-display text-sm font-bold text-brand-600" aria-expanded={drawer}>
+          <button onClick={() => setDrawer(true)} className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm font-semibold text-ink ring-1 ring-stone-200 hover:bg-stone-50" aria-expanded={drawer}>
             <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden="true"><path d="M3 5h14v2H3zM3 9h14v2H3zM3 13h14v2H3z" /></svg>
             Mục lục
           </button>
@@ -193,7 +207,7 @@ export default function App() {
           <div className="fade-up absolute inset-x-0 bottom-0 flex h-[88dvh] flex-col rounded-t-3xl bg-white pt-3">
             <div className="flex items-center justify-between px-4 pb-3">
               <span className="flex items-baseline gap-4">
-                <button onClick={openHome} className="font-display text-lg font-black text-ink">Trang chủ</button>
+                <button onClick={openHome} className="font-display text-lg font-bold text-ink">Trang chủ</button>
                 <button onClick={openLeaderboard} className="text-sm font-semibold text-brand-700">Bảng xếp hạng</button>
                 {advisorEnabled && <button onClick={() => openAdvisor()} className="text-sm font-semibold text-brand-700">Cố vấn AI</button>}
               </span>
@@ -205,14 +219,17 @@ export default function App() {
       )}
 
       <aside className="hidden border-r border-stone-200/80 bg-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-72 lg:shrink-0 lg:flex-col">
-        <div className="book-band mb-3 space-y-3 px-5 pb-4 pt-5">
-          <Brand onHome={openHome} />
+        <div className="space-y-4 px-4 pb-3 pt-5">
+          <div className="px-1"><Brand onHome={openHome} /></div>
           <SearchButton onClick={() => setSearching(true)} />
-          <button onClick={openHealth} className="w-full rounded-xl bg-white/15 px-3 py-2 text-left text-sm font-bold text-white hover:bg-white/25">Khám sức khỏe shop →</button>
-          {advisorEnabled && <button onClick={() => openAdvisor()} className="w-full rounded-xl bg-white/15 px-3 py-2 text-left text-sm font-bold text-white hover:bg-white/25">Hỏi Cố vấn AI →</button>}
-          <button onClick={openLeaderboard} className="w-full rounded-xl px-3 py-1 text-left text-sm font-semibold text-white/90 hover:text-white">Bảng xếp hạng trắc nghiệm →</button>
+          <div className="space-y-0.5">
+            <SideLink onClick={openHealth} active={route.type === 'health'} icon="M4 10h3l2-5 3 10 2-5h2">Khám sức khỏe shop</SideLink>
+            {advisorEnabled && <SideLink onClick={() => openAdvisor()} active={route.type === 'advisor'} icon="M4 5h12v8H9l-4 3v-3H4z">Hỏi Cố vấn AI</SideLink>}
+            <SideLink onClick={openLeaderboard} active={route.type === 'leaderboard'} icon="M5 16V9m5 7V4m5 12v-5">Bảng xếp hạng</SideLink>
+          </div>
           <AccountButton />
         </div>
+        <div className="mx-4 mb-3 border-t border-stone-100" />
         {side}
       </aside>
 
@@ -223,8 +240,8 @@ export default function App() {
           {route.type === 'health' && (
             <div className="space-y-4">
               <header>
-                <p className="eyebrow text-brand-600">Công cụ</p>
-                <h1 className="mt-1.5 font-display text-3xl font-black text-ink">Khám sức khỏe shop</h1>
+                <p className="eyebrow text-muted">Công cụ</p>
+                <h1 className="mt-1.5 font-display text-3xl font-bold text-ink">Khám sức khỏe shop</h1>
                 <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-charcoal">Điền P&L một tháng. Web tính Net Sales, CM1, CM2, CM3, lãi ròng, ROAS hòa vốn, rồi chỉ ra chỗ đang rò tiền và Playbook nên đọc.</p>
               </header>
               <ShopCheck onSelectMetric={select} onOpenPlaybook={openPlaybook} />
@@ -244,10 +261,10 @@ export default function App() {
 
           {metric && (<div className="xl:grid xl:grid-cols-[minmax(0,1fr)_180px] xl:gap-10"><div className="min-w-0 space-y-10">
             {pathIdx >= 0 && (
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl bg-brand-50 px-4 py-2 text-sm">
-                <span className="font-display font-extrabold text-brand-700">{path.title} · Bài {pathIdx + 1}/{LEARNING_PATH.length}</span>
-                <span className="flex gap-1" aria-hidden="true">{LEARNING_PATH.map((id, i) => <i key={id} className={`h-1.5 w-4 rounded-full ${i <= pathIdx ? 'bg-brand-500' : 'bg-brand-100'}`} />)}</span>
-                {next && <button onClick={() => select(next.metric_id)} className="ml-auto font-semibold text-brand-700 hover:underline">Tiếp: {next.code} →</button>}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-stone-100 pb-3 text-sm">
+                <span className="text-charcoal"><span className="font-medium text-ink">{path.title}</span> · bài {pathIdx + 1}/{LEARNING_PATH.length}</span>
+                <span className="flex gap-0.5" aria-hidden="true">{LEARNING_PATH.map((id, i) => <i key={id} className={`h-1 w-3 rounded-full ${i <= pathIdx ? 'bg-ink' : 'bg-stone-200'}`} />)}</span>
+                {next && <button onClick={() => select(next.metric_id)} className="ml-auto font-medium text-ink hover:text-brand-700">Tiếp: {next.code} →</button>}
               </div>
             )}
 
@@ -287,7 +304,7 @@ export default function App() {
                 <a key={m.metric_id} href={href({ type: 'metric', id: m.metric_id })} onClick={(e) => { e.preventDefault(); select(m.metric_id) }} onMouseEnter={() => prefetchConcept(m.metric_id)}
                   className={`rounded-xl p-2 transition hover:bg-brand-50 ${k ? 'text-right' : 'text-left'}`}>
                   <p className="eyebrow text-muted">{k ? (pathIdx >= 0 ? 'Bài tiếp trong lộ trình →' : 'Bài tiếp →') : '← Bài trước'}</p>
-                  <p className="mt-1 font-display font-extrabold text-brand-600">{m.code}</p>
+                  <p className="mt-1 font-display font-bold text-brand-600">{m.code}</p>
                   <p className="truncate text-xs text-charcoal">{m.vi_name}</p>
                 </a>
               ) : <span key={k} />)}
@@ -300,7 +317,7 @@ export default function App() {
 
           <footer className="border-t border-stone-200 pt-5 text-xs leading-relaxed text-muted">
             Số liệu trong ví dụ, video và bài tập là minh họa. Số tham khảo chỉ để định hướng; mỗi ngành hàng và giai đoạn sẽ khác.
-            <br /><span className="font-display font-extrabold text-charcoal">Ông chú Ecom</span>
+            <br /><span className="font-display font-bold text-charcoal">Ông chú Ecom</span>
             {' · '}<a href={href({ type: 'privacy' })} onClick={(e) => { e.preventDefault(); go({ type: 'privacy' }) }} className="underline hover:text-brand-700">Chính sách riêng tư</a>
           </footer>
         </div>

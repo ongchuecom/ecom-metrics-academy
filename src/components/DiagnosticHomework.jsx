@@ -25,7 +25,7 @@ function LockedTask({ task, index }) {
         Bước {index} · {task.type === 'numeric_input' ? 'Tính toán' : 'Quyết định chiến lược'}
       </p>
       <p className="mt-1 text-stone-500">{task.question}</p>
-      <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-white">Giải đúng bước {index - 1} để mở khóa</p>
+      <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-ink px-3 py-1 text-xs font-semibold text-white">Giải đúng bước {index - 1} để mở khóa</p>
     </div>
   )
 }
@@ -43,8 +43,8 @@ function NumericTask({ task, index, state, setState }) {
   const border = result?.kind === 'ok' ? 'border-brand-500 ring-2 ring-brand-500/30' : result?.kind === 'wrong' ? 'border-coral/50' : 'border-stone-200/80'
   return (
     <div className={`rounded-2xl border bg-white p-4 sm:p-5 ${border}`}>
-      <p className="eyebrow text-brand-700">Bước {index} · Tính toán</p>
-      <p className="mt-1 font-display text-lg font-extrabold leading-snug text-ink">{task.question}</p>
+      <p className="eyebrow text-muted">Bước {index} · Tính toán</p>
+      <p className="mt-1 font-display text-lg font-bold leading-snug text-ink">{task.question}</p>
       <form className="mt-3 flex flex-wrap items-center gap-2" onSubmit={(e) => { e.preventDefault(); check() }}>
         <div className="flex min-w-0 flex-1 basis-full items-center rounded-xl border sm:basis-0 border-stone-300 bg-white focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500/20">
           <input value={text} onChange={(e) => setText(e.target.value)} inputMode="decimal" placeholder="Nhập đáp án, ví dụ 250.000 hoặc 2,17"
@@ -52,7 +52,7 @@ function NumericTask({ task, index, state, setState }) {
             className="num w-full min-w-0 rounded-xl bg-transparent px-3 py-2.5 text-right text-lg font-bold tabular-nums outline-none" />
           <span className="pr-3 text-sm text-stone-500">{task.unit}</span>
         </div>
-        <button type="submit" disabled={state.solved || !text.trim()} className="rounded-full bg-brand-600 px-5 py-2.5 font-display font-bold text-white hover:bg-brand-700 disabled:opacity-40">Kiểm tra</button>
+        <button type="submit" disabled={state.solved || !text.trim()} className="rounded-lg bg-brand-600 px-5 py-2.5 font-display font-bold text-white hover:bg-brand-700 disabled:opacity-40">Kiểm tra</button>
         <button type="button" onClick={() => setShowHint((h) => !h)} className="rounded-full border border-stone-300 px-4 py-2.5 text-sm font-semibold hover:bg-lemon">
           Gợi ý công thức
         </button>
@@ -88,8 +88,8 @@ function DecisionTask({ task, index, state, setState }) {
   const picked = state.picked
   return (
     <div className={`rounded-2xl border bg-white p-4 sm:p-5 ${state.solved ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-stone-200/80'}`}>
-      <p className="eyebrow text-brand-700">Bước {index} · Quyết định chiến lược</p>
-      <p className="mt-1 font-display text-lg font-extrabold leading-snug text-ink">{task.question}</p>
+      <p className="eyebrow text-muted">Bước {index} · Quyết định chiến lược</p>
+      <p className="mt-1 font-display text-lg font-bold leading-snug text-ink">{task.question}</p>
       <div className="mt-3 space-y-2">
         {task.options.map((o) => {
           const chosen = picked?.includes(o.id)
@@ -126,10 +126,10 @@ export default function DiagnosticHomework({ metric, onSelect }) {
       <article className="rounded-3xl bg-stone-50 p-3 sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-2 px-1 pb-3 text-charcoal">
           <span className="eyebrow">Hồ sơ bệnh án · {metric.code}</span>
-          <span className="num text-sm font-extrabold">{done}/{hw.tasks.length} bước</span>
+          <span className="num text-sm font-bold">{done}/{hw.tasks.length} bước</span>
         </div>
         <div className="rounded-2xl bg-white p-4 sm:p-5">
-          <h3 className="text-xl font-black leading-snug text-ink">{hw.title}</h3>
+          <h3 className="text-xl font-bold leading-snug text-ink">{hw.title}</h3>
           <p className="mt-2 leading-relaxed text-body">{hw.scenario}</p>
         </div>
       </article>
@@ -147,9 +147,9 @@ export default function DiagnosticHomework({ metric, onSelect }) {
       {done === hw.tasks.length && (
         <div className="fade-up flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-brand-50 p-4 text-ink">
           <div>
-          <p className="font-display font-extrabold">Đã chẩn đoán xong ca này.</p><p className="text-sm"> Học tiếp chỉ số liên quan ở sơ đồ phụ thuộc để hiểu cả chuỗi.</p>
+          <p className="font-display font-bold">Đã chẩn đoán xong ca này.</p><p className="text-sm"> Học tiếp chỉ số liên quan ở sơ đồ phụ thuộc để hiểu cả chuỗi.</p>
           </div>
-          <button onClick={() => setStates({})} className="rounded-full bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white">Làm lại</button>
+          <button onClick={() => setStates({})} className="rounded-lg bg-brand-600 px-4 py-2 font-display text-sm font-bold text-white">Làm lại</button>
         </div>
       )}
     </div>
