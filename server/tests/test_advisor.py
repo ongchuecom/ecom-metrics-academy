@@ -338,61 +338,103 @@ def test_user_rate_zero_means_off(env):
 
 
 # ---------- hồi quy theo bản rà soát 110a7ab ----------
-def test_refund_survives_disconnect_while_queued(env):
-    """Khách ngắt đúng lúc lệnh trả lượt còn xếp hàng chờ luồng: lượt vẫn phải được trả."""
-    import asyncio, concurrent.futures, httpx
-    app, g = env["app"], env["gemini"]
-    g.pieces = ['<ctx>{"sp":"áo"}</ctx>']  # trả rỗng → đi nhánh trả lượt
-    env["client"].get("/api/me", headers=H("u50"))
+def _cancel_chat_after(app, uid, delay, body=None):
+    """Gửi câu hỏi qua ASGI thật rồi ngắt kết nối sau `delay` giây (giống khách đóng trang)."""
+    import asyncio, httpx
 
     async def scenario():
-        loop = asyncio.get_running_loop()
-        pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-        loop.set_default_executor(pool)
-        hold = threading.Event()
-        orig = app.state.billing.refund
-        entered = asyncio.Event()
-
-        def spy(*a):
-            return orig(*a)
-        app.state.billing.refund = spy
-        real_to_thread = asyncio.to_thread
-
-        async def watched(fn, *a, **k):
-            if fn is spy:
-                loop.run_in_executor(None, hold.wait, 5)  # chiếm luồng duy nhất ngay lúc này: lệnh trả lượt phải xếp hàng
-                entered.set()
-            return await real_to_thread(fn, *a, **k)
-        asyncio.to_thread = watched
-        try:
-            async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t") as c:
-                async def go():
-                    async with c.stream("POST", "/api/chat", json={"message": "câu hỏi bị chặn"}, headers=H("u50")) as r:
-                        async for _ in r.aiter_bytes():
-                            pass
-                task = asyncio.ensure_future(go())
-                await asyncio.wait_for(entered.wait(), 3)
-                await asyncio.sleep(0.05)
-                task.cancel()  # khách ngắt khi lệnh trả lượt còn trong hàng đợi
-                try:
-                    await task
-                except asyncio.CancelledError:
-                    pass
-            hold.set()
-            await asyncio.sleep(0.3)
-        finally:
-            asyncio.to_thread = real_to_thread
-            app.state.billing.refund = orig
-            hold.set()
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t") as c:
+            async def go():
+                async with c.stream("POST", "/api/chat", json=body or {"message": "câu hỏi thử nghiệm"}, headers=H(uid)) as r:
+                    async for _ in r.aiter_bytes():
+                        pass
+            t = asyncio.ensure_future(go())
+            await asyncio.sleep(delay)
+            t.cancel()
+            try:
+                await t
+            except asyncio.CancelledError:
+                pass
+        await asyncio.sleep(0.5)  # cho lệnh trả lượt ở luồng nền chạy xong
     asyncio.run(scenario())
+
+
+def test_disconnect_during_index_refresh_refunds(env):
+    app = env["app"]
+    env["client"].get("/api/me", headers=H("u50"))
+    real = app.state.index.refresh
+    app.state.index.refresh = lambda force=False: (time.sleep(0.4), real(force))
+    try:
+        _cancel_chat_after(app, "u50", 0.15)  # ngắt khi đang nạp chỉ mục, trước khi có luồng trả lời
+    finally:
+        app.state.index.refresh = real
     assert env["client"].get("/api/me", headers=H("u50")).json()["used_today"] == 0
+
+
+def test_disconnect_before_any_text_refunds(env):
+    import asyncio
+    app, g = env["app"], env["gemini"]
+    env["client"].get("/api/me", headers=H("u51"))
+
+    async def slow_stream(system, prompt):
+        await asyncio.sleep(2)
+        yield "muộn"
+    g.stream = slow_stream
+    _cancel_chat_after(app, "u51", 0.2)
+    assert env["client"].get("/api/me", headers=H("u51")).json()["used_today"] == 0
+
+
+def test_cached_answer_counts_once_delivered(env):
+    c = env["client"]
+    c.get("/api/me", headers=H("u52"))
+    c.post("/api/chat", json={"message": "CM2 là gì vậy"}, headers=H("u52"))
+    ev = read_sse(c.post("/api/chat", json={"message": "CM2 là gì vậy"}, headers=H("u52")))
+    assert any(e["type"] == "delta" for e in ev) and ev[-1]["type"] == "done"
+    assert c.get("/api/me", headers=H("u52")).json()["used_today"] == 2  # hai câu đã nhận chữ: tính đủ
+
+
+def test_disconnect_refund_does_not_block_event_loop(env):
+    """Trả lượt khi khách ngắt mà CSDL đang bị khóa ghi: vòng sự kiện vẫn chạy (không ghi SQLite trên vòng sự kiện)."""
+    import asyncio, httpx, sqlite3
+    app, g = env["app"], env["gemini"]
+    env["client"].get("/api/me", headers=H("u53"))
+
+    async def slow_stream(system, prompt):
+        await asyncio.sleep(2)
+        yield "muộn"
+    g.stream = slow_stream
+    lag = []
+
+    async def scenario():
+        locker = sqlite3.connect(env["s"].db_path, timeout=10, isolation_level=None)
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t") as c:
+            async def go():
+                async with c.stream("POST", "/api/chat", json={"message": "câu hỏi bị ngắt"}, headers=H("u53")) as r:
+                    async for _ in r.aiter_bytes():
+                        pass
+            t = asyncio.ensure_future(go())
+            await asyncio.sleep(0.2)
+            locker.execute("BEGIN IMMEDIATE")  # người ghi khác đang giữ khóa
+            t.cancel()
+            try:
+                await t
+            except asyncio.CancelledError:
+                pass
+            for _ in range(5):  # đồng hồ 10 ms phải đúng giờ trong lúc lệnh trả lượt chờ khóa
+                t0 = time.perf_counter(); await asyncio.sleep(0.01); lag.append(time.perf_counter() - t0)
+            locker.execute("COMMIT"); locker.close()
+            await asyncio.sleep(0.5)
+    asyncio.run(scenario())
+    assert max(lag) < 0.1, lag
+    assert env["client"].get("/api/me", headers=H("u53")).json()["used_today"] == 0
 
 
 def test_two_workers_migrate_old_db_together(tmp_path):
     import sqlite3
     from advisor.db import DB
     p = str(tmp_path / "old.db")
-    con = sqlite3.connect(p)  # CSDL kiểu cũ: bảng jobs chưa có cột heartbeat
+    con = sqlite3.connect(p)  # CSDL kiểu cũ: bảng jobs chưa có cột heartbeat; WAL như CSDL thật của Cố vấn
+    con.execute("PRAGMA journal_mode=WAL")
     con.execute("CREATE TABLE jobs (id TEXT PRIMARY KEY, kind TEXT, status TEXT, detail TEXT, created_at INTEGER, finished_at INTEGER)")
     con.commit(); con.close()
     errs, start = [], threading.Barrier(4)
@@ -445,3 +487,23 @@ def test_resync_after_id_change_reuses_vectors():
     assert calls == [5] and r["embedded"] == 0 and r["removed"] == 5
     with d.conn() as c:
         assert c.execute("SELECT COUNT(*) FROM chunks").fetchone()[0] == 5
+
+
+def test_unchanged_resync_reads_no_vectors():
+    from advisor.db import DB
+    from contextlib import contextmanager
+    import tempfile, os
+    d = DB(os.path.join(tempfile.mkdtemp(), "v.db"))
+    emb = lambda texts: [fake_vec(t) for t in texts]
+    docs = [{"source_type": "metric", "ref_id": f"k{i}", "title": f"K{i}", "text": f"Nội dung khái niệm số {i} đủ dài để thành đoạn."} for i in range(5)]
+    ingest.upsert_source(d, emb, "m", 64, "site", docs)
+    sqls, real = [], d.conn
+
+    @contextmanager
+    def traced():
+        with real() as c:
+            c.set_trace_callback(sqls.append)
+            yield c
+    d.conn = traced
+    ingest.upsert_source(d, emb, "m", 64, "site", docs)  # không có gì đổi
+    assert not [q for q in sqls if q.lstrip().upper().startswith("SELECT") and "embedding" in q]

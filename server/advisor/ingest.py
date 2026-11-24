@@ -98,12 +98,20 @@ def upsert_source(db, embed_docs, model: str, dim: int, source: str, docs: list)
             cid = hashlib.sha1(f"{model}|{dim}|{source}|{d['source_type']}|{d.get('ref_id')}|{title}|{ch}".encode()).hexdigest()
             rows.append((cid, d["source_type"], d.get("ref_id"), title, ch))
     new_ids = {r[0] for r in rows}
-    with db.conn() as c:
-        old = c.execute("SELECT id, title, content, embedding FROM chunks WHERE source=? AND model=? AND dim=?", (source, model, dim)).fetchall()
-    have = {r["id"] for r in old}
-    # vector chỉ phụ thuộc tiêu đề + nội dung: đoạn đổi id (đổi loại, đổi cách tính id) mà chữ giữ nguyên thì dùng lại, không gọi Gemini
-    reuse = {(r["title"], r["content"]): r["embedding"] for r in old}
+    with db.conn() as c:  # chỉ đọc id trước; không kéo cả kho vector vào RAM khi không có gì đổi
+        have = {r["id"] for r in c.execute("SELECT id FROM chunks WHERE source=? AND model=? AND dim=?", (source, model, dim))}
     todo = [r for r in rows if r[0] not in have]
+    # vector chỉ phụ thuộc tiêu đề + nội dung: đoạn đổi id (đổi loại, đổi cách tính id) mà chữ giữ nguyên thì dùng lại, không gọi Gemini.
+    # Chỉ nạp vector của đúng những đoạn mới cần.
+    reuse, want = {}, {(r[3], r[4]) for r in todo}
+    if want:
+        with db.conn() as c:
+            for r in c.execute("SELECT id, title, content FROM chunks WHERE source=? AND model=? AND dim=?", (source, model, dim)):
+                k = (r["title"], r["content"])
+                if k in want and k not in reuse:
+                    reuse[k] = r["id"]
+            for k, cid in list(reuse.items()):
+                reuse[k] = c.execute("SELECT embedding FROM chunks WHERE id=?", (cid,)).fetchone()["embedding"]
     fresh = [r for r in todo if (r[3], r[4]) not in reuse]
     fresh_vecs = iter(embed_docs([doc_text(r[3], r[4]) for r in fresh]) if fresh else [])
     vecs = [np.frombuffer(reuse[(r[3], r[4])], dtype=np.float32) if (r[3], r[4]) in reuse else next(fresh_vecs) for r in todo]

@@ -18,6 +18,42 @@ from . import ingest
 
 
 JOB_BEAT_EVERY, JOB_DEAD_AFTER = 20, 120  # giây
+
+
+class QuotaHold:
+    """Một lượt hỏi đã giữ. Trả lại đúng một lần nếu khách chưa nhận được chữ nào (hoặc lỗi phía mình).
+    Lệnh trả chạy ở luồng nền và không thuộc tác vụ của yêu cầu, nên khách ngắt cũng không hủy được nó,
+    và ghi SQLite (có thể chờ khóa tới 10 giây) không bao giờ chạy trên vòng sự kiện."""
+
+    def __init__(self, billing, uid: str, day: str, bg: set):
+        self.billing, self.uid, self.day, self.bg = billing, uid, day, bg
+        self.settled = False  # đã giao chữ cho khách, hoặc đã trả lượt
+
+    def mark_delivered(self):
+        self.settled = True
+
+    def release(self):
+        """Không chờ: dùng được cả trong nhánh đang bị hủy và trong callback khi tác vụ kết thúc."""
+        if self.settled:
+            return None
+        self.settled = True
+        fut = asyncio.get_running_loop().run_in_executor(None, self.billing.refund, self.uid, self.day)
+        self.bg.add(fut)
+        fut.add_done_callback(self.bg.discard)
+        return fut
+
+    async def refund(self):
+        """Có chờ (để báo lỗi đúng); nếu lệnh trả thất bại thật thì mở lại để lưới an toàn thử lần nữa."""
+        fut = self.release()
+        if fut is None:
+            return
+        try:
+            await asyncio.shield(fut)
+        except asyncio.CancelledError:
+            raise
+        except Exception:
+            self.settled = False
+            raise
 # kết quả thanh toán cần quản trị viên xử lý tay (giao diện AdminAdvisor.jsx dùng đúng bộ này)
 NEED_REVIEW = ("unmatched", "underpaid", "unknown_order", "already_paid", "paid_overpaid")
 
@@ -100,6 +136,10 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
         if (s.user_rate_per_min > 0 and not limiter.allow("u:" + uid, s.user_rate_per_min)) or (s.ip_rate_per_min > 0 and not limiter.allow("ip:" + client_ip(request), s.ip_rate_per_min)):
             raise HTTPException(429, "Anh/chị hỏi hơi nhanh, đợi một phút rồi hỏi tiếp nhé.")
         st = await asyncio.to_thread(billing.reserve, uid)  # 402 hết hạn, 429 hết lượt hôm nay
+        hold = QuotaHold(billing, uid, st["day"], bg_tasks)
+        # Lưới an toàn: khi tác vụ của yêu cầu này kết thúc (xong, lỗi, hay khách ngắt ở BẤT KỲ bước nào: đang nạp chỉ mục,
+        # chưa kịp bắt đầu luồng, đang đọc bộ nhớ đệm, đang trả lời) mà khách chưa nhận được chữ nào → trả lượt, chạy nền.
+        asyncio.current_task().add_done_callback(lambda _t: hold.release())
         meta = {"type": "meta", "remaining_today": st["remaining_today"], "daily_limit": st["daily_limit"], "plan": st["plan"], "days_left": st["days_left"]}
         await asyncio.to_thread(index.refresh)  # nạp lại chỉ mục (đọc cả bảng) không được chặn các luồng trả lời khác
         standalone = not req.history and not any(req.shop_context.clean().values())
@@ -107,34 +147,15 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
         cached = qa_cache.get(ck) if standalone else None
 
         async def run():
-            yield sse(meta)
-            if cached:
-                yield sse({"type": "refs", "refs": cached["refs"]})
-                yield sse({"type": "delta", "text": cached["answer"]})
-                yield sse({"type": "done"})
-                return
-            delivered = refunded = False
-
-            async def refund_once():
-                # đánh dấu TRƯỚC khi chờ: nếu khách ngắt đúng lúc này, nhánh hủy không trả thêm lần nữa (luồng nền vẫn trả xong)
-                nonlocal refunded
-                if refunded:
-                    return
-                refunded = True
-                # chạy trong tác vụ riêng được che (shield) và giữ tham chiếu: khách ngắt giữa chừng thì tác vụ vẫn chạy tới cùng,
-                # không bị hủy khi chưa kịp vào hàng đợi luồng
-                t = asyncio.ensure_future(asyncio.to_thread(billing.refund, uid, st["day"]))
-                bg_tasks.add(t)
-                t.add_done_callback(bg_tasks.discard)
-                try:
-                    await asyncio.shield(t)
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    refunded = False  # trả lượt thất bại thật: để nhánh lỗi thử lại
-                    raise
-
+            delivered = False  # chỉ đặt True SAU khi một mảnh chữ đã gửi xong tới khách
             try:
+                yield sse(meta)
+                if cached:
+                    yield sse({"type": "refs", "refs": cached["refs"]})
+                    yield sse({"type": "delta", "text": cached["answer"]})
+                    hold.mark_delivered()
+                    yield sse({"type": "done"})
+                    return
                 search_q = " ".join([req.message] + [x for x in [req.shop_context.kenh, *req.shop_context.van_de[-2:]] if x])
                 async with sem:
                     q_vec = await gemini.embed_query(search_q)
@@ -157,33 +178,33 @@ def create_app(settings: Optional[Settings] = None, gemini=None, verifier=None) 
                     async for piece in gemini.stream(SYSTEM_PROMPT, build_prompt(req, retrieved, focus)):
                         out = sp.feed(piece)
                         if out:
-                            delivered = True
                             answer.append(out)
                             yield sse({"type": "delta", "text": out})
+                            delivered = True
+                            hold.mark_delivered()
                 tail, ctx = sp.finish()
                 if tail:
-                    delivered = True
                     answer.append(tail)
                     yield sse({"type": "delta", "text": tail})
+                    delivered = True
+                    hold.mark_delivered()
                 if ctx:
                     yield sse({"type": "context_update", "shop_context": ctx})
                 if not "".join(answer).strip():
                     # Gemini trả rỗng (bị chặn an toàn, hoặc chỉ có thẻ <ctx>): không tính lượt
-                    await refund_once()
+                    await hold.refund()
                     yield sse({"type": "error", "message": "Cố vấn chưa trả lời được câu này, anh/chị diễn đạt lại giúp. Lượt hỏi này không bị tính."})
                     return
                 if standalone:
                     qa_cache.set(ck, {"answer": "".join(answer).strip(), "refs": refs[:4]})
                 yield sse({"type": "done"})
             except (asyncio.CancelledError, GeneratorExit):
-                # khách bấm Dừng / đóng trang trước khi nhận được chữ nào: trả lượt
-                if not delivered and not refunded:
-                    refunded = True
-                    billing.refund(uid, st["day"])  # đang bị hủy: gọi thẳng (lệnh nhỏ một dòng), không await được nữa
+                hold.release()  # khách ngắt trước khi nhận chữ nào: trả lượt ở luồng nền, không chặn vòng sự kiện
                 raise
             except Exception:
-                try:  # lỗi phía mình: trả lại lượt hỏi (đúng một lần)
-                    await refund_once()
+                try:  # lỗi phía mình: trả lại lượt hỏi (đúng một lần), kể cả khi đã gửi một phần
+                    hold.settled = False
+                    await hold.refund()
                 except Exception:
                     pass
                 yield sse({"type": "error", "message": "Cố vấn đang bận, anh/chị hỏi lại sau ít phút. Lượt hỏi này không bị tính." if not delivered
