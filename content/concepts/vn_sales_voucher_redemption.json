@@ -1,0 +1,150 @@
+{
+  "id": "vn_sales_voucher_redemption",
+  "type": "metric",
+  "domain": "03_conversion_sales",
+  "topic": "ban-tren-san",
+  "code": "Voucher Redemption Rate",
+  "vi_name": "Tỷ lệ dùng voucher (Voucher Redemption Rate)",
+  "definition": "Phần trăm mã giảm giá shop phát ra được dùng thật trong đơn. Đo một đợt mã có kéo được khách đặt hàng hay chỉ nằm im trong ví.",
+  "aliases": [
+    "redemption rate",
+    "tỷ lệ sử dụng mã",
+    "tỷ lệ dùng mã giảm giá",
+    "coupon redemption"
+  ],
+  "related": [
+    "vn_sales_voucher_dependency",
+    "vn_sales_discount_depth",
+    "vn_fin_promo_cost_ratio",
+    "vn_sales_aov"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Voucher Redemption Rate = Số mã được dùng trong đơn ÷ Số mã đã phát × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Redemption Rate của coupon, voucher)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-b",
+  "sources": [
+    {
+      "title": "Khái niệm chuẩn ngành",
+      "note": "Coupon / Voucher Redemption Rate"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Phát 5.000 mã, bao nhiêu mã thành đơn?",
+    "intro": [
+      "**Voucher Redemption Rate là số mã được dùng thật chia số mã shop đã phát ra.** Phát 5.000 mã giảm 30k, có 400 mã được dùng trong đơn thì tỷ lệ = 400 ÷ 5.000 = 8%.",
+      "Chỉ số này khác Phụ thuộc voucher. Phụ thuộc voucher nhìn từ phía đơn: bao nhiêu đơn phải có mã mới chốt. Redemption nhìn từ phía mã: phát ra bao nhiêu thì về bao nhiêu đơn. Tỷ lệ thấp là mã sai người, mức giảm không đủ hấp dẫn, hoặc khách không thấy mã."
+    ],
+    "tree": {
+      "title": "Tỷ lệ dùng mã được tạo ra từ đâu",
+      "note": "Muốn tỷ lệ tăng thì phải có nhiều người lưu mã hơn, và người đã lưu phải có lý do đặt đơn trước khi mã hết hạn.",
+      "expr": {
+        "label": "Redemption Rate",
+        "eq": [
+          {
+            "label": "Tỷ lệ khách lưu mã",
+            "dir": "up"
+          },
+          "×",
+          {
+            "label": "Tỷ lệ lưu rồi đặt đơn",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "5.000 mã phát ra, 400 mã thành đơn",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Mã phát ra",
+            5000
+          ],
+          [
+            "Khách bấm lưu (32%)",
+            1600
+          ],
+          [
+            "Dùng trong đơn (25%)",
+            400
+          ]
+        ]
+      },
+      "after": "5.000 × 32% = 1.600 người lưu. 1.600 × 25% = 400 đơn. Tính gộp 32% × 25% = 8%. **Nghẽn ở khâu lưu mã**: 100% − 32% = 68% mã không ai bấm lưu."
+    },
+    "sections": [
+      {
+        "title": "Tỷ lệ dùng cao chưa chắc là đợt mã tốt",
+        "chart": {
+          "type": "compare",
+          "unit": "đơn",
+          "labels": [
+            "Mã A: gửi khách cũ",
+            "Mã B: khách mới xem Live"
+          ],
+          "items": [
+            [
+              "Mã được dùng",
+              400,
+              300
+            ],
+            [
+              "Đơn thêm thật nhờ mã",
+              100,
+              240
+            ]
+          ]
+        },
+        "body": [
+          "Mã A gửi 2.000 khách cũ, dùng 20%: 2.000 × 20% = 400 mã. Giả sử 300 người trong đó đằng nào cũng mua, chỉ 400 − 300 = 100 đơn là nhờ mã. Tiền giảm 400 × 30k = 12tr, mỗi đơn thêm tốn 12tr ÷ 100 = 120k.",
+          "Mã B phát 5.000 mã cho người mới xem Live, chỉ dùng 6%: 5.000 × 6% = 300 mã, giả sử 240 đơn là khách mới thật. Tiền giảm 300 × 30k = 9tr, mỗi đơn thêm 9tr ÷ 240 = 37,5k. Tỷ lệ thấp hơn hẳn mà đợt mã lại đáng tiền hơn."
+        ]
+      },
+      {
+        "title": "Kéo tỷ lệ dùng mã đúng cách",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Phát đúng người",
+              "Khách đã xem, đã thêm giỏ, khách lâu chưa quay lại. Không rải cho tất cả."
+            ],
+            [
+              "Mức giảm đủ đáng",
+              "Giảm 5k cho đơn 300k thì không ai bận tâm lưu."
+            ],
+            [
+              "Đặt hạn ngắn",
+              "Hạn 3–7 ngày, nhắc khách trước khi mã hết hạn."
+            ],
+            [
+              "Hiện mã đúng chỗ",
+              "Ở trang sản phẩm, trong giỏ, trên Live lúc chốt."
+            ],
+            [
+              "Giới hạn lượt",
+              "Giới hạn số mã và mỗi khách một lần, tránh mã lan sang nhóm săn sale."
+            ]
+          ]
+        },
+        "body": [
+          "Mỗi đợt mã ghi lại 3 số: phát bao nhiêu, dùng bao nhiêu, bao nhiêu đơn là đơn thêm. Thiếu số thứ ba thì tỷ lệ dùng mã dễ đánh lừa."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chấm đợt mã bằng tỷ lệ dùng cao, không trừ những khách đằng nào cũng mua.",
+      "Rải mã cho mọi người, thấy tỷ lệ thấp rồi kết luận khách không thích mã, trong khi mã chưa tới đúng người.",
+      "Không giới hạn lượt dùng, mã lan sang nhóm săn sale, tỷ lệ dùng vọt lên mà toàn đơn không lãi."
+    ],
+    "remember": "Mã được dùng nhiều chưa phải mã hiệu quả; đo xem mỗi đơn thêm thật nhờ mã tốn bao nhiêu tiền giảm."
+  }
+}

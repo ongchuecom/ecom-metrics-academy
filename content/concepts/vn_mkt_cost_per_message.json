@@ -1,0 +1,169 @@
+{
+  "id": "vn_mkt_cost_per_message",
+  "type": "metric",
+  "domain": "02_traffic_acquisition",
+  "topic": "quang-cao",
+  "code": "Chi phí mỗi tin nhắn",
+  "vi_name": "Chi phí mỗi tin nhắn (Cost per Message)",
+  "definition": "Tiền quảng cáo trả cho mỗi cuộc trò chuyện mới mà quảng cáo nhắn tin mở ra trên Messenger, Zalo, TikTok. Một tin nhắn mới mới chỉ là khách mở lời, chưa phải lead có số điện thoại, càng chưa phải đơn.",
+  "aliases": [
+    "giá inbox",
+    "cost per message",
+    "cost per messaging conversation",
+    "giá mỗi tin nhắn",
+    "chi phí mỗi cuộc trò chuyện"
+  ],
+  "related": [
+    "vn_mkt_cpl",
+    "vn_sales_phone_capture_rate",
+    "vn_team_chat_cvr",
+    "vn_team_frt",
+    "vn_mkt_cpc",
+    "vn_mkt_cpa"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Chi phí mỗi tin nhắn = Chi phí quảng cáo nhắn tin ÷ Số cuộc trò chuyện mới"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Cost per Messaging Conversation Started của quảng cáo nhắn tin)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-b",
+  "sources": [
+    {
+      "title": "Khái niệm chuẩn ngành",
+      "note": "Cost per Messaging Conversation Started (quảng cáo nhắn tin)"
+    },
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 817, 820, mục chạy Facebook ads và Pancake: comment, inbox phải xin được số điện thoại để chốt"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Giá inbox bao nhiêu là còn lãi?",
+    "intro": [
+      "**Chi phí mỗi tin nhắn là tiền quảng cáo trả cho mỗi khách mới nhắn vào shop.** Chạy 3tr quảng cáo tin nhắn một ngày, về 200 cuộc trò chuyện mới thì giá inbox = 3tr ÷ 200 = 15k.",
+      "Nhiều shop gọi luôn con số này là CPL. Chưa đúng. Rất nhiều tin nhắn chỉ là \"giá bao nhiêu shop?\" rồi im. Lead là khi khách để lại số điện thoại hoặc đủ thông tin để chốt. Giữa giá inbox và giá lead còn một tầng nữa: tỷ lệ xin được số."
+    ],
+    "tree": {
+      "title": "Giá inbox đến từ đâu, và đi về đâu",
+      "note": "Giá inbox = CPC ÷ tỷ lệ bấm rồi gửi tin. Rồi CPL = giá inbox ÷ tỷ lệ xin số, tiền ads mỗi đơn = giá inbox ÷ tỷ lệ chốt chat.",
+      "expr": {
+        "label": "Chi phí mỗi tin nhắn",
+        "eq": [
+          {
+            "id": "vn_mkt_cpc",
+            "label": "CPC",
+            "dir": "down"
+          },
+          "÷",
+          {
+            "label": "Tỷ lệ bấm rồi gửi tin",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "3tr quảng cáo tin nhắn đi tới đâu",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Cuộc trò chuyện mới",
+            200
+          ],
+          [
+            "Để lại số (40%)",
+            80
+          ],
+          [
+            "Chốt đơn",
+            50
+          ]
+        ]
+      },
+      "after": "200 × 40% = 80 số. Giá lead = 3tr ÷ 80 = 37,5k, gấp 37,5 ÷ 15 = 2,5 lần giá inbox. Chốt 50 đơn thì tiền ads mỗi đơn = 3tr ÷ 50 = **60k**."
+    },
+    "sections": [
+      {
+        "title": "Giá inbox tối đa phụ thuộc tỷ lệ chốt",
+        "chart": {
+          "type": "line",
+          "xLabel": "Tỷ lệ chốt từ tin nhắn (%)",
+          "unit": "k",
+          "points": [
+            [
+              10,
+              12
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              20,
+              24
+            ],
+            [
+              25,
+              30
+            ],
+            [
+              30,
+              36
+            ],
+            [
+              40,
+              48
+            ]
+          ],
+          "now": {
+            "x": 25,
+            "label": "Chốt 25%: chịu được 30k/inbox"
+          }
+        },
+        "body": [
+          "Giả sử mỗi đơn còn 120k trước khi trả ads. Chốt được 25% số tin nhắn thì giá inbox tối đa = 120k × 25% = 30k. Trên mức đó là lỗ.",
+          "Trả lời chậm, kịch bản kém làm tỷ lệ chốt rớt xuống 15% thì mức chịu được chỉ còn 120k × 15% = 18k. Quảng cáo chưa đổi gì mà đã thành lỗ. Vậy nên giá inbox phải xem cùng đội chat."
+        ]
+      },
+      {
+        "title": "Inbox rẻ chưa chắc đơn rẻ",
+        "chart": {
+          "type": "compare",
+          "unit": "k",
+          "labels": [
+            "Mẫu nhắn nhận quà",
+            "Mẫu nói rõ giá"
+          ],
+          "items": [
+            [
+              "Giá inbox",
+              8,
+              20
+            ],
+            [
+              "Tiền ads mỗi đơn",
+              80,
+              66.7
+            ]
+          ]
+        },
+        "body": [
+          "Mẫu \"nhắn tin nhận quà\" kéo inbox chỉ 8k, nhưng phần lớn hỏi chơi, chốt 10%: mỗi đơn tốn 8k ÷ 10% = 80k. Mẫu nói rõ giá kéo inbox 20k, ít người nhắn hơn nhưng chốt 30%: 20k ÷ 30% = 66,7k.",
+          "Inbox đắt gấp 2,5 lần mà đơn lại rẻ hơn. Chấm quảng cáo nhắn tin bằng tiền ads mỗi đơn, đừng chấm bằng giá inbox."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Gọi giá inbox là CPL rồi đem so với lead điền form có số điện thoại.",
+      "Tối ưu cho inbox rẻ bằng mồi quà, nhận về toàn tin nhắn hỏi chơi.",
+      "Giá inbox ổn mà đơn ít thì đổ lỗi cho quảng cáo, trong khi tin nhắn nằm chờ hàng giờ không ai trả lời."
+    ],
+    "remember": "Giá inbox tối đa = tiền còn lại mỗi đơn trước ads × tỷ lệ chốt; inbox chỉ là khách mở lời, chưa phải lead, càng chưa phải đơn."
+  }
+}
