@@ -477,7 +477,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 4227-4231, 5244-5246, 5271",
       "why": "Kiểm tra mỗi đồng bỏ ra kéo khách mới có được bù lại bằng giá trị trọn đời (mốc an toàn > 3:1) trước khi tăng ngân sách.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_ltv_cac"
     },
     {
       "name": "Tỷ lệ bỏ giỏ hàng (Cart Abandonment Rate)",
@@ -488,7 +490,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 5236-5238, 5273",
       "why": "Đo bao nhiêu giỏ hàng bị bỏ dở để sửa phí ship, bước thanh toán, nhắc giỏ và lấy lại doanh thu sẵn có.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_cart_abandonment"
     },
     {
       "name": "Bán thêm & bán chéo (Upsell / Cross-sell)",
@@ -510,7 +514,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 5050-5057",
       "why": "Biết bộ máy (lương, văn phòng, marketing) có đang ăn hết lãi gộp không trước khi tính lãi vay và thuế.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_fin_operating_margin"
     },
     {
       "name": "Tỷ lệ chi phí bán hàng & marketing trên doanh thu (S&M % Revenue)",
@@ -521,7 +527,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 5025-5028, 4661",
       "why": "Kiểm soát nhóm chi lớn nhất (thường 20–30%, có shop tới 60% cho ads) để giữ được lợi nhuận khi scale.",
       "priority": 1,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_fin_sm_ratio"
     },
     {
       "name": "Bảng dòng tiền cuốn chiếu theo tháng (Rolling Cash Flow Forecast)",
@@ -576,7 +584,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 817, 943",
       "why": "Đo khả năng biến tương tác trên page thành data gọi chốt được, khâu hay bị rò rỉ nhất.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_phone_capture_rate"
     },
     {
       "name": "Giá tâm lý (Charm pricing – 99k thay vì 100k)",
@@ -898,7 +908,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1578-1586",
       "why": "Lấy doanh thu năm chia AOV và 365 để biến mục tiêu tỷ đồng thành số đơn/ngày cần đạt và nguồn lực tương ứng.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_str_orders_per_day_target"
     },
     {
       "name": "Luật Double: chia nhỏ mục tiêu theo mốc",
@@ -953,7 +965,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1605, 1642, 2348",
       "why": "Đo lãi từ hoạt động kinh doanh trước lãi vay, thuế, khấu hao để so hiệu quả các mảng và nói chuyện với nhà đầu tư.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_fin_ebitda"
     },
     {
       "name": "Tỷ lệ nợ phải thu khó đòi (Bad Debt Ratio)",
@@ -975,7 +989,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1936, 2072-2078, 2131",
       "why": "Kiểm soát mức đòn bẩy và chi phí lãi vay để không gãy khi lãi suất tăng hoặc doanh thu giảm.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_fin_debt_to_equity"
     },
     {
       "name": "Thời điểm chuyển hướng (Pivot Moment)",
@@ -1008,7 +1024,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 1768, 2277",
       "why": "Theo dõi mỗi khách mang về bao nhiêu doanh thu trong kỳ để đánh giá upsell, mua lại và độ ổn định của sản phẩm.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_arpu"
     },
     {
       "name": "Biến phí hóa chi phí (Fixed-to-Variable Cost Shift)",
@@ -1143,8 +1161,10 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 2702, 3502",
       "why": "Ghép chi thực từ nền tảng quảng cáo với thu thực từ đơn để biết mỗi kênh, sản phẩm, người chạy ads lời lỗ bao nhiêu theo ngày.",
       "priority": 2,
-      "status": "rejected",
-      "reason": "trùng chỉ số đã có Doanh thu lỗ (tách P&L theo kênh)"
+      "status": "done",
+      "reason": "trùng chỉ số đã có Doanh thu lỗ (tách P&L theo kênh)",
+      "batch": "2026-11-25-a",
+      "id": "vn_fin_channel_pnl"
     },
     {
       "name": "Bán sỉ cho đại lý (B2B wholesale) bên cạnh bán lẻ online",
@@ -1257,7 +1277,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 3280-3286, 3024",
       "why": "Đo số tiền tiết kiệm được nhờ có người phụ trách mua hàng đàm phán (ít nhất 5% giá trị mua) so với chi phí thuê người đó.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_prod_procurement_savings"
     },
     {
       "name": "ROE (Lợi nhuận trên vốn chủ sở hữu)",
@@ -1413,7 +1435,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 4974-4976, 5277",
       "why": "Theo dõi từ lượt hiển thị đến đơn thanh toán để tìm đúng tầng phễu đang rò khách.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_full_funnel_cvr"
     },
     {
       "name": "Tỷ lệ thoát trang (Bounce Rate)",
@@ -1424,7 +1448,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 5276, 4222-4225",
       "why": "Phát hiện trang đích, landing page không giữ được khách từ quảng cáo để sửa trước khi đổ thêm tiền ads.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_bounce_rate"
     },
     {
       "name": "Ba kênh chốt đơn: Direct, Channel, Inbound (Customer Acquisition Model)",
@@ -1446,7 +1472,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 5262-5264",
       "why": "Đo mức khách sẵn lòng giới thiệu shop để dự báo tăng trưởng truyền miệng và mua lại.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_nps"
     },
     {
       "name": "Điểm hài lòng khách hàng (CSAT)",
@@ -1457,7 +1485,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 5257-5261",
       "why": "Khảo sát nhanh sau mua để bắt sớm lỗi sản phẩm, giao hàng, CSKH trước khi thành đánh giá xấu.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_nps"
     },
     {
       "name": "Tỷ lệ rời bỏ & MRR churn (Churn Rate)",
@@ -1468,7 +1498,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 4990-5005",
       "why": "Với gói định kỳ, combo đặt hàng tháng, đo phần doanh thu mất đi do khách hủy để biết tăng trưởng có bị rò.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_churn"
     },
     {
       "name": "Mô hình doanh thu giao dịch và định kỳ (Transactional vs Recurring)",
@@ -1512,7 +1544,9 @@
       "source": "Sách Ecom Truyền Kỳ, dòng 4970",
       "why": "Đo tốc độ mất người ở telesale, CTV, kho để tính chi phí tuyển lại và đào tạo lại.",
       "priority": 2,
-      "status": "todo"
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_team_turnover"
     },
     {
       "name": "Phí cổng thanh toán & chênh lệch tỷ giá (Payment Processing & FX Cost)",
@@ -1799,6 +1833,383 @@
       "why": "Đưa thuế nhập khẩu vào giá vốn khi bán sang Mỹ để biết mặt hàng còn lãi sau khi đổi chính sách.",
       "priority": 3,
       "status": "todo"
+    },
+    {
+      "name": "ROAS (Return on Ad Spend): doanh thu ÷ chi phí ads; khác ROAS hòa vốn",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "ROAS (Return on Ad Spend): doanh thu ÷ chi phí ads; khác ROAS hòa vốn",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_roas"
+    },
+    {
+      "name": "MER / Blended ROAS: tổng doanh thu ÷ tổng chi marketing mọi kênh",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "MER / Blended ROAS: tổng doanh thu ÷ tổng chi marketing mọi kênh",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_mer"
+    },
+    {
+      "name": "nCAC: chi phí có 1 khách MỚI (tách khách cũ quay lại)",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "nCAC: chi phí có 1 khách MỚI (tách khách cũ quay lại)",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_ncac"
+    },
+    {
+      "name": "Frequency: số lần trung bình 1 người thấy quảng cáo = hiển thị ÷ người tiếp cận",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Frequency: số lần trung bình 1 người thấy quảng cáo = hiển thị ÷ người tiếp cận",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_frequency"
+    },
+    {
+      "name": "Hold Rate / ThruPlay rate: tỷ lệ xem video ads tới 15 giây (khác Hook Rate 3 giây)",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Hold Rate / ThruPlay rate: tỷ lệ xem video ads tới 15 giây (khác Hook Rate 3 giây)",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_hold_rate"
+    },
+    {
+      "name": "CPV: chi phí mỗi lượt xem video",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "CPV: chi phí mỗi lượt xem video",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_cpv"
+    },
+    {
+      "name": "Creative Fatigue: mức CTR giảm theo ngày chạy, khi nào thay creative",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Creative Fatigue: mức CTR giảm theo ngày chạy, khi nào thay creative",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_creative_fatigue"
+    },
+    {
+      "name": "CPA KOC: chi phí mỗi đơn từ KOC tính cả hàng mẫu, phí đăng, hoa hồng",
+      "domain": "02_traffic_acquisition",
+      "topic": "noi-dung-kenh",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "CPA KOC: chi phí mỗi đơn từ KOC tính cả hàng mẫu, phí đăng, hoa hồng",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_koc_cpa"
+    },
+    {
+      "name": "Branded Search Share: tỷ trọng lượt tìm/đơn đến từ tìm tên thương hiệu",
+      "domain": "02_traffic_acquisition",
+      "topic": "noi-dung-kenh",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Branded Search Share: tỷ trọng lượt tìm/đơn đến từ tìm tên thương hiệu",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_branded_search"
+    },
+    {
+      "name": "Engagement Rate & tăng trưởng follower của kênh nội dung",
+      "domain": "02_traffic_acquisition",
+      "topic": "noi-dung-kenh",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Engagement Rate & tăng trưởng follower của kênh nội dung",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_engagement_rate"
+    },
+    {
+      "name": "Ad Spend % Revenue theo từng kênh (nghịch đảo ROAS, đặt trần ngân sách)",
+      "domain": "02_traffic_acquisition",
+      "topic": "quang-cao",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Ad Spend % Revenue theo từng kênh (nghịch đảo ROAS, đặt trần ngân sách)",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_mkt_ad_spend_ratio"
+    },
+    {
+      "name": "Add-to-Cart Rate: tỷ lệ thêm giỏ",
+      "domain": "03_conversion_sales",
+      "topic": "chuyen-doi",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Add-to-Cart Rate: tỷ lệ thêm giỏ",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_atc_rate"
+    },
+    {
+      "name": "Checkout Completion: tỷ lệ hoàn tất thanh toán",
+      "domain": "03_conversion_sales",
+      "topic": "chuyen-doi",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Checkout Completion: tỷ lệ hoàn tất thanh toán",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_checkout_completion"
+    },
+    {
+      "name": "Store CVR: tỷ lệ chuyển đổi cả gian hàng (khác CVR trang sản phẩm)",
+      "domain": "03_conversion_sales",
+      "topic": "ban-tren-san",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Store CVR: tỷ lệ chuyển đổi cả gian hàng (khác CVR trang sản phẩm)",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_store_cvr"
+    },
+    {
+      "name": "Discount Depth: mức giảm giá bình quân để bán được",
+      "domain": "03_conversion_sales",
+      "topic": "ban-tren-san",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Discount Depth: mức giảm giá bình quân để bán được",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_discount_depth"
+    },
+    {
+      "name": "Attach Rate / UPT: tỷ lệ đơn có mua kèm, số món mỗi đơn",
+      "domain": "03_conversion_sales",
+      "topic": "chuyen-doi",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Attach Rate / UPT: tỷ lệ đơn có mua kèm, số món mỗi đơn",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_attach_rate"
+    },
+    {
+      "name": "Price Index: giá mình so với giá đối thủ cùng loại",
+      "domain": "03_conversion_sales",
+      "topic": "ban-tren-san",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Price Index: giá mình so với giá đối thủ cùng loại",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_sales_price_index"
+    },
+    {
+      "name": "CAC Payback: bao nhiêu tháng thì lãi từ 1 khách bù được tiền kéo khách",
+      "domain": "05_retention_lifecycle",
+      "topic": "giu-chan-khach",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "CAC Payback: bao nhiêu tháng thì lãi từ 1 khách bù được tiền kéo khách",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_cac_payback"
+    },
+    {
+      "name": "Cohort Retention: giữ chân theo nhóm khách cùng tháng mua đầu",
+      "domain": "05_retention_lifecycle",
+      "topic": "giu-chan-khach",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Cohort Retention: giữ chân theo nhóm khách cùng tháng mua đầu",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_cohort_retention"
+    },
+    {
+      "name": "Purchase Frequency: số đơn trung bình mỗi khách trong kỳ",
+      "domain": "05_retention_lifecycle",
+      "topic": "giu-chan-khach",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Purchase Frequency: số đơn trung bình mỗi khách trong kỳ",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_purchase_frequency"
+    },
+    {
+      "name": "Time Between Orders: khoảng cách giữa 2 lần mua, nhắc mua lại đúng lúc",
+      "domain": "05_retention_lifecycle",
+      "topic": "giu-chan-khach",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Time Between Orders: khoảng cách giữa 2 lần mua, nhắc mua lại đúng lúc",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_time_between_orders"
+    },
+    {
+      "name": "Tỷ trọng doanh thu từ khách cũ",
+      "domain": "05_retention_lifecycle",
+      "topic": "giu-chan-khach",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Tỷ trọng doanh thu từ khách cũ",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_returning_revenue_share"
+    },
+    {
+      "name": "Review Rate & điểm sao gian hàng: tỷ lệ đơn để lại đánh giá",
+      "domain": "05_retention_lifecycle",
+      "topic": "giu-chan-khach",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Review Rate & điểm sao gian hàng: tỷ lệ đơn để lại đánh giá",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ret_review_rate"
+    },
+    {
+      "name": "Refund/Return Rate: khách đã nhận rồi trả hàng hoàn tiền (khác RTO)",
+      "domain": "04_fulfillment_supply",
+      "topic": "ship-hoan-cod",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Refund/Return Rate: khách đã nhận rồi trả hàng hoàn tiền (khác RTO)",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ops_refund_rate"
+    },
+    {
+      "name": "Supplier OTIF / Fill Rate: nhà cung cấp giao đủ, đúng hạn",
+      "domain": "01_product_rd",
+      "topic": "hang-hoa-gia-von",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Supplier OTIF / Fill Rate: nhà cung cấp giao đủ, đúng hạn",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_prod_supplier_otif"
+    },
+    {
+      "name": "Weeks of Cover: tồn kho đủ bán bao nhiêu tuần",
+      "domain": "04_fulfillment_supply",
+      "topic": "van-hanh-kho",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Weeks of Cover: tồn kho đủ bán bao nhiêu tuần",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ops_weeks_of_cover"
+    },
+    {
+      "name": "Tỷ trọng doanh thu từ sản phẩm mới",
+      "domain": "01_product_rd",
+      "topic": "chon-san-pham",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Tỷ trọng doanh thu từ sản phẩm mới",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_prod_new_product_share"
+    },
+    {
+      "name": "Doanh thu / SKU: đuôi dài có đáng giữ",
+      "domain": "01_product_rd",
+      "topic": "chon-san-pham",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Doanh thu / SKU: đuôi dài có đáng giữ",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_prod_revenue_per_sku"
+    },
+    {
+      "name": "Tỷ lệ phí vận chuyển trên giá trị đơn",
+      "domain": "04_fulfillment_supply",
+      "topic": "ship-hoan-cod",
+      "type": "metric",
+      "standard": true,
+      "source": "Đề xuất bổ sung chỉ số 2026-11-25",
+      "why": "Tỷ lệ phí vận chuyển trên giá trị đơn",
+      "priority": 1,
+      "status": "done",
+      "batch": "2026-11-25-a",
+      "id": "vn_ops_shipping_cost_ratio"
     }
   ]
 }
