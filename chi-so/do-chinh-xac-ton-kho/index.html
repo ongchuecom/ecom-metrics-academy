@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Độ chính xác tồn kho là gì? Độ chính xác tồn kho (Inventory Accuracy): công thức, ví dụ · Ecom Metrics Academy</title>
+    <meta name="description" content="Độ chính xác tồn kho là phần trăm mã hàng có số trên phần mềm khớp đúng số đếm thật. Ví dụ một kho 500 mã, ngàn đơn mỗi ngày, đếm cả 500 mã thấy 440 mã khớp…" />
+    <link rel="canonical" href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/do-chinh-xac-ton-kho/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Độ chính xác tồn kho là gì? Độ chính xác tồn kho (Inventory Accuracy): công thức, ví dụ · Ecom Metrics Academy" />
+    <meta property="og:description" content="Độ chính xác tồn kho là phần trăm mã hàng có số trên phần mềm khớp đúng số đếm thật. Ví dụ một kho 500 mã, ngàn đơn mỗi ngày, đếm cả 500 mã thấy 440 mã khớp…" /><meta property="og:url" content="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/do-chinh-xac-ton-kho/" /><meta property="og:locale" content="vi_VN" />
+    <meta property="og:image" content="https://ongchuecom.github.io/ecom-metrics-academy/og.png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#FFDF38" />
+    <script type="module" crossorigin src="/ecom-metrics-academy/assets/index-DGDZD4l_.js"></script>
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/react-BJsqeLoe.js">
+    <link rel="modulepreload" crossorigin href="/ecom-metrics-academy/assets/katex-DW4SxPVY.js">
+    <link rel="stylesheet" crossorigin href="/ecom-metrics-academy/assets/index-BH2hhLsz.css">
+  </head>
+  <body>
+    <div id="root"><main style="max-width:760px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6"><p><a href="https://ongchuecom.github.io/ecom-metrics-academy/">Ecom Metrics Academy</a></p>
+<h1>Độ chính xác tồn kho: Độ chính xác tồn kho (Inventory Accuracy)</h1>
+<p><strong>Phần mềm báo còn hàng, ra kệ lại không thấy, kho mình lệch bao nhiêu mã?</strong></p>
+<p>Độ chính xác tồn kho là phần trăm mã hàng có số trên phần mềm khớp đúng số đếm thật. Ví dụ một kho 500 mã, ngàn đơn mỗi ngày, đếm cả 500 mã thấy 440 mã khớp thì độ chính xác = 440 ÷ 500 = 88%.</p>
+<p>Hao hụt tồn kho cho biết kho mất bao nhiêu hàng. Chỉ số này cho biết phần mềm sai ở bao nhiêu mã. Sàn nhận đơn theo số trên phần mềm, nên mã thiếu là đơn bị hủy vì không có hàng, mã thừa là hàng nằm kho mà không lên bán.</p>
+<h2>Công thức</h2><p>Độ chính xác tồn kho = Độ chính xác tồn kho = Số mã có tồn phần mềm khớp số đếm thật ÷ Số mã đã đếm × 100%</p>
+<h2>Hao hụt 0% mà tồn kho vẫn sai</h2><p>Tổng phần mềm 200 + 150 = 350 cái, tổng đếm thật 230 + 120 = 350 cái. Nhìn theo tổng thì hao hụt 0%. Nhưng cả 2 mã đều sai, độ chính xác 0 ÷ 2 = 0%.</p><p>Lệch kiểu này thường do nhập nhầm mã khi nhận hàng, hoặc đóng size M mà quét size L. Size L phần mềm báo còn 150 nhưng chỉ có 120, bán đến cái thứ 121 là bắt đầu hủy đơn.</p>
+<h2>Đếm vòng để giữ số đúng</h2><p>Đếm lúc kho đã chốt hết phiếu nhập xuất trong ngày, không thì hàng đang trên đường đóng gói sẽ bị tính là thiếu.</p>
+<h2>Hay hiểu sai</h2><ul><li>Chỉ xem tổng số lượng hoặc tổng giá trị, để chỗ thừa bù chỗ thiếu và tưởng kho đang đúng.</li><li>Thấy lệch là sửa số trên phần mềm cho khớp rồi thôi, không tìm vì sao lệch.</li><li>Đếm khi kho vẫn đang nhập xuất chưa chốt phiếu, ra con số lệch không có thật.</li></ul>
+<p><strong>Nhớ một câu:</strong> Hao hụt đo kho mất bao nhiêu hàng, độ chính xác tồn kho đo phần mềm sai bao nhiêu mã; sàn bán theo phần mềm nên mã nào sai là mã đó hủy đơn.</p>
+
+<h2>Khái niệm liên quan</h2><ul><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/hao-hut-ton-kho/">Hao hụt tồn kho: Tỷ lệ hao hụt tồn kho (Inventory Shrinkage)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ty-le-dong-nham/">Tỷ lệ đóng nhầm: Tỷ lệ đóng nhầm / thiếu hàng</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ty-le-dut-hang/">Tỷ lệ đứt hàng: Tỷ lệ đứt hàng (Hết hàng mã đang chạy ngon)</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ty-le-huy-don/">Tỷ lệ huỷ đơn: Tỷ lệ hủy đơn trước khi giao</a></li><li><a href="https://ongchuecom.github.io/ecom-metrics-academy/chi-so/diem-bao-nhap/">Điểm báo nhập: Điểm báo nhập hàng (Reorder Point)</a></li></ul></main></div>
+  </body>
+</html>
