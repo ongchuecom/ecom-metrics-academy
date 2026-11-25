@@ -40,7 +40,7 @@
     "subtitle": "Một khách mua của mình mấy lần một năm?",
     "intro": [
       "**Tần suất mua là số đơn trung bình mỗi khách đặt trong một kỳ.** Giả sử trong 12 tháng shop có 9.000 đơn từ 5.000 khách thì tần suất mua = 9.000 ÷ 5.000 = 1,8 lần.",
-      "Doanh thu bằng số khách nhân số lần mua nhân giá trị mỗi đơn. Anh em hay dồn sức vào số khách, tức là chạy Ads, mà quên chữ ở giữa. Sách nói rõ: phải tạo ra sản phẩm có tần suất mua lại cao, vì khách mua nhiều lần thì LTV tăng, lãi đậm."
+      "Doanh thu bằng số khách nhân số lần mua nhân giá trị mỗi đơn. Anh em hay dồn sức vào số khách, tức là chạy Ads, mà quên chữ ở giữa. Nên tạo ra sản phẩm có tần suất mua lại cao, vì khách mua nhiều lần thì LTV tăng, lãi đậm."
     ],
     "tree": {
       "title": "Tần suất mua tính thế nào",

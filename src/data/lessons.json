@@ -487,7 +487,7 @@
           ],
           "threshold": {
             "x": 90,
-            "label": "Sách: 30–90 ngày là ổn"
+            "label": "Mốc tham khảo: 30–90 ngày"
           },
           "now": {
             "x": 60,
@@ -495,7 +495,7 @@
           }
         },
         "body": [
-          "Nếu chưa từng tính DIO, giữ tồn kho dự phòng khoảng 30–90 ngày bán là ổn (theo sách Ecom Truyền Kỳ). Quy ngược lại: giá vốn hàng bán mỗi tháng nhân DIO ra mức tồn kho cho phép.",
+          "Nếu chưa từng tính DIO, mốc tham khảo hay gặp là giữ tồn kho dự phòng khoảng 30–90 ngày bán, tùy ngành hàng và thời gian nhập. Quy ngược lại: giá vốn hàng bán mỗi tháng nhân DIO ra mức tồn kho cho phép.",
           "Shop trên bán 300tr giá vốn/tháng, đặt trần 60 ngày thì tồn kho không nên vượt 600tr. Thấy kho phình quá mức đó là tín hiệu dừng nhập, xả bớt mã chậm.",
           "Thực tế mỗi mã một tốc độ. Tính DIO riêng cho từng nhóm hàng, đừng chỉ nhìn một con số trung bình cả kho."
         ]
@@ -676,7 +676,7 @@
         },
         "body": [
           "Kiểm 2.000 sản phẩm, tính 500đ/cái, hết 1tr. Không kiểm, 60 cái lỗi đi thẳng tới khách: mỗi đơn mất 30k ship 2 chiều cộng 80k giá vốn sản phẩm hỏng, tổng 6,6tr. Đó là chưa tính 60 cái đánh giá xấu kéo tụt tỷ lệ chuyển đổi.",
-          "Sách Ecom Truyền Kỳ đặt mốc cost structure (cơ cấu chi phí) lý tưởng cho khoản bồi hoàn, hư hao dưới 5% doanh thu. Hàng lỗi lọt ra ngoài là thứ ăn vào khoản này nhanh nhất."
+          "Mốc tham khảo hay gặp trong cost structure (cơ cấu chi phí) là bồi hoàn, hư hao dưới 5% doanh thu, tùy ngành hàng. Hàng lỗi lọt ra ngoài là thứ ăn vào khoản này nhanh nhất."
         ]
       }
     ],
@@ -1430,7 +1430,7 @@
         },
         "body": [
           "Cùng mất 70k một đơn hoàn. Shop bán hàng 150k, lãi mỗi đơn thành công 35k, thì **1 đơn hoàn xoá lãi của 2 đơn ngon**. Shop bán hàng 450k, lãi 120k, thì 1 đơn hoàn chỉ ăn hơn nửa đơn.",
-          "Vậy nên hàng giá thấp càng phải giữ hoàn thật thấp. Sách Ecom Truyền Kỳ đặt mốc bồi hoàn, hư hao dưới 5% doanh thu trong một cơ cấu chi phí (cost structure) hợp lý."
+          "Vậy nên hàng giá thấp càng phải giữ hoàn thật thấp. Một mốc tham khảo hay gặp là bồi hoàn, hư hao dưới 5% doanh thu, tùy ngành hàng."
         ]
       }
     ],
@@ -1534,7 +1534,7 @@
         },
         "body": [
           "Giả sử đơn COD bị bom 15%, đơn chuyển khoản trước chỉ hoàn 3%. Shop 3.000 đơn, COD 85% thì hoàn 396 đơn, tỷ lệ hoàn (RTO) 13,2%. COD về 60% thì còn 306 đơn, RTO 10,2%.",
-          "Theo sách Ecom Truyền Kỳ, COD từng chiếm 80% giao dịch online, và xu hướng thanh toán số sẽ kéo tỉ lệ COD xuống dưới 50%. Vậy nên tập cho khách chuyển khoản trước từ bây giờ: giảm vài nghìn, tặng quà nhỏ, miễn ship."
+          "Có thời COD chiếm khoảng 80% giao dịch online, và thanh toán số đang kéo tỉ lệ này xuống. Vậy nên tập cho khách chuyển khoản trước từ bây giờ: giảm vài nghìn, tặng quà nhỏ, miễn ship."
         ]
       }
     ],
@@ -1929,7 +1929,7 @@
     "subtitle": "Sàn lấy đi bao nhiêu phần trăm doanh thu",
     "intro": [
       "**Tổng phí sàn là mọi khoản sàn trừ trên doanh thu thực thu: phí cố định, phí thanh toán, Freeship Xtra, Voucher Xtra và thuế sàn thu hộ.** Hiểu đơn giản: bán 100k thì sàn giữ lại bao nhiêu. Ví dụ đơn 200k bị trừ tổng 38k thì phí sàn là 19%.",
-      "Nhiều anh em chỉ nhớ phí cố định mà quên các gói Freeship, Voucher đã đăng ký. Cộng hết lại mới thấy phí sàn to gần ngang giá vốn. Trong bảng cost structure (cơ cấu chi phí) của sách Ecom Truyền Kỳ, chi phí nền tảng (sàn/ web/ payment) là 18%, giá vốn (Cogs) 20%."
+      "Nhiều anh em chỉ nhớ phí cố định mà quên các gói Freeship, Voucher đã đăng ký. Cộng hết lại mới thấy phí sàn to gần ngang giá vốn. Trong một bảng cost structure (cơ cấu chi phí) tham khảo, chi phí nền tảng (sàn/ web/ payment) là 18%, giá vốn (Cogs) 20%."
     ],
     "tree": {
       "title": "Phí sàn được tạo ra từ đâu",
@@ -2072,12 +2072,12 @@
           },
           "now": {
             "x": 18,
-            "label": "Sách: phí 18%, Net margin 7%"
+            "label": "Mốc tham khảo: phí 18%, Net margin 7%"
           },
           "lossBelowZero": true
         },
         "body": [
-          "Lấy đúng cost structure trong sách: phí nền tảng 18%, Net margin (lãi ròng trên doanh thu) còn 7%. Các chi phí khác giữ nguyên, phí sàn mỗi lần tăng 1% là Net margin mất 1%.",
+          "Lấy bảng cost structure tham khảo đó: phí nền tảng 18%, Net margin (lãi ròng trên doanh thu) còn 7%. Các chi phí khác giữ nguyên, phí sàn mỗi lần tăng 1% là Net margin mất 1%.",
           "Phí tăng 2% nghe nhỏ, nhưng là mất **gần 30%** tiền lãi (2 ÷ 7). Tăng tới 25% là về 0. Vậy nên mỗi lần sàn đổi biểu phí, anh em phải tính lại giá bán và ROAS hòa vốn ngay, đừng đợi cuối tháng."
         ]
       }
@@ -2173,8 +2173,8 @@
           ]
         },
         "body": [
-          "Sách Ecom Truyền Kỳ đặt mục tiêu lãi gộp 55–60% ngay từ đầu, vì phía sau còn cả chuỗi chi phí phải gánh. CM1 dưới 50% mà vẫn bán sàn, chạy Ads mạnh thì rất dễ lỗ.",
-          "Cách kéo CM1 mạnh nhất nằm ở nguồn hàng. Ví dụ trong sách: đặt 1.000 sản phẩm thì giá vốn 30%, đặt 5.000 thì còn 18%. CM1 nhảy từ 70% lên **82%** mà không phải tăng giá bán. Đổi lại, đặt nhiều thì phải chắc bán được, không thì thành hàng tồn."
+          "Nhiều shop đặt mục tiêu lãi gộp 55–60% ngay từ đầu (mốc tham khảo, tùy ngành), vì phía sau còn cả chuỗi chi phí phải gánh. CM1 dưới 50% mà vẫn bán sàn, chạy Ads mạnh thì rất dễ lỗ.",
+          "Cách kéo CM1 mạnh nhất nằm ở nguồn hàng. Ví dụ: đặt 1.000 sản phẩm thì giá vốn 30%, đặt 5.000 thì còn 18%. CM1 nhảy từ 70% lên **82%** mà không phải tăng giá bán. Đổi lại, đặt nhiều thì phải chắc bán được, không thì thành hàng tồn."
         ]
       }
     ],
@@ -2193,7 +2193,7 @@
     "subtitle": "Còn bao nhiêu tiền để chạy Ads",
     "intro": [
       "**CM2 là CM1 trừ tiếp phí sàn, ship shop bù, đóng gói và chi phí đơn hoàn.** Hiểu đơn giản: tiền còn lại sau khi hàng đã tới tay khách, và đây là phần được phép đem đi chạy Ads. Ví dụ: Net Sales (doanh thu thực thu) 800tr, CM1 (lãi sau giá vốn) 480tr, trừ các khoản trên còn CM2 276tr.",
-      "Nhiều anh em lấy CM1 ra so với tiền Ads, thấy còn dư nhiều. Nhưng phí sàn, ship, hoàn cộng lại thường ăn một miếng rất to. Trong cơ cấu chi phí (cost structure) của sách Ecom Truyền Kỳ, riêng nền tảng 18%, logistics 10%, rủi ro/ bồi hoàn 5% đã là 33% doanh thu."
+      "Nhiều anh em lấy CM1 ra so với tiền Ads, thấy còn dư nhiều. Nhưng phí sàn, ship, hoàn cộng lại thường ăn một miếng rất to. Trong một cơ cấu chi phí (cost structure) tham khảo, riêng nền tảng 18%, logistics 10%, rủi ro/ bồi hoàn 5% đã là 33% doanh thu."
     ],
     "tree": {
       "title": "CM2 được tạo ra từ đâu",
@@ -2439,7 +2439,7 @@
           "lossBelowZero": true
         },
         "body": [
-          "Đường trên là lãi sau khi trả 120tr chi phí cố định, giữ doanh thu 1 tỷ. Ads phải về dưới 25% doanh thu mới hết lỗ. Sách Ecom Truyền Kỳ khuyên theo dõi tỉ trọng Ads có nằm ở mức cho phép (< 20%) hay không.",
+          "Đường trên là lãi sau khi trả 120tr chi phí cố định, giữ doanh thu 1 tỷ. Ads phải về dưới 25% doanh thu mới hết lỗ. Nên đặt một mức trần cho tỉ trọng Ads (có shop đặt dưới 20%) và theo dõi xem có vượt không.",
           "Cắt Ads thẳng tay thì doanh thu cũng tụt. Cách bền hơn là làm CM2 dày lên và kéo Ads trên mỗi đơn xuống: CPA thấp hơn, AOV (giá trị đơn trung bình) cao hơn, hoàn ít hơn. Cắt chi phí cố định chỉ là vá tạm."
         ]
       }
@@ -2548,7 +2548,7 @@
           ]
         },
         "body": [
-          "Tỷ lệ cụ thể mỗi shop mỗi khác, và quy định thuế thay đổi khá nhanh, nên anh em kiểm lại với kế toán chứ đừng chép số của shop khác. Trong cost structure của sách Ecom Truyền Kỳ, VAT (có khấu trừ) 4% và thuế (nếu là DN) 5% doanh thu.",
+          "Tỷ lệ cụ thể mỗi shop mỗi khác, và quy định thuế thay đổi khá nhanh, nên anh em kiểm lại với kế toán chứ đừng chép số của shop khác. Trong một cost structure tham khảo, VAT (có khấu trừ) 4% và thuế (nếu là DN) 5% doanh thu.",
           "Quan trọng là làm từ tháng đầu. Trích đều mỗi tháng thì nhẹ, dồn cả năm một lần thì có thể nuốt sạch lãi."
         ]
       }
@@ -2757,7 +2757,7 @@
         },
         "body": [
           "Đo bằng cách tắt quà một tuần ở một nhóm sản phẩm, so CR và AOV. Không đổi gì thì quà đó đang là tiền cho không.",
-          "Sách Ecom Truyền Kỳ đưa cơ cấu chi phí (cost structure) lí tưởng với giảm giá, chiết khấu < 15%. Lưu ý voucher shop đã bị trừ khi tính Net Sales (doanh thu thực thu). Ở đây gom lại với quà để thấy tổng tiền khuyến mãi, không trừ lần hai khi tính lãi."
+          "Mốc tham khảo hay gặp trong cơ cấu chi phí (cost structure) là giảm giá, chiết khấu < 15%, tùy ngành và mô hình. Lưu ý voucher shop đã bị trừ khi tính Net Sales (doanh thu thực thu). Ở đây gom lại với quà để thấy tổng tiền khuyến mãi, không trừ lần hai khi tính lãi."
         ]
       }
     ],
@@ -2776,7 +2776,7 @@
     "subtitle": "Sàn phạt mất bao nhiêu tiền oan",
     "intro": [
       "**Tỷ lệ tiền phạt sàn là tổng tiền bị sàn trừ do giao trễ, hết hàng phải tự huỷ đơn, vi phạm từ khoá, chia cho Net Sales.** Hiểu đơn giản: tiền mất vì lỗi của chính mình. Ví dụ: Net Sales 600tr, bị phạt tổng 9tr, tỷ lệ là 1,5%.",
-      "1,5% nghe nhỏ. Nhưng tiền phạt trừ thẳng vào lãi, không mua được thêm đơn nào. Với Net margin (lãi ròng trên doanh thu) 7%, mức sách Ecom Truyền Kỳ nêu cho shop làm tốt, shop này lãi 42tr, phạt 9tr là mất hơn một phần năm tiền lãi."
+      "1,5% nghe nhỏ. Nhưng tiền phạt trừ thẳng vào lãi, không mua được thêm đơn nào. Với Net margin (lãi ròng trên doanh thu) 7%, shop này lãi 42tr, phạt 9tr là mất hơn một phần năm tiền lãi."
     ],
     "tree": {
       "title": "Tiền phạt được tạo ra từ đâu",
@@ -2956,7 +2956,7 @@
         },
         "body": [
           "Ví dụ: shop có 2.000 khách nhắn tin mỗi tháng, AOV (giá trị đơn trung bình) 300k. Chốt 18% là 360 đơn, 108tr. Kéo lên 25% là 500 đơn, 150tr. Thêm **42tr doanh thu mà không tốn thêm đồng Ads nào**.",
-          "Thực tế, những công ty biết chăm sóc khách 1-1 qua Zalo, Messenger, email thì trên 50% doanh thu không tốn tiền marketing (theo sách Ecom Truyền Kỳ). Chat không chỉ để chốt đơn đầu, mà để giữ khách mua lại."
+          "Có những công ty biết chăm sóc khách 1-1 qua Zalo, Messenger, email đã có trên 50% doanh thu không tốn tiền marketing. Chat không chỉ để chốt đơn đầu, mà để giữ khách mua lại."
         ]
       }
     ],
@@ -3049,7 +3049,7 @@
         },
         "body": [
           "Trong Playbook 04, shop mỹ phẩm để FRT 9 phút, tỷ lệ chốt chat chỉ 18%. Cài kịch bản trả lời nhanh, ép FRT xuống dưới 1 phút, tỷ lệ chốt lên 25%.",
-          "Chatbot giúp giữ khách, nhưng đừng giao hết cho bot. Theo sách Ecom Truyền Kỳ, tỷ lệ khách hàng nhận ra chatbot là AI khoảng 26–27%, và trong nhóm này quá nửa dừng hội thoại. Bot chào và hỏi nhu cầu, người thật vào chốt."
+          "Chatbot giúp giữ khách, nhưng đừng giao hết cho bot. Khách nhận ra đang nói chuyện với bot thì không ít người dừng hội thoại. Bot chào và hỏi nhu cầu, người thật vào chốt."
         ]
       }
     ],
@@ -3303,7 +3303,7 @@
         },
         "body": [
           "Giá thật của 1 clip = 110k ÷ tỷ lệ trả clip. Ở 32,5% là khoảng 338k. Kéo lên 70% thì còn khoảng 157k, rẻ hơn một nửa với cùng số mẫu.",
-          "Playbook 06 đặt luật: chỉ gửi mẫu cho KOC có tỷ lệ đăng video thực tế trên 70% trong 30 ngày gần nhất. KOC chưa đạt mốc đó thì chốt hẹn, hoặc bắt cọc. Theo sách Ecom Truyền Kỳ, chi phí booking KOC đã lên tới khoảng 20% doanh thu, nên mẫu thất thoát là cộng thêm vào khoản vốn đã nặng."
+          "Playbook 06 đặt luật: chỉ gửi mẫu cho KOC có tỷ lệ đăng video thực tế trên 70% trong 30 ngày gần nhất. KOC chưa đạt mốc đó thì chốt hẹn, hoặc bắt cọc. Chi phí booking KOC có thể lên tới khoảng 20% doanh thu, nên mẫu thất thoát là cộng thêm vào khoản vốn đã nặng."
         ]
       }
     ],
@@ -3415,7 +3415,7 @@
         },
         "body": [
           "Mùa sale đơn lên 1.200/ngày. Ở 150 đơn/người/ca cần 8 người. Ở 218 đơn/người/ca chỉ cần 6 người. Sửa quy trình rẻ hơn tuyển 2 người.",
-          "Nhưng đừng ép tốc độ mà quên độ chính xác. Theo sách Ecom Truyền Kỳ, 1 kho hàng 500 Sku, ngàn đơn/ ngày, giá trị kho 4 tỉ cần 10 người làm. Tỉ lệ sai 5% là mỗi tháng sơ sơ mất 200tr. Gói nhanh mà nhầm thì mất cả tiền ship hai chiều."
+          "Nhưng đừng ép tốc độ mà quên độ chính xác. Ví dụ 1 kho hàng 500 Sku, ngàn đơn/ ngày, giá trị kho 4 tỉ cần 10 người làm. Tỉ lệ sai 5% là mỗi tháng sơ sơ mất 200tr. Gói nhanh mà nhầm thì mất cả tiền ship hai chiều."
         ]
       }
     ],
@@ -3724,7 +3724,7 @@
         },
         "body": [
           "Hai shop cùng doanh thu 500tr, cùng chạy ROAS 4. Shop A phải mua 450tr doanh thu bằng Ads, tốn 112,5tr. Shop B chỉ mua 300tr, tốn 75tr. Mỗi tháng B giữ thêm **37,5tr** tiền lãi. Tài khoản bị khoá, A còn 50tr, B còn 200tr.",
-          "Đừng nghĩ đơn tự nhiên là đơn dễ. Theo sách Ecom Truyền Kỳ, năm 2025 bên tác giả CR (tỷ lệ chuyển đổi) của organic là 2,1% còn Ads là 4%. Organic chuyển đổi kém hơn nhưng không tốn tiền mỗi click, làm đều thì cộng dồn. Vậy nên kết hợp cả 2 mới ngon."
+          "Đừng nghĩ đơn tự nhiên là đơn dễ. Ví dụ một shop năm 2025 có CR (tỷ lệ chuyển đổi) của organic là 2,1% còn Ads là 4%. Organic chuyển đổi kém hơn nhưng không tốn tiền mỗi click, làm đều thì cộng dồn. Vậy nên kết hợp cả 2 mới ngon."
         ]
       }
     ],
@@ -4080,7 +4080,7 @@
         },
         "body": [
           "Cho mua không cần tài khoản, CVR lên 1,5%. Lượt xem và AOV giữ nguyên, đơn từ 600 lên 750, **doanh thu thêm 60tr/tháng mà không tốn thêm đồng Ads nào**. Nếu 60tr Ads mang về lượng xem đó thì CPA từ 100k còn 80k.",
-          "Theo sách Ecom Truyền Kỳ, năm 2025 bên tác giả CR organic (khách tự tìm đến, không qua Ads) là 2,1%, Ads là 4%, và các đội làm giỏi thì CR phải trên 5%. Vá xong chỗ rò này thì đo tiếp từng bước phễu, tìm chỗ rò tiếp theo rồi mới tăng Ads."
+          "Ví dụ một shop năm 2025 có CR organic (khách tự tìm đến, không qua Ads) 2,1%, Ads 4%; có đội làm giỏi đẩy CR lên trên 5%. Vá xong chỗ rò này thì đo tiếp từng bước phễu, tìm chỗ rò tiếp theo rồi mới tăng Ads."
         ]
       }
     ],
@@ -4214,7 +4214,7 @@
         },
         "body": [
           "Cùng 1.000 đơn, không đơn nào dùng mã thì còn 43tr. 70% đơn dùng mã thì còn 19,48tr, **chưa tới một nửa**. Đây là giả sử mã không kéo thêm đơn. Nếu mã kéo thêm đơn mới thật thì phải cộng phần đó vào, nhưng phần lớn trường hợp là khách đằng nào cũng mua.",
-          "Theo sách Ecom Truyền Kỳ, cost structure (cơ cấu chi phí) lý tưởng thì giảm giá, chiết khấu < 15%. Muốn biết shop có nghiện mã không, tắt bớt mã trong 1 tuần rồi xem đơn rớt bao nhiêu."
+          "Mốc tham khảo hay gặp trong cost structure (cơ cấu chi phí) là giảm giá, chiết khấu < 15%, tùy ngành. Muốn biết shop có nghiện mã không, tắt bớt mã trong 1 tuần rồi xem đơn rớt bao nhiêu."
         ]
       }
     ],
@@ -4302,7 +4302,7 @@
         },
         "body": [
           "Nếu chỉ 10% quay lại lần 2 và 4% lần 3, cùng 100 khách đó chỉ lãi khoảng 1,59tr. Tỷ lệ mua lại 34% làm tiền lãi gần gấp 3.",
-          "Theo sách Ecom Truyền Kỳ, xây được web ngon thì ads dưới 10% và retention rate (tỷ lệ giữ chân khách) trên 40%. Khách cũ càng nhiều, shop càng ít phải đi săn khách mới mỗi ngày."
+          "Shop xây được web ngon có thể kéo ads xuống dưới 10% và retention rate (tỷ lệ giữ chân khách) lên trên 40%. Khách cũ càng nhiều, shop càng ít phải đi săn khách mới mỗi ngày."
         ]
       }
     ],
@@ -4459,7 +4459,7 @@
           ]
         },
         "body": [
-          "Theo sách Ecom Truyền Kỳ, CAC nên dưới 1/3 CLV, tức LTV:CAC tốt nhất trên 3:1. Shop trên mới đạt 560 ÷ 250 ≈ 2,24: vẫn lãi mỗi khách nhưng chưa dư nhiều.",
+          "Mốc tham khảo hay gặp là CAC dưới 1/3 CLV, tức LTV:CAC trên 3:1, tùy biên lãi và mô hình. Shop trên mới đạt 560 ÷ 250 ≈ 2,24: vẫn lãi mỗi khách nhưng chưa dư nhiều.",
           "Lỗ đơn đầu chấp nhận được khi chắc khách mua lại. Rủi ro nằm ở dòng tiền: tiền Ads trả ngay, lãi về rải rác cả năm. Vậy nên phải kéo khách mua lần 2 sớm và đủ tiền mặt để chờ."
         ]
       }
@@ -5047,7 +5047,7 @@
         },
         "body": [
           "Giữ nguyên kho và 3 người: 1.500 đơn thì mỗi đơn gánh 28k, 6.000 đơn chỉ còn 7k. Cùng một cái kho, chi phí trên đơn chênh nhau 4 lần.",
-          "Đơn 250k mà kho ăn 14k là 5,6% doanh thu. Theo sách Ecom Truyền Kỳ, cả logistics nên dưới 11% doanh thu. Kho đã chiếm một nửa, phần còn lại cho giao vận rất mỏng."
+          "Đơn 250k mà kho ăn 14k là 5,6% doanh thu. Nếu lấy mốc tham khảo cả logistics dưới 11% doanh thu thì kho đã chiếm một nửa, phần còn lại cho giao vận rất mỏng."
         ]
       }
     ],
@@ -5203,7 +5203,7 @@
         },
         "body": [
           "Playbook 04: shop trên định tuyển thêm 5 người. Thay vào đó vá 3 lỗ hổng chat, kho, tồn kho. Doanh thu lên 1,65 tỷ với đúng 12 người, CM1 660tr, mỗi người **55tr**.",
-          "Mốc tham khảo: 1 sale lương 10tr thì nên đem về ít nhất 100tr doanh thu (tương ứng 50tr lãi gộp), theo sách Ecom Truyền Kỳ. Playbook 10 dùng luật: chỉ mở tuyển khi lãi gộp/nhân sự gấp 3,5–4 lần lương trung bình của vị trí đó."
+          "Mốc tham khảo hay gặp: 1 sale lương 10tr đem về ít nhất 100tr doanh thu (tương ứng 50tr lãi gộp), tùy ngành. Playbook 10 dùng luật: chỉ mở tuyển khi lãi gộp/nhân sự gấp 3,5–4 lần lương trung bình của vị trí đó."
         ]
       }
     ],
@@ -5580,7 +5580,7 @@
           ]
         },
         "body": [
-          "Mô hình Ads có cái hay: người không cần tăng theo doanh số. Theo sách Ecom Truyền Kỳ, bán Amazon thì chỉ cần 3 người, tổng chi phí 50tr/ tháng, dù doanh số to hay nhỏ, vì chỉ cần tăng ngân sách Ads là doanh số tăng.",
+          "Mô hình Ads có cái hay: người không cần tăng theo doanh số. Ví dụ có team bán Amazon chỉ cần 3 người, tổng chi phí 50tr/ tháng, dù doanh số to hay nhỏ, vì chỉ cần tăng ngân sách Ads là doanh số tăng.",
           "Vậy nên thu nhập buyer nên gắn với lãi sau Ads (CM3), không gắn với doanh thu. Playbook 10 cũng chỉ ra sai lầm: trả lương cứng quá cao cho người chạy Ads thay vì gắn thu nhập với CM3."
         ]
       }
@@ -5945,8 +5945,8 @@
           }
         },
         "body": [
-          "Theo sách Ecom Truyền Kỳ, nhà cung cấp thường cho nợ 21 ngày, bán tốt có thể deal lên 45 ngày. Shop bán ra 10tr giá vốn mỗi ngày mà DPO 45 ngày thì xưởng đang cho mượn 450tr, không lãi.",
-          "Nhưng đừng kéo DPO bằng cách trả trễ hẹn. Mất uy tín là mất nguồn hàng. Sách cũng dặn đừng lạm dụng, vì chỉ cần mất cân đối dòng tiền sẽ “đứt tay”."
+          "Ví dụ nhà cung cấp cho nợ 21 ngày, bán tốt có thể deal lên 45 ngày. Shop bán ra 10tr giá vốn mỗi ngày mà DPO 45 ngày thì xưởng đang cho mượn 450tr, không lãi.",
+          "Nhưng đừng kéo DPO bằng cách trả trễ hẹn. Mất uy tín là mất nguồn hàng. Cũng đừng lạm dụng, vì chỉ cần mất cân đối dòng tiền sẽ “đứt tay”."
         ]
       }
     ],
@@ -6312,7 +6312,7 @@
           }
         },
         "body": [
-          "Theo sách Ecom Truyền Kỳ, cơ cấu chi phí Ecom từ 2025 chỉ chừa chi phí vận hành chung (văn phòng, định phí) 4% và chi phí nhân sự 5% doanh thu, cộng lại 4% + 5% = 9%. Shop trên đang 12%, đã cao hơn mức của sách 3 điểm.",
+          "Một cơ cấu chi phí Ecom tham khảo chỉ chừa chi phí vận hành chung (văn phòng, định phí) 4% và chi phí nhân sự 5% doanh thu, cộng lại 4% + 5% = 9%. Shop trên đang 12%, cao hơn mốc tham khảo này 3 điểm.",
           "Doanh thu chững 20% còn 800tr là tỷ lệ nhảy lên 15%, vượt xa mức 9%. Nếu tuyển thêm 4 người, quỹ lương tăng 48tr/tháng, định phí lên 168tr, tức **16,8%** dù vẫn bán 1 tỷ. Dùng tool tự động 15tr/tháng thay vì tuyển thì chỉ 13,5%."
         ]
       }
@@ -6418,8 +6418,8 @@
           ]
         },
         "body": [
-          "Theo sách Ecom Truyền Kỳ, khi thuế phải đóng đủ thì Net margin 7–10% là ổn rồi. Với 1,5 tỷ doanh thu, 7% là khoảng 105tr mỗi tháng.",
-          "Huy có hai đòn bẩy. Kéo CM3 từ 16% lên 20% doanh thu (deal giá vốn, tắt nhóm Ads lỗ): CM3 lên 300tr. Cắt 30% định phí, mức mà sách kể các công ty của tác giả đã làm được: 160tr còn 112tr. Doanh thu giữ 1,5 tỷ nên dự phòng thuế vẫn 80tr: 300tr − 112tr − 80tr = 108tr. Lãi ròng lên **108tr, Net margin 7,2%**."
+          "Khi thuế phải đóng đủ, nhiều người coi Net margin 7–10% là ổn, tùy ngành và mô hình. Với 1,5 tỷ doanh thu, 7% là khoảng 105tr mỗi tháng.",
+          "Huy có hai đòn bẩy. Kéo CM3 từ 16% lên 20% doanh thu (deal giá vốn, tắt nhóm Ads lỗ): CM3 lên 300tr. Cắt 30% định phí (có công ty đã làm được): 160tr còn 112tr. Doanh thu giữ 1,5 tỷ nên dự phòng thuế vẫn 80tr: 300tr − 112tr − 80tr = 108tr. Lãi ròng lên **108tr, Net margin 7,2%**."
         ]
       }
     ],

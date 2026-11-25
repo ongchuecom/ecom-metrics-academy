@@ -41,7 +41,7 @@
     "subtitle": "Khách nhắn tin hỏi giá, mình xin được số của bao nhiêu người?",
     "intro": [
       "**Tỷ lệ xin số là số khách để lại số điện thoại dùng được chia số khách comment, inbox.** Ngày có 500 inbox, xin được 300 số thì tỷ lệ = 300 ÷ 500 = 60%.",
-      "Sách kể thời bán Facebook: khách comment, inbox hàng nghìn mỗi ngày, chat rất chậm chốt, nên nhiều đội đặt quy trình mỗi inbox phải xin được số để gọi. Ngày 100 số chốt 50 đơn. Mỗi inbox là tiền ads đã trả. Không xin được số thì inbox đó gần như mất trắng."
+      "Thời bán Facebook, khách comment, inbox hàng nghìn mỗi ngày, chat rất chậm chốt, nên nhiều đội đặt quy trình mỗi inbox phải xin được số để gọi. Ngày 100 số chốt 50 đơn. Mỗi inbox là tiền ads đã trả. Không xin được số thì inbox đó gần như mất trắng."
     ],
     "tree": {
       "title": "Tỷ lệ xin số quyết định giá mỗi số",
@@ -85,7 +85,7 @@
           ]
         ]
       },
-      "after": "Giả sử xin số 60%, gọi được 240 ÷ 300 = 80%, chốt 150 ÷ 240 = 62,5%. Tính trên số xin được thì 150 ÷ 300 = 50%, khớp với ví dụ sách: ngày 100 số chốt 50 đơn."
+      "after": "Giả sử xin số 60%, gọi được 240 ÷ 300 = 80%, chốt 150 ÷ 240 = 62,5%. Tính trên số xin được thì 150 ÷ 300 = 50%, khớp với ví dụ trên: ngày 100 số chốt 50 đơn."
     },
     "sections": [
       {

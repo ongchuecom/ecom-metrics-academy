@@ -42,7 +42,7 @@
     "subtitle": "Deal được giá nhập rẻ hơn, shop thật sự giữ lại được bao nhiêu?",
     "intro": [
       "**Procurement Savings là phần trăm tiền mua hàng tiết kiệm được so với giá cũ, tính trên số lượng thật sự đã nhập.** Giá nhập cũ 100k, deal xuống 92k, quý này nhập 6.000 cái thì tiết kiệm (100k − 92k) × 6.000 = 48tr, tức 8k ÷ 100k = 8%.",
-      "Sách nói: seller càng ngày càng khó kiếm lãi trực tiếp từ đơn, phải tìm từng đồng lãi nhờ tối ưu chuỗi cung ứng, ép ngược nhà máy để có giá tốt hơn và công nợ lâu hơn. Nhưng tiết kiệm phải đếm bằng hàng đã nhập về, không bằng báo giá hay số lượng dự kiến."
+      "Seller càng ngày càng khó kiếm lãi trực tiếp từ đơn, phải tìm từng đồng lãi nhờ tối ưu chuỗi cung ứng, ép ngược nhà máy để có giá tốt hơn và công nợ lâu hơn. Nhưng tiết kiệm phải đếm bằng hàng đã nhập về, không bằng báo giá hay số lượng dự kiến."
     ],
     "breakdown": {
       "title": "Tiền tiết kiệm trong quý theo từng mã",
@@ -94,7 +94,7 @@
         },
         "body": [
           "Giả sử muốn được giá 92k thì phải đặt một lần 6.000 cái, thay vì mỗi tháng 2.000 cái giá 100k. Lô nhỏ: 2.000 × 100k = 200tr. Lô to: 6.000 × 92k = 552tr. Tiền ra ngay từ đầu nhiều hơn 552tr − 200tr = 352tr.",
-          "Bán đều 2.000 cái/tháng thì 3 tháng mới hết lô. Nếu mã chững lại, chỉ bán được 4.000 cái, còn 2.000 × 92k = 184tr nằm kho, gần gấp 4 lần 48tr tiết kiệm được. Sách nhắc: mua nhiều để được giá rẻ rồi bán dần, nhưng nếu không bán được thì tồn kho thành phế phẩm."
+          "Bán đều 2.000 cái/tháng thì 3 tháng mới hết lô. Nếu mã chững lại, chỉ bán được 4.000 cái, còn 2.000 × 92k = 184tr nằm kho, gần gấp 4 lần 48tr tiết kiệm được. Mua nhiều để được giá rẻ rồi bán dần, nhưng nếu không bán được thì tồn kho thành phế phẩm."
         ]
       },
       {

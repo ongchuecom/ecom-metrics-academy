@@ -36,7 +36,7 @@
     "subtitle": "Tháng nào báo cáo cũng lãi, sao tài khoản vẫn không có tiền?",
     "intro": [
       "**Lợi nhuận là con số trên báo cáo, tiền thật là số dư trong tài khoản; hai cái này không bằng nhau.** Shop báo lãi 80tr tháng này, nhưng nhập thêm 120tr hàng chưa bán hết, tiền sàn còn treo thêm 30tr, chỉ được nhà cung cấp cho nợ thêm 40tr. Tiền thật trong tháng là 80tr − 120tr − 30tr + 40tr = −30tr. Lãi mà vẫn hụt 30tr tiền mặt.",
-      "Sách gọi đúng tên: tiền mặt bị giam trong hàng tồn và các khoản nợ phải thu, tiền lãi chỉ là trên màn hình, không có tiền thật để chia nhau. Tăng trưởng còn ngốn tiền mặt hơn nữa, vì bán nhiều thì phải nhập nhiều trước. Nên có những shop chết khi đang lãi."
+      "Gọi đúng tên: tiền mặt bị giam trong hàng tồn và các khoản nợ phải thu, tiền lãi chỉ là trên màn hình, không có tiền thật để chia nhau. Tăng trưởng còn ngốn tiền mặt hơn nữa, vì bán nhiều thì phải nhập nhiều trước. Nên có những shop chết khi đang lãi."
     ],
     "breakdown": {
       "title": "Lãi 80tr đi đâu mất",
@@ -101,7 +101,7 @@
           ]
         },
         "body": [
-          "Sách kể một case: người bạn tính số tiền phải thu đang có 6 tỉ, nghĩ nếu dẹp công ty thì cổ đông vẫn chia nhau 6 tỉ. Sáu tháng sau dẹp thật thì không có xu nào để chia, vì không thu được nửa số đó trong khi chi phí vẫn tăng.",
+          "Có một case: chủ công ty tính số tiền phải thu đang có 6 tỉ, nghĩ nếu dẹp công ty thì cổ đông vẫn chia nhau 6 tỉ. Sáu tháng sau dẹp thật thì không có xu nào để chia, vì không thu được nửa số đó trong khi chi phí vẫn tăng.",
           "Biểu đồ là một shop giả định: phải thu 600tr nhưng đòi được 250tr, hàng tồn 400tr xả ra chỉ được 220tr. Tổng trên giấy 600tr + 150tr + 400tr = 1.150tr, thu về thật 250tr + 135tr + 220tr = 605tr, gần một nửa bốc hơi."
         ]
       },

@@ -40,7 +40,7 @@
     "subtitle": "Mỗi đồng bỏ ra kéo khách mới, về lại bao nhiêu đồng lãi?",
     "intro": [
       "**LTV:CAC là tiền lãi trọn đời một khách mang về chia cho tiền bỏ ra để kéo khách đó về.** Một khách mua trong 12 tháng mang về 600k lãi CM2, kéo về tốn 200k thì LTV:CAC = 600k ÷ 200k = 3.",
-      "Sách nói đích đến của kinh doanh là tăng LTV mà vẫn giữ tiền kéo khách ở mức phù hợp, và LTV:CAC tốt nhất trên 3:1. Con số này không cho biết shop lãi bao nhiêu. Nó cho biết đồng tiền kéo khách đang làm việc tốt cỡ nào, để biết nên bơm tiền vào kênh nào, rút khỏi kênh nào."
+      "Đích đến là tăng LTV mà vẫn giữ tiền kéo khách ở mức phù hợp. Mốc LTV:CAC trên 3:1 hay được coi là tốt, nhưng chỉ là mốc tham khảo, tùy biên lãi và mô hình. Con số này không cho biết shop lãi bao nhiêu. Nó cho biết đồng tiền kéo khách đang làm việc tốt cỡ nào, để biết nên bơm tiền vào kênh nào, rút khỏi kênh nào."
     ],
     "tree": {
       "title": "LTV:CAC được tạo ra từ đâu",

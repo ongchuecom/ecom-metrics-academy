@@ -38,7 +38,7 @@
     "subtitle": "Làm đúng luật hết thì shop còn lại bao nhiêu phần trăm lãi?",
     "intro": [
       "**Chi phí tuân thủ trên doanh thu là phần trăm doanh thu mất đi để kinh doanh đúng luật.** Gồm thuế phải nộp, bảo hiểm và thuế TNCN (thu nhập cá nhân) cho nhân sự, kế toán, hóa đơn điện tử, chữ ký số, và tiền phạt nếu làm sai. Shop giả định bán 10 tỷ/năm, cộng các khoản này được 1.300tr thì tỷ lệ là 1.300tr ÷ 10 tỷ = 13%.",
-      "Sách nói thẳng: trước đây con số này của seller gần như dưới 2%, bằng cách lập hộ kinh doanh hưởng mức thuế tượng trưng hoặc nhận tiền mặt không xuất hóa đơn. Nên tiền lãi của nhiều seller thật ra chính là tiền thuế lách. Khi phải đóng đủ, sách ước cộng cả phạt và thất thoát sẽ mất tầm 14%. Mức thuế cụ thể tùy loại hình, ngành hàng và cách kê khai; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
+      "Trước đây con số này của nhiều seller gần như dưới 2%, bằng cách lập hộ kinh doanh hưởng mức thuế tượng trưng hoặc nhận tiền mặt không xuất hóa đơn. Nên tiền lãi của nhiều seller thật ra chính là tiền thuế lách. Khi phải đóng đủ, có ước tính cộng cả phạt và thất thoát mất tầm 14%. Mức thuế cụ thể tùy loại hình, ngành hàng và cách kê khai; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
     ],
     "tree": {
       "title": "Chi phí tuân thủ được tạo ra từ đâu",
@@ -134,8 +134,8 @@
           ]
         },
         "body": [
-          "Cùng một shop, lãi trước tuân thủ 22%. Net margin (lãi ròng trên doanh thu) kiểu cũ: 22% − 2% = 20%. Làm đúng: 22% − 13% = 9%. Sách nói đúng như vậy: trước anh em đặt net margin trên 20% mới vui, giờ 7-10% là ổn; ai làm được cao hơn thì hoặc xuất sắc, hoặc đang né thuế.",
-          "Công thức lãi viết cho đủ: Lãi bằng (Doanh thu trừ phần VAT, chi phí, hao phí, bảo hiểm xã hội, thuế TNCN) nhân 80%, rồi trừ dự phòng rủi ro. Hệ số 80% ở đây là cách sách ước phần thuế trên lợi nhuận; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
+          "Cùng một shop, lãi trước tuân thủ 22%. Net margin (lãi ròng trên doanh thu) kiểu cũ: 22% − 2% = 20%. Làm đúng: 22% − 13% = 9%. Vì vậy trước anh em hay đặt net margin trên 20% mới vui, giờ nhiều người coi 7-10% là ổn, tùy ngành và mô hình. Shop nào cao hơn hẳn thì nên xem lại: hoặc mô hình thật sự tốt, hoặc đang chưa tính đủ thuế.",
+          "Công thức lãi viết cho đủ: Lãi bằng (Doanh thu trừ phần VAT, chi phí, hao phí, bảo hiểm xã hội, thuế TNCN) nhân 80%, rồi trừ dự phòng rủi ro. Hệ số 80% ở đây là phần còn lại sau thuế thu nhập doanh nghiệp, giả định thuế suất 20%; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
         ]
       },
       {

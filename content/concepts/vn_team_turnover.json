@@ -41,7 +41,7 @@
     "subtitle": "Mỗi tháng đội mất bao nhiêu người, và mỗi người đi tốn bao nhiêu?",
     "intro": [
       "**Tỷ lệ nghỉ việc là số người nghỉ chia cho số nhân sự bình quân trong kỳ.** Đội telesale đầu tháng 20 người, cuối tháng 22 người, trong tháng có 3 người nghỉ. Bình quân: 20 + 22 = 42, 42 ÷ 2 = 21 người. Tỷ lệ nghỉ việc = 3 ÷ 21 = 14,3% mỗi tháng.",
-      "Cứ đà này một năm có 3 × 12 = 36 lượt nghỉ, nhiều hơn cả số người trong đội. Sách nhắc các ngành thâm dụng lao động như sản xuất, telesales, cộng tác viên có tỷ lệ nghỉ việc cao, và cái giá không nằm ở tiền tuyển mà ở mấy tháng người mới chưa làm ra số."
+      "Cứ đà này một năm có 3 × 12 = 36 lượt nghỉ, nhiều hơn cả số người trong đội. Các ngành thâm dụng lao động như sản xuất, telesales, cộng tác viên có tỷ lệ nghỉ việc cao, và cái giá không nằm ở tiền tuyển mà ở mấy tháng người mới chưa làm ra số."
     ],
     "breakdown": {
       "title": "Người mới cần mấy tháng để làm ra số",
@@ -68,7 +68,7 @@
           ]
         ]
       },
-      "after": "Sách đưa nhịp: tháng đầu đạt 25%, tháng thứ 2 lên 50%, full ở tháng thứ 4. Giả sử tháng thứ 3 đạt 75%. Mỗi người nghỉ là công ty quay lại vạch xuất phát, mất **3 tháng** chạy đà."
+      "after": "Ví dụ nhịp của người mới: tháng đầu đạt 25%, tháng thứ 2 lên 50%, full ở tháng thứ 4. Giả sử tháng thứ 3 đạt 75%. Mỗi người nghỉ là công ty quay lại vạch xuất phát, mất **3 tháng** chạy đà."
     },
     "sections": [
       {

@@ -42,7 +42,7 @@
     "subtitle": "Khách đã vào giỏ rồi, bán thêm được món nào không?",
     "intro": [
       "**Attach Rate là phần trăm đơn có thêm món mua kèm; UPT là số món trung bình mỗi đơn.** Tháng 1.000 đơn, 300 đơn có món kèm thì Attach Rate = 300 ÷ 1.000 = 30%. Bán ra 1.430 món thì UPT = 1.430 ÷ 1.000 = 1,43 món.",
-      "Sách nói thẳng: tạo combo, làm trang dễ mua, có offer hấp dẫn thì AOV tăng. Cùng một chi phí để có khách mà AOV tăng thì có lãi. Món kèm đi chung đơn nên không tốn thêm tiền ads, gần như không tốn thêm ship. Phần lãi của nó gần như đi thẳng về túi."
+      "Tạo combo, làm trang dễ mua, có offer hấp dẫn thì AOV tăng. Cùng một chi phí để có khách mà AOV tăng thì có lãi. Món kèm đi chung đơn nên không tốn thêm tiền ads, gần như không tốn thêm ship. Phần lãi của nó gần như đi thẳng về túi."
     ],
     "tree": {
       "title": "UPT nằm trong AOV",

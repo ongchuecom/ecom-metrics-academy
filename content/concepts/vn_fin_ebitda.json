@@ -39,8 +39,8 @@
   "lesson": {
     "subtitle": "Mô hình kiếm ra bao nhiêu trước khi trả ngân hàng, nhà nước và máy móc?",
     "intro": [
-      "**EBITDA là lãi từ việc kinh doanh, chưa trừ lãi vay, thuế và khấu hao.** Sách lấy ví dụ: bán TikTok 30 tỷ, trừ phí sàn, marketing, giá vốn còn 30 tỷ × 30% = 9 tỷ. Trả kho, đội vận hành, kế toán, văn phòng, điện nước hết 5 tỷ, còn 9 tỷ − 5 tỷ = 4 tỷ. Biên EBITDA = 4 tỷ ÷ 30 tỷ = 13,3%.",
-      "Khấu hao là chia tiền mua tài sản ra nhiều năm. Sách ví dụ mua máy in 3D để in áo giá 1 tỷ, dùng 5 năm thì mỗi năm tính 1 tỷ ÷ 5 = 200tr. EBITDA cộng phần này lại, vì thế nó hợp để so mô hình với mô hình, nhưng không cho biết cuối tháng tài khoản còn bao nhiêu."
+      "**EBITDA là lãi từ việc kinh doanh, chưa trừ lãi vay, thuế và khấu hao.** Ví dụ một shop bán TikTok 30 tỷ, trừ phí sàn, marketing, giá vốn còn 30 tỷ × 30% = 9 tỷ. Trả kho, đội vận hành, kế toán, văn phòng, điện nước, cả khấu hao máy móc hết 5 tỷ, còn 9 tỷ − 5 tỷ = 4 tỷ. Con số này là lợi nhuận hoạt động (EBIT), chưa phải EBITDA: biên lợi nhuận hoạt động = 4 tỷ ÷ 30 tỷ = 13,3%.",
+      "Khấu hao là chia tiền mua tài sản ra nhiều năm. Shop này mua máy in 3D để in áo giá 1 tỷ, dùng 5 năm thì mỗi năm tính 1 tỷ ÷ 5 = 200tr, đã nằm trong 5 tỷ chi phí vận hành ở trên. EBITDA cộng phần này lại: 4 tỷ + 200tr = 4,2 tỷ, biên EBITDA = 4,2 tỷ ÷ 30 tỷ = 14%. Vì bỏ qua cách mỗi bên vay tiền hay mua máy, EBITDA hợp để so mô hình với mô hình, nhưng không cho biết cuối tháng tài khoản còn bao nhiêu."
     ],
     "tree": {
       "title": "EBITDA đứng ở đâu trong bảng lãi lỗ",
@@ -78,13 +78,18 @@
             "keep"
           ],
           [
-            "EBITDA",
+            "Lợi nhuận hoạt động",
             4,
+            "keep"
+          ],
+          [
+            "EBITDA",
+            4.2,
             "focus"
           ]
         ]
       },
-      "after": "Từ 30 tỷ xuống còn **4 tỷ**. Mỗi 100 đồng bán ra chỉ còn khoảng 13 đồng trước lãi vay, thuế và khấu hao. Số này nghe to nhưng còn phải trừ tiếp nhiều thứ."
+      "after": "Từ 30 tỷ xuống còn 4 tỷ lợi nhuận hoạt động. Cộng lại 200tr khấu hao máy in thì EBITDA là 4 tỷ + 200tr = **4,2 tỷ**. Mỗi 100 đồng bán ra chỉ còn khoảng 14 đồng trước lãi vay, thuế và khấu hao. Số này nghe to nhưng còn phải trừ tiếp nhiều thứ."
     },
     "sections": [
       {
@@ -103,19 +108,24 @@
               9
             ],
             [
-              "Kho, vận hành, văn phòng",
+              "Kho, vận hành, văn phòng (gồm khấu hao)",
               5,
               4
             ],
             [
-              "EBITDA",
+              "Lợi nhuận hoạt động",
               4,
               5
+            ],
+            [
+              "EBITDA",
+              4.2,
+              5.2
             ]
           ]
         },
         "body": [
-          "Sách so: bán offline doanh số ngang online, cũng thu về 9 tỷ, nhưng chi phí nhân sự vận hành theo ca nhẹ hơn nhiều nên EBITDA có thể là 5 tỷ. Chênh 5 tỷ − 4 tỷ = 1 tỷ, tức EBITDA offline cao hơn 1 tỷ ÷ 4 tỷ = 25%.",
+          "Giả sử bán offline doanh số ngang online, cũng còn 9 tỷ sau giá vốn, nhưng chi phí nhân sự vận hành theo ca nhẹ hơn nhiều nên vận hành chỉ 4 tỷ, cũng gồm 200tr khấu hao chiếc máy in. Lợi nhuận hoạt động 9 tỷ − 4 tỷ = 5 tỷ, EBITDA 5 tỷ + 200tr = 5,2 tỷ. Chênh 5,2 tỷ − 4,2 tỷ = 1 tỷ, tức EBITDA offline cao hơn 1 tỷ ÷ 4,2 tỷ = 23,8%.",
           "EBITDA giúp nhìn ra chỗ này vì nó bỏ qua cách mỗi bên vay tiền hay mua máy, chỉ so hiệu quả của việc bán và vận hành."
         ]
       },
@@ -153,7 +163,7 @@
           ]
         },
         "body": [
-          "Sách kể công ty của tác giả năm thứ 2: về lý thuyết EBITDA 20%, thực tế Tết nào cũng chỉ đủ trả lương tháng 13, cuối 2015 nợ thuế 1 tỷ trong khi tài khoản chỉ có 200tr.",
+          "Có công ty năm thứ 2 về lý thuyết EBITDA 20%, thực tế Tết nào cũng chỉ đủ trả lương tháng 13, cuối năm nợ thuế 1 tỷ trong khi tài khoản chỉ có 200tr.",
           "Giả sử một shop có EBITDA 100tr/tháng. Trả lãi vay 15tr, để dành 15tr cho thuế, nhập thêm 60tr hàng cho mùa sale. Tiền mặt thực tăng 100tr − 15tr − 15tr − 60tr = 10tr. Chưa kể tiền mua máy móc đã chi ra từ trước."
         ]
       }

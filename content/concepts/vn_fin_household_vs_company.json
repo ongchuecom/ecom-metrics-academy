@@ -35,7 +35,7 @@
   "lesson": {
     "subtitle": "Shop đang lớn, có nên bỏ hộ kinh doanh để lập công ty không?",
     "intro": [
-      "**Chọn hộ kinh doanh hay công ty là chọn kiểu cuộc chơi, không chỉ chọn cách đóng thuế.** Sách mô tả hộ kinh doanh bản chất là một cá nhân tự làm tự ăn, doanh số tầm 1-2 tỷ/năm, lãi nhỉnh hơn đi làm thuê. Công ty làm chuẩn, có lãi, có tăng trưởng thì được định giá. Ví dụ lãi 3 năm gần nhất là 2, 3, 4 tỷ thì trung bình (2 tỷ + 3 tỷ + 4 tỷ) ÷ 3 = 3 tỷ/năm, định giá gấp 5 lần lãi năm là 3 tỷ × 5 = 15 tỷ.",
+      "**Chọn hộ kinh doanh hay công ty là chọn kiểu cuộc chơi, không chỉ chọn cách đóng thuế.** Hộ kinh doanh bản chất là một cá nhân tự làm tự ăn, thường doanh số tầm 1-2 tỷ/năm, lãi nhỉnh hơn đi làm thuê. Công ty làm chuẩn, có lãi, có tăng trưởng thì được định giá. Ví dụ lãi 3 năm gần nhất là 2, 3, 4 tỷ thì trung bình (2 tỷ + 3 tỷ + 4 tỷ) ÷ 3 = 3 tỷ/năm, định giá gấp 5 lần lãi năm là 3 tỷ × 5 = 15 tỷ.",
       "Hộ kinh doanh khó định giá, khó mua bán cổ phần minh bạch, nên mãi là tự doanh. Cùng một năng lực và mô hình, hộ kinh doanh có vẻ lãi tốt hơn công ty giai đoạn đầu, nhưng về sau sẽ đuối sức. Bài này không bàn mức thuế của từng loại hình; phần đó hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
     ],
     "breakdown": {
@@ -87,7 +87,7 @@
           "items": [
             [
               "Cổ phần, định giá, vay vốn",
-              "Sách nêu mức định giá Ecom, dịch vụ online khoảng 3 đến 10 lần lãi sau thuế. Không định giá được thì cũng khó vay vốn."
+              "Mức định giá Ecom, dịch vụ online hay gặp khoảng 3 đến 10 lần lãi sau thuế, tùy tăng trưởng và mô hình. Không định giá được thì cũng khó vay vốn."
             ],
             [
               "Nhân tài và đối tác",
@@ -100,8 +100,8 @@
           ]
         },
         "body": [
-          "Ví dụ của sách: công ty định giá 15 tỷ, bán 50% thu về 15 tỷ × 50% = 7,5 tỷ, vẫn giữ 50% lãi mỗi năm: 3 tỷ × 50% = 1,5 tỷ. Hộ kinh doanh không có đường này.",
-          "Khi cần số tiền lớn để nhập hàng, sản xuất mà không vay được ngân hàng, đi vay bên ngoài thì sách nói lãi vay gấp 3-4 lần vay ngân hàng, gần như khó xoay nổi."
+          "Ví dụ công ty định giá 15 tỷ, bán 50% thu về 15 tỷ × 50% = 7,5 tỷ, vẫn giữ 50% lãi mỗi năm: 3 tỷ × 50% = 1,5 tỷ. Hộ kinh doanh không có đường này.",
+          "Khi cần số tiền lớn để nhập hàng, sản xuất mà không vay được ngân hàng, đi vay bên ngoài thì lãi có thể gấp 3-4 lần vay ngân hàng, gần như khó xoay nổi."
         ]
       },
       {
@@ -134,7 +134,7 @@
           ]
         },
         "body": [
-          "Sách ước vốn khởi nghiệp Ecom nay khoảng 500tr, gấp 10 lần vài năm trước. Các khoản: hàng có hóa đơn, chứng từ, kiểm định 100tr + giấy phép, kế toán, hóa đơn điện tử, bảo hiểm 50tr + content, video, xây kênh 100tr + văn phòng, kho, nhân sự 4 tháng 100tr + Ads, KOC 100tr = 450tr, thêm 50tr dự phòng là 500tr. Dù là công ty hay hộ kinh doanh thì cũng phải chừa riêng phần cho giấy phép, kế toán, hóa đơn, bảo hiểm.",
+          "Có ước tính vốn khởi nghiệp Ecom nay khoảng 500tr, gấp 10 lần vài năm trước. Các khoản: hàng có hóa đơn, chứng từ, kiểm định 100tr + giấy phép, kế toán, hóa đơn điện tử, bảo hiểm 50tr + content, video, xây kênh 100tr + văn phòng, kho, nhân sự 4 tháng 100tr + Ads, KOC 100tr = 450tr, thêm 50tr dự phòng là 500tr. Dù là công ty hay hộ kinh doanh thì cũng phải chừa riêng phần cho giấy phép, kế toán, hóa đơn, bảo hiểm.",
           "Chọn loại hình xong, việc đầu tiên là ngồi với kế toán tính thử chi phí tuân thủ của cả hai phương án theo doanh thu dự kiến của mình."
         ]
       }

@@ -39,7 +39,7 @@
     "subtitle": "Mỗi khách một năm chi cho shop bao nhiêu tiền?",
     "intro": [
       "**ARPU là doanh thu trung bình mỗi khách mang về trong một kỳ.** Giả sử trong năm shop bán 600tr cho 2.000 khách thì ARPU = 600tr ÷ 2.000 = 300k.",
-      "AOV chỉ cho biết mỗi đơn bao nhiêu tiền. Một khách mua 3 đơn nhỏ có thể đáng giá hơn một khách mua 1 đơn to. Sách xếp ARPU cùng AOV, LTV vào nhóm chỉ số phải đo kỹ rồi cải thiện từng %. ARPU trả lời câu hỏi: tính trên đầu người, mỗi khách đang chi cho mình bao nhiêu."
+      "AOV chỉ cho biết mỗi đơn bao nhiêu tiền. Một khách mua 3 đơn nhỏ có thể đáng giá hơn một khách mua 1 đơn to. ARPU cùng nhóm với AOV, LTV: những chỉ số nên đo kỹ rồi cải thiện từng %. ARPU trả lời câu hỏi: tính trên đầu người, mỗi khách đang chi cho mình bao nhiêu."
     ],
     "tree": {
       "title": "ARPU được tạo ra từ đâu",

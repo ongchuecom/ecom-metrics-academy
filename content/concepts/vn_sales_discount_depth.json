@@ -41,7 +41,7 @@
     "subtitle": "Mỗi món bán ra, mình đang giảm cho khách bao nhiêu?",
     "intro": [
       "**Độ sâu giảm giá là tổng tiền giảm chia tổng giá niêm yết của hàng đã bán.** Tháng bán 2.000 đơn, giá niêm yết 250k, tổng niêm yết 2.000 × 250k = 500tr. Khách thực trả 400tr, tức giảm 500tr − 400tr = 100tr, độ sâu = 100tr ÷ 500tr = 20%.",
-      "Giảm giá trên sàn đến từ nhiều lớp: giảm trên sản phẩm, mã shop, combo, quà tặng. Từng lớp nhìn nhỏ, cộng lại thì sâu. Sách đưa một cơ cấu chi phí lý tưởng có giảm giá, chiết khấu dưới 15%. Vượt quá thì phần lãi rất khó còn đủ để trả các khoản khác."
+      "Giảm giá trên sàn đến từ nhiều lớp: giảm trên sản phẩm, mã shop, combo, quà tặng. Từng lớp nhìn nhỏ, cộng lại thì sâu. Một mốc tham khảo hay gặp là giảm giá, chiết khấu dưới 15% doanh thu, tùy ngành và mô hình. Vượt xa mốc đó thì phần lãi khó còn đủ để trả các khoản khác."
     ],
     "breakdown": {
       "title": "Bóc một đơn niêm yết 250k",

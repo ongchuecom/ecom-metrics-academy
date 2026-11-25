@@ -101,7 +101,7 @@
           ]
         ]
       },
-      "after": "Đây là cấu trúc chi phí hợp lý mà sách đưa ra: giá vốn dưới 20%, tức markup từ 5 trở lên. Cộng các khoản: 20k + 20k + 15k + 11k + 10k + 6k + 5k = 87k, còn 100k − 87k = **13k**. Nếu markup chỉ 2,5 thì giá vốn đã là 100k ÷ 2,5 = 40k, phần còn lại âm luôn."
+      "after": "Đây là một bộ mốc cơ cấu chi phí tham khảo, tùy ngành: giá vốn dưới 20%, tức markup từ 5 trở lên. Cộng các khoản: 20k + 20k + 15k + 11k + 10k + 6k + 5k = 87k, còn 100k − 87k = **13k**. Nếu markup chỉ 2,5 thì giá vốn đã là 100k ÷ 2,5 = 40k, phần còn lại âm luôn."
     },
     "sections": [
       {

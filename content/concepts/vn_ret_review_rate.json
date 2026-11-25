@@ -39,7 +39,7 @@
     "subtitle": "Bao nhiêu khách chịu để lại đánh giá, và điểm sao của shop có dày không?",
     "intro": [
       "**Review rate là phần trăm đơn giao thành công mà khách để lại đánh giá.** Giả sử tháng này shop giao thành công 3.000 đơn, có 450 đánh giá thì review rate = 450 ÷ 3.000 = 15%.",
-      "Sách nói bước đầu của một shop là bán được các đơn đầu tiên và được khách đánh giá tốt. Shop có khách quen, có review thì chuyển đổi rất cao. Nhưng chỉ cần 1 khách không vui là thành review 1 sao. Đánh giá càng dày thì điểm sao càng đứng vững trước vài đơn lỗi."
+      "Bước đầu của một shop là bán được các đơn đầu tiên và được khách đánh giá tốt. Shop có khách quen, có review thì chuyển đổi rất cao. Nhưng chỉ cần 1 khách không vui là thành review 1 sao. Đánh giá càng dày thì điểm sao càng đứng vững trước vài đơn lỗi."
     ],
     "tree": {
       "title": "Review rate tính thế nào",

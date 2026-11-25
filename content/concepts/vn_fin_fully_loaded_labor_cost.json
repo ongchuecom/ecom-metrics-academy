@@ -5,7 +5,7 @@
   "topic": "thue-tuan-thu",
   "code": "Chi phí nhân sự toàn phần",
   "vi_name": "Chi phí nhân sự toàn phần (Fully-loaded Labor Cost: lương + BHXH + thuế TNCN)",
-  "definition": "Tổng số tiền công ty thật sự bỏ ra cho một nhân sự, không chỉ lương nhân viên nhận về: cộng thêm bảo hiểm phần công ty đóng, thuế TNCN công ty gánh thay nếu trả lương net, công cụ, quản lý và dự phòng. Đem chia cho lương để ra hệ số, sách ước khoảng 1,2 lần.",
+  "definition": "Tổng số tiền công ty thật sự bỏ ra cho một nhân sự, không chỉ lương nhân viên nhận về: cộng thêm bảo hiểm phần công ty đóng, thuế TNCN công ty gánh thay nếu trả lương net, công cụ, quản lý và dự phòng. Đem chia cho lương để ra hệ số, ví dụ 1,2 lần.",
   "aliases": [
     "fully-loaded labor cost",
     "chi phí thật của một nhân sự",
@@ -38,7 +38,7 @@
   "lesson": {
     "subtitle": "Tuyển một người lương 10tr thì thật ra công ty tốn bao nhiêu?",
     "intro": [
-      "**Chi phí nhân sự toàn phần là tổng tiền công ty bỏ ra cho một người, không chỉ số lương người đó nhận.** Sách ước: làm đúng luật thì phải đóng thêm khoảng 20% trên khoản lương. Nhân sự nhận về 10tr thì công ty đóng thêm 10tr × 20% = 2tr nữa. Hệ số là 12tr ÷ 10tr = 1,2 lần.",
+      "**Chi phí nhân sự toàn phần là tổng tiền công ty bỏ ra cho một người, không chỉ số lương người đó nhận.** Ước nhanh: làm đúng luật thì công ty đóng thêm khoảng 20% trên khoản lương. Nhân sự nhận về 10tr thì công ty đóng thêm 10tr × 20% = 2tr nữa. Hệ số là 12tr ÷ 10tr = 1,2 lần.",
       "Nhiều seller lập hộ kinh doanh, thuê người không có hợp đồng nên trả lương là xong, và quen tính chi phí người bằng đúng số lương. Khi phải làm đúng thì bảo hiểm, thuế TNCN (thu nhập cá nhân) cộng lại thành một khoản rất lớn, nhất là với mô hình lương thấp hoa hồng cao. Tỷ lệ đóng cụ thể tùy quy định từng thời kỳ và mức lương, hãy kiểm tra với kế toán hoặc cơ quan thuế."
     ],
     "tree": {
@@ -94,7 +94,7 @@
           ]
         ]
       },
-      "after": "Ví dụ trong sách: 5 người quỹ lương 50tr, cộng thuế, bảo hiểm, team building, quản lý thành 50tr × 1,2 = 60tr/tháng, cả năm 60tr × 12 = 720tr. Tính cả dự phòng vì dễ bị phạt và rắc rối thì lên 800tr, cộng công cụ 60tr/năm: 800tr + 60tr = 860tr. So với quỹ lương 50tr × 12 = 600tr, hệ số thật là 860tr ÷ 600tr = **1,43 lần**."
+      "after": "Ví dụ một team 5 người quỹ lương 50tr, cộng thuế, bảo hiểm, team building, quản lý thành 50tr × 1,2 = 60tr/tháng, cả năm 60tr × 12 = 720tr. Tính cả dự phòng vì dễ bị phạt và rắc rối thì lên 800tr, cộng công cụ 60tr/năm: 800tr + 60tr = 860tr. So với quỹ lương 50tr × 12 = 600tr, hệ số thật là 860tr ÷ 600tr = **1,43 lần**."
     },
     "sections": [
       {
@@ -127,7 +127,7 @@
       {
         "title": "Cẩn thận với lương thấp hoa hồng cao",
         "body": [
-          "Mô hình seller hay trả lương cứng thấp, hoa hồng cao. Hoa hồng cũng là thu nhập chịu thuế TNCN, và nếu đã hứa nhân viên nhận đủ số tiền thì phần thuế đó công ty gánh. Sách tính nhẩm: thu nhập 100tr/tháng thì sơ sơ 20-30tr thuế TNCN, con số này ai đóng?",
+          "Mô hình seller hay trả lương cứng thấp, hoa hồng cao. Hoa hồng cũng là thu nhập chịu thuế TNCN, và nếu đã hứa nhân viên nhận đủ số tiền thì phần thuế đó công ty gánh. Thu nhập 100tr/tháng thì thuế TNCN mỗi tháng cũng cả chục triệu trở lên, tùy biểu thuế và giảm trừ đang áp dụng. Con số này ai đóng?",
           "Trước khi chốt cơ chế lương, ghi rõ trong hợp đồng là lương gộp hay lương net, và nhờ kế toán tính thử cả bảo hiểm lẫn thuế cho vài mức thu nhập. Người làm freelancer, CTV cũng cần làm rõ từ đầu ai chịu thuế."
         ]
       }

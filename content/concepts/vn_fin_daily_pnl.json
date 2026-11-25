@@ -36,7 +36,7 @@
     "subtitle": "Shop có nhiều team, nhiều sản phẩm, làm sao biết hôm nay chỗ nào đang lỗ?",
     "intro": [
       "**P&L hằng ngày là bảng lãi lỗ mỗi ngày, chi phí nào cũng được gắn vào đúng doanh thu nó tạo ra.** Cuối ngày nhìn vào là biết team TikTok lãi 1,5tr, team Shopee lãi 5tr, team Facebook lỗ 3,2tr, chứ không chỉ biết cả shop lãi 1,5tr + 5tr − 3,2tr = 3,3tr.",
-      "Sách mô tả nó đơn giản là một file Google Sheet tổng hợp số liệu chính để ra quyết định. Doanh thu là tiền mình nhận về tài khoản, không phải GMV (tổng giá trị đơn đặt). Chi phí gồm phí sàn, ship, Ads, hoa hồng, voucher, hàng, quà tặng, thuế, phân bổ chi tiết cho từng doanh thu. Quan trọng nhất: nếu lỗ hay giảm thì xảy ra ở đâu, và vì sao."
+      "Đơn giản nó là một file Google Sheet tổng hợp số liệu chính để ra quyết định. Doanh thu là tiền mình nhận về tài khoản, không phải GMV (tổng giá trị đơn đặt). Chi phí gồm phí sàn, ship, Ads, hoa hồng, voucher, hàng, quà tặng, thuế, phân bổ chi tiết cho từng doanh thu. Quan trọng nhất: nếu lỗ hay giảm thì xảy ra ở đâu, và vì sao."
     ],
     "breakdown": {
       "title": "Một ngày của 3 team, lãi sau chi phí trực tiếp",

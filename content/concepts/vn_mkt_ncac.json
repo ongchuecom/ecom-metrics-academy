@@ -40,7 +40,7 @@
     "subtitle": "CPA đẹp vậy, mà sao kéo một khách mới lại đắt thế?",
     "intro": [
       "**nCAC là tiền marketing chia cho số khách mua lần đầu.** Tháng này chi 60tr ads, ra 600 đơn, trong đó 200 đơn là khách cũ: khách mới chỉ có 600 − 200 = 400 người, nCAC = 60tr ÷ 400 = 150k.",
-      "Cùng con số đó, CPA = 60tr ÷ 600 đơn = 100k, trông rẻ hơn nhiều. Vì ads thường chạy chung cả tệp khách cũ, khách tìm tên shop, những người đằng nào cũng mua. Gộp họ vào thì CPA đẹp, nhưng tiền thật để có thêm một khách mới thì đắt hơn. Sách ghi CAC là tổng chi phí marketing chia số khách hàng mới, và nên dưới 1/3 CLV mới có lãi."
+      "Cùng con số đó, CPA = 60tr ÷ 600 đơn = 100k, trông rẻ hơn nhiều. Vì ads thường chạy chung cả tệp khách cũ, khách tìm tên shop, những người đằng nào cũng mua. Gộp họ vào thì CPA đẹp, nhưng tiền thật để có thêm một khách mới thì đắt hơn. CAC là tổng chi phí marketing chia số khách hàng mới. Mốc tham khảo hay gặp là CAC dưới 1/3 CLV, tức LTV:CAC trên 3:1, tùy biên lãi và mô hình."
     ],
     "tree": {
       "title": "nCAC khác CPA ở mẫu số",
@@ -142,7 +142,7 @@
             ],
             [
               "So với CLV mỗi tháng",
-              "nCAC dưới 1/3 CLV thì tăng tiền được, vượt thì sửa trước khi vít."
+              "nCAC còn thấp xa CLV (mốc hay dùng là dưới 1/3) thì tăng tiền được, sát CLV thì sửa trước khi vít."
             ]
           ]
         },

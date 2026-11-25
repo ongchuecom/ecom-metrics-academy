@@ -40,7 +40,7 @@
     "subtitle": "Mỗi tháng shop mất bao nhiêu khách đang mua đều?",
     "intro": [
       "**Churn là phần trăm khách đang dùng gói định kỳ hoặc đang mua đều mà rời bỏ trong kỳ.** Giả sử đầu tháng shop có 500 khách đặt gói giao sữa hạt hằng tuần, trong tháng 25 người hủy thì churn = 25 ÷ 500 = 5%.",
-      "Sách nói mô hình bán định kỳ có lợi thế là dự đoán được doanh thu, nhưng phải tính tới churn. Churn cao chủ yếu đến từ ba chỗ: sản phẩm kém, giá quá cao, dịch vụ khách hàng dở. Và khi tăng Ads quá nhanh, phục vụ không kịp, churn cũng tăng theo."
+      "Mô hình bán định kỳ có lợi thế là dự đoán được doanh thu, nhưng phải tính tới churn. Churn cao chủ yếu đến từ ba chỗ: sản phẩm kém, giá quá cao, dịch vụ khách hàng dở. Và khi tăng Ads quá nhanh, phục vụ không kịp, churn cũng tăng theo."
     ],
     "breakdown": {
       "title": "500 khách gói định kỳ, churn 5% mỗi tháng, không có khách mới",
@@ -71,7 +71,7 @@
           ]
         ]
       },
-      "after": "Mỗi tháng mất 5% số còn lại. Sau 12 tháng chỉ còn khoảng 270 khách, **mất gần một nửa**. Sách tính churn 2% mỗi tháng thì sau một năm cũng mất khoảng 22% khách. Churn nhỏ mỗi tháng cộng dồn thành lỗ hổng lớn."
+      "after": "Mỗi tháng mất 5% số còn lại. Sau 12 tháng chỉ còn khoảng 270 khách, **mất gần một nửa**. Churn 2% mỗi tháng thì sau một năm cũng mất khoảng 22% khách. Churn nhỏ mỗi tháng cộng dồn thành lỗ hổng lớn."
     },
     "sections": [
       {

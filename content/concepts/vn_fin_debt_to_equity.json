@@ -41,7 +41,7 @@
     "subtitle": "Mỗi đồng của mình đang gánh bao nhiêu đồng đi vay?",
     "intro": [
       "**Debt-to-Equity là tổng nợ vay chia cho vốn chủ đang còn trong công ty.** Shop có vốn chủ 1 tỷ, vay ngân hàng 800tr, vay người nhà 400tr. Tổng nợ 800tr + 400tr = 1,2 tỷ. D/E = 1,2 tỷ ÷ 1 tỷ = 1,2, tức mỗi đồng của chủ gánh 1,2 đồng nợ.",
-      "Sách kể: những cú sập gần đây của anh em Ecom đến từ đòn bẩy, vay nợ, lãi suất tăng, ngân hàng hết room. Vay không xấu, sách còn coi tìm được nguồn vay lãi suất thấp là một lợi thế. Cái nguy là không biết mình đang vay nặng cỡ nào so với sức chịu đựng."
+      "Không ít cú sập của anh em Ecom đến từ đòn bẩy, vay nợ, lãi suất tăng, ngân hàng hết room. Vay không xấu, tìm được nguồn vay lãi suất thấp còn là một lợi thế. Cái nguy là không biết mình đang vay nặng cỡ nào so với sức chịu đựng."
     ],
     "tree": {
       "title": "D/E được tạo ra từ đâu",
@@ -83,7 +83,7 @@
           ]
         ]
       },
-      "after": "Hai shop cùng chạy 2,2 tỷ vốn. Giả sử lãi vay 12%/năm, chưa tính thuế. Năm tốt, lãi hoạt động 20%: 2,2 tỷ × 20% = 440tr. Shop vay trả lãi 1,2 tỷ × 12% = 144tr, còn 440tr − 144tr = 296tr trên 1 tỷ vốn chủ, tức 296tr ÷ 1 tỷ = **29,6%**. Năm xấu, lãi hoạt động 5%: 2,2 tỷ × 5% = 110tr, không đủ trả lãi vay, hụt 144tr − 110tr = 34tr."
+      "after": "Hai shop cùng chạy 2,2 tỷ vốn: shop không vay bỏ đủ 2,2 tỷ vốn chủ, shop vay có 1 tỷ vốn chủ và vay 1,2 tỷ. Giả sử lãi vay 12%/năm, chưa tính thuế. Năm tốt, lãi hoạt động 20%: 2,2 tỷ × 20% = 440tr. Shop không vay giữ cả 440tr trên 2,2 tỷ vốn chủ: 440tr ÷ 2,2 tỷ = **20%**. Shop vay trả lãi 1,2 tỷ × 12% = 144tr, còn 440tr − 144tr = 296tr trên 1 tỷ vốn chủ: 296tr ÷ 1 tỷ = **29,6%**. Năm xấu, lãi hoạt động 5%: 2,2 tỷ × 5% = 110tr. Shop không vay vẫn lãi 110tr ÷ 2,2 tỷ = 5%. Shop vay không đủ trả lãi vay, hụt 144tr − 110tr = 34tr, tức lỗ 34tr ÷ 1 tỷ = 3,4% vốn chủ."
     },
     "sections": [
       {
@@ -128,7 +128,7 @@
             ],
             [
               "Lãi suất tăng thì sao",
-              "Sách nhắc lãi suất thả nổi từng tăng liên tục với khoản vay cũ. Thử tính với lãi suất cao hơn."
+              "Lãi suất thả nổi có thể tăng liên tục, kể cả với khoản vay cũ. Thử tính với lãi suất cao hơn."
             ],
             [
               "Kỳ hạn có khớp không",
@@ -137,7 +137,7 @@
           ]
         },
         "body": [
-          "Sách viết thẳng: khi sắp vỡ nợ mà vẫn muốn vay thêm để gồng thì đó là dấu hiệu nguy hiểm nhất. Vay để gồng lỗ làm D/E tăng từ cả hai phía: nợ lên, vốn chủ xuống."
+          "Khi sắp vỡ nợ mà vẫn muốn vay thêm để gồng thì đó là dấu hiệu nguy hiểm nhất. Vay để gồng lỗ làm D/E tăng từ cả hai phía: nợ lên, vốn chủ xuống."
         ]
       }
     ],

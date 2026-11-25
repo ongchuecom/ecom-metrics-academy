@@ -40,7 +40,7 @@
     "subtitle": "Mỗi kênh được tiêu tối đa bao nhiêu phần trăm doanh thu cho ads?",
     "intro": [
       "**Ad Spend % là tiền ads của một kênh chia cho doanh thu chính kênh đó.** Facebook Ads tháng này tiêu 45tr, mang về 150tr doanh thu thì tỷ lệ = 45tr ÷ 150tr = 30%. Nó là nghịch đảo của ROAS: ROAS = 150tr ÷ 45tr ≈ 3,33, và 1 ÷ 30% = 3,33.",
-      "ROAS nói mỗi đồng ads ra bao nhiêu doanh thu, còn tỷ lệ này nói thẳng mỗi 100 đồng doanh thu bị ads ăn mất bao nhiêu, dễ đặt cạnh giá vốn, phí sàn, ship. Sách lấy ví dụ đơn mỹ phẩm 200k chi phí ads hết 30%, và đưa cấu trúc chi phí lý tưởng là marketing dưới 10%. Thực tế mỗi kênh một khác, nên phải đo riêng từng kênh và đặt trần riêng."
+      "ROAS nói mỗi đồng ads ra bao nhiêu doanh thu, còn tỷ lệ này nói thẳng mỗi 100 đồng doanh thu bị ads ăn mất bao nhiêu, dễ đặt cạnh giá vốn, phí sàn, ship. Ví dụ đơn mỹ phẩm 200k chi phí ads có thể hết 30%, trong khi mốc tham khảo hay gặp cho marketing là dưới 10% doanh thu. Thực tế mỗi kênh một khác, nên phải đo riêng từng kênh và đặt trần riêng."
     ],
     "tree": {
       "title": "Ad Spend % là ROAS lật ngược",

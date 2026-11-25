@@ -35,7 +35,7 @@
     "subtitle": "Báo cáo cả năm lãi, sao rút ra không được đồng nào?",
     "intro": [
       "**Lãi màn hình là lãi có thật trên P&L nhưng không cầm được về tay, vì biên mỏng và tiền nằm hết ở hàng tồn.** Shop bán 2,4 tỷ/năm, Net margin (biên lãi ròng) 7%: 2,4 tỷ × 7% = 168tr lãi cả năm. Nhưng để bán đều phải giữ hàng đủ 3 tháng. Doanh thu mỗi tháng 2,4 tỷ ÷ 12 = 200tr, giá vốn 35% thì tiền nằm trong kho là 200tr × 35% × 3 = 210tr. Lãi cả năm còn không bằng số tiền đang nằm trong kho.",
-      "Sách cảnh báo: sàn sẽ tiếp tục tăng phí, tuân thủ ngày càng tốn, nên các P&L dựa trên định giá bán rẻ sẽ không còn margin để xoay xở. Nếu có lãi cũng chỉ là lãi màn hình, tiền nằm hết ở tồn kho lẫn rủi ro. Chỉ cần một lô hàng chậm phải xả lỗ là lãi cả năm bay mất."
+      "Sàn có thể tiếp tục tăng phí, tuân thủ ngày càng tốn, nên các P&L dựa trên định giá bán rẻ sẽ không còn margin để xoay xở. Nếu có lãi cũng chỉ là lãi màn hình, tiền nằm hết ở tồn kho lẫn rủi ro. Chỉ cần một lô hàng chậm phải xả lỗ là lãi cả năm bay mất."
     ],
     "breakdown": {
       "title": "Lãi cả năm so với tiền đang nằm trong kho",
@@ -60,7 +60,7 @@
           ]
         ]
       },
-      "after": "Lãi cả năm 168tr còn nhỏ hơn 210tr tiền phải giữ trong kho, nên gần như không rút ra được. Xả lỗ một lô chậm mất 60tr thì lãi còn 168tr − 60tr = 108tr, mà vẫn nằm trong hàng. Đó là lý do sách nói **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
+      "after": "Lãi cả năm 168tr còn nhỏ hơn 210tr tiền phải giữ trong kho, nên gần như không rút ra được. Xả lỗ một lô chậm mất 60tr thì lãi còn 168tr − 60tr = 108tr, mà vẫn nằm trong hàng. Đó là **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
     },
     "sections": [
       {
@@ -86,7 +86,7 @@
           ]
         },
         "body": [
-          "Sách kể: trước bán 99k mệt mỏi, sau cùng sản phẩm đó bán 199k, đơn ít hơn nhưng doanh số không đổi. Giả định shop: 2.000 × 99k = 198tr, còn 1.000 × 199k = 199tr.",
+          "Ví dụ có shop trước bán 99k mệt mỏi, sau cùng sản phẩm đó bán 199k, đơn ít hơn nhưng doanh số không đổi. Giả định shop: 2.000 × 99k = 198tr, còn 1.000 × 199k = 199tr.",
           "Doanh số như nhau, nhưng lãi khác hẳn. Giá 99k chỉ còn khoảng 5k mỗi đơn: 2.000 × 5k = 10tr. Giá 199k còn 40k mỗi đơn: 1.000 × 40k = 40tr. Một nửa số đơn thì cũng một nửa hàng tồn, ít đóng gói, ít hoàn hủy. Ecom không nên là giá rẻ; hãy đặt giá hợp lý cho sự tiện lợi nó mang lại."
         ]
       },

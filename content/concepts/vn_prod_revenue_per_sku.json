@@ -42,7 +42,7 @@
     "subtitle": "Shop có 120 mã, bao nhiêu mã thật sự đáng giữ?",
     "intro": [
       "**Doanh thu / SKU là tổng doanh thu chia cho số mã đang bán.** Shop 600tr/tháng với 120 SKU thì mỗi mã trung bình 600tr ÷ 120 = 5tr.",
-      "Số trung bình che mất cái đuôi. Mỗi mã thêm vào là thêm một ô kệ, thêm ảnh, thêm lần kiểm kê, thêm chỗ để sai. Sách kể một kho 500 SKU cần cả trăm quy trình, không làm chi tiết thì hư hỏng, sai lệch, thất thoát. Trong khi đó, có thời một team 10 người chỉ vận hành chục SKU mà doanh số vài chục tỷ. Ít mã mà mã nào cũng bán được thì nhẹ đầu hơn nhiều."
+      "Số trung bình che mất cái đuôi. Mỗi mã thêm vào là thêm một ô kệ, thêm ảnh, thêm lần kiểm kê, thêm chỗ để sai. Ví dụ một kho 500 SKU cần cả trăm quy trình, không làm chi tiết thì hư hỏng, sai lệch, thất thoát. Trong khi đó, có thời một team 10 người chỉ vận hành chục SKU mà doanh số vài chục tỷ. Ít mã mà mã nào cũng bán được thì nhẹ đầu hơn nhiều."
     ],
     "tree": {
       "title": "Doanh thu / SKU được tạo ra từ đâu",

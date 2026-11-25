@@ -40,7 +40,7 @@
     "subtitle": "Sổ ghi còn 12.000 cái, đếm thật chỉ còn 11.760, phần kia đi đâu?",
     "intro": [
       "**Tỷ lệ hao hụt tồn kho là phần hàng có trên sổ mà không còn trong kho khi kiểm kê.** Sổ ghi 12.000 sản phẩm, đếm thật còn 11.760, hụt 12.000 − 11.760 = 240 cái. Tỷ lệ hao hụt là 240 ÷ 12.000 = 2%.",
-      "Quy mô nhỏ thì hụt vài cái không ai để ý. Quy mô lớn thì mỗi % hụt là rất nhiều tiền. Sách lấy ví dụ kho 10.000 đơn mỗi ngày, thất thoát 2% là 10.000 đơn × 2% = 200 đơn, nhân giá vốn 50k là 200 đơn × 50k = 10tr mất mỗi ngày, cả tháng 10tr × 30 = 300tr."
+      "Quy mô nhỏ thì hụt vài cái không ai để ý. Quy mô lớn thì mỗi % hụt là rất nhiều tiền. Ví dụ kho 10.000 đơn mỗi ngày, thất thoát 2% là 10.000 đơn × 2% = 200 đơn, nhân giá vốn 50k là 200 đơn × 50k = 10tr mất mỗi ngày, cả tháng 10tr × 30 = 300tr."
     ],
     "tree": {
       "title": "Hao hụt đến từ đâu",

@@ -4,8 +4,8 @@
   "domain": "06_finance_unit_econ",
   "topic": "phi-san-loi-nhuan",
   "code": "Cơ cấu chi phí",
-  "vi_name": "Cơ cấu chi phí chuẩn (Cost Structure)",
-  "definition": "Cách chia 100 đồng doanh thu thành từng nhóm chi phí: giá vốn, nền tảng, logistics, marketing, giảm giá chiết khấu, lương mặt bằng, bồi hoàn hư hao. So từng dòng với ngưỡng để biết mô hình còn đủ chỗ cho thuế, khấu hao, dự phòng và lãi hay không.",
+  "vi_name": "Cơ cấu chi phí (Cost Structure)",
+  "definition": "Cách chia 100 đồng doanh thu thành từng nhóm chi phí: giá vốn, nền tảng, logistics, marketing, giảm giá chiết khấu, lương mặt bằng, bồi hoàn hư hao. So từng dòng với mốc tham khảo để biết mô hình còn đủ chỗ cho thuế, khấu hao, dự phòng và lãi hay không.",
   "aliases": [
     "cost structure",
     "cấu trúc chi phí"
@@ -34,16 +34,16 @@
   "lesson": {
     "subtitle": "Bán 100 đồng thì mỗi khoản được phép ăn bao nhiêu để shop còn lãi?",
     "intro": [
-      "**Cơ cấu chi phí là bảng chia 100 đồng doanh thu cho từng nhóm chi phí.** Sách gọi đây là cái quan trọng đầu tiên để xác định bán lẻ hay Ecom có lãi hay không. Bộ ngưỡng sách đưa ra: giá vốn dưới 20%, lương và mặt bằng dưới 6%, marketing dưới 10%, bồi hoàn hư hao dưới 5%, logistics dưới 11%, nền tảng dưới 20%, giảm giá chiết khấu dưới 15%.",
-      "Cộng lại: 20% + 6% + 10% + 5% + 11% + 20% + 15% = 87%. Còn lại 100% − 87% = 13% để trả thuế, khấu hao, dự phòng hàng tồn và làm lãi. Đây là cost structure lý tưởng, mỗi ngành mỗi mô hình sẽ khác. Nhưng có bộ ngưỡng thì mới biết dòng nào đang phình."
+      "**Cơ cấu chi phí là bảng chia 100 đồng doanh thu cho từng nhóm chi phí.** Đây là thứ cần nhìn đầu tiên để biết bán lẻ hay Ecom có lãi hay không. Một bộ mốc tham khảo hay gặp: giá vốn dưới 20%, lương và mặt bằng dưới 6%, marketing dưới 10%, bồi hoàn hư hao dưới 5%, logistics dưới 11%, nền tảng dưới 20%, giảm giá chiết khấu dưới 15%.",
+      "Cộng lại: 20% + 6% + 10% + 5% + 11% + 20% + 15% = 87%. Còn lại 100% − 87% = 13% để trả thuế, khấu hao, dự phòng hàng tồn và làm lãi. Đây chỉ là mốc tham khảo, mỗi ngành mỗi mô hình sẽ khác. Nhưng có mốc để so thì mới biết dòng nào đang phình."
     ],
     "breakdown": {
-      "title": "Ngưỡng của sách so với một shop đang bán",
+      "title": "Mốc tham khảo so với một shop đang bán",
       "chart": {
         "type": "compare",
         "unit": "%",
         "labels": [
-          "Ngưỡng sách",
+          "Mốc tham khảo",
           "Shop đang bán"
         ],
         "items": [
@@ -88,13 +88,13 @@
     },
     "sections": [
       {
-        "title": "Kéo cơ cấu chi phí về ngưỡng",
+        "title": "Kéo các dòng đang phình xuống",
         "chart": {
           "type": "steps",
           "items": [
             [
               "Vốn lớn và dày",
-              "Đặt số lớn để hạ giá vốn, deal sỉ với nền tảng. Sách ví dụ: đặt 1.000 sản phẩm giá vốn 30%, đặt 5.000 sản phẩm còn 18%."
+              "Đặt số lớn để hạ giá vốn, deal sỉ với nền tảng. Ví dụ: đặt 1.000 sản phẩm giá vốn 30%, đặt 5.000 sản phẩm còn 18%."
             ],
             [
               "Hợp tác với nhà máy",
@@ -111,22 +111,22 @@
           ]
         },
         "body": [
-          "Ở cấp đơn hàng, sách đặt mục tiêu lãi gộp 55-60% ngay từ đầu, để có ngân sách cho marketing, Ads, khuyến mãi, hàng tặng, hàng hoàn, gói sàn. Giá vốn càng cao thì các dòng sau càng phải bóp."
+          "Ở cấp đơn hàng, nhiều shop đặt mục tiêu lãi gộp 55-60% ngay từ đầu (mốc tham khảo, tùy ngành), để có ngân sách cho marketing, Ads, khuyến mãi, hàng tặng, hàng hoàn, gói sàn. Giá vốn càng cao thì các dòng sau càng phải bóp."
         ]
       },
       {
         "title": "Phần còn lại không phải là lãi",
         "body": [
-          "13% còn lại theo ngưỡng của sách chưa phải tiền bỏ túi. Từ đó còn phải trừ thuế, khấu hao và dự phòng hàng tồn. Mức thuế cụ thể tùy loại hình và cách kê khai; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi.",
+          "13% còn lại theo bộ mốc trên chưa phải tiền bỏ túi. Từ đó còn phải trừ thuế, khấu hao và dự phòng hàng tồn. Mức thuế cụ thể tùy loại hình và cách kê khai; hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi.",
           "Vì vậy shop đang chạy sát 95% chi phí là đang sống nhờ việc chưa tính đủ, không phải nhờ mô hình tốt."
         ]
       }
     ],
     "mistakes": [
-      "Lấy ngưỡng của sách làm chuẩn cứng cho mọi ngành; đây là ngưỡng lý tưởng, phải điều chỉnh theo mô hình.",
+      "Lấy bộ mốc tham khảo làm chuẩn cứng cho mọi ngành; mốc chỉ để so, phải điều chỉnh theo ngành và mô hình.",
       "Chỉ cắt các dòng nhỏ dễ cắt (đóng gói, ship) trong khi giá vốn và marketing mới là chỗ phình.",
       "Coi phần còn lại sau chi phí là lãi ròng, quên thuế, khấu hao và dự phòng hàng tồn."
     ],
-    "remember": "Chia 100 đồng doanh thu ra từng dòng và so với ngưỡng; dòng nào phình thì sửa dòng đó trước khi bán thêm."
+    "remember": "Chia 100 đồng doanh thu ra từng dòng và so với mốc tham khảo hợp với ngành mình; dòng nào phình thì sửa dòng đó trước khi bán thêm."
   }
 }
