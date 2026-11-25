@@ -29,7 +29,7 @@
     "note": "Dựng từ phân tích cơ cấu doanh thu theo thời điểm (ngày sale lớn của sàn so với ngày thường) và lãi từng đơn ở hai loại ngày."
   },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-25-b",
   "sources": [
     {

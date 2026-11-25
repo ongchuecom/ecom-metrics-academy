@@ -28,7 +28,7 @@
     "note": "Dựng từ MOQ (Minimum Order Quantity, số lượng đặt tối thiểu) chia tốc độ bán dự kiến, cùng cách tính với số ngày hàng đủ bán (days of supply), áp vào lúc quyết định có đặt lô đầu hay không."
   },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-25-b",
   "sources": [
     {

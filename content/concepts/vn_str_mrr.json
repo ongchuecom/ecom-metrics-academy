@@ -184,7 +184,7 @@
     "remember": "MRR cuối tháng = đầu tháng + khách mới + nâng gói − hủy gói − hạ gói; chỉ đếm tiền lặp lại có cam kết, quy về một tháng."
   },
   "playbook_refs": [],
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-25-b",
   "type": "metric"
 }
