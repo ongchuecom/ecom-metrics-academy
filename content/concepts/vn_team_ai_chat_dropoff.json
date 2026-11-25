@@ -37,7 +37,7 @@
     "subtitle": "Bot trả lời 24/24, nhưng bao nhiêu khách bỏ đi khi biết mình đang chat với máy?",
     "intro": [
       "**AI Chat Drop-off là phần trăm khách dừng trả lời ngay sau khi nhận ra mình đang chat với bot.** Giả sử bot trả lời 1.000 cuộc chat, 270 cuộc khách nhận ra là bot, 140 cuộc trong đó khách im luôn: Drop-off = 140 ÷ 270 = 51,9%.",
-      "Có doanh nghiệp đo được khoảng 26–27% cuộc chat bị khách nhận ra là AI, và hơn nửa số đó dừng tương tác ngay. Bot tiết kiệm lương, nhưng phần khách bỏ đi là chi phí không hiện trên bảng lương. Một số ngân hàng vì thế chỉ dùng bot cho kịch bản đơn giản, không dùng cho khách VIP."
+      "Có doanh nghiệp đo được khoảng 26–27% cuộc chat bị khách nhận ra là AI, và hơn nửa số đó dừng tương tác ngay. Bot tiết kiệm lương, nhưng phần khách bỏ đi là chi phí không hiện trên bảng lương."
     ],
     "tree": {
       "title": "Cuộc chat mất vì bot đến từ đâu",

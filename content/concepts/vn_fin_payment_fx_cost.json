@@ -43,7 +43,7 @@
     "subtitle": "Bán web ra nước ngoài, 100 đồng doanh thu về tới tài khoản còn bao nhiêu?",
     "intro": [
       "**Phí thanh toán và tỷ giá là phần doanh thu bị cắt trên đường tiền đi từ thẻ của khách về tài khoản ngân hàng của shop.** Giả sử một web bán cho khách Mỹ, doanh thu 20.000 đô/tháng, tổng các khoản cắt dọc đường là 1.200 đô. Tỷ lệ là 1.200 ÷ 20.000 = 6%.",
-      "Bán trên sàn thì phí thanh toán nằm sẵn trong phí sàn. Bán web, nhất là bán ra nước ngoài, thì mỗi khúc có một người thu: cổng thanh toán thu theo % và theo từng giao dịch, bên rút tiền thu phí đổi tiền, rồi tỷ giá lúc rút khác lúc bán. Từng khoản nhìn nhỏ, cộng lại có khi ăn mất một phần ba tiền lãi."
+      "Bán trên sàn thì phí thanh toán nằm sẵn trong phí sàn. Bán web, nhất là bán ra nước ngoài, thì mỗi khúc có một người thu: cổng thanh toán thu theo % và theo từng giao dịch, bên rút tiền thu phí đổi tiền, rồi tỷ giá lúc rút khác lúc bán. Từng khoản nhìn nhỏ, nhưng shop lãi ròng 18% mà mất 6% ở đây là mất một phần ba tiền lãi."
     ],
     "tree": {
       "title": "6% đến từ đâu",
@@ -103,7 +103,7 @@
           ]
         ]
       },
-      "after": "Giả sử cổng thu 2,9% cộng 0,3 đô mỗi giao dịch. Phần % là 20.000 × 2,9% = 580 đô, phần cố định là 400 × 0,3 = 120 đô. Rút về Việt Nam mất 1,5%: 20.000 × 1,5% = 300 đô. Tiền nằm chờ một tháng, tỷ giá đi xuống 1%: 20.000 × 1% = 200 đô. Cộng lại 580 + 120 + 300 + 200 = **1.200 đô**, tức 6% doanh thu."
+      "after": "Giả sử cổng thu 2,9% cộng 0,3 đô mỗi giao dịch. Phần % là 20.000 × 2,9% = 580 đô, phần cố định là 400 × 0,3 = 120 đô. Hai khoản sau tính tròn trên cả 20.000 đô cho dễ. Rút về Việt Nam mất 1,5%: 20.000 × 1,5% = 300 đô. Tiền nằm chờ một tháng, tỷ giá đi xuống 1%: 20.000 × 1% = 200 đô. Cộng lại 580 + 120 + 300 + 200 = **1.200 đô**, tức 6% doanh thu."
     },
     "sections": [
       {

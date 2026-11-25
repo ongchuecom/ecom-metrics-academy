@@ -38,7 +38,7 @@
     "subtitle": "Mỗi khách sau khi mua còn tốn của shop bao nhiêu tiền nữa?",
     "intro": [
       "**Cost to Serve là tiền shop bỏ ra để chăm một khách sau khi khách đã mua.** Giả sử tháng này shop phục vụ 3.200 khách, tổng tiền CSKH, phần mềm, đổi hàng, ship lại, quà xin lỗi là 40tr. Cost to Serve = 40tr ÷ 3.200 = 12,5k mỗi khách.",
-      "Chi phí kho mỗi đơn đo việc đóng gói, xuất hàng. Cost to Serve đo phần sau đó: trả lời tin nhắn, xử lý khiếu nại, gửi lại món lỗi. Nhiều shop nghĩ bán được, thu tiền là xong, nhưng phần phát sinh không xử lý tốt sẽ làm khách bỏ đi. Có công ty phần mềm CRM 4.000 khách tốn 50tr tiền hỗ trợ, tức 50tr ÷ 4.000 = 12.500đ mỗi khách; lên 10.000 khách tốn 125tr, tức 125tr ÷ 10.000 = 12.500đ. Chi phí cố định loãng ra theo quy mô, còn chi phí phục vụ thì tăng theo số khách."
+      "Chi phí kho mỗi đơn đo việc đóng gói, xuất hàng. Cost to Serve đo phần sau đó: trả lời tin nhắn, xử lý khiếu nại, gửi lại món lỗi. Nhiều shop nghĩ thu tiền là xong, nhưng phần này làm không tốt thì khách bỏ đi. Và nó không rẻ đi khi shop lớn: một công ty phần mềm 4.000 khách tốn 50tr tiền hỗ trợ, lên 10.000 khách tốn 125tr, mỗi khách vẫn tốn 50tr ÷ 4.000 = 12,5k và 125tr ÷ 10.000 = 12,5k. Chi phí cố định loãng ra theo quy mô, còn chi phí phục vụ tăng theo số khách."
     ],
     "breakdown": {
       "title": "40tr chi phí phục vụ 3.200 khách gồm những gì (tr)",

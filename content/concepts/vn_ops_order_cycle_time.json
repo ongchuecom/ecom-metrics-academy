@@ -38,7 +38,7 @@
   "lesson": {
     "subtitle": "Đơn về rồi, bao lâu mới rời khỏi kho?",
     "intro": [
-      "**Order Cycle Time là số giờ trung bình từ lúc đơn về tới lúc gói hàng được bàn giao cho bên vận chuyển.** Một ngày 300 đơn, cộng thời gian chờ của từng đơn được 7.200 giờ thì Order Cycle Time = 7.200 ÷ 300 = 24 giờ.",
+      "**Order Cycle Time là số giờ trung bình từ lúc đơn về tới lúc gói hàng được bàn giao cho bên vận chuyển.** Một ngày 300 đơn, cộng thời gian chờ của từng đơn được 4.500 giờ thì Order Cycle Time = 4.500 ÷ 300 = 15 giờ.",
       "Click-to-Door tính bằng ngày và gộp cả quãng đường đi, phần lớn nằm trong tay bên giao hàng. Order Cycle Time tách riêng khúc trong kho và đo bằng giờ, vì đây là khúc shop sửa được ngay hôm nay. Có nơi dùng cùng tên này cho cả quãng tới tay khách; ở đây ta chỉ đo phần trong kho."
     ],
     "tree": {
@@ -123,7 +123,7 @@
           ]
         },
         "body": [
-          "300 đơn trong ngày chia theo số giờ nằm kho. Trung bình có thể vẫn dưới 24 giờ, nhưng 25 + 5 = 30 đơn nằm quá 24 giờ, tức 30 ÷ 300 = 10% số đơn.",
+          "300 đơn trong ngày chia theo số giờ nằm kho. Trung bình 15 giờ nghe ổn, nhưng 25 + 5 = 30 đơn nằm quá 24 giờ, tức 30 ÷ 300 = 10% số đơn.",
           "Những đơn đuôi dài thường là đơn hết hàng một món, sai địa chỉ, chờ gọi xác nhận. Đơn sàn có giờ bàn giao, để quá giờ là thành đơn trễ (SLA Breach). Đơn COD nằm lâu thì khách dễ đổi ý, tỷ lệ huỷ tăng. Ngoài con số trung bình, theo dõi thêm **% đơn nằm kho quá 24 giờ**."
         ]
       },

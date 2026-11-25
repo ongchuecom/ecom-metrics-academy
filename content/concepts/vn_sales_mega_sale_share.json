@@ -71,7 +71,7 @@
       }
     },
     "breakdown": {
-      "title": "Giả sử một đơn 200k: ngày thường và ngày 11.11",
+      "title": "Giả sử một đơn giá niêm yết 200k: ngày thường và ngày 11.11",
       "chart": {
         "type": "compare",
         "unit": "k",

@@ -21,7 +21,7 @@
   ],
   "playbook_refs": [],
   "formula": {
-    "readable": "FCF = Dòng tiền từ hoạt động kinh doanh − CAPEX; Dòng tiền hoạt động = Lợi nhuận ròng + Khấu hao − Tiền ứng thêm vào tồn kho và phải thu"
+    "readable": "FCF = Dòng tiền từ hoạt động kinh doanh − CAPEX; Dòng tiền hoạt động = Lợi nhuận ròng + Khấu hao − Phần tồn kho và phải thu tăng thêm + Phần nợ nhà cung cấp tăng thêm"
   },
   "basis": {
     "type": "standard",

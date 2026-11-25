@@ -95,7 +95,7 @@
         "threshold": 90,
         "now": 25
       },
-      "after": "Bán 25 cái/ngày thì mất 120 ngày, vượt mốc 90 ngày mà nhiều shop đã coi là hàng chậm. Muốn hết trong 90 ngày phải bán ít nhất 34 cái/ngày, vì 34 × 90 = 3.060. Nếu chỉ bán 10 cái/ngày thì 3.000 ÷ 10 = **300 ngày**, gần một năm tiền nằm im."
+      "after": "Bán 25 cái/ngày thì mất 120 ngày, vượt mốc 90 ngày, mốc tham khảo hay gặp để coi là hàng chậm (tùy ngành và mô hình). Muốn hết trong 90 ngày phải bán ít nhất 34 cái/ngày, vì 34 × 90 = 3.060. Nếu chỉ bán 10 cái/ngày thì 3.000 ÷ 10 = **300 ngày**, gần một năm tiền nằm im."
     },
     "sections": [
       {

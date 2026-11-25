@@ -19,7 +19,7 @@
   ],
   "playbook_refs": [],
   "formula": {
-    "readable": "Cost per Hire = (Chi phí tuyển bên ngoài + Chi phí tuyển nội bộ) ÷ Số người tuyển được; Chi phí mỗi người trụ lại = (Chi phí tuyển + Lương đã trả cho người không trụ) ÷ Số người qua thử việc"
+    "readable": "Cost per Hire = (Chi phí tuyển bên ngoài + Chi phí tuyển nội bộ) ÷ Số người tuyển được; Chi phí mỗi người trụ lại = (Chi phí tuyển + Lương đã trả cho người không trụ) ÷ Số người trụ lại"
   },
   "basis": {
     "type": "standard",
@@ -90,7 +90,7 @@
         },
         "body": [
           "Tính theo cách thường: 12tr ÷ 12 = 1tr mỗi người. Tính trên người thật sự ở lại: (12tr + 24tr) ÷ 4 = 9tr mỗi người. Chênh nhau 9 lần.",
-          "Có công ty một năm tuyển sai 10 người là tốn cả tỷ đồng. Nhưng nếu lọc ra được một người giỏi thì vẫn đáng. Việc của chủ shop không phải là ngừng tuyển, mà là giảm số người phải trả lương rồi mới biết không hợp."
+          "Tuyển sai thì tốn, nhưng không tuyển thì không lớn được. Việc của chủ shop không phải là ngừng tuyển, mà là giảm số người phải trả lương rồi mới biết không hợp."
         ]
       },
       {

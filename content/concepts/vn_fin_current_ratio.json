@@ -46,11 +46,11 @@
     "subtitle": "Nếu các khoản nợ cùng đòi một lúc, shop có trả nổi không?",
     "intro": [
       "**Current Ratio là tài sản ngắn hạn chia cho nợ phải trả trong 12 tháng tới.** Shop có tiền 300tr, tiền sàn chờ về 200tr, tồn kho 1,5 tỷ, tổng 300tr + 200tr + 1.500tr = 2.000tr. Nợ xưởng và vay ngắn hạn cộng 1 tỷ thì Current Ratio = 2 tỷ ÷ 1 tỷ = 2.",
-      "Nhìn 2 lần thì yên tâm. Nhưng phần lớn là hàng trong kho, mà hàng chưa bán thì không trả được nợ. Quick Ratio bỏ tồn kho ra: (2 tỷ − 1,5 tỷ) ÷ 1 tỷ = 0,5. Tức là nếu chủ nợ đòi cùng lúc, shop chỉ gom được một nửa. Runway đếm số tháng sống với mức đốt tiền; hai hệ số này chụp một tấm ảnh tại một ngày: tài sản dễ ra tiền có phủ được nợ sắp đến hạn không."
+      "Nhìn 2 lần thì yên tâm. Nhưng phần lớn là hàng trong kho, mà hàng chưa bán thì không trả được nợ. Quick Ratio bỏ tồn kho ra: (2 tỷ − 1,5 tỷ) ÷ 1 tỷ = 0,5. Nếu các khoản nợ cùng đòi một lúc, shop chỉ gom được một nửa. Runway đếm số tháng sống được; hai hệ số này chụp ảnh tại một ngày: tài sản dễ ra tiền có phủ được nợ sắp đến hạn không."
     ],
     "tree": {
       "title": "Hệ số thanh toán ngắn hạn được tạo ra từ đâu",
-      "note": "Tiền và tiền sắp về ↑ là phần chắc. Tồn kho ↑ làm Current Ratio đẹp lên nhưng Quick Ratio không đổi.",
+      "note": "Tiền và tiền sắp về ↑ là phần chắc. Tồn kho ↑ có thể làm Current Ratio trông đẹp, nhưng không giúp gì cho Quick Ratio.",
       "expr": {
         "label": "Current Ratio",
         "eq": [
@@ -108,7 +108,7 @@
           ]
         ]
       },
-      "after": "Tiền và tiền sắp về chỉ có 300tr + 200tr = 500tr, so với 1.000tr nợ là **0,5**. Phần còn lại phải chờ bán được 1,5 tỷ hàng. Hàng mà lỗi mốt, như nhiều hãng thời trang từng phải đem cả kho đi từ thiện, thì con số 2 trên giấy không cứu được ai."
+      "after": "Tiền và tiền sắp về chỉ có 300tr + 200tr = 500tr, so với 1.000tr nợ là **0,5**. Phần còn lại phải chờ bán được 1,5 tỷ hàng. Hàng mà lỗi mốt, phải thanh lý rẻ hoặc đem cho, thì con số 2 trên giấy không cứu được ai."
     },
     "sections": [
       {
@@ -148,7 +148,7 @@
               "Nợ xưởng, vay ngắn hạn, phần gốc vay dài hạn đến hạn trong năm, thuế và lương còn nợ."
             ],
             [
-              "Tính tồn kho theo giá bán được",
+              "Hạ giá trị hàng chậm bán",
               "Hàng chậm, hàng lỗi mốt chỉ tính theo giá thanh lý, không tính theo giá nhập."
             ],
             [
