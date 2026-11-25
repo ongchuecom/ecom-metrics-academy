@@ -1,0 +1,144 @@
+{
+  "id": "vn_team_manager_ratio",
+  "type": "metric",
+  "domain": "07_team_operations",
+  "topic": "quy-trinh-quan-tri",
+  "code": "Tỷ lệ quản lý",
+  "vi_name": "Tỷ lệ quản lý và số người mỗi quản lý (Manager Ratio, Span of Control)",
+  "definition": "Phần trăm nhân sự đang làm quản lý trên tổng nhân sự, đi kèm số nhân viên trung bình mỗi quản lý phụ trách. Quản lý nhiều quá thì bộ máy nặng, họp nhiều làm ít; quá ít thì không ai kèm người mới.",
+  "aliases": [
+    "manager ratio",
+    "span of control",
+    "tỷ lệ quản lý trên nhân viên",
+    "số người mỗi quản lý"
+  ],
+  "related": [
+    "vn_team_gp_per_staff",
+    "vn_fin_opex_ratio",
+    "vn_team_pnl_khoan",
+    "vn_team_employee_surplus",
+    "vn_team_sop"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Tỷ lệ quản lý = Số người làm quản lý ÷ Tổng nhân sự × 100%; Số người mỗi quản lý = Số nhân viên không làm quản lý ÷ Số người làm quản lý"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Manager-to-Staff Ratio, Span of Control)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-b",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1371: lãnh đạo/quản lí chỉ nên chiếm 15–20%, dùng Tech/AI/Automation và quy trình để bớt cấp trung gian; dòng 1372: sợ công ty nhiều công thần; dòng 1433: 1 leader nắm 1 team 10 người"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Công ty đang có bao nhiêu người điều hành, bao nhiêu người làm ra số?",
+    "intro": [
+      "**Tỷ lệ quản lý là số người làm quản lý chia cho tổng nhân sự.** Công ty 60 người, có 2 lãnh đạo và 7 trưởng nhóm, tức 2 + 7 = 9 quản lý. Tỷ lệ = 9 ÷ 60 = 15%. Còn 60 − 9 = 51 nhân viên, mỗi quản lý phụ trách 51 ÷ 9 = 5,7 người.",
+      "Hai con số đi cùng nhau. Tỷ lệ cao là bộ máy nặng: nhiều người họp, nêu ý kiến mà không trực tiếp làm ra số. Số người mỗi quản lý quá lớn là trưởng nhóm không kèm nổi ai. Một mốc tham khảo hay gặp là lãnh đạo, quản lý chiếm khoảng 15–20%, tùy ngành và mô hình."
+    ],
+    "breakdown": {
+      "title": "Công ty 60 người chia thế nào",
+      "chart": {
+        "type": "bars",
+        "unit": "người",
+        "items": [
+          [
+            "Lãnh đạo",
+            2,
+            "focus"
+          ],
+          [
+            "Trưởng nhóm",
+            7,
+            "focus"
+          ],
+          [
+            "Nhân viên",
+            51,
+            "keep"
+          ]
+        ]
+      },
+      "after": "9 quản lý trên 60 người là 15%. Nhưng nếu lương quản lý cao, phần quỹ lương họ chiếm còn lớn hơn nhiều so với **15%** số người."
+    },
+    "sections": [
+      {
+        "title": "15% số người, 30% quỹ lương",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "9 quản lý",
+            "51 nhân viên"
+          ],
+          "items": [
+            [
+              "Quỹ lương mỗi tháng",
+              225,
+              510
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử quản lý lương bình quân 25tr, nhân viên 10tr. Quản lý: 9 × 25tr = 225tr. Nhân viên: 51 × 10tr = 510tr. Quỹ lương 225tr + 510tr = 735tr, quản lý chiếm 225tr ÷ 735tr = 30,6%.",
+          "Thêm 3 trưởng nhóm nữa mà doanh thu không đổi là quỹ lương tăng 3 × 25tr = 75tr mỗi tháng. Muốn bớt cấp trung gian thì phải có quy trình, công cụ, tự động hóa làm thay phần việc giám sát."
+        ]
+      },
+      {
+        "title": "Quá ít quản lý cũng hỏng",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Ít người mỗi quản lý",
+            "Nhiều người mỗi quản lý"
+          ],
+          "y": [
+            "Việc đã có quy trình",
+            "Việc mới, người mới"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Thừa quản lý",
+                "text": "Việc đã chạy theo SOP mà mỗi trưởng nhóm chỉ giữ vài người: gộp nhóm.",
+                "tone": "loss"
+              },
+              {
+                "title": "Hợp lý",
+                "text": "Đóng gói, chăm sóc khách theo quy trình: một trưởng nhóm giữ được nhiều người.",
+                "tone": "keep"
+              }
+            ],
+            [
+              {
+                "title": "Hợp lý",
+                "text": "Đội mới, việc chưa có quy trình: cần trưởng nhóm sát sao, kèm từng người.",
+                "tone": "keep"
+              },
+              {
+                "title": "Thiếu quản lý",
+                "text": "Người mới đông mà không ai kèm: lên tay chậm, nghỉ nhiều.",
+                "tone": "loss"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Không có một con số đúng cho mọi team. Ví dụ một trưởng nhóm giữ team 10 người làm ra số đều là ổn. Việc đã có SOP thì một người giữ được nhiều hơn, đội mới nhiều người mới thì phải ít hơn."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Thăng chức người giỏi làm trưởng nhóm để giữ chân, rồi đẻ thêm tầng quản lý mà không thêm doanh thu.",
+      "Chỉ đếm số người, không xem phần quỹ lương mà tầng quản lý đang chiếm.",
+      "Ép một trưởng nhóm giữ quá nhiều người mới, rồi trách người mới không lên tay."
+    ],
+    "remember": "Đếm cả hai số: bao nhiêu phần trăm người đang quản lý, và mỗi quản lý đang thật sự kèm bao nhiêu người."
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "id": "vn_team_kpi_attainment",
+  "type": "metric",
+  "domain": "07_team_operations",
+  "topic": "hieu-suat-doi-ngu",
+  "code": "Tỷ lệ đạt KPI",
+  "vi_name": "Tỷ lệ đạt KPI (KPI Attainment)",
+  "definition": "Phần trăm nhân sự hoặc team đạt chỉ tiêu được giao trong kỳ, đọc cùng mức hoàn thành của từng người (kết quả thực chia chỉ tiêu). Dùng để biết KPI đặt có hợp lý không, chứ không chỉ để chấm ai giỏi ai kém.",
+  "aliases": [
+    "KPI attainment",
+    "quota attainment",
+    "tỷ lệ hoàn thành KPI",
+    "tỷ lệ đạt chỉ tiêu"
+  ],
+  "related": [
+    "vn_team_role_kpi",
+    "vn_team_low_base_kpi_pay",
+    "vn_team_turnover",
+    "vn_team_telesale_productivity",
+    "vn_team_pnl_khoan"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Tỷ lệ đạt KPI = Số người (hoặc team) đạt chỉ tiêu ÷ Số người được giao chỉ tiêu × 100%; Mức hoàn thành KPI của mỗi người = Kết quả thực ÷ Chỉ tiêu × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (KPI Attainment, Quota Attainment)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-b",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1289: KPI minh bạch, hợp lý với từng nhóm, từng giai đoạn; dòng 939: chạy theo KPI vượt ngưỡng bào mòn đội ngũ; dòng 4970: đưa ramp-up vào KPI; dòng 5105: liên tục 3 tháng không đạt số thì cắt giảm"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Cả đội đều đạt KPI là tin vui, hay là KPI đặt quá dễ?",
+    "intro": [
+      "**Tỷ lệ đạt KPI là số người đạt chỉ tiêu chia cho số người được giao chỉ tiêu.** Đội 20 telesale, chỉ tiêu 300 đơn/tháng, có 14 người đạt từ 300 đơn trở lên. Tỷ lệ đạt KPI = 14 ÷ 20 = 70%. Một bạn chốt 240 đơn thì mức hoàn thành là 240 ÷ 300 = 80%.",
+      "Con số này chấm cả người đặt KPI chứ không chỉ người làm. Gần như ai cũng đạt là KPI quá dễ, thưởng tràn mà không đẩy được ai. Gần như không ai đạt là KPI quá khó, người giỏi cũng nản và đi. KPI phải hợp với từng nhóm và từng giai đoạn."
+    ],
+    "breakdown": {
+      "title": "Nhìn cả phân bố, không chỉ một tỷ lệ",
+      "chart": {
+        "type": "bars",
+        "unit": "người",
+        "items": [
+          [
+            "Dưới 70% chỉ tiêu",
+            3,
+            "loss"
+          ],
+          [
+            "70–99% chỉ tiêu",
+            3,
+            "keep"
+          ],
+          [
+            "100–119% chỉ tiêu",
+            8,
+            "focus"
+          ],
+          [
+            "Từ 120% trở lên",
+            6,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Đội 20 người: 3 + 3 = 6 người chưa đạt, 8 + 6 = 14 người đạt. Tỷ lệ 70% này nhìn ổn. Nhưng nếu nhiều người vượt xa chỉ tiêu như **6 người** ở nhóm từ 120% trở lên thì nên xem lại chỉ tiêu cho kỳ sau, hoặc đó là những người cần giao việc lớn hơn."
+    },
+    "sections": [
+      {
+        "title": "Quá dễ và quá khó",
+        "chart": {
+          "type": "compare",
+          "unit": "%",
+          "labels": [
+            "KPI quá dễ",
+            "KPI quá khó"
+          ],
+          "items": [
+            [
+              "Tỷ lệ đạt KPI",
+              95,
+              10
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử tháng A chỉ tiêu 200 đơn, 19 trên 20 người đạt: 19 ÷ 20 = 95%. Thưởng phát gần hết mà doanh số không tăng. Tháng B chỉ tiêu 500 đơn, chỉ 2 người đạt: 2 ÷ 20 = 10%. 18 người còn lại thấy có cố cũng không tới, bắt đầu tìm chỗ khác.",
+          "Chạy theo KPI vượt sức đội quá lâu sẽ bào mòn đội ngũ. Chỉ tiêu tốt là người làm chăm và đúng cách thì với tới được, người giỏi thì có chỗ để vượt."
+        ]
+      },
+      {
+        "title": "Tách người mới ra khi tính",
+        "chart": {
+          "type": "compare",
+          "unit": "%",
+          "labels": [
+            "Gộp chung",
+            "Tính riêng"
+          ],
+          "items": [
+            [
+              "Người cũ",
+              70,
+              85.7
+            ],
+            [
+              "Người mới",
+              70,
+              33.3
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử 20 người có 14 người cũ, 6 người mới. Người cũ đạt 12: 12 ÷ 14 = 85,7%. Người mới đạt 2: 2 ÷ 6 = 33,3% nếu giao full. Gộp lại vẫn là 14 ÷ 20 = 70%, che mất chuyện người mới đang bị giao quá sức.",
+          "Người mới nên được giao chỉ tiêu theo thời gian chạy đà, ví dụ tháng đầu 25%, tháng thứ 2 50%. Còn ai liên tục 3 tháng không đạt chỉ tiêu đã tính đúng thì mới là lúc nói chuyện cắt giảm."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Mừng khi cả đội đạt KPI mà không hỏi chỉ tiêu có quá thấp không.",
+      "Giao người mới chỉ tiêu bằng người cũ rồi tính chung một tỷ lệ.",
+      "Chỉ nhìn tỷ lệ đạt, không nhìn phân bố, nên không thấy ai đang vượt xa và ai đang tụt hẳn."
+    ],
+    "remember": "Tỷ lệ đạt KPI chấm cả người đặt chỉ tiêu: ai cũng đạt hoặc chẳng ai đạt đều là KPI đặt sai."
+  }
+}
