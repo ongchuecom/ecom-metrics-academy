@@ -6,3 +6,5 @@ dist
 src/data/catalog.json
 public/data/
 .cache/
+__pycache__/
+*.pyc
