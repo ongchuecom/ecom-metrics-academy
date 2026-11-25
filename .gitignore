@@ -5,3 +5,4 @@ dist
 # sinh bởi scripts/build-content.mjs khi build/dev
 src/data/catalog.json
 public/data/
+.cache/

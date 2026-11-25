@@ -10,7 +10,7 @@
     "validate": "node scripts/validate-data.mjs",
     "data:import": "node scripts/csv-to-json.mjs",
     "data:export": "node scripts/json-to-csv.mjs",
-    "prebuild": "node scripts/validate-data.mjs && node scripts/gen-firestore-rules.mjs --check && node scripts/build-content.mjs && node scripts/check-content.mjs",
+    "prebuild": "node scripts/validate-data.mjs && node scripts/gen-firestore-rules.mjs --check && node scripts/build-content.mjs && node scripts/check-content.mjs && node scripts/voice-manifest.mjs",
     "data:pack": "node scripts/import-pack.mjs && node scripts/gen-firestore-rules.mjs && node scripts/build-content.mjs",
     "postbuild": "node scripts/prerender.mjs",
     "scan:article": "node scripts/scan-article.mjs",
@@ -19,7 +19,9 @@
     "content": "node scripts/build-content.mjs",
     "predev": "node scripts/build-content.mjs",
     "check": "node scripts/build-content.mjs && node scripts/check-content.mjs",
-    "approve": "node scripts/approve.mjs"
+    "approve": "node scripts/approve.mjs",
+    "voice": "npm run -s content && node scripts/voice-manifest.mjs && ${PYTHON:-python3} tools/voice/generate.py",
+    "voice:list": "npm run -s content && node scripts/voice-manifest.mjs"
   },
   "dependencies": {
     "firebase": "^11.10.0",

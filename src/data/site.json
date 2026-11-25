@@ -78,5 +78,11 @@
   "advisor": {
     "_huong_dan": "Địa chỉ máy chủ Cố vấn AI (server/, ví dụ https://api.ten-mien.vn). Để trống thì mục Cố vấn AI ẩn. Cần bật đăng nhập (auth.firebase) trước.",
     "endpoint": ""
+  },
+  "voice": {
+    "_huong_dan": "Giọng đọc video bảng giảng, đọc sẵn thành mp3 bằng VieNeu-TTS (Apache 2.0) và để ở public/audio/. Đổi name (Hải Đăng, Thiện Minh…) hoặc tăng version (khi sửa cách đọc trong tools/voice/norm.py) rồi chạy npm run voice để đọc lại. Xem tools/voice/README.md.",
+    "engine": "vieneu-v3-turbo",
+    "name": "Hải Đăng",
+    "version": 1
   }
 }

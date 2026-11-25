@@ -1,43 +1,24 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { stageById, STAGES } from '../data/index.js'
 import { Chart } from './LessonVisuals.jsx'
+import { buildScenes, plain, audioKey } from '../lib/scenes.js'
+import site from '../data/site.json'
 
 // Video giải thích kiểu bảng giảng: nền trắng kẻ ô mờ, công thức, con số và biểu đồ viết dần lên bảng.
 // Mọi cảnh lấy từ bài đọc của chỉ số (lessons.json), nên video và bài đọc luôn khớp số.
 // Nếu chỉ số có media.video_url (Drive/YouTube), người xem chuyển sang được video quay thật.
 
-const plain = (t = '') => t.replace(/\*\*/g, '')
-const spoken = (s) => s.replace(/[×*]/g, ' nhân ').replace(/\//g, ' chia ').replace(/−/g, ' trừ ').replace(/[()]/g, ' ')
+// Giọng đọc đọc sẵn (tools/voice/generate.py): public/audio/<key>.mp3 + index.json (key → thời lượng ms)
+const VOICE_ID = site.voice ? `${site.voice.engine}:${site.voice.name}:${site.voice.version}` : ''
+let audioIndex = null
+const loadAudioIndex = () => (audioIndex ||= fetch(`${import.meta.env.BASE_URL}audio/index.json`).then((r) => (r.ok ? r.json() : { files: {} })).then((j) => j.files || {}).catch(() => ({})))
+const readSound = () => { try { return localStorage.getItem('ema-sound') === '1' } catch { return false } }
+
 const rich = (t = '') => t.split('**').map((x, i) => (i % 2 ? <b key={i} className="board-mark">{x}</b> : x))
-const durationFor = (text, base = 3) => Math.round(Math.min(11, Math.max(5, base + (text || '').length / 22)) * 1000)
 
 // Khổ thiết kế cố định, cả khung được co giãn theo bề rộng thật để biểu đồ luôn vừa
 const WIDE = { w: 960, h: 540 }
 const TALL = { w: 520, h: 650 }
-
-function buildScenes(metric) {
-  const L = metric.lesson || {}
-  const stageNo = STAGES.findIndex((s) => s.id === metric.stage) + 1
-  const scenes = []
-  scenes.push({ id: 'title', label: 'Đề bài', stageNo, say: `${metric.code}. ${L.subtitle || metric.vi_name}.`, dur: 5000 })
-  if (metric.formula?.readable || L.tree) scenes.push({
-    id: 'formula', label: 'Công thức', tree: L.tree,
-    say: (metric.formula?.readable ? 'Công thức: ' + spoken(metric.formula.readable) : '') + (L.tree?.note ? '. ' + L.tree.note : ''),
-    dur: durationFor((metric.formula?.readable || '') + (L.tree?.note || ''), 4),
-  })
-  if (L.breakdown?.chart) {
-    const b = L.breakdown
-    scenes.push({ id: 'chart', label: 'Ví dụ số', title: b.title, chart: b.chart, text: b.after, say: `${b.title}. ${plain(b.after)}`, dur: durationFor(b.title + plain(b.after), 5) })
-  }
-  ;(L.sections || []).filter((x) => x.chart).slice(0, 2).forEach((x, k) => {
-    scenes.push({ id: 'chart', label: k ? 'Áp dụng' : 'Ngưỡng', title: x.title, chart: x.chart, text: x.body?.[0], say: `${x.title}. ${plain(x.body?.[0] || '')}`, dur: durationFor(x.title + plain(x.body?.[0] || ''), 5) })
-  })
-  const hw = metric.diagnostic_homework
-  const remember = L.remember || metric.definition
-  scenes.push({ id: 'close', label: 'Ghi nhớ', remember, hw: hw?.title, say: `Ghi nhớ: ${plain(remember)}${hw ? ' Thử sức với ' + hw.title.replace(/^Bệnh án:\s*/, '') + '.' : ''}`, dur: durationFor(remember, 4.5) })
-  scenes[0].agenda = scenes.slice(1).map((x) => x.label)
-  return scenes
-}
 
 // Phóng hoặc co biểu đồ cho vừa ô còn trống trên bảng (tối đa 1,6 lần)
 function Fit({ children, className = '', max = 1.6 }) {
@@ -187,18 +168,18 @@ function toEmbed(url) {
 }
 
 export default function ExplainerVideo({ metric, onHomework }) {
-  const scenes = useMemo(() => buildScenes(metric), [metric])
+  const scenes = useMemo(() => buildScenes(metric, STAGES.findIndex((x) => x.id === metric.stage) + 1), [metric])
   const [i, setI] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [run, setRun] = useState(0) // tăng để khởi động lại animation cảnh
-  const [voice, setVoice] = useState(false)
+  const [sound, setSound] = useState(readSound)
+  const [files, setFiles] = useState(null) // key → thời lượng ms của file đọc sẵn
+  const audio = useRef(null)
   const [mode, setMode] = useState('motion')
   const [ended, setEnded] = useState(false)
   const ref = useRef(null)
   const timer = useRef({ id: null, start: 0, remaining: 0 })
   const seen = useRef(false)
-  const viVoice = useRef(null)
-  const [canSpeak, setCanSpeak] = useState(false)
   const embed = toEmbed(metric.media?.video_url)
   const stage = useRef(null)
   const [box, setBox] = useState({ w: 0 })
@@ -216,33 +197,28 @@ export default function ExplainerVideo({ metric, onHomework }) {
   const dim = wide ? WIDE : TALL
   const scale = box.w ? box.w / dim.w : 1
 
-  useEffect(() => {
-    if (!('speechSynthesis' in window)) return
-    const pick = () => {
-      viVoice.current = window.speechSynthesis.getVoices().find((v) => v.lang?.toLowerCase().startsWith('vi')) || null
-      setCanSpeak(!!viVoice.current)
-    }
-    pick()
-    window.speechSynthesis.addEventListener?.('voiceschanged', pick)
-    return () => { window.speechSynthesis.removeEventListener?.('voiceschanged', pick); window.speechSynthesis.cancel() }
-  }, [])
+  useEffect(() => { loadAudioIndex().then(setFiles) }, [])
+  const keys = useMemo(() => scenes.map((x) => audioKey(VOICE_ID, x.say)), [scenes])
+  const hasVoice = !!files && keys.some((k) => files[k])
+  // Thời lượng cảnh: đủ cho câu đọc (cộng 0,7 giây nghỉ) khi bật giọng
+  const durOf = useCallback((k) => (sound && files?.[keys[k]] ? Math.max(scenes[k].dur, files[keys[k]] + 700) : scenes[k].dur), [sound, files, keys, scenes])
 
   const s = scenes[i]
   const clear = () => { clearTimeout(timer.current.id); timer.current.id = null }
 
   const go = useCallback((k) => {
     clear()
-    window.speechSynthesis?.cancel()
+    audio.current?.pause()
     setEnded(false)
     setI(k)
     setRun((r) => r + 1)
-    timer.current.remaining = scenes[k].dur
-  }, [scenes])
+    timer.current.remaining = durOf(k)
+  }, [durOf])
 
   // Hẹn giờ chuyển cảnh
   useEffect(() => {
     if (!playing || mode !== 'motion') return
-    if (!timer.current.remaining) timer.current.remaining = s.dur
+    if (!timer.current.remaining) timer.current.remaining = durOf(i)
     timer.current.start = performance.now()
     timer.current.id = setTimeout(() => {
       timer.current.remaining = 0
@@ -254,15 +230,25 @@ export default function ExplainerVideo({ metric, onHomework }) {
     }
   }, [playing, i, run, mode]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Giọng đọc (Web Speech API, chỉ bật khi trình duyệt có giọng tiếng Việt)
+  // Giọng đọc: mỗi cảnh một file mp3 đọc sẵn. Cảnh mới thì phát từ đầu; tạm dừng thì dừng tiếng.
   useEffect(() => {
-    if (!voice || !playing || !viVoice.current || mode !== 'motion') return
-    const u = new SpeechSynthesisUtterance(s.say)
-    u.voice = viVoice.current; u.lang = viVoice.current.lang; u.rate = 1.05
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(u)
-    return () => window.speechSynthesis.cancel()
-  }, [voice, i, run, playing, mode]) // eslint-disable-line react-hooks/exhaustive-deps
+    const f = files?.[keys[i]]
+    if (!sound || !f || mode !== 'motion') { audio.current?.pause(); return }
+    const a = audio.current || (audio.current = new Audio())
+    const src = `${import.meta.env.BASE_URL}audio/${keys[i]}.mp3`
+    if (!a.src.endsWith(src)) { a.src = src; a.currentTime = 0 }
+    if (playing) a.play().catch(() => setSound(false)) // trình duyệt chặn phát tiếng: tắt giọng, video vẫn chạy
+    else a.pause()
+  }, [sound, files, keys, i, playing, mode])
+  useEffect(() => () => audio.current?.pause(), [])
+  // cảnh mới: đọc lại từ đầu
+  useEffect(() => { if (audio.current) audio.current.currentTime = 0 }, [i, run])
+  const toggleSound = () => {
+    const on = !sound
+    setSound(on)
+    try { localStorage.setItem('ema-sound', on ? '1' : '0') } catch { /* bỏ qua */ }
+    if (on) { go(i); setPlaying(true) } // bật giọng: đọc lại cảnh đang xem
+  }
 
   // Tự phát khi cuộn tới, tạm dừng khi cuộn qua
   useEffect(() => {
@@ -293,11 +279,14 @@ export default function ExplainerVideo({ metric, onHomework }) {
             Video bài giảng
           </button>
         </div> : <span />}
-        {canSpeak && mode === 'motion' && (
-          <label className="flex items-center gap-2 text-sm text-charcoal">
-            <input type="checkbox" checked={voice} onChange={(e) => setVoice(e.target.checked)} className="h-4 w-4 accent-brand-600" />
-            Giọng đọc
-          </label>
+        {hasVoice && mode === 'motion' && (
+          <button onClick={toggleSound} aria-pressed={sound}
+            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold ring-1 transition ${sound ? 'bg-brand-50 text-brand-800 ring-brand-200' : 'text-charcoal ring-stone-200 hover:bg-stone-50'}`}>
+            <svg viewBox="0 0 20 20" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M3 8v4h3l4 3V5L6 8H3z" />{sound ? <path d="M13 7.5a3.5 3.5 0 0 1 0 5M15.5 5a7 7 0 0 1 0 10" /> : <path d="M14 8l4 4m0-4l-4 4" />}
+            </svg>
+            {sound ? 'Đang bật giọng đọc' : 'Bật giọng đọc'}
+          </button>
         )}
       </div>
 

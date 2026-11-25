@@ -103,6 +103,8 @@ Lỗi nào cũng phải sửa hết. Cảnh báo "định nghĩa rất giống �
 
 Sau đó build, mở thử vài bài mỗi loại trên máy tính và điện thoại. Kiểm video bảng giảng hiện biểu đồ, không tràn khung.
 
+Đọc giọng cho video của bài mới: `PYTHON=.venv-voice/bin/python npm run voice` (xem `tools/voice/README.md`). Build in ra số cảnh còn thiếu giọng; lô mới phải về 0 trước khi commit.
+
 ## 4. Duyệt (hai mức)
 
 - **Bài `risk: high`** (số liệu, thuế, pháp lý): anh Tuấn duyệt từng bài.
