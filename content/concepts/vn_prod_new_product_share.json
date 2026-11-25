@@ -1,0 +1,141 @@
+{
+  "id": "vn_prod_new_product_share",
+  "type": "metric",
+  "domain": "01_product_rd",
+  "topic": "chon-san-pham",
+  "code": "Tỷ trọng sản phẩm mới",
+  "vi_name": "Tỷ trọng doanh thu từ sản phẩm mới (New Product Revenue Share)",
+  "definition": "Phần trăm doanh thu đến từ các mã ra mắt trong 12 tháng gần nhất. Con số này cho biết shop đang tự làm mới được, hay vẫn sống nhờ mấy mã cũ đang già đi.",
+  "aliases": [
+    "new product revenue share",
+    "vitality index",
+    "doanh thu sản phẩm mới",
+    "tỷ trọng hàng mới"
+  ],
+  "related": [
+    "vn_prod_hit_rate",
+    "vn_prod_hero_sku",
+    "vn_fin_net_sales",
+    "vn_prod_chon_ngach",
+    "vn_fin_channel_concentration"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Tỷ trọng sản phẩm mới = Doanh thu từ mã ra mắt trong 12 tháng gần nhất ÷ Tổng doanh thu × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (New Product Sales Ratio / Vitality Index)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1828 (sản phẩm là viên đạn tạo ra doanh thu, chấp nhận tỷ lệ fail của sản phẩm mới), dòng 3306 (trend thay đổi nên phải nhảy từ SKU này qua SKU khác, lúc được lúc mất)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Doanh thu năm nay đến từ mã mới hay vẫn trông vào mã cũ?",
+    "intro": [
+      "**Tỷ trọng doanh thu từ sản phẩm mới là phần doanh thu do các mã ra mắt trong 12 tháng gần nhất mang về.** Shop bán 800tr/tháng, trong đó các mã mới ra năm nay đóng góp 200tr thì tỷ trọng = 200tr ÷ 800tr = 25%.",
+      "Sản phẩm là viên đạn tạo ra doanh thu, và viên đạn nào cũng hết. Mã cũ già đi: trend qua, đối thủ nhái, giá bị ép. Không có mã mới gánh dần thì doanh thu tụt theo mã cũ. Ngược lại, tỷ trọng mới quá cao năm này qua năm khác có thể là dấu hiệu shop phải nhảy từ SKU này qua SKU khác, lúc được lúc mất, không giữ nổi mã nào lâu."
+    ],
+    "tree": {
+      "title": "Tỷ trọng sản phẩm mới đến từ đâu",
+      "note": "Doanh thu mã mới ↑ khi tung đủ số mã và tỷ lệ mã thắng (hit rate) đủ cao. Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "Tỷ trọng sản phẩm mới",
+        "eq": [
+          {
+            "label": "Doanh thu mã ra mắt ≤ 12 tháng",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Tổng doanh thu",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Doanh thu mỗi tháng: năm ngoái và năm nay",
+      "chart": {
+        "type": "compare",
+        "unit": "tr",
+        "labels": [
+          "Năm ngoái",
+          "Năm nay"
+        ],
+        "items": [
+          [
+            "Mã cũ",
+            680,
+            600
+          ],
+          [
+            "Mã mới (≤ 12 tháng)",
+            70,
+            200
+          ]
+        ]
+      },
+      "after": "Mã cũ tụt 680tr − 600tr = 80tr mỗi tháng. Mã mới tăng 200tr − 70tr = 130tr, nên tổng vẫn đi từ 750tr lên 800tr. Tỷ trọng mới năm ngoái chỉ 70tr ÷ 750tr = 9,3%, năm nay **25%**. Không có phần mã mới, shop đã đi lùi."
+    },
+    "sections": [
+      {
+        "title": "Đọc con số cùng với mã cũ",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Tỷ trọng mới thấp",
+            "Tỷ trọng mới cao"
+          ],
+          "y": [
+            "Mã cũ giữ doanh thu",
+            "Mã cũ tụt nhanh"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Ổn mà dễ ngủ quên",
+                "text": "Đang sống tốt nhờ mã cũ. Vẫn phải tung mã mới đều để có hàng thay khi mã cũ già.",
+                "tone": "mid"
+              },
+              {
+                "title": "Đang lớn khỏe",
+                "text": "Mã cũ giữ nền, mã mới cộng thêm. Đây là chỗ nên ở.",
+                "tone": "good"
+              }
+            ],
+            [
+              {
+                "title": "Báo động",
+                "text": "Mã cũ đi xuống mà không có gì thay. Doanh thu sẽ tụt theo.",
+                "tone": "bad"
+              },
+              {
+                "title": "Chạy theo trend",
+                "text": "Mã mới bù được nhưng mã nào cũng ngắn ngày. Xem lãi và tồn kho của từng đợt.",
+                "tone": "mid"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Không có tỷ lệ chuẩn chung cho mọi ngành. Hàng theo mùa, theo trend cần tỷ trọng mới cao hơn hàng thiết yếu. So con số của chính shop qua từng năm, và luôn đặt cạnh doanh thu mã cũ.",
+          "Giữ một định nghĩa \"mới\" cố định, ví dụ 12 tháng kể từ ngày lên bán. Đổi màu, đổi bao bì mã cũ không tính là mã mới."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính mã cũ đổi màu, đổi bao bì là sản phẩm mới cho đẹp số.",
+      "Đẩy tỷ trọng mới lên bằng cách bỏ đói mã cũ đang có lãi.",
+      "Chỉ nhìn doanh thu mã mới mà không nhìn lãi: mã mới bán được nhờ đốt Ads, voucher."
+    ],
+    "remember": "Mã nào rồi cũng già; nếu mã mới không gánh dần doanh thu thì shop sẽ tụt theo mã cũ."
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "vn_sales_bounce_rate",
+  "type": "metric",
+  "domain": "03_conversion_sales",
+  "topic": "chuyen-doi",
+  "code": "Bounce Rate",
+  "vi_name": "Tỷ lệ thoát trang (Bounce Rate)",
+  "definition": "Phần trăm phiên truy cập vào web rồi rời đi ngay, không xem thêm trang nào và không làm gì. Đo trang đích có giữ được người vừa bấm vào không.",
+  "aliases": [
+    "bounce rate",
+    "tỷ lệ thoát trang",
+    "tỷ lệ thoát"
+  ],
+  "related": [
+    "vn_sales_pdp_cvr",
+    "vn_mkt_cpc",
+    "vn_mkt_ctr",
+    "vn_mkt_conversion_tracking",
+    "vn_sales_atc_rate"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Bounce Rate = Số phiên thoát ngay (không xem thêm, không tương tác) ÷ Tổng số phiên"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn trong phân tích web (Bounce Rate)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 5276, mục Chỉ số đo lường hiệu quả (Bounce Rate / Time on Site đo trải nghiệm website)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Khách bấm vào rồi đi ngay, mình đang mất bao nhiêu tiền?",
+    "intro": [
+      "**Bounce Rate là phần trăm phiên vào web rồi rời đi ngay, không xem thêm trang nào, không làm gì.** 10.000 phiên vào trang đích, 6.500 phiên thoát ngay thì Bounce Rate = 6.500 ÷ 10.000 = 65%.",
+      "Mỗi phiên từ quảng cáo là một lượt bấm đã trả tiền. Người thoát ngay chưa kịp thấy sản phẩm, chưa kịp thấy giá. Trang tải chậm, ảnh đầu không khớp với quảng cáo, chữ quá nhỏ trên điện thoại là ba lý do hay gặp. Google Analytics 4 tính phiên thoát là phiên không tương tác: dưới 10 giây, chỉ một trang, không có sự kiện chuyển đổi."
+    ],
+    "breakdown": {
+      "title": "Bounce Rate theo nguồn khách",
+      "chart": {
+        "type": "bars",
+        "unit": "%",
+        "items": [
+          [
+            "TikTok ads",
+            85
+          ],
+          [
+            "Facebook ads",
+            75,
+            "focus"
+          ],
+          [
+            "Google tìm kiếm",
+            45
+          ],
+          [
+            "Zalo, email khách cũ",
+            30,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Giả sử đây là số của một website. Khách cũ từ Zalo đã biết shop nên ít thoát. Khách lướt video bấm vào tò mò nên thoát nhiều. So Bounce Rate giữa các nguồn khác nhau là so sai. Hãy so cùng một nguồn qua các tuần."
+    },
+    "sections": [
+      {
+        "title": "Bounce 70% là 14tr trả cho người đi ngay",
+        "chart": {
+          "type": "compare",
+          "labels": [
+            "Trang tải 6 giây",
+            "Trang tải 2 giây"
+          ],
+          "items": [
+            [
+              "Người ở lại",
+              3000,
+              4500
+            ],
+            [
+              "Đơn",
+              180,
+              270
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử mua 10.000 click, CPC 2k, tổng 20tr. Bounce 70% thì 10.000 × 70% = 7.000 người đi ngay, tức 7.000 × 2k = 14tr trả cho người chưa kịp xem hàng.",
+          "Sửa trang tải nhanh hơn, ảnh đầu khớp quảng cáo, bounce xuống 55%: người ở lại từ 3.000 lên 4.500. Nếu 6% người ở lại mua thì đơn từ 3.000 × 6% = 180 lên 4.500 × 6% = 270, cùng 20tr tiền ads."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Hoảng khi trang đích một trang có bounce cao, trong khi khách có thể đã đọc hết và gọi điện, chỉ là chưa gắn đo sự kiện.",
+      "So bounce giữa nguồn TikTok và nguồn khách cũ rồi kết luận quảng cáo TikTok tệ.",
+      "Gắn popup, chặn thoát để kéo bounce xuống, số đẹp mà khách khó chịu hơn."
+    ],
+    "remember": "Mỗi phiên thoát ngay là một click đã trả tiền mà khách chưa thấy hàng; sửa trang đích trước khi tăng ngân sách."
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "id": "vn_mkt_cpv",
+  "type": "metric",
+  "domain": "02_traffic_acquisition",
+  "topic": "quang-cao",
+  "code": "CPV",
+  "vi_name": "Chi phí mỗi lượt xem video (CPV - Cost per View)",
+  "definition": "Số tiền quảng cáo trả cho mỗi lượt xem video. Mỗi nền tảng, mỗi kiểu chiến dịch đếm một lượt xem một kiểu (3 giây, 15 giây, xem hết), nên CPV chỉ so được với nhau khi cùng cách đếm.",
+  "aliases": [
+    "cost per view",
+    "giá mỗi view",
+    "chi phí mỗi view"
+  ],
+  "related": [
+    "vn_mkt_cpm",
+    "vn_mkt_hook_rate",
+    "vn_mkt_hold_rate",
+    "vn_mkt_cpc",
+    "vn_mkt_cpa"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "CPV = Chi phí quảng cáo ÷ Số lượt xem video = CPM ÷ (1.000 × Tỷ lệ xem)"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Cost per View, CPV)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Khái niệm chuẩn ngành",
+      "note": "Cost per View (CPV), chi phí mỗi ThruPlay"
+    },
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 282 và 286: thời chạy ads cho brand chỉ để tăng nhận diện (views, click), cả nghề tăng view ảo, không ai để ý tới bán hàng"
+    }
+  ],
+  "lesson": {
+    "subtitle": "View rẻ thế, sao đơn vẫn đắt?",
+    "intro": [
+      "**CPV là tiền quảng cáo trả cho mỗi lượt xem video.** Chi 3tr, được 15.000 lượt xem quá 3 giây thì CPV = 3tr ÷ 15.000 = 200đ.",
+      "Một thời chạy ads cho các nhãn lớn chỉ để tăng nhận diện, đo bằng views và click, không ai để ý tới bán hàng. Thậm chí có cả nghề bán view ảo. Shop bán hàng thì khác: view chỉ là chặng giữa. CPV dùng để chẩn đoán video, không phải mục tiêu. View rẻ mà không ra đơn vẫn là tiền mất."
+    ],
+    "tree": {
+      "title": "CPV được tạo ra từ đâu",
+      "note": "Với lượt xem 3 giây: CPV = CPM ÷ (1.000 × Hook Rate). Giá hiển thị rẻ hoặc video giữ chân tốt thì CPV giảm.",
+      "expr": {
+        "label": "CPV",
+        "eq": [
+          {
+            "id": "vn_mkt_cpm",
+            "label": "CPM",
+            "dir": "down"
+          },
+          "÷ (1000 ×",
+          {
+            "id": "vn_mkt_hook_rate",
+            "label": "Hook Rate",
+            "dir": "up"
+          },
+          ")"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Giả sử CPM 60k: CPV theo Hook Rate",
+      "chart": {
+        "type": "line",
+        "xLabel": "Hook Rate (%)",
+        "unit": "đ",
+        "points": [
+          [
+            10,
+            600
+          ],
+          [
+            15,
+            400
+          ],
+          [
+            20,
+            300
+          ],
+          [
+            30,
+            200
+          ],
+          [
+            40,
+            150
+          ]
+        ],
+        "now": {
+          "x": 15,
+          "label": "Đang 15%: 400đ"
+        }
+      },
+      "after": "CPM 60k nghĩa là mỗi lượt hiển thị tốn 60k ÷ 1.000 = 60đ. Hook 15% thì CPV = 60đ ÷ 15% = 400đ. Hook lên 30% thì còn 60đ ÷ 30% = **200đ**. Cùng giá hiển thị, video giữ chân tốt gấp đôi thì view rẻ đi một nửa."
+    },
+    "sections": [
+      {
+        "title": "View rẻ chưa chắc đơn rẻ",
+        "chart": {
+          "type": "compare",
+          "unit": "",
+          "labels": [
+            "Video A: giật gân",
+            "Video B: đúng sản phẩm"
+          ],
+          "items": [
+            [
+              "CPV (đ)",
+              150,
+              300
+            ],
+            [
+              "Đơn",
+              10,
+              24
+            ],
+            [
+              "CPA (k)",
+              600,
+              250
+            ]
+          ]
+        },
+        "body": [
+          "Cùng 6tr. Video A mở đầu giật gân, CPV 150đ, được 6tr ÷ 150đ = 40.000 lượt xem nhưng chỉ ra 10 đơn: CPA = 6tr ÷ 10 = 600k. Video B nói thẳng vào sản phẩm, CPV 300đ, được 6tr ÷ 300đ = 20.000 lượt xem mà ra 24 đơn: CPA = 6tr ÷ 24 = 250k.",
+          "Muốn CPV gần với đơn hơn thì nhìn chi phí mỗi lượt xem tới 15 giây. Video B có Hold Rate 25% thì mỗi lượt xem 15 giây tốn 300đ ÷ 25% = 1.200đ. Người ở lại tới giây 15 mới là người có khả năng mua."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy CPV rẻ làm mục tiêu, dùng nội dung giật gân câu view không liên quan sản phẩm.",
+      "So CPV giữa hai chiến dịch đếm lượt xem khác nhau, một bên 3 giây, một bên 15 giây.",
+      "Chạy chiến dịch tối ưu lượt xem rồi chờ ra đơn, trong khi nền tảng đang tìm người thích xem chứ không phải người thích mua."
+    ],
+    "remember": "CPV để chẩn đoán video, không phải để khoe; view rẻ mà không ra đơn vẫn là tiền mất."
+  }
+}

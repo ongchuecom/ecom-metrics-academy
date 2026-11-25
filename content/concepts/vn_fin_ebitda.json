@@ -1,0 +1,168 @@
+{
+  "id": "vn_fin_ebitda",
+  "type": "metric",
+  "domain": "06_finance_unit_econ",
+  "topic": "suc-khoe-tai-chinh",
+  "code": "EBITDA",
+  "vi_name": "Lợi nhuận trước lãi vay, thuế và khấu hao (EBITDA)",
+  "definition": "Lãi từ việc kinh doanh trước khi trừ lãi vay, thuế và khấu hao máy móc, tài sản. Dùng để so sức sinh lời của mô hình giữa các kênh, các công ty, nhưng không phải số tiền mặt shop đang có.",
+  "aliases": [
+    "EBITDA margin",
+    "biên EBITDA",
+    "lợi nhuận trước lãi vay thuế khấu hao"
+  ],
+  "related": [
+    "vn_fin_operating_margin",
+    "vn_fin_net_profit",
+    "vn_fin_profit_vs_cash",
+    "vn_fin_screen_profit",
+    "vn_fin_tax_reserve",
+    "vn_fin_debt_to_equity"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "EBITDA = Lợi nhuận hoạt động + Khấu hao; Biên EBITDA = EBITDA ÷ Doanh thu × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Earnings Before Interest, Taxes, Depreciation and Amortization)."
+  },
+  "risk": "high",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 2671 (Tiktok 30 tỉ còn 9 tỉ, EBITDA 4 tỉ, offline 5 tỉ), dòng 1605 (EBITDA lý thuyết 20% mà Tết chỉ đủ trả lương tháng 13, nợ thuế 1 tỉ), dòng 5059–5065 (lãi vay, thuế, khấu hao, ví dụ máy in 3D)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Mô hình kiếm ra bao nhiêu trước khi trả ngân hàng, nhà nước và máy móc?",
+    "intro": [
+      "**EBITDA là lãi từ việc kinh doanh, chưa trừ lãi vay, thuế và khấu hao.** Sách lấy ví dụ: bán TikTok 30 tỷ, trừ phí sàn, marketing, giá vốn còn 30 tỷ × 30% = 9 tỷ. Trả kho, đội vận hành, kế toán, văn phòng, điện nước hết 5 tỷ, còn 9 tỷ − 5 tỷ = 4 tỷ. Biên EBITDA = 4 tỷ ÷ 30 tỷ = 13,3%.",
+      "Khấu hao là chia tiền mua tài sản ra nhiều năm. Sách ví dụ mua máy in 3D để in áo giá 1 tỷ, dùng 5 năm thì mỗi năm tính 1 tỷ ÷ 5 = 200tr. EBITDA cộng phần này lại, vì thế nó hợp để so mô hình với mô hình, nhưng không cho biết cuối tháng tài khoản còn bao nhiêu."
+    ],
+    "tree": {
+      "title": "EBITDA đứng ở đâu trong bảng lãi lỗ",
+      "note": "EBITDA = Lợi nhuận hoạt động + Khấu hao. Đi xuống tiếp: trừ lãi vay, trừ thuế mới ra lãi ròng.",
+      "expr": {
+        "label": "EBITDA",
+        "eq": [
+          {
+            "id": "vn_fin_operating_margin",
+            "label": "Lợi nhuận hoạt động",
+            "dir": "up"
+          },
+          "+",
+          {
+            "label": "Khấu hao",
+            "dir": "up"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "30 tỷ doanh số TikTok còn lại bao nhiêu",
+      "chart": {
+        "type": "bars",
+        "unit": "tỷ",
+        "items": [
+          [
+            "Doanh số",
+            30,
+            "keep"
+          ],
+          [
+            "Sau giá vốn, sàn, marketing",
+            9,
+            "keep"
+          ],
+          [
+            "EBITDA",
+            4,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Từ 30 tỷ xuống còn **4 tỷ**. Mỗi 100 đồng bán ra chỉ còn khoảng 13 đồng trước lãi vay, thuế và khấu hao. Số này nghe to nhưng còn phải trừ tiếp nhiều thứ."
+    },
+    "sections": [
+      {
+        "title": "Cùng 9 tỷ, online và offline ra EBITDA khác nhau",
+        "chart": {
+          "type": "compare",
+          "unit": "tỷ",
+          "labels": [
+            "Bán TikTok",
+            "Bán offline"
+          ],
+          "items": [
+            [
+              "Còn sau giá vốn, sàn, marketing",
+              9,
+              9
+            ],
+            [
+              "Kho, vận hành, văn phòng",
+              5,
+              4
+            ],
+            [
+              "EBITDA",
+              4,
+              5
+            ]
+          ]
+        },
+        "body": [
+          "Sách so: bán offline doanh số ngang online, cũng thu về 9 tỷ, nhưng chi phí nhân sự vận hành theo ca nhẹ hơn nhiều nên EBITDA có thể là 5 tỷ. Chênh 5 tỷ − 4 tỷ = 1 tỷ, bằng 1 tỷ ÷ 5 tỷ = 20%.",
+          "EBITDA giúp nhìn ra chỗ này vì nó bỏ qua cách mỗi bên vay tiền hay mua máy, chỉ so hiệu quả của việc bán và vận hành."
+        ]
+      },
+      {
+        "title": "EBITDA đẹp, tài khoản vẫn cạn",
+        "chart": {
+          "type": "bars",
+          "unit": "tr",
+          "items": [
+            [
+              "EBITDA tháng",
+              100,
+              "focus"
+            ],
+            [
+              "Lãi vay",
+              15,
+              "loss"
+            ],
+            [
+              "Dự phòng thuế",
+              15,
+              "loss"
+            ],
+            [
+              "Tiền nằm thêm trong hàng tồn",
+              60,
+              "loss"
+            ],
+            [
+              "Tiền mặt thực tăng",
+              10,
+              "keep"
+            ]
+          ]
+        },
+        "body": [
+          "Sách kể công ty của tác giả năm thứ 2: về lý thuyết EBITDA 20%, thực tế Tết nào cũng chỉ đủ trả lương tháng 13, cuối 2015 nợ thuế 1 tỷ trong khi tài khoản chỉ có 200tr.",
+          "Giả sử một shop có EBITDA 100tr/tháng. Trả lãi vay 15tr, để dành 15tr cho thuế, nhập thêm 60tr hàng cho mùa sale. Tiền mặt thực tăng 100tr − 15tr − 15tr − 60tr = 10tr. Chưa kể tiền mua máy móc đã chi ra từ trước."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Coi EBITDA là tiền mặt, đem số này đi chia lãi hay tính chuyện mở rộng.",
+      "Bỏ khấu hao ra rồi quên máy móc, kho kệ, thiết bị live sẽ hỏng và phải mua lại.",
+      "Khoe EBITDA cao trong khi đang vay nặng, lãi vay mỗi tháng ăn gần hết phần lãi."
+    ],
+    "remember": "EBITDA dùng để so mô hình, không dùng để đếm tiền; trừ lãi vay, thuế, khấu hao và tiền nằm trong hàng tồn rồi mới biết còn gì."
+  }
+}

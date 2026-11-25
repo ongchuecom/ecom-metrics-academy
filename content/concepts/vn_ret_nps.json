@@ -1,0 +1,149 @@
+{
+  "id": "vn_ret_nps",
+  "type": "metric",
+  "domain": "05_retention_lifecycle",
+  "topic": "giu-chan-khach",
+  "code": "NPS",
+  "vi_name": "Điểm giới thiệu ròng (NPS - Net Promoter Score) và điểm hài lòng CSAT",
+  "definition": "NPS lấy phần trăm khách sẵn lòng giới thiệu shop (chấm 9–10) trừ phần trăm khách chê (chấm 0–6). CSAT đo phần trăm khách hài lòng với một đơn cụ thể. NPS đo lòng tin vào shop, CSAT đo trải nghiệm từng lần mua.",
+  "aliases": [
+    "Net Promoter Score",
+    "CSAT",
+    "điểm hài lòng khách hàng",
+    "chỉ số giới thiệu"
+  ],
+  "related": [
+    "vn_ret_review_rate",
+    "vn_ret_churn",
+    "vn_ret_repeat_rate",
+    "vn_ret_bad_review_resolution",
+    "vn_team_role_kpi"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "NPS = % khách chấm 9–10 − % khách chấm 0–6; CSAT = Số phiếu chấm 4–5 (thang 5) ÷ Tổng phiếu trả lời × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Net Promoter Score, Customer Satisfaction Score) theo mục Chỉ số trải nghiệm & dịch vụ khách hàng trong sách Ecom Truyền Kỳ."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 5260–5264 (CSAT khảo sát sau mua thang 1–5 hoặc 1–10; NPS = % Promoter 9–10 − % Detractor 0–6), dòng 1290 (KPI của telesale là tỷ lệ khách hài lòng + số khách mua lại)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Khách có hài lòng, và có dám giới thiệu shop cho bạn bè không?",
+    "intro": [
+      "**NPS là phần trăm khách sẵn lòng giới thiệu shop trừ đi phần trăm khách chê.** Hỏi khách: từ 0 đến 10, bạn sẵn lòng giới thiệu shop cho bạn bè cỡ nào? Giả sử 200 khách trả lời, 110 người chấm 9–10, 40 người chấm 0–6: 110 ÷ 200 = 55%, 40 ÷ 200 = 20%, NPS = 55 − 20 = 35.",
+      "CSAT thì hỏi hẹp hơn: đơn này bạn hài lòng cỡ nào, chấm 1–5. Sách đặt KPI của telesale là tỷ lệ khách hài lòng cộng số khách mua lại. Hai điểm này là cách nghe khách nói trước khi khách bỏ đi, và trước khi khách viết đánh giá 1 sao."
+    ],
+    "breakdown": {
+      "title": "200 khách trả lời câu hỏi giới thiệu",
+      "chart": {
+        "type": "bars",
+        "unit": "khách",
+        "items": [
+          [
+            "Khen, chấm 9–10",
+            110,
+            "keep"
+          ],
+          [
+            "Trung lập, chấm 7–8",
+            50
+          ],
+          [
+            "Chê, chấm 0–6",
+            40,
+            "loss"
+          ]
+        ]
+      },
+      "after": "Nhóm trung lập 50 người không cộng, không trừ. NPS chỉ tính hai đầu: 55% khen trừ 20% chê ra **35**. Muốn NPS tăng thì vừa kéo người trung lập lên khen, vừa gỡ lý do của nhóm chê."
+    },
+    "sections": [
+      {
+        "title": "CSAT và NPS cùng đọc mới thấy vấn đề",
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "CSAT thấp",
+            "CSAT cao"
+          ],
+          "y": [
+            "NPS cao",
+            "NPS thấp"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Thương mà lỗi",
+                "text": "Khách tin shop nhưng đơn này giao chậm, đóng gói lỗi. Sửa vận hành.",
+                "tone": "mid"
+              },
+              {
+                "title": "Nhân giới thiệu",
+                "text": "Khách hài lòng và muốn kể. Mở chương trình giới thiệu bạn bè.",
+                "tone": "good"
+              }
+            ],
+            [
+              {
+                "title": "Sửa gốc",
+                "text": "Đơn lỗi, khách không tin. Xem lại sản phẩm và chăm sóc trước khi chạy thêm Ads.",
+                "tone": "bad"
+              },
+              {
+                "title": "Ổn mà nhạt",
+                "text": "Hàng đúng mô tả nhưng không có gì để kể. Thêm điểm khác biệt.",
+                "tone": "mid"
+              }
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử tháng này shop có 300 phiếu CSAT, 255 phiếu chấm 4–5 thì CSAT = 255 ÷ 300 = 85%. Đẹp. Nhưng NPS chỉ 5: khách thấy đơn ổn, mà không ai muốn giới thiệu.",
+          "CSAT cao, NPS thấp nghĩa là shop làm đúng việc nhưng chưa làm khách nhớ. Ngược lại NPS cao mà CSAT tụt là khách vẫn thương, nhưng lỗi vận hành đang bào mòn lòng tin đó."
+        ]
+      },
+      {
+        "title": "Hỏi thế nào cho ra số thật",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Hỏi sau khi khách dùng",
+              "Gửi khi khách đã nhận và dùng thử vài ngày, không gửi lúc vừa chốt đơn."
+            ],
+            [
+              "Một câu chấm, một câu vì sao",
+              "Câu thứ hai mới là vàng: khách nói thẳng điều thích và điều ghét."
+            ],
+            [
+              "Gọi lại nhóm chê",
+              "Người chấm 0–6 cần được gọi trong ngày, như xử lý đánh giá xấu."
+            ],
+            [
+              "Theo dõi theo tháng",
+              "Đủ nhiều phiếu mới so. Vài chục phiếu thì điểm nhảy lên xuống rất mạnh."
+            ]
+          ]
+        },
+        "body": [
+          "Không đổi quà lấy điểm cao, không chỉ hỏi khách thân. Điểm đẹp mà giả thì shop mất luôn cái loa báo động sớm nhất."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính NPS bằng điểm trung bình, trong khi NPS là % khen trừ % chê.",
+      "Chỉ gửi khảo sát cho khách trong nhóm Zalo thân, điểm cao ảo.",
+      "Thu điểm xong để đó, không đọc câu trả lời vì sao, không gọi lại nhóm chê."
+    ],
+    "remember": "CSAT cho biết đơn này có ổn không, NPS cho biết khách có dám đem tên shop ra giới thiệu không; đọc cả hai và luôn hỏi thêm vì sao."
+  }
+}

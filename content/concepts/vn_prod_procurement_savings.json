@@ -1,0 +1,135 @@
+{
+  "id": "vn_prod_procurement_savings",
+  "type": "metric",
+  "domain": "01_product_rd",
+  "topic": "hang-hoa-gia-von",
+  "code": "Procurement Savings",
+  "vi_name": "Tỷ lệ tiết giảm chi phí mua hàng (Procurement Savings)",
+  "definition": "Phần trăm tiền mua hàng tiết kiệm được so với giá cũ, tính trên số lượng thật sự đã nhập. Cho biết việc deal với xưởng, đổi nguồn, đặt lô lớn có làm tiền hàng giảm thật hay chỉ giảm trên báo giá.",
+  "aliases": [
+    "procurement savings",
+    "cost savings mua hàng",
+    "tiết kiệm mua hàng",
+    "tỷ lệ giảm giá nhập"
+  ],
+  "related": [
+    "vn_prod_landed_cost",
+    "vn_prod_economies_of_scale",
+    "vn_prod_supplier_otif",
+    "vn_prod_defect_rate",
+    "vn_fin_cm1",
+    "vn_fin_dpo",
+    "vn_ops_dead_stock"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Tiền tiết kiệm = (Giá cũ − Giá mới) × Số lượng đã nhập. Procurement Savings = Tiền tiết kiệm ÷ (Giá cũ × Số lượng đã nhập) × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn mua hàng (Procurement Savings / Cost Savings)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1684–1685 (phải tìm từng đồng lãi nhờ tối ưu chuỗi cung ứng; ép ngược nhà máy để có giá vốn tốt hơn và công nợ lâu hơn), dòng 2120 (đặt số lượng lớn hơn, deal giá vốn sát hơn), dòng 5133 và 5140 (mua lô lớn để có giá rẻ nhưng không bán được thì thành phế phẩm)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Deal được giá nhập rẻ hơn, shop thật sự giữ lại được bao nhiêu?",
+    "intro": [
+      "**Procurement Savings là phần trăm tiền mua hàng tiết kiệm được so với giá cũ, tính trên số lượng thật sự đã nhập.** Giá nhập cũ 100k, deal xuống 92k, quý này nhập 6.000 cái thì tiết kiệm (100k − 92k) × 6.000 = 48tr, tức 8k ÷ 100k = 8%.",
+      "Sách nói: seller càng ngày càng khó kiếm lãi trực tiếp từ đơn, phải tìm từng đồng lãi nhờ tối ưu chuỗi cung ứng, ép ngược nhà máy để có giá tốt hơn và công nợ lâu hơn. Nhưng tiết kiệm phải đếm bằng hàng đã nhập về, không bằng báo giá hay số lượng dự kiến."
+    ],
+    "breakdown": {
+      "title": "Tiền tiết kiệm trong quý theo từng mã",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Mã A: 100k → 92k, 6.000 cái",
+            48,
+            "focus"
+          ],
+          [
+            "Mã B: 60k → 57k, 4.000 cái",
+            12,
+            "keep"
+          ],
+          [
+            "Mã C: 150k → 140k, 600 cái",
+            6,
+            "keep"
+          ]
+        ]
+      },
+      "after": "Mã B: (60k − 57k) × 4.000 = 12tr. Mã C: (150k − 140k) × 600 = 6tr. Tổng 48tr + 12tr + 6tr = 66tr, trên 600tr + 240tr + 90tr = 930tr tiền hàng tính theo giá cũ, tức 66tr ÷ 930tr = 7,1%. Mã C giảm sâu nhất mỗi cái nhưng mua ít nên đóng góp nhỏ. Công sức deal nên dồn vào mã nhập nhiều."
+    },
+    "sections": [
+      {
+        "title": "Rẻ hơn mỗi cái nhưng giam thêm cả đống tiền",
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Lô 2.000 cái, giá 100k",
+            "Lô 6.000 cái, giá 92k"
+          ],
+          "items": [
+            [
+              "Tiền nhập một lần",
+              200,
+              552
+            ],
+            [
+              "Tiết kiệm giá",
+              0,
+              48
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử muốn được giá 92k thì phải đặt một lần 6.000 cái, thay vì mỗi tháng 2.000 cái giá 100k. Lô nhỏ: 2.000 × 100k = 200tr. Lô to: 6.000 × 92k = 552tr. Tiền ra ngay từ đầu nhiều hơn 552tr − 200tr = 352tr.",
+          "Bán đều 2.000 cái/tháng thì 3 tháng mới hết lô. Nếu mã chững lại, chỉ bán được 4.000 cái, còn 2.000 × 92k = 184tr nằm kho, gần gấp 4 lần 48tr tiết kiệm được. Sách nhắc: mua nhiều để được giá rẻ rồi bán dần, nhưng nếu không bán được thì tồn kho thành phế phẩm."
+        ]
+      },
+      {
+        "title": "Đếm tiết kiệm cho thật",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Chốt giá gốc",
+              "Lấy giá nhập gần nhất trước khi deal, không lấy giá cao nhất từng được báo."
+            ],
+            [
+              "Nhân số đã nhập",
+              "Chỉ tính trên số cái thật sự đã về kho trong kỳ."
+            ],
+            [
+              "So cùng điều kiện",
+              "Cùng chất lượng, cùng cách giao, cùng thời hạn trả tiền. Giá rẻ hơn mà phải trả trước sớm hơn là chưa chắc rẻ."
+            ],
+            [
+              "Trừ phần mất thêm",
+              "Hàng lỗi tăng, giao trễ, tồn kho phình vì đặt lô to: trừ vào số tiết kiệm."
+            ]
+          ]
+        },
+        "body": [
+          "Theo dõi mỗi quý, theo từng mã và từng xưởng. Con số đẹp mà lãi gộp không tăng tương ứng là có chỗ đang rò."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính tiết kiệm theo báo giá và số lượng dự kiến, không theo hàng thật đã nhập.",
+      "Đổi sang xưởng rẻ hơn 5% nhưng hàng lỗi và giao trễ tăng, tiền tiết kiệm bay mất.",
+      "Lấy giá cao nhất từng được báo làm giá gốc để so, cho con số tiết kiệm đẹp hơn thật."
+    ],
+    "remember": "Tiết kiệm mua hàng chỉ thật khi tính trên hàng đã nhập, cùng chất lượng, và không phải đổi bằng một đống tồn kho."
+  }
+}

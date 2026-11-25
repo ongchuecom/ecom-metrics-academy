@@ -1,0 +1,139 @@
+{
+  "id": "vn_ret_time_between_orders",
+  "type": "metric",
+  "domain": "05_retention_lifecycle",
+  "topic": "giu-chan-khach",
+  "code": "Time Between Orders",
+  "vi_name": "Khoảng cách giữa 2 lần mua (Time Between Orders)",
+  "definition": "Số ngày trung bình từ đơn trước tới đơn sau của cùng một khách. Biết con số này thì shop nhắc mua lại đúng lúc khách sắp dùng hết, không quá sớm gây phiền, không quá muộn để khách mua chỗ khác.",
+  "aliases": [
+    "khoảng cách giữa 2 lần mua",
+    "chu kỳ mua lại",
+    "repurchase cycle",
+    "days between orders"
+  ],
+  "related": [
+    "vn_ret_repeat_rate",
+    "vn_ret_purchase_frequency",
+    "vn_ret_churn",
+    "vn_ret_cohort_retention",
+    "vn_ret_cac_payback"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Khoảng cách giữa 2 lần mua = Tổng số ngày giữa các đơn liền nhau của từng khách ÷ Số lần mua lại"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Time Between Orders / Repurchase cycle)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Khái niệm chuẩn ngành",
+      "note": "Time Between Orders (Average days between purchases)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Nhắn khách mua lại vào ngày nào thì trúng?",
+    "intro": [
+      "**Khoảng cách giữa 2 lần mua là số ngày trung bình từ đơn trước tới đơn sau của cùng một khách.** Giả sử 3 khách mua lại sau 30, 40 và 50 ngày thì khoảng cách trung bình = (30 + 40 + 50) ÷ 3 = 40 ngày.",
+      "Nhiều shop nhắn khách cũ theo cảm hứng: rảnh thì gửi, có sale thì gửi. Nhắn sớm thì khách còn hàng, thấy phiền. Nhắn muộn thì khách đã mua chỗ khác. Con số này cho biết đúng lúc khách cần."
+    ],
+    "breakdown": {
+      "title": "680 lượt mua lại của shop mỹ phẩm, chia theo số ngày cách đơn trước",
+      "chart": {
+        "type": "bars",
+        "unit": "khách",
+        "items": [
+          [
+            "0–15 ngày",
+            40
+          ],
+          [
+            "16–30 ngày",
+            180
+          ],
+          [
+            "31–45 ngày",
+            260,
+            "focus"
+          ],
+          [
+            "46–60 ngày",
+            120
+          ],
+          [
+            "Trên 60 ngày",
+            80
+          ]
+        ]
+      },
+      "after": "Đỉnh nằm ở 31–45 ngày. Hai nhóm 16–45 ngày chiếm (180 + 260) ÷ 680 = 65% số lần mua lại. Với chai dùng khoảng 1 tháng, **nhắn vào ngày 28–30** là lúc khách sắp hết hàng."
+    },
+    "sections": [
+      {
+        "title": "Cùng tin nhắn, khác ngày gửi",
+        "chart": {
+          "type": "bars",
+          "unit": "đơn",
+          "items": [
+            [
+              "Nhắn ngày 10",
+              30,
+              "loss"
+            ],
+            [
+              "Nhắn ngày 30",
+              120,
+              "focus"
+            ],
+            [
+              "Nhắn ngày 70",
+              50
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử shop thử gửi cùng một tin nhắc mua cho 3 nhóm, mỗi nhóm 1.000 khách. Gửi ngày 30 được 1.000 × 12% = 120 đơn. Gửi ngày 10 chỉ được 1.000 × 3% = 30 đơn, vì khách còn nửa chai.",
+          "Gửi ngày 70 được 1.000 × 5% = 50 đơn. Nhiều khách đã hết hàng từ lâu và mua của shop khác. Thử trên shop mình rồi chọn ngày, đừng chép ngày của shop khác."
+        ]
+      },
+      {
+        "title": "Đo theo từng sản phẩm",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Lấy đơn theo khách",
+              "Xếp các đơn giao thành công của từng khách theo ngày."
+            ],
+            [
+              "Tính khoảng cách",
+              "Lấy ngày đơn sau trừ ngày đơn trước, chỉ tính khách mua từ 2 lần."
+            ],
+            [
+              "Tách theo sản phẩm",
+              "Kem dưỡng 30 ngày, dầu gội 45 ngày: gộp chung sẽ ra một con số chẳng hợp món nào."
+            ],
+            [
+              "Đặt lịch nhắc",
+              "Hẹn tin nhắn tự động trước ngày phổ biến nhất vài ngày."
+            ]
+          ]
+        },
+        "body": [
+          "Có vài khách sỉ mua mỗi tuần sẽ kéo số trung bình xuống thấp. Khi đó dùng số giữa: xếp các khoảng cách từ nhỏ tới lớn, lấy số ở chính giữa."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Tính một khoảng cách chung cho mọi sản phẩm.",
+      "Lấy cả khách chỉ mua 1 lần vào phép chia, trong khi họ chưa có khoảng cách nào.",
+      "Nhắn khách cũ dồn dập mỗi tuần, khách chặn tin luôn trước khi tới ngày cần mua."
+    ],
+    "remember": "Biết khách thường mua lại sau bao nhiêu ngày thì nhắn trước ngày đó một chút; nhắc đúng lúc ăn đơn hơn nhắc nhiều."
+  }
+}

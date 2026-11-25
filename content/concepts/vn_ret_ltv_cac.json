@@ -1,0 +1,177 @@
+{
+  "id": "vn_ret_ltv_cac",
+  "type": "metric",
+  "domain": "05_retention_lifecycle",
+  "topic": "giu-chan-khach",
+  "code": "LTV:CAC",
+  "vi_name": "Tỷ lệ LTV:CAC (lãi trọn đời trên tiền kéo khách)",
+  "definition": "Lấy tiền lãi một khách mang về suốt thời gian mua chia cho tiền đã bỏ ra để kéo khách đó về. Cho biết mỗi đồng chi để có khách mới đang đẻ ra bao nhiêu đồng lãi, kênh nào đáng bơm thêm.",
+  "aliases": [
+    "LTV/CAC",
+    "tỷ lệ LTV trên CAC",
+    "LTV to CAC"
+  ],
+  "related": [
+    "vn_ret_clv",
+    "vn_mkt_cpa",
+    "vn_ret_cac_payback",
+    "vn_fin_cm2",
+    "vn_ret_purchase_frequency",
+    "vn_fin_cash_runway"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "LTV:CAC = LTV (lãi CM2 trọn đời của 1 khách) ÷ CAC (tiền kéo 1 khách mới)"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (LTV:CAC ratio); sách Ecom Truyền Kỳ nhắc LTV:CAC tốt nhất trên 3:1, CAC nên dưới 1/3 CLV."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 4206, 4230–4231 (Lợi nhuận = LTV − CPA − COGS; tăng LTV mà vẫn giữ CPA/LTV phù hợp), dòng 5244 và 5271 (CAC nên < 1/3 CLV, LTV:CAC tốt nhất > 3:1), mục Chỉ số đo lường hiệu quả"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Mỗi đồng bỏ ra kéo khách mới, về lại bao nhiêu đồng lãi?",
+    "intro": [
+      "**LTV:CAC là tiền lãi trọn đời một khách mang về chia cho tiền bỏ ra để kéo khách đó về.** Một khách mua trong 12 tháng mang về 600k lãi CM2, kéo về tốn 200k thì LTV:CAC = 600k ÷ 200k = 3.",
+      "Sách nói đích đến của kinh doanh là tăng LTV mà vẫn giữ tiền kéo khách ở mức phù hợp, và LTV:CAC tốt nhất trên 3:1. Con số này không cho biết shop lãi bao nhiêu. Nó cho biết đồng tiền kéo khách đang làm việc tốt cỡ nào, để biết nên bơm tiền vào kênh nào, rút khỏi kênh nào."
+    ],
+    "tree": {
+      "title": "LTV:CAC được tạo ra từ đâu",
+      "note": "Tỷ lệ tăng khi lãi mỗi đơn ↑, khách mua nhiều lần hơn ↑, hoặc tiền kéo 1 khách mới ↓.",
+      "expr": {
+        "label": "LTV:CAC",
+        "eq": [
+          {
+            "id": "vn_ret_clv",
+            "label": "LTV",
+            "dir": "up",
+            "eq": [
+              {
+                "id": "vn_fin_cm2",
+                "label": "Lãi CM2 mỗi đơn",
+                "dir": "up"
+              },
+              "×",
+              {
+                "id": "vn_ret_purchase_frequency",
+                "label": "Số lần mua",
+                "dir": "up"
+              }
+            ]
+          },
+          "÷",
+          {
+            "id": "vn_mkt_cpa",
+            "label": "CAC",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "Cùng một shop, LTV:CAC theo từng kênh kéo khách",
+      "chart": {
+        "type": "bars",
+        "unit": "x",
+        "items": [
+          [
+            "Facebook Ads",
+            1.8,
+            "loss"
+          ],
+          [
+            "KOC TikTok",
+            3,
+            "keep"
+          ],
+          [
+            "Khách cũ giới thiệu",
+            8,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Facebook Ads: 540k ÷ 300k = 1,8. KOC TikTok: 450k ÷ 150k = 3. Khách cũ giới thiệu: 480k ÷ 60k = 8. Nhìn LTV:CAC chung cả shop thì thấy ổn, tách theo kênh mới thấy **Facebook Ads đang kéo về khách đắt mà mua ít**."
+    },
+    "sections": [
+      {
+        "title": "Tỷ lệ 3 sau 12 tháng khác hẳn tỷ lệ 3 sau 1 tháng",
+        "chart": {
+          "type": "line",
+          "xLabel": "Tháng sau đơn đầu",
+          "unit": "x",
+          "points": [
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              1.5
+            ],
+            [
+              6,
+              2.2
+            ],
+            [
+              12,
+              3
+            ]
+          ],
+          "threshold": {
+            "x": 12,
+            "label": "Đạt 3:1 ở tháng 12"
+          }
+        },
+        "body": [
+          "Giả sử mỗi đơn lãi CM2 120k, kéo 1 khách tốn 120k. Tháng đầu khách mới mua 1 lần: 120k × 1 ÷ 120k = 1, vừa đủ bù tiền kéo khách. Phải tới tháng 12, khách mua trung bình 3 lần, tỷ lệ mới lên 120k × 3 ÷ 120k = 3.",
+          "LTV là tiền về rải rác cả năm, CAC là tiền trả ngay hôm nay. Vì thế luôn ghi LTV tính trong bao lâu, và xem thêm mất mấy tháng thì lãi bù được tiền kéo khách."
+        ]
+      },
+      {
+        "title": "Đừng thờ tỷ lệ, hãy nhìn tổng lãi",
+        "chart": {
+          "type": "compare",
+          "labels": [
+            "Ngân sách 50tr",
+            "Ngân sách 100tr"
+          ],
+          "items": [
+            [
+              "CAC (k)",
+              200,
+              250
+            ],
+            [
+              "Khách mới",
+              250,
+              400
+            ],
+            [
+              "Lãi trọn đời (tr)",
+              100,
+              140
+            ]
+          ]
+        },
+        "body": [
+          "LTV mỗi khách 600k. Chi 50tr kéo được 250 khách: CAC = 50tr ÷ 250 = 200k, tỷ lệ 600k ÷ 200k = 3. Tăng lên 100tr thì phải với tới tệp khó hơn, được 400 khách: CAC = 100tr ÷ 400 = 250k, tỷ lệ tụt còn 600k ÷ 250k = 2,4.",
+          "Nhưng tổng lãi: 250 × (600k − 200k) = 100tr, so với 400 × (600k − 250k) = 140tr. Tỷ lệ xấu đi mà tiền lãi nhiều hơn. Tỷ lệ quá cao nhiều khi là dấu hiệu đang chi quá dè, bỏ lỡ khách."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Lấy LTV bằng doanh thu thay vì tiền lãi, tỷ lệ đẹp gấp mấy lần thực tế.",
+      "Tính CAC chỉ có tiền Ads, quên phí KOC, voucher khách mới, quà tặng đơn đầu.",
+      "Dùng một LTV trung bình cho mọi kênh, trong khi khách từ mỗi kênh mua lại rất khác nhau."
+    ],
+    "remember": "LTV:CAC cho biết tiền kéo khách làm việc tốt cỡ nào; luôn tách theo kênh, ghi rõ LTV tính trong bao lâu, và nhìn cả tổng lãi chứ không chỉ tỷ lệ."
+  }
+}

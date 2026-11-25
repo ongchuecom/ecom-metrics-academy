@@ -1,0 +1,139 @@
+{
+  "id": "vn_sales_full_funnel_cvr",
+  "type": "metric",
+  "domain": "03_conversion_sales",
+  "topic": "chuyen-doi",
+  "code": "Full-Funnel CVR",
+  "vi_name": "Tỷ lệ chuyển đổi toàn phễu (Full-Funnel Conversion Rate)",
+  "definition": "Số đơn giao thành công chia số lượt hiển thị quảng cáo. Một con số nhân gộp CTR, CVR và tỷ lệ giao thành công, cho biết mỗi lượt hiển thị mua về được bao nhiêu đơn thật.",
+  "aliases": [
+    "full-funnel conversion rate",
+    "full funnel CVR",
+    "CVR toàn phễu",
+    "tỷ lệ chuyển đổi toàn phễu"
+  ],
+  "related": [
+    "vn_mkt_ctr",
+    "vn_sales_pdp_cvr",
+    "vn_ops_rto_rate",
+    "vn_mkt_cpm",
+    "vn_sales_funnel_levels",
+    "vn_mkt_cpa"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Full-Funnel CVR = Số đơn giao thành công ÷ Số lượt hiển thị = CTR × CVR × Tỷ lệ giao thành công"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Full-Funnel Conversion Rate), tính tới đơn giao thành công."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 5278, mục Chỉ số đo lường hiệu quả (Full-Funnel Conversion Rate, từ impression → purchase); dòng 4208, mục Các cánh cửa go global (Revenue = Traffic x CR x AOV)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Mỗi 10.000 lượt hiển thị mua về được mấy đơn thật?",
+    "intro": [
+      "**Full-Funnel CVR là số đơn giao thành công chia số lượt hiển thị quảng cáo.** 500.000 lượt hiển thị ra 120 đơn giao thành công thì tỷ lệ = 120 ÷ 500.000 = 0,024%. Nói dễ hiểu: cứ 10.000 lượt hiển thị ra 10.000 × 0,024% = 2,4 đơn thật.",
+      "Người chạy ads nhìn CTR, người làm trang nhìn CVR, kho nhìn tỷ lệ hoàn. Mỗi người thấy số của mình đẹp mà shop vẫn lỗ. Con số này nhân gộp cả ba lại, để cả đội cùng nhìn một kết quả cuối: tiền mua hiển thị đổi được bao nhiêu đơn khách đã nhận."
+    ],
+    "tree": {
+      "title": "Full-Funnel CVR nhân từ ba khâu",
+      "note": "1,5% × 2% × 80% = 0,024%. Khâu nào tụt một nửa thì cả con số tụt một nửa, dù hai khâu kia vẫn đẹp.",
+      "expr": {
+        "label": "Full-Funnel CVR",
+        "eq": [
+          {
+            "id": "vn_mkt_ctr",
+            "label": "CTR",
+            "dir": "up"
+          },
+          "×",
+          {
+            "id": "vn_sales_pdp_cvr",
+            "label": "CVR",
+            "dir": "up"
+          },
+          "× (1 −",
+          {
+            "id": "vn_ops_rto_rate",
+            "label": "Tỷ lệ hoàn",
+            "dir": "down"
+          },
+          ")"
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "500.000 lượt hiển thị đi tới đâu",
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "Hiển thị",
+            500000
+          ],
+          [
+            "Bấm vào",
+            7500
+          ],
+          [
+            "Đặt đơn",
+            150
+          ],
+          [
+            "Giao thành công",
+            120
+          ]
+        ]
+      },
+      "after": "CTR 7.500 ÷ 500.000 = 1,5%. CVR 150 ÷ 7.500 = 2%. Giao thành công 120 ÷ 150 = 80%. Với CPM 40k, tiền ads mỗi đơn giao thành công = 40k ÷ (1.000 × 0,024%) = 166,7k."
+    },
+    "sections": [
+      {
+        "title": "Nhìn CTR thì chọn nhầm nhóm quảng cáo",
+        "chart": {
+          "type": "compare",
+          "unit": "%",
+          "labels": [
+            "Nhóm A",
+            "Nhóm B"
+          ],
+          "items": [
+            [
+              "CTR",
+              2.5,
+              1.2
+            ],
+            [
+              "CVR",
+              1,
+              2.5
+            ],
+            [
+              "Giao thành công",
+              70,
+              90
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử nhóm A có nội dung giật tít, CTR 2,5% nhưng khách vào vu vơ: 2,5% × 1% × 70% = 0,0175%. Nhóm B CTR chỉ 1,2% nhưng đúng người cần mua: 1,2% × 2,5% × 90% = 0,027%.",
+          "Cứ 100.000 lượt hiển thị, A ra 17,5 đơn thật, B ra 27 đơn. Cùng CPM thì B rẻ hơn hẳn mỗi đơn, dù CTR chỉ bằng một nửa A."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đo tới lúc đặt đơn, bỏ qua đơn hoàn nên nhóm quảng cáo kéo khách bùng hàng trông vẫn đẹp.",
+      "Tính số này khi đơn COD còn đang đi đường, chưa biết đơn nào hoàn.",
+      "Đem so số này giữa quảng cáo và gian hàng sàn, trong khi lượt hiển thị hai bên đếm khác nhau."
+    ],
+    "remember": "Một lượt hiển thị chỉ đáng tiền khi đi hết tới đơn khách đã nhận; nhân CTR × CVR × tỷ lệ giao thành công."
+  }
+}

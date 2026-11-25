@@ -1,0 +1,150 @@
+{
+  "id": "vn_prod_revenue_per_sku",
+  "type": "metric",
+  "domain": "01_product_rd",
+  "topic": "chon-san-pham",
+  "code": "Doanh thu / SKU",
+  "vi_name": "Doanh thu trung bình mỗi SKU (Revenue per SKU)",
+  "definition": "Tổng doanh thu chia cho số mã đang bán, xem thêm doanh thu mỗi mã ở nhóm cuối bảng. Dùng để quyết định mã đuôi dài nào còn đáng giữ, mã nào chỉ đang tốn chỗ kho, công quản lý và vốn.",
+  "aliases": [
+    "revenue per SKU",
+    "doanh thu mỗi mã",
+    "doanh thu trên mỗi SKU",
+    "SKU đuôi dài"
+  ],
+  "related": [
+    "vn_prod_hero_sku",
+    "vn_fin_loss_revenue_share",
+    "vn_ops_dead_stock",
+    "vn_ops_warehouse_cost_per_order",
+    "vn_fin_net_sales",
+    "vn_prod_new_product_share",
+    "vn_sales_aov"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Doanh thu / SKU = Tổng doanh thu trong kỳ ÷ Số SKU đang bán"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn bán lẻ (Revenue per SKU, phân tích đuôi dài của danh mục)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-a",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 293 (team 10 người vận hành chục SKU, doanh số vài chục tỷ), dòng 2203 (kho 500 SKU cần cả trăm quy trình, sai 5% là mỗi tháng mất 200tr)"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Shop có 120 mã, bao nhiêu mã thật sự đáng giữ?",
+    "intro": [
+      "**Doanh thu / SKU là tổng doanh thu chia cho số mã đang bán.** Shop 600tr/tháng với 120 SKU thì mỗi mã trung bình 600tr ÷ 120 = 5tr.",
+      "Số trung bình che mất cái đuôi. Mỗi mã thêm vào là thêm một ô kệ, thêm ảnh, thêm lần kiểm kê, thêm chỗ để sai. Sách kể một kho 500 SKU cần cả trăm quy trình, không làm chi tiết thì hư hỏng, sai lệch, thất thoát. Trong khi đó, có thời một team 10 người chỉ vận hành chục SKU mà doanh số vài chục tỷ. Ít mã mà mã nào cũng bán được thì nhẹ đầu hơn nhiều."
+    ],
+    "tree": {
+      "title": "Doanh thu / SKU được tạo ra từ đâu",
+      "note": "Muốn doanh thu mỗi mã ↑ thì mỗi mã phải bán tốt hơn, hoặc dọn bớt mã không bán. Bấm vào từng chỉ số để học sâu.",
+      "expr": {
+        "label": "Doanh thu / SKU",
+        "eq": [
+          {
+            "id": "vn_fin_net_sales",
+            "label": "Tổng doanh thu",
+            "dir": "up"
+          },
+          "÷",
+          {
+            "label": "Số SKU đang bán",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "600tr doanh thu chia theo nhóm mã",
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "20 mã đầu",
+            420,
+            "focus"
+          ],
+          [
+            "40 mã giữa",
+            135,
+            "keep"
+          ],
+          [
+            "60 mã cuối",
+            45,
+            "loss"
+          ]
+        ]
+      },
+      "after": "20 mã đầu: 420tr ÷ 20 = 21tr mỗi mã. 40 mã giữa: 135tr ÷ 40 = 3,4tr. 60 mã cuối: 45tr ÷ 60 = 0,75tr, tức 750k mỗi mã mỗi tháng. Trung bình 5tr nghe ổn, nhưng một nửa số mã đang bán chưa tới 1tr."
+    },
+    "sections": [
+      {
+        "title": "Mã đuôi có tự nuôi nổi mình không",
+        "chart": {
+          "type": "bars",
+          "unit": "k",
+          "items": [
+            [
+              "Lãi gộp mỗi mã đuôi",
+              225,
+              "keep"
+            ],
+            [
+              "Chi phí giữ mỗi mã",
+              300,
+              "loss"
+            ]
+          ]
+        },
+        "body": [
+          "Mỗi mã đuôi bán 750k/tháng. Giả sử còn 30% sau giá vốn, phí sàn và ship: 750k × 30% = 225k. Giả sử giữ một mã tốn 300k/tháng: chỗ kệ, kiểm kê, cập nhật ảnh và giá, vốn nằm kho.",
+          "Mỗi mã đuôi hụt 300k − 225k = 75k mỗi tháng. 60 mã là 60 × 75k = 4,5tr. Nhưng trước khi cắt, xem mã đó có hay được mua kèm không: mã phụ kiện bán ít mà kéo đơn chính lên thì vẫn đáng giữ."
+        ]
+      },
+      {
+        "title": "Dọn đuôi theo thứ tự",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Xếp mã theo doanh thu",
+              "Mỗi tháng xếp từ cao xuống thấp, đánh dấu nhóm cuối."
+            ],
+            [
+              "Tính lãi từng mã đuôi",
+              "Lãi gộp còn lại so với chi phí giữ mã."
+            ],
+            [
+              "Giữ mã có lý do",
+              "Mã hay mua kèm, mã đủ bộ size, mã mới lên chưa đủ 3 tháng."
+            ],
+            [
+              "Xả và ngừng nhập phần còn lại",
+              "Gom combo, giảm giá xả, rồi gỡ khỏi danh mục."
+            ]
+          ]
+        },
+        "body": [
+          "Thêm mã mới thì dọn mã cũ. Không dọn thì kho cứ phình, đếm sai ngày càng nhiều."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Nhìn doanh thu / SKU trung bình rồi yên tâm, không xem nhóm cuối bảng.",
+      "Cắt mã đuôi mà không xem đó là mã khách hay mua kèm, cắt xong giá trị đơn tụt theo.",
+      "Liên tục thêm mã mới mà không bao giờ dọn mã cũ."
+    ],
+    "remember": "Mỗi SKU phải tự nuôi được chi phí giữ nó; mã đuôi không kéo được đơn kèm thì nên dọn."
+  }
+}
