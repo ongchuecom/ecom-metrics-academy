@@ -1,0 +1,108 @@
+{
+  "id": "vn_ret_complaint_rate",
+  "type": "metric",
+  "domain": "05_retention_lifecycle",
+  "topic": "giu-chan-khach",
+  "code": "Complaint Rate",
+  "vi_name": "Tỷ lệ đơn bị khiếu nại (Complaint Rate)",
+  "definition": "Phần trăm đơn giao thành công có khách khiếu nại về hàng, giao hàng hay dịch vụ, gom từ mọi kênh: chat sàn, Zalo, hotline. Khiếu nại xuất hiện sớm hơn trả hàng và đánh giá xấu, nên là chuông báo đầu tiên.",
+  "aliases": [
+    "complaint rate",
+    "tỷ lệ khiếu nại",
+    "tỷ lệ đơn khiếu nại"
+  ],
+  "related": [
+    "vn_ops_refund_rate",
+    "vn_ret_bad_review_resolution",
+    "vn_ret_review_rate",
+    "vn_ops_picking_error",
+    "vn_ops_sla_breach",
+    "vn_ret_repeat_rate"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Complaint Rate = Số đơn có khiếu nại ÷ Số đơn giao thành công × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Complaint Rate)."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-b",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 3492, mục AI ứng dụng trong vận hành: CSKH qua Zalo OA tự gán nhãn yêu cầu, complain; dòng 2395 về khách khiếu nại bị block"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Trả hàng ít, sao vẫn thấy khách bực?",
+    "intro": [
+      "**Complaint Rate là phần trăm đơn giao thành công có khách khiếu nại.** Giả sử tháng này shop giao thành công 3.000 đơn, 90 đơn có khách nhắn, gọi hoặc mở yêu cầu phàn nàn: Complaint Rate = 90 ÷ 3.000 = 3%.",
+      "Một đơn chỉ đếm một lần dù khách nhắn mười tin. Khiếu nại khác trả hàng: nhiều khách phàn nàn xong vẫn giữ hàng. Khác đánh giá xấu: nhiều khách phàn nàn mà không chấm sao, có khách chấm 1 sao mà không nói gì. Khiếu nại đến sớm nhất, nên sửa từ đây là rẻ nhất."
+    ],
+    "breakdown": {
+      "title": "90 khiếu nại trong tháng, chia theo lý do",
+      "chart": {
+        "type": "bars",
+        "unit": "đơn",
+        "items": [
+          [
+            "Giao chậm",
+            30,
+            "focus"
+          ],
+          [
+            "Sai size, màu, thiếu món",
+            25,
+            "focus"
+          ],
+          [
+            "Hàng lỗi",
+            20
+          ],
+          [
+            "Không giống hình",
+            15
+          ]
+        ]
+      },
+      "after": "30 + 25 + 20 + 15 = 90. Giao chậm và đóng sai chiếm 30 + 25 = 55 đơn, tức 55 ÷ 90 = **61,1%** khiếu nại nằm ở vận hành, không phải ở sản phẩm. Sửa quy trình kho và chọn lại đơn vị giao là giảm được hơn nửa."
+    },
+    "sections": [
+      {
+        "title": "Ba con số, ba câu chuyện",
+        "chart": {
+          "type": "bars",
+          "unit": "%",
+          "items": [
+            [
+              "Đơn bị khiếu nại",
+              3,
+              "focus"
+            ],
+            [
+              "Đơn trả hàng hoàn tiền",
+              1.2
+            ],
+            [
+              "Đơn có đánh giá 1–2 sao",
+              0.8
+            ]
+          ]
+        },
+        "body": [
+          "Cùng 3.000 đơn. Có 36 đơn trả hàng: 36 ÷ 3.000 = 1,2%. Có 24 đơn đánh giá 1–2 sao: 24 ÷ 3.000 = 0,8%. Chỉ nhìn hai số này thì thấy ổn. Nhìn khiếu nại mới thấy 3% khách đã bực.",
+          "Gom khiếu nại từ mọi kênh về một chỗ: chat sàn, Zalo OA, hotline. Gắn nhãn lý do cho từng đơn, việc này công cụ chăm sóc khách có thể tự gán. Mỗi tuần xem nhãn nào tăng để sửa gốc, đừng chỉ xin lỗi từng khách."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đếm khiếu nại trên sàn, bỏ qua khách gọi hotline hay nhắn Zalo.",
+      "Đếm theo số tin nhắn chứ không theo đơn, một khách nóng tính làm số nhảy vọt.",
+      "Coi khiếu nại là việc của CSKH, xử lý xong từng ca là thôi, không gom theo lý do để sửa kho, sửa mô tả, đổi đơn vị giao."
+    ],
+    "remember": "Khiếu nại đến trước trả hàng và đánh giá xấu: đếm theo đơn, gom mọi kênh, chia theo lý do để sửa gốc."
+  }
+}
