@@ -44,7 +44,7 @@
     ],
     "tree": {
       "title": "Tỷ trọng sản phẩm mới đến từ đâu",
-      "note": "Doanh thu mã mới ↑ khi tung đủ số mã và tỷ lệ mã thắng (hit rate) đủ cao. Bấm vào từng chỉ số để học sâu.",
+      "note": "Doanh thu mã mới ↑ khi tung đủ số mã và tỷ lệ mã thắng (hit rate) đủ cao.",
       "expr": {
         "label": "Tỷ trọng sản phẩm mới",
         "eq": [

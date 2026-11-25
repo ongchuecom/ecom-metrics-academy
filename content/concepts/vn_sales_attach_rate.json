@@ -127,7 +127,7 @@
         },
         "body": [
           "Giả sử shop có món phụ kiện 49k, giá vốn 15k. Bán thành một đơn riêng thì phải gánh tiền ads, ship, đóng gói cỡ 80k: 49k − 15k − 80k = −46k. Bán kèm vào đơn có sẵn chỉ tốn thêm chừng 5k: 49k − 15k − 5k = 29k.",
-          "Kéo Attach Rate từ 30% lên 40% trên 1.000 đơn là thêm 100 món kèm. Nếu món kèm không làm tốn thêm ship, đóng gói thì lãi thêm 100 × 34k = 3,4tr mỗi tháng, không tốn thêm khách nào."
+          "Kéo Attach Rate từ 30% lên 40% trên 1.000 đơn là thêm 100 món kèm. Mỗi món kèm lãi 29k như trên thì thêm 100 × 29k = 2,9tr mỗi tháng, không tốn thêm khách nào."
         ]
       }
     ],

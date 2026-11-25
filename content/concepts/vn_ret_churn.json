@@ -71,7 +71,7 @@
           ]
         ]
       },
-      "after": "Mỗi tháng mất 5% số còn lại. Sau 12 tháng chỉ còn khoảng 270 khách, **mất gần một nửa**. Sách tính với churn 2% mỗi tháng thì đến cuối năm cũng thất thoát thêm khoảng 22%. Churn nhỏ mỗi tháng cộng dồn thành lỗ hổng lớn."
+      "after": "Mỗi tháng mất 5% số còn lại. Sau 12 tháng chỉ còn khoảng 270 khách, **mất gần một nửa**. Sách tính churn 2% mỗi tháng thì sau một năm cũng mất khoảng 22% khách. Churn nhỏ mỗi tháng cộng dồn thành lỗ hổng lớn."
     },
     "sections": [
       {

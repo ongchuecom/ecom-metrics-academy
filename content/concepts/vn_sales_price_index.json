@@ -80,8 +80,8 @@
         "chart": {
           "type": "compare",
           "labels": [
-            "Index 85 (170k)",
-            "Index 105 (210k)"
+            "Index 87 (170k)",
+            "Index 107 (210k)"
           ],
           "items": [
             [
@@ -97,7 +97,7 @@
           ]
         },
         "body": [
-          "Giả sử 10.000 lượt xem mỗi tháng, chi phí mỗi đơn 120k. Bán 170k, CVR 3%: 10.000 × 3% = 300 đơn, lãi 300 × 50k = 15tr. Bán 210k, CVR 2,2%: 10.000 × 2,2% = 220 đơn, lãi 220 × 90k = 19,8tr.",
+          "Giả sử 10.000 lượt xem mỗi tháng, chi phí mỗi đơn 120k. Bán 170k (index 170k ÷ 196k × 100 ≈ 87), CVR 3%: 10.000 × 3% = 300 đơn, lãi 300 × 50k = 15tr. Bán 210k (index ≈ 107), CVR 2,2%: 10.000 × 2,2% = 220 đơn, lãi 220 × 90k = 19,8tr.",
           "Bán rẻ hơn ra nhiều đơn hơn nhưng ít tiền hơn, lại tốn thêm công đóng gói, chăm khách. Giá đắt hơn mà có lý do, như hình đẹp, đánh giá tốt, giao nhanh, thì vẫn bán được."
         ]
       },

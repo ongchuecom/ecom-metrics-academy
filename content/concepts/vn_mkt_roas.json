@@ -111,7 +111,7 @@
         },
         "body": [
           "Giả sử shop còn 45% doanh thu sau giá vốn, phí sàn, ship, hoàn, chưa trừ ads. Chạy 10tr, ROAS 4: doanh thu 10tr × 4 = 40tr, lãi sau ads 40tr × 45% − 10tr = 8tr.",
-          "Vít lên 30tr, ROAS tụt còn 3 vì đi vào tệp lạnh hơn: doanh thu 30tr × 3 = 90tr, lãi 90tr × 45% − 30tr = 10,5tr. ROAS thấp hơn mà tiền lãi nhiều hơn. Nhưng vít tiếp tới lúc ROAS chạm 2,2 thì 1 ÷ 45% ≈ 2,22 là mức hòa vốn: chạy thêm bao nhiêu cũng không còn đồng lãi nào. Nhìn tiền lãi, đừng chỉ nhìn ROAS."
+          "Vít lên 30tr, ROAS tụt còn 3 vì đi vào tệp lạnh hơn: doanh thu 30tr × 3 = 90tr, lãi 90tr × 45% − 30tr = 10,5tr. ROAS thấp hơn mà tiền lãi nhiều hơn. Nhưng vít tiếp tới khi ROAS tụt về 1 ÷ 45% ≈ 2,22 là chạm hòa vốn: tiền ads thêm vào không còn đẻ ra đồng lãi nào. Nhìn tiền lãi, đừng chỉ nhìn ROAS."
         ]
       }
     ],

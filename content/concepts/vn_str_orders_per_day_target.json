@@ -40,7 +40,7 @@
   "lesson": {
     "subtitle": "Mục tiêu 3 tỷ một tháng nghĩa là mỗi ngày phải chốt bao nhiêu đơn?",
     "intro": [
-      "**Số đơn mỗi ngày cần đạt là mục tiêu doanh thu chia cho giá trị đơn, chia cho số ngày bán, rồi cộng phần bù hoàn hủy.** Mục tiêu 3 tỷ/tháng, đơn trung bình 250k: 3 tỷ ÷ 250k = 12.000 đơn giao thành công. Tháng 30 ngày: 12.000 ÷ 30 = 400 đơn/ngày. Hoàn hủy 20% thì phải chốt 400 ÷ 80% = 500 đơn mỗi ngày.",
+      "**Số đơn mỗi ngày cần đạt là mục tiêu doanh thu chia cho giá trị đơn, chia cho số ngày bán, rồi chia tiếp cho phần đơn không bị hoàn hủy.** Mục tiêu 3 tỷ/tháng, đơn trung bình 250k: 3 tỷ ÷ 250k = 12.000 đơn giao thành công. Tháng 30 ngày: 12.000 ÷ 30 = 400 đơn/ngày. Hoàn hủy 20% thì phải chốt 400 ÷ 80% = 500 đơn mỗi ngày.",
       "Sách hay đổi các mốc doanh thu năm ra số đơn mỗi ngày để thấy mốc đó lớn cỡ nào. 3 tỷ nghe xa, 500 đơn mỗi ngày thì giao được cho từng người: ads cần kéo bao nhiêu khách, kho cần mấy người đóng gói, chăm sóc khách cần mấy ca."
     ],
     "breakdown": {
@@ -131,7 +131,7 @@
         },
         "body": [
           "Tháng cần chốt 500 × 30 = 15.000 đơn. Có 4 ngày sale, mỗi ngày 1.500 đơn: 4 × 1.500 = 6.000. Còn 15.000 − 6.000 = 9.000 đơn cho 26 ngày thường: 9.000 ÷ 26 = 346 đơn/ngày.",
-          "Ngày thường nhẹ hơn, nhưng ngày sale kho phải đóng gấp 3 lần. Sách kể một chủ brand nói 30k hay 100k đơn mỗi ngày đều trong tầm tay, nhưng không đua số đơn mà cân sức bán với vận hành và dòng tiền. Đổi mục tiêu ra đơn mỗi ngày là để kiểm chỗ này trước khi chạy."
+          "Ngày thường nhẹ hơn, nhưng ngày sale kho phải đóng gấp 3 lần mức chia đều. Sách kể một chủ brand nói 30k hay 100k đơn mỗi ngày đều trong tầm tay, nhưng không đua số đơn mà cân sức bán với vận hành và dòng tiền. Đổi mục tiêu ra đơn mỗi ngày là để kiểm chỗ này trước khi chạy."
         ]
       }
     ],
