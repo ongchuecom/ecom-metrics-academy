@@ -6,14 +6,32 @@
   "code": "Dự báo dòng tiền",
   "vi_name": "Dự báo dòng tiền (Cash Flow Forecast)",
   "definition": "Bảng liệt kê tiền vào và tiền ra dự kiến theo từng tuần hoặc từng tháng, tính ra số dư cuối mỗi kỳ. Nhìn bảng là biết trước tuần nào thiếu tiền trả nhà cung cấp, trả lương, nộp thuế để xoay từ sớm.",
-  "aliases": ["cash flow forecast", "dự toán thu chi", "kế hoạch dòng tiền"],
-  "related": ["vn_fin_cash_runway", "vn_fin_pending_payout", "vn_fin_dpo", "vn_fin_ccc", "vn_fin_tax_reserve"],
+  "aliases": [
+    "cash flow forecast",
+    "dự toán thu chi",
+    "kế hoạch dòng tiền"
+  ],
+  "related": [
+    "vn_fin_cash_runway",
+    "vn_fin_pending_payout",
+    "vn_fin_dpo",
+    "vn_fin_ccc",
+    "vn_fin_tax_reserve"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Cash Flow Forecast)." },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Cash Flow Forecast)."
+  },
   "risk": "high",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1836 (thời điểm trả nhà cung cấp so với thu tiền sàn), 2468 (Cash Flow management: thu, chi, dự toán, report), 2578-2597 (nhìn P&L, Cashflow và Forecast để thấy pivot moment)" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1836 (thời điểm trả nhà cung cấp so với thu tiền sàn), 2468 (Cash Flow management: thu, chi, dự toán, report), 2578-2597 (nhìn P&L, Cashflow và Forecast để thấy pivot moment)"
+    }
+  ],
   "lesson": {
     "subtitle": "Làm sao biết trước tuần nào shop sẽ hết tiền?",
     "intro": [
@@ -22,29 +40,127 @@
     ],
     "breakdown": {
       "title": "Số dư cuối tuần của một shop trong 8 tuần",
-      "chart": { "type": "line", "xLabel": "Tuần", "unit": "tr", "points": [[1, 180], [2, 150], [3, 60], [4, -20], [5, 30], [6, 70], [7, 40], [8, 90]], "threshold": { "x": 4, "label": "Tuần 4 hụt 20tr" }, "now": { "x": 1, "label": "Hôm nay: còn 180tr" }, "lossBelowZero": true },
+      "chart": {
+        "type": "line",
+        "xLabel": "Tuần",
+        "unit": "tr",
+        "points": [
+          [
+            1,
+            180
+          ],
+          [
+            2,
+            150
+          ],
+          [
+            3,
+            60
+          ],
+          [
+            4,
+            -20
+          ],
+          [
+            5,
+            30
+          ],
+          [
+            6,
+            70
+          ],
+          [
+            7,
+            40
+          ],
+          [
+            8,
+            90
+          ]
+        ],
+        "threshold": {
+          "x": 4,
+          "label": "Tuần 4 hụt 20tr"
+        },
+        "now": {
+          "x": 1,
+          "label": "Hôm nay: còn 180tr"
+        },
+        "lossBelowZero": true
+      },
       "after": "Tuần 3 trả một lô hàng lớn, tuần 4 trùng lương và một khoản thuế đến hạn. Số dư đầu tuần 4 là 60tr, tiền sàn về 90tr, chi lương 110tr, thuế 25tr, Ads 35tr: 60tr + 90tr − 110tr − 25tr − 35tr = −20tr. Biết trước 3 tuần thì còn kịp xoay; biết vào đúng ngày trả lương thì đã muộn."
     },
     "sections": [
       {
         "title": "Lập bảng dự báo trong 5 bước",
-        "chart": { "type": "steps", "items": [
-          ["Số dư thật đầu kỳ", "Lấy số dư tài khoản và tiền mặt thật hôm nay, không lấy số lãi trên báo cáo."],
-          ["Tiền vào theo ngày về", "Theo lịch đối soát của từng sàn, ngày COD trả, ngày khách sỉ thanh toán; ghi thấp tay một chút."],
-          ["Tiền ra theo ngày đến hạn", "Nhà cung cấp, lương, thuê kho, Ads, KOC, thuế, trả nợ vay; ghi đủ, đừng bỏ khoản nhỏ."],
-          ["Số dư cuối từng tuần", "Số dư đầu tuần cộng tiền vào trừ tiền ra; tô đỏ tuần nào dưới mức an toàn."],
-          ["Cập nhật mỗi tuần", "So dự báo với thực tế, chỗ nào lệch thì sửa giả định cho các tuần sau."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Số dư thật đầu kỳ",
+              "Lấy số dư tài khoản và tiền mặt thật hôm nay, không lấy số lãi trên báo cáo."
+            ],
+            [
+              "Tiền vào theo ngày về",
+              "Theo lịch đối soát của từng sàn, ngày COD trả, ngày khách sỉ thanh toán; ghi thấp tay một chút."
+            ],
+            [
+              "Tiền ra theo ngày đến hạn",
+              "Nhà cung cấp, lương, thuê kho, Ads, KOC, thuế, trả nợ vay; ghi đủ, đừng bỏ khoản nhỏ."
+            ],
+            [
+              "Số dư cuối từng tuần",
+              "Số dư đầu tuần cộng tiền vào trừ tiền ra; tô đỏ tuần nào dưới mức an toàn."
+            ],
+            [
+              "Cập nhật mỗi tuần",
+              "So dự báo với thực tế, chỗ nào lệch thì sửa giả định cho các tuần sau."
+            ]
+          ]
+        },
         "body": [
           "Bảng nên nhìn trước ít nhất 8 đến 13 tuần, cập nhật mỗi tuần. Khoản thuế thì đưa vào đúng kỳ phải nộp; kỳ nộp và mức nộp hãy kiểm tra với kế toán hoặc cơ quan thuế vì quy định thay đổi."
         ]
       },
       {
         "title": "Thấy tuần âm rồi thì làm gì",
-        "chart": { "type": "matrix", "x": ["Kéo tiền vào sớm", "Đẩy tiền ra muộn"], "y": ["Không tốn tiền", "Tốn tiền"], "cells": [
-          [{ "title": "Xả bớt hàng tồn", "text": "Đẩy hàng đang đọng thành tiền, nhất là mã chậm.", "tone": "good" }, { "title": "Deal công nợ nhà cung cấp", "text": "Xin lùi hạn trả lô hàng 2 đến 4 tuần.", "tone": "good" }],
-          [{ "title": "Khuyến mãi thu tiền nhanh", "text": "Mất biên lãi, chỉ dùng khi thật cần.", "tone": "mid" }, { "title": "Vay ngắn hạn", "text": "Tốn lãi vay; phải biết trước để chọn chỗ vay rẻ.", "tone": "bad" }]
-        ] },
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "Kéo tiền vào sớm",
+            "Đẩy tiền ra muộn"
+          ],
+          "y": [
+            "Không tốn tiền",
+            "Tốn tiền"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Xả bớt hàng tồn",
+                "text": "Đẩy hàng đang đọng thành tiền, nhất là mã chậm.",
+                "tone": "good"
+              },
+              {
+                "title": "Deal công nợ nhà cung cấp",
+                "text": "Xin lùi hạn trả lô hàng 2 đến 4 tuần.",
+                "tone": "good"
+              }
+            ],
+            [
+              {
+                "title": "Khuyến mãi thu tiền nhanh",
+                "text": "Mất biên lãi, chỉ dùng khi thật cần.",
+                "tone": "mid"
+              },
+              {
+                "title": "Vay ngắn hạn",
+                "text": "Tốn lãi vay; phải biết trước để chọn chỗ vay rẻ.",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
         "body": [
           "Sách nhấn mạnh dòng tiền là thời điểm trả nhà cung cấp so với thu tiền của sàn, nên đòn bẩy là deal công nợ nhà cung cấp và dùng tổ chức tài chính. Biết trước càng sớm thì càng chọn được cách rẻ."
         ]

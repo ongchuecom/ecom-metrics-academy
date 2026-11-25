@@ -6,15 +6,34 @@
   "code": "CPC",
   "vi_name": "Chi phí mỗi lượt nhấp (CPC - Cost per Click)",
   "definition": "Số tiền quảng cáo trả cho mỗi lượt khách bấm vào quảng cáo. CPC đáng giá bao nhiêu tùy vào bao nhiêu lượt bấm thì ra một đơn và mỗi đơn lãi bao nhiêu.",
-  "aliases": ["cost per click", "giá mỗi click", "giá thầu click"],
-  "related": ["vn_mkt_ctr", "vn_sales_pdp_cvr", "vn_mkt_cpa", "vn_fin_breakeven_roas"],
+  "aliases": [
+    "cost per click",
+    "giá mỗi click",
+    "giá thầu click"
+  ],
+  "related": [
+    "vn_mkt_ctr",
+    "vn_sales_pdp_cvr",
+    "vn_mkt_cpa",
+    "vn_fin_breakeven_roas"
+  ],
   "playbook_refs": [],
-  "formula": { "readable": "CPC = Chi phí quảng cáo ÷ Số lượt nhấp = CPM ÷ (1.000 × CTR)" },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Cost per Click, CPC)." },
+  "formula": {
+    "readable": "CPC = Chi phí quảng cáo ÷ Số lượt nhấp = CPM ÷ (1.000 × CTR)"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Cost per Click, CPC)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 713, 838, 1177, mục Từ bán CPM chạy chuyển đổi ra đơn và Dữ liệu & công thức" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 713, 838, 1177, mục Từ bán CPM chạy chuyển đổi ra đơn và Dữ liệu & công thức"
+    }
+  ],
   "lesson": {
     "subtitle": "CPC bao nhiêu là được, đắt quá thì cắt ở mức nào?",
     "intro": [
@@ -27,22 +46,74 @@
       "expr": {
         "label": "CPC",
         "eq": [
-          { "label": "CPM", "dir": "down" },
+          {
+            "label": "CPM",
+            "dir": "down"
+          },
           "÷ (1000 ×",
-          { "id": "vn_mkt_ctr", "label": "CTR", "dir": "up" },
+          {
+            "id": "vn_mkt_ctr",
+            "label": "CTR",
+            "dir": "up"
+          },
           ")"
         ]
       }
     },
     "breakdown": {
       "title": "CPC tối đa theo tỷ lệ chuyển đổi",
-      "chart": { "type": "line", "xLabel": "CVR (%)", "unit": "k", "points": [[1, 0.9], [1.5, 1.35], [2, 1.8], [2.5, 2.25], [3, 2.7]] },
+      "chart": {
+        "type": "line",
+        "xLabel": "CVR (%)",
+        "unit": "k",
+        "points": [
+          [
+            1,
+            0.9
+          ],
+          [
+            1.5,
+            1.35
+          ],
+          [
+            2,
+            1.8
+          ],
+          [
+            2.5,
+            2.25
+          ],
+          [
+            3,
+            2.7
+          ]
+        ]
+      },
       "after": "Đơn còn 90k trước khi trả ads. Trang bán có CVR 2,5% thì CPC tối đa = 90k × 2,5% = **2,25k**. CVR chỉ 1% thì CPC tối đa còn 90k × 1% = 0,9k. Cùng một món hàng, trang bán tốt chịu được giá click gấp hơn 2 lần."
     },
     "sections": [
       {
         "title": "Click rẻ, đơn chưa chắc rẻ",
-        "chart": { "type": "compare", "unit": "k", "labels": ["Click rẻ", "Click đắt"], "items": [["CPC", 0.8, 2.5], ["Tiền ads mỗi đơn", 160, 125]] },
+        "chart": {
+          "type": "compare",
+          "unit": "k",
+          "labels": [
+            "Click rẻ",
+            "Click đắt"
+          ],
+          "items": [
+            [
+              "CPC",
+              0.8,
+              2.5
+            ],
+            [
+              "Tiền ads mỗi đơn",
+              160,
+              125
+            ]
+          ]
+        },
         "body": [
           "Nhóm A mua click 800đ nhưng khách vào vu vơ, CVR 0,5%: mỗi đơn tốn 800đ ÷ 0,5% = 160.000đ. Nhóm B click 2.500đ, đúng người cần mua, CVR 2%: 2.500đ ÷ 2% = 125.000đ. Click đắt gấp 3 mà đơn lại rẻ hơn.",
           "Từ khi nền tảng tối ưu ra đơn, cách mua theo click hợp với nhãn hàng lớn chạy truyền thông hơn là shop chạy ra đơn. Shop vẫn nên theo dõi CPC, nhưng để chẩn đoán, không phải để làm mục tiêu."

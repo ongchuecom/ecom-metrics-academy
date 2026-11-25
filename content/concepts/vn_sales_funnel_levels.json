@@ -6,14 +6,31 @@
   "code": "Đo phễu theo tầng L1→L8",
   "vi_name": "Đo lường theo tầng phễu khách hàng (Funnel L1→L8 kiểu Topica)",
   "definition": "Chia hành trình khách thành từng tầng nối tiếp (thấy quảng cáo, bấm, để lại số, liên hệ được, chốt, nhận hàng), đếm số người ở mỗi tầng và tỷ lệ qua tầng kế tiếp, để biết đơn đang rơi ở khâu nào mà sửa đúng chỗ.",
-  "aliases": ["phễu L1-L8", "đo phễu theo tầng", "level phễu"],
-  "related": ["vn_mkt_ctr", "vn_team_chat_cvr", "vn_ops_rto_rate", "vn_mkt_cpa"],
+  "aliases": [
+    "phễu L1-L8",
+    "đo phễu theo tầng",
+    "level phễu"
+  ],
+  "related": [
+    "vn_mkt_ctr",
+    "vn_team_chat_cvr",
+    "vn_ops_rto_rate",
+    "vn_mkt_cpa"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Performance marketing và mô hình quản trị hiệu suất kiểu Topica): xếp chỉ số theo từng giai đoạn khách nhận biết, quan tâm, hỏi mua rồi đo liên tục. Các tầng trong bài là bản dựng lại cho shop bán hàng, không chép nguyên định nghĩa L1→L8 gốc." },
+  "basis": {
+    "type": "custom",
+    "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Performance marketing và mô hình quản trị hiệu suất kiểu Topica): xếp chỉ số theo từng giai đoạn khách nhận biết, quan tâm, hỏi mua rồi đo liên tục. Các tầng trong bài là bản dựng lại cho shop bán hàng, không chép nguyên định nghĩa L1→L8 gốc."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 132, 605, 903-911, mục Võ lâm Ecom ngũ bá và Performance marketing kiểu Topica" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 132, 605, 903-911, mục Võ lâm Ecom ngũ bá và Performance marketing kiểu Topica"
+    }
+  ],
   "lesson": {
     "subtitle": "Doanh số tụt, nhưng tụt ở quảng cáo, ở telesale hay ở khâu giao hàng?",
     "intro": [
@@ -22,13 +39,70 @@
     ],
     "breakdown": {
       "title": "Phễu một ngày của shop chạy ads ra số",
-      "chart": { "type": "funnel", "items": [["L1 Thấy quảng cáo", 100000], ["L2 Bấm vào", 2000], ["L3 Để lại số", 500], ["L4 Liên hệ được", 400], ["L5 Chốt đơn", 150], ["L6 Giao thành công", 120]] },
+      "chart": {
+        "type": "funnel",
+        "items": [
+          [
+            "L1 Thấy quảng cáo",
+            100000
+          ],
+          [
+            "L2 Bấm vào",
+            2000
+          ],
+          [
+            "L3 Để lại số",
+            500
+          ],
+          [
+            "L4 Liên hệ được",
+            400
+          ],
+          [
+            "L5 Chốt đơn",
+            150
+          ],
+          [
+            "L6 Giao thành công",
+            120
+          ]
+        ]
+      },
       "after": "Tỷ lệ từng tầng: bấm 2.000 ÷ 100.000 = 2%, để lại số 500 ÷ 2.000 = 25%, liên hệ được 400 ÷ 500 = 80%, chốt 150 ÷ 400 = 37,5%, giao thành công 120 ÷ 150 = 80%. Shop có thể thêm tầng mua lần 2, giới thiệu bạn bè cho đủ tới L8."
     },
     "sections": [
       {
         "title": "So hai tháng để tìm chỗ rơi",
-        "chart": { "type": "compare", "unit": "%", "labels": ["Tháng 9", "Tháng 10"], "items": [["Bấm / hiển thị", 2, 2.1], ["Để lại số / bấm", 25, 24], ["Liên hệ được / lead", 80, 60], ["Chốt / liên hệ được", 37.5, 38]] },
+        "chart": {
+          "type": "compare",
+          "unit": "%",
+          "labels": [
+            "Tháng 9",
+            "Tháng 10"
+          ],
+          "items": [
+            [
+              "Bấm / hiển thị",
+              2,
+              2.1
+            ],
+            [
+              "Để lại số / bấm",
+              25,
+              24
+            ],
+            [
+              "Liên hệ được / lead",
+              80,
+              60
+            ],
+            [
+              "Chốt / liên hệ được",
+              37.5,
+              38
+            ]
+          ]
+        },
         "body": [
           "Tháng 10 đơn giảm. Nhìn tổng thì tưởng do ads, nhưng tách tầng ra mới thấy quảng cáo và tỷ lệ chốt vẫn vậy. Thứ tụt là tỷ lệ liên hệ được: từ 80% xuống 60%, vì đội gọi chậm, khách đã mua chỗ khác.",
           "Với 500 lead (người để lại số) một ngày, tụt 20 điểm là mất 500 × 20% = 100 khách liên hệ được, tức khoảng 100 × 37,5% = 37,5 đơn mỗi ngày. Sửa đúng chỗ là thêm người gọi hoặc gọi trong 5 phút đầu, không phải tăng ngân sách ads."
@@ -36,12 +110,27 @@
       },
       {
         "title": "Mỗi tầng một chủ",
-        "chart": { "type": "steps", "items": [
-          ["L1 tới L2", "Người chạy ads và làm nội dung: CPM, CTR."],
-          ["L2 tới L3", "Trang đích, form, kịch bản chat: tỷ lệ để lại số, CPL."],
-          ["L3 tới L5", "Telesale, sale chat: tốc độ liên hệ, tỷ lệ chốt."],
-          ["L5 tới L6 trở đi", "Vận hành, chăm sóc khách: tỷ lệ giao thành công, mua lại."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "L1 tới L2",
+              "Người chạy ads và làm nội dung: CPM, CTR."
+            ],
+            [
+              "L2 tới L3",
+              "Trang đích, form, kịch bản chat: tỷ lệ để lại số, CPL."
+            ],
+            [
+              "L3 tới L5",
+              "Telesale, sale chat: tốc độ liên hệ, tỷ lệ chốt."
+            ],
+            [
+              "L5 tới L6 trở đi",
+              "Vận hành, chăm sóc khách: tỷ lệ giao thành công, mua lại."
+            ]
+          ]
+        },
         "body": [
           "Giao mỗi tầng cho một người, nhưng cả đội cùng nhìn chung một con số cuối: lãi trên mỗi đơn giao thành công. Không có con số chung thì mỗi tầng sẽ tối ưu cho đẹp số của mình."
         ]

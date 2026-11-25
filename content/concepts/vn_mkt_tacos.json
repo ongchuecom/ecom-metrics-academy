@@ -6,15 +6,35 @@
   "code": "TACoS",
   "vi_name": "Tỷ trọng quảng cáo trên tổng doanh thu (TACoS - Total Advertising Cost of Sales)",
   "definition": "Tổng tiền quảng cáo chia cho tổng doanh thu của shop, gồm cả doanh thu từ ads lẫn doanh thu tự nhiên. Cho biết mỗi 100 đồng doanh thu đang phải gánh bao nhiêu đồng ads.",
-  "aliases": ["total ACoS", "tỷ trọng ads", "tỷ lệ ads trên doanh thu", "% ads trên doanh thu"],
-  "related": ["vn_mkt_organic_vs_paid", "vn_fin_cm3", "vn_fin_breakeven_roas", "vn_mkt_cpa"],
+  "aliases": [
+    "total ACoS",
+    "tỷ trọng ads",
+    "tỷ lệ ads trên doanh thu",
+    "% ads trên doanh thu"
+  ],
+  "related": [
+    "vn_mkt_organic_vs_paid",
+    "vn_fin_cm3",
+    "vn_fin_breakeven_roas",
+    "vn_mkt_cpa"
+  ],
   "playbook_refs": [],
-  "formula": { "readable": "TACoS = Tổng chi phí quảng cáo ÷ Tổng doanh thu (ads + tự nhiên) × 100%" },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (TACoS, Total Advertising Cost of Sales)." },
+  "formula": {
+    "readable": "TACoS = Tổng chi phí quảng cáo ÷ Tổng doanh thu (ads + tự nhiên) × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (TACoS, Total Advertising Cost of Sales)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1688, 1739, mục Giảm phí marketing và câu chuyện quản trị theo chỉ số (tỷ trọng ads dưới 20%)" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1688, 1739, mục Giảm phí marketing và câu chuyện quản trị theo chỉ số (tỷ trọng ads dưới 20%)"
+    }
+  ],
   "lesson": {
     "subtitle": "Tiền ads đang ăn bao nhiêu phần trăm doanh thu cả shop, và có đang tăng không?",
     "intro": [
@@ -27,21 +47,70 @@
       "expr": {
         "label": "TACoS",
         "eq": [
-          { "label": "ACoS", "dir": "down" },
+          {
+            "label": "ACoS",
+            "dir": "down"
+          },
           "×",
-          { "id": "vn_mkt_organic_vs_paid", "label": "Tỷ trọng doanh thu từ ads", "dir": "down" }
+          {
+            "id": "vn_mkt_organic_vs_paid",
+            "label": "Tỷ trọng doanh thu từ ads",
+            "dir": "down"
+          }
         ]
       }
     },
     "breakdown": {
       "title": "Cùng 60tr ads: ACoS và TACoS",
-      "chart": { "type": "bars", "unit": "%", "items": [["ACoS (60tr ÷ 200tr doanh thu ads)", 30], ["TACoS (60tr ÷ 400tr tổng doanh thu)", 15, "focus"], ["Ngưỡng cho phép", 20, "keep"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "%",
+        "items": [
+          [
+            "ACoS (60tr ÷ 200tr doanh thu ads)",
+            30
+          ],
+          [
+            "TACoS (60tr ÷ 400tr tổng doanh thu)",
+            15,
+            "focus"
+          ],
+          [
+            "Ngưỡng cho phép",
+            20,
+            "keep"
+          ]
+        ]
+      },
       "after": "Doanh thu từ ads 200tr, doanh thu tự nhiên 200tr. ACoS = 60tr ÷ 200tr = 30%, nghe cao. Nhưng một nửa doanh thu là tự nhiên nên TACoS = 30% × 50% = **15%**, vẫn dưới ngưỡng 20%."
     },
     "sections": [
       {
         "title": "TACoS tăng dần là dấu hiệu đang mua doanh thu",
-        "chart": { "type": "line", "xLabel": "Tháng", "unit": "%", "points": [[1, 15], [2, 17], [3, 19.5], [4, 22.2]], "threshold": 20 },
+        "chart": {
+          "type": "line",
+          "xLabel": "Tháng",
+          "unit": "%",
+          "points": [
+            [
+              1,
+              15
+            ],
+            [
+              2,
+              17
+            ],
+            [
+              3,
+              19.5
+            ],
+            [
+              4,
+              22.2
+            ]
+          ],
+          "threshold": 20
+        },
         "body": [
           "Tháng 4 shop tăng ads lên 100tr, tổng doanh thu lên 450tr. Doanh thu tăng nhưng TACoS = 100tr ÷ 450tr = 22,2%, vượt ngưỡng. Nghĩa là tiền ads tăng nhanh hơn doanh thu, đơn tự nhiên không lớn lên theo.",
           "Ngược lại, TACoS giảm dần trong khi doanh thu vẫn tăng là dấu hiệu tốt: khách quay lại, tìm shop tự nhiên, hạng sản phẩm lên. Đó là lúc ads đang xây nền chứ không chỉ mua đơn."

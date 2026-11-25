@@ -6,14 +6,32 @@
   "code": "Hộ kinh doanh hay công ty",
   "vi_name": "Hộ kinh doanh hay công ty (chọn loại hình kinh doanh)",
   "definition": "Khung so hộ kinh doanh với công ty không chỉ ở chuyện thuế, mà ở bốn thứ: định giá và bán cổ phần, vay vốn, thu hút nhân tài và đối tác, khả năng scale up. Hộ kinh doanh hợp với người muốn kiếm tiền vừa phải, tự do; công ty hợp với người muốn xây sự nghiệp lớn.",
-  "aliases": ["HKD hay công ty", "chọn loại hình kinh doanh", "hộ kinh doanh hay doanh nghiệp"],
-  "related": ["vn_str_zero_to_one", "vn_fin_net_profit", "vn_fin_payback_period", "vn_fin_tax_reserve", "vn_fin_vat_input_ratio"],
+  "aliases": [
+    "HKD hay công ty",
+    "chọn loại hình kinh doanh",
+    "hộ kinh doanh hay doanh nghiệp"
+  ],
+  "related": [
+    "vn_str_zero_to_one",
+    "vn_fin_net_profit",
+    "vn_fin_payback_period",
+    "vn_fin_tax_reserve",
+    "vn_fin_vat_input_ratio"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khung làm việc theo sách Ecom Truyền Kỳ (mục Hộ kinh doanh hay Công ty?): so hai loại hình qua định giá, vay vốn, nhân tài, scale up; sách chủ động bỏ qua phần kê khai thuế." },
+  "basis": {
+    "type": "custom",
+    "note": "Khung làm việc theo sách Ecom Truyền Kỳ (mục Hộ kinh doanh hay Công ty?): so hai loại hình qua định giá, vay vốn, nhân tài, scale up; sách chủ động bỏ qua phần kê khai thuế."
+  },
   "risk": "high",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 3051-3080, mục Hộ kinh doanh hay Công ty?; thêm dòng 3082-3090 về vốn khởi nghiệp Ecom hiện nay" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 3051-3080, mục Hộ kinh doanh hay Công ty?; thêm dòng 3082-3090 về vốn khởi nghiệp Ecom hiện nay"
+    }
+  ],
   "lesson": {
     "subtitle": "Shop đang lớn, có nên bỏ hộ kinh doanh để lập công ty không?",
     "intro": [
@@ -22,20 +40,65 @@
     ],
     "breakdown": {
       "title": "Hai loại hình, hai giai đoạn",
-      "chart": { "type": "matrix", "x": ["Hộ kinh doanh", "Công ty"], "y": ["Giai đoạn đầu", "Về sau"], "cells": [
-        [{ "title": "Có vẻ lãi hơn", "text": "Gọn nhẹ, ít thủ tục, phù hợp doanh số vừa phải.", "tone": "good" }, { "title": "Tốn công làm chuẩn", "text": "Kế toán, hóa đơn, hợp đồng, bảo hiểm làm lãi mỏng hơn.", "tone": "mid" }],
-        [{ "title": "Đuối sức", "text": "Khó định giá, khó vay ngân hàng, khó tuyển người giỏi.", "tone": "bad" }, { "title": "Có tài sản", "text": "Định giá, bán cổ phần, vay vốn, scale up, đi thị trường khác.", "tone": "good" }]
-      ] },
+      "chart": {
+        "type": "matrix",
+        "x": [
+          "Hộ kinh doanh",
+          "Công ty"
+        ],
+        "y": [
+          "Giai đoạn đầu",
+          "Về sau"
+        ],
+        "cells": [
+          [
+            {
+              "title": "Có vẻ lãi hơn",
+              "text": "Gọn nhẹ, ít thủ tục, phù hợp doanh số vừa phải.",
+              "tone": "good"
+            },
+            {
+              "title": "Tốn công làm chuẩn",
+              "text": "Kế toán, hóa đơn, hợp đồng, bảo hiểm làm lãi mỏng hơn.",
+              "tone": "mid"
+            }
+          ],
+          [
+            {
+              "title": "Đuối sức",
+              "text": "Khó định giá, khó vay ngân hàng, khó tuyển người giỏi.",
+              "tone": "bad"
+            },
+            {
+              "title": "Có tài sản",
+              "text": "Định giá, bán cổ phần, vay vốn, scale up, đi thị trường khác.",
+              "tone": "good"
+            }
+          ]
+        ]
+      },
       "after": "Câu hỏi không phải loại nào lãi hơn tháng này, mà **5 đến 10 năm nữa mình muốn có gì**. Hộ kinh doanh cho thu nhập; công ty cho cả thu nhập, lãi chia lẫn một tài sản bán được."
     },
     "sections": [
       {
         "title": "Ba thứ công ty có mà hộ kinh doanh khó có",
-        "chart": { "type": "steps", "items": [
-          ["Cổ phần, định giá, vay vốn", "Sách nêu mức định giá Ecom, dịch vụ online khoảng 3 đến 10 lần lãi sau thuế. Không định giá được thì cũng khó vay vốn."],
-          ["Nhân tài và đối tác", "Người giỏi có tham vọng cần sự nghiệp, ít ai đi làm cho hộ kinh doanh; đối tác lớn cũng ngại hợp tác."],
-          ["Scale up", "IPO (lên sàn chứng khoán), go global (ra thị trường nước ngoài) dành cho công ty. Muốn lớn thì sớm muộn cũng phải lập công ty, vậy nên làm từ đầu."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Cổ phần, định giá, vay vốn",
+              "Sách nêu mức định giá Ecom, dịch vụ online khoảng 3 đến 10 lần lãi sau thuế. Không định giá được thì cũng khó vay vốn."
+            ],
+            [
+              "Nhân tài và đối tác",
+              "Người giỏi có tham vọng cần sự nghiệp, ít ai đi làm cho hộ kinh doanh; đối tác lớn cũng ngại hợp tác."
+            ],
+            [
+              "Scale up",
+              "IPO (lên sàn chứng khoán), go global (ra thị trường nước ngoài) dành cho công ty. Muốn lớn thì sớm muộn cũng phải lập công ty, vậy nên làm từ đầu."
+            ]
+          ]
+        },
         "body": [
           "Ví dụ của sách: công ty định giá 15 tỷ, bán 50% thu về 15 tỷ × 50% = 7,5 tỷ, vẫn giữ 50% lãi mỗi năm: 3 tỷ × 50% = 1,5 tỷ. Hộ kinh doanh không có đường này.",
           "Khi cần số tiền lớn để nhập hàng, sản xuất mà không vay được ngân hàng, đi vay bên ngoài thì sách nói lãi vay gấp 3-4 lần vay ngân hàng, gần như khó xoay nổi."
@@ -43,7 +106,33 @@
       },
       {
         "title": "Vốn khởi đầu bây giờ không còn như trước",
-        "chart": { "type": "bars", "unit": "tr", "items": [["Hàng có hóa đơn, chứng từ, kiểm định", 100], ["Giấy phép, kế toán, hóa đơn điện tử, chữ ký số", 50, "focus"], ["Content, video, branding, kênh", 100], ["Văn phòng, kho, nhân sự 4 tháng", 100], ["Ads, KOC, booking", 100]] },
+        "chart": {
+          "type": "bars",
+          "unit": "tr",
+          "items": [
+            [
+              "Hàng có hóa đơn, chứng từ, kiểm định",
+              100
+            ],
+            [
+              "Giấy phép, kế toán, hóa đơn điện tử, chữ ký số",
+              50,
+              "focus"
+            ],
+            [
+              "Content, video, branding, kênh",
+              100
+            ],
+            [
+              "Văn phòng, kho, nhân sự 4 tháng",
+              100
+            ],
+            [
+              "Ads, KOC, booking",
+              100
+            ]
+          ]
+        },
         "body": [
           "Sách ước vốn khởi nghiệp Ecom nay khoảng 500tr, gấp 10 lần vài năm trước. Các khoản: hàng có hóa đơn, chứng từ, kiểm định 100tr + giấy phép, kế toán, hóa đơn điện tử, bảo hiểm 50tr + content, video, xây kênh 100tr + văn phòng, kho, nhân sự 4 tháng 100tr + Ads, KOC 100tr = 450tr, thêm 50tr dự phòng là 500tr. Dù là công ty hay hộ kinh doanh thì cũng phải chừa riêng phần cho giấy phép, kế toán, hóa đơn, bảo hiểm.",
           "Chọn loại hình xong, việc đầu tiên là ngồi với kế toán tính thử chi phí tuân thủ của cả hai phương án theo doanh thu dự kiến của mình."

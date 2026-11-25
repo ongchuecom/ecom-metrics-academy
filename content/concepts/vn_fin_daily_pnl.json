@@ -6,14 +6,32 @@
   "code": "P&L hằng ngày",
   "vi_name": "P&L hằng ngày theo team, sản phẩm, kênh",
   "definition": "Bảng lãi lỗ cập nhật mỗi ngày, trong đó mọi chi phí được phân bổ vào đúng doanh thu đã tạo ra nó, để biết từng team, từng sản phẩm, từng kênh hôm nay lời hay lỗ, lỗ ở đâu và vì sao.",
-  "aliases": ["P&L theo ngày", "báo cáo lãi lỗ hằng ngày", "daily P&L"],
-  "related": ["vn_fin_loss_revenue_share", "vn_fin_cm3", "vn_fin_net_sales", "vn_fin_breakeven_roas", "vn_team_gp_per_staff"],
+  "aliases": [
+    "P&L theo ngày",
+    "báo cáo lãi lỗ hằng ngày",
+    "daily P&L"
+  ],
+  "related": [
+    "vn_fin_loss_revenue_share",
+    "vn_fin_cm3",
+    "vn_fin_net_sales",
+    "vn_fin_breakeven_roas",
+    "vn_team_gp_per_staff"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khung làm việc theo sách Ecom Truyền Kỳ (mục Quản lí hàng chục team và nhiều dòng sản phẩm): một file tổng hợp doanh thu, chi phí phân bổ chi tiết, lời lỗ từng ngày cho từng team, sản phẩm, kênh, gắn với lương thưởng KPI." },
+  "basis": {
+    "type": "custom",
+    "note": "Khung làm việc theo sách Ecom Truyền Kỳ (mục Quản lí hàng chục team và nhiều dòng sản phẩm): một file tổng hợp doanh thu, chi phí phân bổ chi tiết, lời lỗ từng ngày cho từng team, sản phẩm, kênh, gắn với lương thưởng KPI."
+  },
   "risk": "high",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1773-1785, mục Quản lí hàng chục team và nhiều dòng sản phẩm thế nào" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1773-1785, mục Quản lí hàng chục team và nhiều dòng sản phẩm thế nào"
+    }
+  ],
   "lesson": {
     "subtitle": "Shop có nhiều team, nhiều sản phẩm, làm sao biết hôm nay chỗ nào đang lỗ?",
     "intro": [
@@ -22,13 +40,75 @@
     ],
     "breakdown": {
       "title": "Một ngày của 3 team, lãi sau chi phí trực tiếp",
-      "chart": { "type": "bars", "unit": "tr", "items": [["Team TikTok, sản phẩm A", 1.5], ["Team Shopee, sản phẩm B", 5, "keep"], ["Team Facebook, sản phẩm A", -3.2, "focus"], ["Cả shop", 3.3]] },
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Team TikTok, sản phẩm A",
+            1.5
+          ],
+          [
+            "Team Shopee, sản phẩm B",
+            5,
+            "keep"
+          ],
+          [
+            "Team Facebook, sản phẩm A",
+            -3.2,
+            "focus"
+          ],
+          [
+            "Cả shop",
+            3.3
+          ]
+        ]
+      },
       "after": "Nhìn tổng thì shop vẫn lãi 3,3tr, chẳng ai lo. Bóc theo team mới thấy **team Facebook đang lỗ 3,2tr mỗi ngày**, ăn gần một nửa phần lãi của hai team kia. Trừ thêm 3tr chi phí chung mỗi ngày thì cả shop chỉ còn 3,3tr − 3tr = 0,3tr."
     },
     "sections": [
       {
         "title": "Bóc một dòng: team TikTok hôm nay",
-        "chart": { "type": "bars", "unit": "tr", "items": [["Doanh thu thực nhận", 30, "keep"], ["Giá vốn", 9], ["Phí sàn", 6], ["Ship shop bù", 1.5], ["Ads", 9, "focus"], ["Hoa hồng KOC", 2], ["Voucher", 1], ["Lãi trực tiếp", 1.5]] },
+        "chart": {
+          "type": "bars",
+          "unit": "tr",
+          "items": [
+            [
+              "Doanh thu thực nhận",
+              30,
+              "keep"
+            ],
+            [
+              "Giá vốn",
+              9
+            ],
+            [
+              "Phí sàn",
+              6
+            ],
+            [
+              "Ship shop bù",
+              1.5
+            ],
+            [
+              "Ads",
+              9,
+              "focus"
+            ],
+            [
+              "Hoa hồng KOC",
+              2
+            ],
+            [
+              "Voucher",
+              1
+            ],
+            [
+              "Lãi trực tiếp",
+              1.5
+            ]
+          ]
+        },
         "body": [
           "Chi phí trực tiếp: 9tr + 6tr + 1,5tr + 9tr + 2tr + 1tr = 28,5tr. Lãi: 30tr − 28,5tr = 1,5tr. Ads chiếm 9tr ÷ 30tr = 30% doanh thu, là chỗ đầu tiên cần mổ xẻ.",
           "Team Facebook lỗ thì bóc tương tự: doanh thu 12tr, riêng Ads 6tr, ROAS chỉ 12tr ÷ 6tr = 2. Nguyên nhân rõ thì giải pháp rõ: thay creative, giảm ngân sách, hay tạm dừng sản phẩm A trên kênh này."
@@ -36,13 +116,31 @@
       },
       {
         "title": "Dựng file P&L hằng ngày",
-        "chart": { "type": "steps", "items": [
-          ["Doanh thu theo ngày", "Tiền thực nhận của từng sản phẩm, từng kênh, từng team; không dùng GMV."],
-          ["Phân bổ chi phí", "Khoản nào gắn được (phí sàn, ship, Ads, hoa hồng, voucher, quà) thì gắn thẳng; chi phí chung chia theo doanh thu hoặc số đơn; phần thuế trích theo tỷ lệ kế toán tính cho shop."],
-          ["Tính lãi lỗ và tỷ lệ", "Lãi từng ô team × sản phẩm × kênh, kèm ROAS, % giá vốn, tăng trưởng."],
-          ["Hỏi ở đâu và vì sao", "Mỗi con số không như ý đều được mổ xẻ và có giải pháp trong ngày."],
-          ["Gắn lương thưởng", "Mỗi team biết mình bán được bao nhiêu, lãi bao nhiêu và nhận về bao nhiêu."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Doanh thu theo ngày",
+              "Tiền thực nhận của từng sản phẩm, từng kênh, từng team; không dùng GMV."
+            ],
+            [
+              "Phân bổ chi phí",
+              "Khoản nào gắn được (phí sàn, ship, Ads, hoa hồng, voucher, quà) thì gắn thẳng; chi phí chung chia theo doanh thu hoặc số đơn; phần thuế trích theo tỷ lệ kế toán tính cho shop."
+            ],
+            [
+              "Tính lãi lỗ và tỷ lệ",
+              "Lãi từng ô team × sản phẩm × kênh, kèm ROAS, % giá vốn, tăng trưởng."
+            ],
+            [
+              "Hỏi ở đâu và vì sao",
+              "Mỗi con số không như ý đều được mổ xẻ và có giải pháp trong ngày."
+            ],
+            [
+              "Gắn lương thưởng",
+              "Mỗi team biết mình bán được bao nhiêu, lãi bao nhiêu và nhận về bao nhiêu."
+            ]
+          ]
+        },
         "body": [
           "Có số liệu rồi thì dựng dashboard cho dễ nhìn. Báo cáo không phải để giám sát hay áp đặt ai, mà để mọi người tự suy nghĩ và đề xuất giải pháp dựa trên số liệu."
         ]

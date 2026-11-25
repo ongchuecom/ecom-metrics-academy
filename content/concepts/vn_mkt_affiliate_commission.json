@@ -6,15 +6,34 @@
   "code": "Hoa hồng affiliate",
   "vi_name": "Tỷ lệ hoa hồng affiliate (Commission rate)",
   "definition": "Phần trăm trên giá bán mà shop trả cho người làm affiliate, KOC hay cộng tác viên khi họ bán được một đơn. Mức hoa hồng phải đủ hấp dẫn người bán hộ mà shop vẫn còn lãi sau giá vốn và phí sàn.",
-  "aliases": ["commission rate", "tỷ lệ hoa hồng", "% hoa hồng CTV"],
-  "related": ["vn_fin_platform_fee", "vn_fin_cm2", "vn_mkt_cpa", "vn_team_koc_return_rate"],
+  "aliases": [
+    "commission rate",
+    "tỷ lệ hoa hồng",
+    "% hoa hồng CTV"
+  ],
+  "related": [
+    "vn_fin_platform_fee",
+    "vn_fin_cm2",
+    "vn_mkt_cpa",
+    "vn_team_koc_return_rate"
+  ],
   "playbook_refs": [],
-  "formula": { "readable": "Tỷ lệ hoa hồng = Hoa hồng trả cho mỗi đơn ÷ Giá bán của đơn × 100%" },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Affiliate commission rate)." },
+  "formula": {
+    "readable": "Tỷ lệ hoa hồng = Hoa hồng trả cho mỗi đơn ÷ Giá bán của đơn × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Affiliate commission rate)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 988-989, mục Affiliate marketing" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 988-989, mục Affiliate marketing"
+    }
+  ],
   "lesson": {
     "subtitle": "Trả hoa hồng affiliate bao nhiêu phần trăm thì người ta chịu bán mà mình vẫn có lãi?",
     "intro": [
@@ -23,13 +42,79 @@
     ],
     "breakdown": {
       "title": "Hoa hồng tối đa cho đơn 200k",
-      "chart": { "type": "bars", "unit": "k", "items": [["Giá vốn", 80], ["Phí sàn", 30], ["Ship, đóng gói", 20], ["Lãi shop muốn giữ", 30, "keep"], ["Hoa hồng tối đa", 40, "focus"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "Giá vốn",
+            80
+          ],
+          [
+            "Phí sàn",
+            30
+          ],
+          [
+            "Ship, đóng gói",
+            20
+          ],
+          [
+            "Lãi shop muốn giữ",
+            30,
+            "keep"
+          ],
+          [
+            "Hoa hồng tối đa",
+            40,
+            "focus"
+          ]
+        ]
+      },
       "after": "Đơn 200k còn 200k − 80k − 30k − 20k = 70k trước chi phí bán hàng. Shop muốn giữ 30k lãi thì hoa hồng tối đa 70k − 30k = 40k, tức 40k ÷ 200k = **20%**."
     },
     "sections": [
       {
         "title": "Mỗi 5% hoa hồng ăn bao nhiêu lãi",
-        "chart": { "type": "line", "xLabel": "Tỷ lệ hoa hồng (%)", "unit": "k", "points": [[5, 60], [10, 50], [15, 40], [20, 30], [25, 20], [30, 10], [35, 0], [40, -10]], "lossBelowZero": true },
+        "chart": {
+          "type": "line",
+          "xLabel": "Tỷ lệ hoa hồng (%)",
+          "unit": "k",
+          "points": [
+            [
+              5,
+              60
+            ],
+            [
+              10,
+              50
+            ],
+            [
+              15,
+              40
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              25,
+              20
+            ],
+            [
+              30,
+              10
+            ],
+            [
+              35,
+              0
+            ],
+            [
+              40,
+              -10
+            ]
+          ],
+          "lossBelowZero": true
+        },
         "body": [
           "Với đơn 200k, mỗi 5% hoa hồng là 200k × 5% = 10k lãi mất đi. Trả 35% thì shop hòa, trả 40% là lỗ 10k mỗi đơn, càng nhiều affiliate bán càng lỗ.",
           "Khi so với ads: CPA ads đang 50k mỗi đơn thì hoa hồng 20% là 40k, rẻ hơn và chỉ trả khi có đơn. Đó là lý do nhiều shop dùng affiliate để giảm phụ thuộc ads."

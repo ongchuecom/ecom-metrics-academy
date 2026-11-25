@@ -6,14 +6,32 @@
   "code": "Bán hàng đa kênh",
   "vi_name": "Bán hàng đa kênh (Multi-channel / Omnichannel)",
   "definition": "Bán cùng lúc trên nhiều kênh: sàn, web, Facebook, Zalo, TikTok, affiliate, cửa hàng, thay vì dồn vào một nơi. Omnichannel là bước sâu hơn: các kênh dùng chung tồn kho, chung dữ liệu khách và cùng một cách phục vụ.",
-  "aliases": ["multi-channel", "omnichannel", "đa kênh", "bán đa kênh"],
-  "related": ["vn_fin_platform_fee", "vn_mkt_organic_vs_paid", "vn_ops_stockout_rate", "vn_fin_cm3"],
+  "aliases": [
+    "multi-channel",
+    "omnichannel",
+    "đa kênh",
+    "bán đa kênh"
+  ],
+  "related": [
+    "vn_fin_platform_fee",
+    "vn_mkt_organic_vs_paid",
+    "vn_ops_stockout_rate",
+    "vn_fin_cm3"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Multi-channel, Omnichannel)." },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Multi-channel, Omnichannel)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 757-761, 804, 945, 970, mục Bán hàng đa kênh và Affiliate marketing; dòng 1689 mục Giảm sự phụ thuộc" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 757-761, 804, 945, 970, mục Bán hàng đa kênh và Affiliate marketing; dòng 1689 mục Giảm sự phụ thuộc"
+    }
+  ],
   "lesson": {
     "subtitle": "Một kênh đang bán tốt thì có cần mở thêm kênh khác không?",
     "intro": [
@@ -22,25 +40,87 @@
     ],
     "breakdown": {
       "title": "Cơ cấu doanh thu của một shop đa kênh",
-      "chart": { "type": "bars", "unit": "%", "items": [["Sàn", 45, "focus"], ["Facebook, Zalo", 20], ["TikTok Shop", 15], ["Web riêng", 10, "keep"], ["Affiliate, CTV", 10, "keep"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "%",
+        "items": [
+          [
+            "Sàn",
+            45,
+            "focus"
+          ],
+          [
+            "Facebook, Zalo",
+            20
+          ],
+          [
+            "TikTok Shop",
+            15
+          ],
+          [
+            "Web riêng",
+            10,
+            "keep"
+          ],
+          [
+            "Affiliate, CTV",
+            10,
+            "keep"
+          ]
+        ]
+      },
       "after": "Kênh lớn nhất chỉ chiếm 45%. Sàn có sập traffic hay đổi phí thì vẫn còn 55% doanh thu ở chỗ khác để xoay. Web riêng và mạng cộng tác viên nhỏ nhưng là kênh shop tự nắm, không bị ai khóa."
     },
     "sections": [
       {
         "title": "Khi kênh lớn nhất sập",
-        "chart": { "type": "compare", "unit": "tr", "labels": ["Bình thường", "Kênh lớn nhất sập"], "items": [["Shop dồn một kênh (90%)", 1000, 100], ["Shop đa kênh (45%)", 1000, 550]] },
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Bình thường",
+            "Kênh lớn nhất sập"
+          ],
+          "items": [
+            [
+              "Shop dồn một kênh (90%)",
+              1000,
+              100
+            ],
+            [
+              "Shop đa kênh (45%)",
+              1000,
+              550
+            ]
+          ]
+        },
         "body": [
           "Cùng 1.000tr một tháng. Shop dồn một kênh còn 100tr, không đủ trả lương và tiền thuê kho. Shop đa kênh còn 1.000tr × 55% = 550tr, đủ thời gian để xử lý."
         ]
       },
       {
         "title": "Từ đa kênh lên omnichannel",
-        "chart": { "type": "steps", "items": [
-          ["Mỗi kênh một lợi nhuận riêng", "Tính lãi theo từng kênh: sàn tốn phí sàn, web tốn ads, affiliate tốn hoa hồng."],
-          ["Chung một kho", "Đồng bộ tồn kho mọi kênh để không bán quá số hàng đang có rồi phải hủy đơn."],
-          ["Chung dữ liệu khách", "Khách mua trên sàn được chăm lại qua Zalo, web; khách cũ không bị mất theo kênh."],
-          ["Giá nhất quán", "Chênh giá giữa các kênh có lý do rõ, tránh khách thấy rẻ chỗ này đắt chỗ kia."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Mỗi kênh một lợi nhuận riêng",
+              "Tính lãi theo từng kênh: sàn tốn phí sàn, web tốn ads, affiliate tốn hoa hồng."
+            ],
+            [
+              "Chung một kho",
+              "Đồng bộ tồn kho mọi kênh để không bán quá số hàng đang có rồi phải hủy đơn."
+            ],
+            [
+              "Chung dữ liệu khách",
+              "Khách mua trên sàn được chăm lại qua Zalo, web; khách cũ không bị mất theo kênh."
+            ],
+            [
+              "Giá nhất quán",
+              "Chênh giá giữa các kênh có lý do rõ, tránh khách thấy rẻ chỗ này đắt chỗ kia."
+            ]
+          ]
+        },
         "body": [
           "Đa kênh mà mỗi kênh một kho, một bảng giá, một file khách thì càng mở càng rối. Mở thêm kênh khi kênh trước đã chạy ổn, có người giữ và có số lãi riêng."
         ]

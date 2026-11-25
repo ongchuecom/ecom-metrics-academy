@@ -6,17 +6,34 @@
   "code": "Markup",
   "vi_name": "Hệ số markup (Giá bán / Giá vốn)",
   "definition": "Giá bán gấp mấy lần giá vốn. Nhập 30k bán 90k là markup 3 lần. Dùng để định giá nhanh khi nhập hàng, nhưng không phải là biên lãi gộp.",
-  "aliases": ["markup", "hệ số nhân giá", "giá bán gấp mấy lần giá vốn"],
-  "related": ["vn_prod_landed_cost", "vn_fin_cm1", "vn_fin_platform_fee", "vn_fin_breakeven_roas"],
+  "aliases": [
+    "markup",
+    "hệ số nhân giá",
+    "giá bán gấp mấy lần giá vốn"
+  ],
+  "related": [
+    "vn_prod_landed_cost",
+    "vn_fin_cm1",
+    "vn_fin_platform_fee",
+    "vn_fin_breakeven_roas"
+  ],
   "playbook_refs": [],
   "formula": {
     "readable": "Markup = Giá bán ÷ Giá vốn về tới kho. Biên lãi gộp = 1 − 1 ÷ Markup"
   },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Markup, hệ số nhân giá trên giá vốn)." },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Markup, hệ số nhân giá trên giá vốn)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 162, 517, 698, mục thời hàng nhập x10 giá bán; dòng 2975-2984, mục Cost structure" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 162, 517, 698, mục thời hàng nhập x10 giá bán; dòng 2975-2984, mục Cost structure"
+    }
+  ],
   "lesson": {
     "subtitle": "Nhập hàng giá này thì bán bao nhiêu mới có lời?",
     "intro": [
@@ -29,9 +46,16 @@
       "expr": {
         "label": "Markup",
         "eq": [
-          { "label": "Giá bán", "dir": "up" },
+          {
+            "label": "Giá bán",
+            "dir": "up"
+          },
           "÷",
-          { "id": "vn_prod_landed_cost", "label": "Giá vốn về tới kho", "dir": "down" }
+          {
+            "id": "vn_prod_landed_cost",
+            "label": "Giá vốn về tới kho",
+            "dir": "down"
+          }
         ]
       }
     },
@@ -41,14 +65,40 @@
         "type": "bars",
         "unit": "k",
         "items": [
-          ["Giá vốn", 20, "focus"],
-          ["Phí nền tảng", 20],
-          ["Giảm giá, chiết khấu", 15],
-          ["Logistics", 11],
-          ["Marketing", 10],
-          ["Lương, mặt bằng", 6],
-          ["Bồi hoàn, hư hao", 5],
-          ["Còn lại", 13, "keep"]
+          [
+            "Giá vốn",
+            20,
+            "focus"
+          ],
+          [
+            "Phí nền tảng",
+            20
+          ],
+          [
+            "Giảm giá, chiết khấu",
+            15
+          ],
+          [
+            "Logistics",
+            11
+          ],
+          [
+            "Marketing",
+            10
+          ],
+          [
+            "Lương, mặt bằng",
+            6
+          ],
+          [
+            "Bồi hoàn, hư hao",
+            5
+          ],
+          [
+            "Còn lại",
+            13,
+            "keep"
+          ]
         ]
       },
       "after": "Đây là cấu trúc chi phí hợp lý mà sách đưa ra: giá vốn dưới 20%, tức markup từ 5 trở lên. Cộng các khoản: 20k + 20k + 15k + 11k + 10k + 6k + 5k = 87k, còn 100k − 87k = **13k**. Nếu markup chỉ 2,5 thì giá vốn đã là 100k ÷ 2,5 = 40k, phần còn lại âm luôn."
@@ -60,12 +110,32 @@
           "type": "bars",
           "unit": "%",
           "items": [
-            ["Markup 1,5 → biên gộp", 33],
-            ["Markup 2 → biên gộp", 50],
-            ["Markup 3 → biên gộp", 67, "focus"],
-            ["Markup 4 → biên gộp", 75],
-            ["Markup 5 → biên gộp", 80, "keep"],
-            ["Markup 10 → biên gộp", 90]
+            [
+              "Markup 1,5 → biên gộp",
+              33
+            ],
+            [
+              "Markup 2 → biên gộp",
+              50
+            ],
+            [
+              "Markup 3 → biên gộp",
+              67,
+              "focus"
+            ],
+            [
+              "Markup 4 → biên gộp",
+              75
+            ],
+            [
+              "Markup 5 → biên gộp",
+              80,
+              "keep"
+            ],
+            [
+              "Markup 10 → biên gộp",
+              90
+            ]
           ]
         },
         "body": [

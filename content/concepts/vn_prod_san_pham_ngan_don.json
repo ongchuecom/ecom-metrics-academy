@@ -6,14 +6,31 @@
   "code": "Sản phẩm ngàn đơn",
   "vi_name": "Tiêu chí sản phẩm ngàn đơn",
   "definition": "Bộ sáu dấu hiệu để biết một sản phẩm đáng dồn lực scale lên mốc ngàn đơn: có lãi ròng khoảng 10%, tăng trưởng đều, hợp xu thế, hợp năng lực team, có nhiều hướng mở rộng và các chỉ số hiệu quả ổn định.",
-  "aliases": ["dấu hiệu sản phẩm ngàn đơn", "tiêu chí scale sản phẩm"],
-  "related": ["vn_prod_hero_sku", "vn_fin_net_profit", "vn_mkt_cpa", "vn_ret_clv", "vn_fin_breakeven_roas"],
+  "aliases": [
+    "dấu hiệu sản phẩm ngàn đơn",
+    "tiêu chí scale sản phẩm"
+  ],
+  "related": [
+    "vn_prod_hero_sku",
+    "vn_fin_net_profit",
+    "vn_mkt_cpa",
+    "vn_ret_clv",
+    "vn_fin_breakeven_roas"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khung theo sách Ecom Truyền Kỳ (mục R&D và giữ vị thế sản phẩm): sáu dấu hiệu của một sản phẩm ngàn đơn, kèm quy tắc tới 100 đơn mới tính scale." },
+  "basis": {
+    "type": "custom",
+    "note": "Khung theo sách Ecom Truyền Kỳ (mục R&D và giữ vị thế sản phẩm): sáu dấu hiệu của một sản phẩm ngàn đơn, kèm quy tắc tới 100 đơn mới tính scale."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1762-1769, mục Sản phẩm bây giờ cạnh tranh và copy khắp nơi thì làm sao để R&D và giữ vị thế" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1762-1769, mục Sản phẩm bây giờ cạnh tranh và copy khắp nơi thì làm sao để R&D và giữ vị thế"
+    }
+  ],
   "lesson": {
     "subtitle": "Sản phẩm này đã đáng để dồn tiền scale chưa?",
     "intro": [
@@ -25,12 +42,30 @@
       "chart": {
         "type": "steps",
         "items": [
-          ["Có lãi", "Bắt buộc. Ban đầu có thể lỗ khi chưa đủ đơn, nhưng tới một mốc phải lãi ròng tầm 10%."],
-          ["Tăng trưởng liên tục", "Đơn tăng đều theo tháng, theo quý, không phải một đợt sale rồi tắt."],
-          ["Hợp xu thế", "Đi cùng hướng tiêu dùng của khách, không đi ngược sóng."],
-          ["Hợp năng lực team", "Team đủ sức làm content, vận hành, chăm khách cho sản phẩm này."],
-          ["Nhiều hướng mở rộng", "Online sang offline, lẻ sang sỉ, thêm kênh affiliate."],
-          ["Chỉ số ổn định", "CPA, ROAS, LTV, ARPU (doanh thu trung bình mỗi khách), ROI không nhảy loạn khi tăng ngân sách."]
+          [
+            "Có lãi",
+            "Bắt buộc. Ban đầu có thể lỗ khi chưa đủ đơn, nhưng tới một mốc phải lãi ròng tầm 10%."
+          ],
+          [
+            "Tăng trưởng liên tục",
+            "Đơn tăng đều theo tháng, theo quý, không phải một đợt sale rồi tắt."
+          ],
+          [
+            "Hợp xu thế",
+            "Đi cùng hướng tiêu dùng của khách, không đi ngược sóng."
+          ],
+          [
+            "Hợp năng lực team",
+            "Team đủ sức làm content, vận hành, chăm khách cho sản phẩm này."
+          ],
+          [
+            "Nhiều hướng mở rộng",
+            "Online sang offline, lẻ sang sỉ, thêm kênh affiliate."
+          ],
+          [
+            "Chỉ số ổn định",
+            "CPA, ROAS, LTV, ARPU (doanh thu trung bình mỗi khách), ROI không nhảy loạn khi tăng ngân sách."
+          ]
         ]
       },
       "after": "Sáu dấu hiệu này đi cùng nhau. Lãi mà không tăng trưởng là sản phẩm nuôi được shop nhỏ, không phải ngàn đơn. Tăng mà chỉ số nhảy loạn thì scale lên là cháy tiền."
@@ -41,11 +76,26 @@
         "chart": {
           "type": "compare",
           "unit": "%",
-          "labels": ["Sản phẩm A", "Sản phẩm B"],
+          "labels": [
+            "Sản phẩm A",
+            "Sản phẩm B"
+          ],
           "items": [
-            ["Net margin", 11, 3],
-            ["Tăng trưởng đơn mỗi tháng", 18, 25],
-            ["CPA dao động giữa các tuần", 8, 40]
+            [
+              "Net margin",
+              11,
+              3
+            ],
+            [
+              "Tăng trưởng đơn mỗi tháng",
+              18,
+              25
+            ],
+            [
+              "CPA dao động giữa các tuần",
+              8,
+              40
+            ]
           ]
         },
         "body": [

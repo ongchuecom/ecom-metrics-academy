@@ -6,14 +6,32 @@
   "code": "Pixel / Conversion API",
   "vi_name": "Tracking chuyển đổi (Pixel / Conversion API)",
   "definition": "Gắn đo lường để báo cho nền tảng quảng cáo biết khách nào đã xem hàng, thêm giỏ, đặt mua. Có tín hiệu đúng thì thuật toán Facebook, Google, TikTok mới tìm được người mua thật thay vì người chỉ bấm.",
-  "aliases": ["pixel", "CAPI", "conversion tracking", "đo chuyển đổi"],
-  "related": ["vn_mkt_cpa", "vn_fin_breakeven_roas", "vn_ops_rto_rate", "vn_mkt_organic_vs_paid"],
+  "aliases": [
+    "pixel",
+    "CAPI",
+    "conversion tracking",
+    "đo chuyển đổi"
+  ],
+  "related": [
+    "vn_mkt_cpa",
+    "vn_fin_breakeven_roas",
+    "vn_ops_rto_rate",
+    "vn_mkt_organic_vs_paid"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Conversion tracking: Pixel, Conversion API)." },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Conversion tracking: Pixel, Conversion API)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 715-716, 822, 901, mục Từ bán CPM chạy chuyển đổi ra đơn và Performance marketing" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 715-716, 822, 901, mục Từ bán CPM chạy chuyển đổi ra đơn và Performance marketing"
+    }
+  ],
   "lesson": {
     "subtitle": "Vì sao trình quảng cáo báo ít đơn hơn thực tế, và máy tối ưu nhầm khách?",
     "intro": [
@@ -22,18 +40,51 @@
     ],
     "breakdown": {
       "title": "Đường đi của một tín hiệu mua hàng",
-      "chart": { "type": "steps", "items": [
-        ["Gắn mã", "Pixel hoặc tag trên web, landing page; nối Conversion API từ phần mềm bán hàng."],
-        ["Chọn sự kiện", "Xem sản phẩm, thêm giỏ, bắt đầu thanh toán, mua hàng, để lại số."],
-        ["Gửi kèm giá trị", "Mỗi sự kiện mua gửi kèm giá trị đơn để nền tảng tính ROAS và tìm khách mua đơn to."],
-        ["Đối chiếu đơn thật", "So số đơn nền tảng ghi với số đơn trong phần mềm quản lý đơn mỗi tuần."]
-      ] },
+      "chart": {
+        "type": "steps",
+        "items": [
+          [
+            "Gắn mã",
+            "Pixel hoặc tag trên web, landing page; nối Conversion API từ phần mềm bán hàng."
+          ],
+          [
+            "Chọn sự kiện",
+            "Xem sản phẩm, thêm giỏ, bắt đầu thanh toán, mua hàng, để lại số."
+          ],
+          [
+            "Gửi kèm giá trị",
+            "Mỗi sự kiện mua gửi kèm giá trị đơn để nền tảng tính ROAS và tìm khách mua đơn to."
+          ],
+          [
+            "Đối chiếu đơn thật",
+            "So số đơn nền tảng ghi với số đơn trong phần mềm quản lý đơn mỗi tuần."
+          ]
+        ]
+      },
       "after": "Pixel trên trình duyệt hay bị mất tín hiệu do chặn cookie, mạng chập chờn. Conversion API gửi thẳng từ máy chủ nên bù phần mất đó. Dùng cả hai, có khử trùng lặp, là cách phổ biến."
     },
     "sections": [
       {
         "title": "Đo thiếu thì cắt nhầm quảng cáo đang lãi",
-        "chart": { "type": "compare", "labels": ["Trình quảng cáo báo", "Đơn thật"], "items": [["Số đơn", 70, 100], ["ROAS", 2.1, 3]] },
+        "chart": {
+          "type": "compare",
+          "labels": [
+            "Trình quảng cáo báo",
+            "Đơn thật"
+          ],
+          "items": [
+            [
+              "Số đơn",
+              70,
+              100
+            ],
+            [
+              "ROAS",
+              2.1,
+              3
+            ]
+          ]
+        },
         "body": [
           "Chi 10tr, đơn trung bình 300k. Trình quảng cáo ghi 70 đơn: 70 × 300k = 21tr, ROAS = 21tr ÷ 10tr = 2,1. Đơn thật là 100: 100 × 300k = 30tr, ROAS = 30tr ÷ 10tr = 3.",
           "ROAS hòa vốn của shop là 2,5 thì nhìn số báo cáo sẽ tắt chiến dịch, trong khi thực tế nó đang lãi. Đo thiếu 30% vừa làm quyết định sai, vừa làm máy học chậm."

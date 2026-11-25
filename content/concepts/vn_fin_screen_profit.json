@@ -6,14 +6,31 @@
   "code": "Lãi màn hình",
   "vi_name": "Lãi màn hình (lãi trên sổ nhưng tiền nằm ở tồn kho)",
   "definition": "Khoản lãi chỉ hiện trên màn hình P&L: biên mỏng vì định giá bán rẻ, và chút lãi đó lại nằm hết trong hàng tồn phải giữ cùng các rủi ro hoàn hủy, nên cầm về tay gần như không có đồng nào.",
-  "aliases": ["lãi ảo", "lãi trên màn hình"],
-  "related": ["vn_fin_net_profit", "vn_ops_dead_stock", "vn_fin_gmroi", "vn_sales_aov", "vn_fin_breakeven_roas"],
+  "aliases": [
+    "lãi ảo",
+    "lãi trên màn hình"
+  ],
+  "related": [
+    "vn_fin_net_profit",
+    "vn_ops_dead_stock",
+    "vn_fin_gmroi",
+    "vn_sales_aov",
+    "vn_fin_breakeven_roas"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Bán đúng giá và Ecom song hành với MT): P&L dựa trên định giá bán rẻ không còn margin, có lãi cũng chỉ là lãi màn hình vì tiền nằm ở tồn kho và rủi ro." },
+  "basis": {
+    "type": "custom",
+    "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Bán đúng giá và Ecom song hành với MT): P&L dựa trên định giá bán rẻ không còn margin, có lãi cũng chỉ là lãi màn hình vì tiền nằm ở tồn kho và rủi ro."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 2658 (lãi màn hình, tiền nằm hết ở tồn kho lẫn rủi ro), 2668 (lãi 7% net so với tồn kho 3 tháng)" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 2658 (lãi màn hình, tiền nằm hết ở tồn kho lẫn rủi ro), 2668 (lãi 7% net so với tồn kho 3 tháng)"
+    }
+  ],
   "lesson": {
     "subtitle": "Báo cáo cả năm lãi, sao rút ra không được đồng nào?",
     "intro": [
@@ -22,13 +39,52 @@
     ],
     "breakdown": {
       "title": "Lãi cả năm so với tiền đang nằm trong kho",
-      "chart": { "type": "bars", "unit": "tr", "items": [["Lãi ròng cả năm (7%)", 168, "keep"], ["Tiền nằm ở hàng tồn 3 tháng", 210, "focus"], ["Lỗ khi xả một lô hàng chậm", -60, "loss"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Lãi ròng cả năm (7%)",
+            168,
+            "keep"
+          ],
+          [
+            "Tiền nằm ở hàng tồn 3 tháng",
+            210,
+            "focus"
+          ],
+          [
+            "Lỗ khi xả một lô hàng chậm",
+            -60,
+            "loss"
+          ]
+        ]
+      },
       "after": "Lãi cả năm 168tr còn nhỏ hơn 210tr tiền phải giữ trong kho, nên gần như không rút ra được. Xả lỗ một lô chậm mất 60tr thì lãi còn 168tr − 60tr = 108tr, mà vẫn nằm trong hàng. Đó là lý do sách nói **lãi chỉ trên màn hình, không có tiền thật để chia nhau**."
     },
     "sections": [
       {
         "title": "Lối ra thứ nhất: bán đúng giá",
-        "chart": { "type": "compare", "unit": "tr", "labels": ["Bán 99k", "Bán 199k"], "items": [["Doanh số tháng", 198, 199], ["Lãi tháng", 10, 40]] },
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Bán 99k",
+            "Bán 199k"
+          ],
+          "items": [
+            [
+              "Doanh số tháng",
+              198,
+              199
+            ],
+            [
+              "Lãi tháng",
+              10,
+              40
+            ]
+          ]
+        },
         "body": [
           "Sách kể: trước bán 99k mệt mỏi, sau cùng sản phẩm đó bán 199k, đơn ít hơn nhưng doanh số không đổi. Giả định shop: 2.000 × 99k = 198tr, còn 1.000 × 199k = 199tr.",
           "Doanh số như nhau, nhưng lãi khác hẳn. Giá 99k chỉ còn khoảng 5k mỗi đơn: 2.000 × 5k = 10tr. Giá 199k còn 40k mỗi đơn: 1.000 × 40k = 40tr. Một nửa số đơn thì cũng một nửa hàng tồn, ít đóng gói, ít hoàn hủy. Ecom không nên là giá rẻ; hãy đặt giá hợp lý cho sự tiện lợi nó mang lại."
@@ -36,12 +92,27 @@
       },
       {
         "title": "Lối ra thứ hai: giảm tiền nằm trong kho",
-        "chart": { "type": "steps", "items": [
-          ["Đo tiền trong kho", "Mỗi tháng so tiền hàng tồn theo giá vốn với lãi ròng; tồn lớn hơn lãi nhiều tháng là báo động."],
-          ["Nhập vừa đủ", "Giữ ít tháng hàng hơn với mã bán chậm, nhập nhiều chỉ với mã chủ lực."],
-          ["Xả sớm khi còn rẻ", "Hàng chậm xả lúc mới chậm thì lỗ ít, để quá 90 ngày thì lỗ nhiều."],
-          ["Tăng tốc độ ra hàng", "Ra hàng nhanh thì cùng doanh số cần ít tồn hơn, tiền quay về sớm hơn."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Đo tiền trong kho",
+              "Mỗi tháng so tiền hàng tồn theo giá vốn với lãi ròng; tồn lớn hơn lãi nhiều tháng là báo động."
+            ],
+            [
+              "Nhập vừa đủ",
+              "Giữ ít tháng hàng hơn với mã bán chậm, nhập nhiều chỉ với mã chủ lực."
+            ],
+            [
+              "Xả sớm khi còn rẻ",
+              "Hàng chậm xả lúc mới chậm thì lỗ ít, để quá 90 ngày thì lỗ nhiều."
+            ],
+            [
+              "Tăng tốc độ ra hàng",
+              "Ra hàng nhanh thì cùng doanh số cần ít tồn hơn, tiền quay về sớm hơn."
+            ]
+          ]
+        },
         "body": [
           "Khi gộp thêm kênh bán, tốc độ ra hàng nhanh hơn thì tồn kho duy trì thấp hơn. Cùng một biên lãi, tiền nằm trong kho ít đi là tiền thật nhiều lên."
         ]

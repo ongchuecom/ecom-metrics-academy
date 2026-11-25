@@ -6,14 +6,31 @@
   "code": "SOP",
   "vi_name": "Quy trình chuẩn để nhân bản (SOP, Standard Operating Procedure)",
   "definition": "Bản viết ra từng bước cách làm đã chứng minh hiệu quả, kèm biểu mẫu và chỉ số, để người mới làm theo cũng ra kết quả gần như người giỏi nhất. Có SOP thì mới mở thêm team, thêm kênh mà không rối.",
-  "aliases": ["quy trình chuẩn", "standard operating procedure", "công thức nhân bản"],
-  "related": ["vn_ops_picking_error", "vn_team_pack_speed", "vn_ops_warehouse_cost_per_order", "vn_team_gp_per_staff"],
+  "aliases": [
+    "quy trình chuẩn",
+    "standard operating procedure",
+    "công thức nhân bản"
+  ],
+  "related": [
+    "vn_ops_picking_error",
+    "vn_team_pack_speed",
+    "vn_ops_warehouse_cost_per_order",
+    "vn_team_gp_per_staff"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Standard Operating Procedure)." },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Standard Operating Procedure)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 915-917, 1181-1182, 1204-1210, mục công thức nhân bản và vận hành xuất sắc; dòng 2203 mục hệ thống quy trình mô tả cặn kẽ" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 915-917, 1181-1182, 1204-1210, mục công thức nhân bản và vận hành xuất sắc; dòng 2203 mục hệ thống quy trình mô tả cặn kẽ"
+    }
+  ],
   "lesson": {
     "subtitle": "Sao việc này mình làm thì ra, giao nhân viên thì hỏng?",
     "intro": [
@@ -22,27 +39,80 @@
     ],
     "breakdown": {
       "title": "Một kho 500 SKU cần bao nhiêu quy trình",
-      "chart": { "type": "bars", "unit": "tr", "items": [["Giá trị kho", 4000], ["Thất thoát nếu sai 5%", 200, "loss"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Giá trị kho",
+            4000
+          ],
+          [
+            "Thất thoát nếu sai 5%",
+            200,
+            "loss"
+          ]
+        ]
+      },
       "after": "Kho 500 SKU (mã hàng), ngàn đơn mỗi ngày, giá trị hàng 4 tỷ, 10 người làm. Việc ở kho gồm điện nước, kệ, bao bì, in ấn, đóng gói, nhập, xuất, hoàn, kiểm kê, cháy nổ… mỗi việc cần vài quy trình, cộng lại 99 cái. Không viết chi tiết thì hư hỏng, sai lệch: tỷ lệ sai 5% là 4 tỷ × 5% = **200tr** mất đi mỗi tháng."
     },
     "sections": [
       {
         "title": "Sáu bước viết một SOP dùng được",
-        "chart": { "type": "steps", "items": [
-          ["Chọn việc lặp lại", "Bắt đầu từ việc ngày nào cũng làm, sai là mất tiền: đóng gói, xử lý hoàn, lên camp Ads, chốt đơn."],
-          ["Ghi lại người giỏi nhất", "Ngồi xem người làm tốt nhất làm, ghi từng thao tác, kể cả mẹo nhỏ họ không nói ra."],
-          ["Viết thành bước và biểu mẫu", "Mỗi bước một động từ, kèm file mẫu, ảnh chụp, checklist. Người mới đọc là làm được."],
-          ["Gắn một chỉ số", "Mỗi SOP có một con số để biết làm đúng: tỷ lệ đóng nhầm, thời gian xử lý, tỷ lệ chốt."],
-          ["Cho người mới làm thử", "Đưa người mới làm theo, chỗ nào họ hỏi là chỗ SOP còn thiếu."],
-          ["Sửa và tự động hóa", "Cập nhật khi cách làm đổi. Bước nào lặp mãi thì đưa vào tool, sheet, automation."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Chọn việc lặp lại",
+              "Bắt đầu từ việc ngày nào cũng làm, sai là mất tiền: đóng gói, xử lý hoàn, lên camp Ads, chốt đơn."
+            ],
+            [
+              "Ghi lại người giỏi nhất",
+              "Ngồi xem người làm tốt nhất làm, ghi từng thao tác, kể cả mẹo nhỏ họ không nói ra."
+            ],
+            [
+              "Viết thành bước và biểu mẫu",
+              "Mỗi bước một động từ, kèm file mẫu, ảnh chụp, checklist. Người mới đọc là làm được."
+            ],
+            [
+              "Gắn một chỉ số",
+              "Mỗi SOP có một con số để biết làm đúng: tỷ lệ đóng nhầm, thời gian xử lý, tỷ lệ chốt."
+            ],
+            [
+              "Cho người mới làm thử",
+              "Đưa người mới làm theo, chỗ nào họ hỏi là chỗ SOP còn thiếu."
+            ],
+            [
+              "Sửa và tự động hóa",
+              "Cập nhật khi cách làm đổi. Bước nào lặp mãi thì đưa vào tool, sheet, automation."
+            ]
+          ]
+        },
         "body": [
           "Quy trình chỉ là nửa đầu. Vận hành tốt là quy trình cộng linh hoạt cộng hiệu suất: SOP lo phần ai cũng làm được, người giỏi lo phần phát sinh, chỉ số lo phần tiết kiệm."
         ]
       },
       {
         "title": "Có SOP và chưa có SOP khác nhau thế nào",
-        "chart": { "type": "compare", "labels": ["Chưa có SOP", "Có SOP"], "items": [["Ngày để người mới làm được việc", 30, 10], ["Đơn đóng nhầm trên 1.000 đơn", 30, 5]] },
+        "chart": {
+          "type": "compare",
+          "labels": [
+            "Chưa có SOP",
+            "Có SOP"
+          ],
+          "items": [
+            [
+              "Ngày để người mới làm được việc",
+              30,
+              10
+            ],
+            [
+              "Đơn đóng nhầm trên 1.000 đơn",
+              30,
+              5
+            ]
+          ]
+        },
         "body": [
           "Số minh họa của một shop: chưa có SOP, người mới mất 30 ngày mới đóng hàng ổn, cứ 1.000 đơn nhầm 30 đơn. Có SOP và checklist, 10 ngày là làm được, nhầm còn 5 đơn.",
           "Thiết lập quy trình ở các mốc 100, 200, 500 đơn mỗi ngày cho mượt đã rồi hãy nghĩ tới ngàn, vạn đơn. Video lên trend mà quy trình chưa có thì càng bán càng ôm hận."

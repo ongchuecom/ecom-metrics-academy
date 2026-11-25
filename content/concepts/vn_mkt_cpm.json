@@ -6,15 +6,34 @@
   "code": "CPM",
   "vi_name": "Chi phí nghìn lượt hiển thị (CPM - Cost per Mille)",
   "definition": "Số tiền quảng cáo phải trả cho mỗi 1.000 lượt hiển thị. Đây là giá mua traffic gốc trên Facebook, TikTok, Google: CPM lên thì mọi thứ phía sau đều đắt lên.",
-  "aliases": ["cost per mille", "cost per thousand impressions", "giá nghìn hiển thị"],
-  "related": ["vn_mkt_ctr", "vn_mkt_cpa", "vn_mkt_hook_rate", "vn_team_creative_win_rate"],
+  "aliases": [
+    "cost per mille",
+    "cost per thousand impressions",
+    "giá nghìn hiển thị"
+  ],
+  "related": [
+    "vn_mkt_ctr",
+    "vn_mkt_cpa",
+    "vn_mkt_hook_rate",
+    "vn_team_creative_win_rate"
+  ],
   "playbook_refs": [],
-  "formula": { "readable": "CPM = Chi phí quảng cáo ÷ Số lượt hiển thị × 1.000" },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Cost per Mille, CPM)." },
+  "formula": {
+    "readable": "CPM = Chi phí quảng cáo ÷ Số lượt hiển thị × 1.000"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Cost per Mille, CPM)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 705-716, 838, mục Từ bán CPM chạy chuyển đổi ra đơn và Cơn mưa tiền từ Google ads" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 705-716, 838, mục Từ bán CPM chạy chuyển đổi ra đơn và Cơn mưa tiền từ Google ads"
+    }
+  ],
   "lesson": {
     "subtitle": "Giá quảng cáo đang đắt lên vì nội dung mình kém, hay vì cả chợ đang tranh mua?",
     "intro": [
@@ -28,36 +47,121 @@
         "label": "CPA",
         "id": "vn_mkt_cpa",
         "eq": [
-          { "label": "CPM", "dir": "down" },
+          {
+            "label": "CPM",
+            "dir": "down"
+          },
           "÷ (1000 ×",
-          { "id": "vn_mkt_ctr", "label": "CTR", "dir": "up" },
+          {
+            "id": "vn_mkt_ctr",
+            "label": "CTR",
+            "dir": "up"
+          },
           "×",
-          { "id": "vn_sales_pdp_cvr", "label": "CVR", "dir": "up" },
+          {
+            "id": "vn_sales_pdp_cvr",
+            "label": "CVR",
+            "dir": "up"
+          },
           ")"
         ]
       }
     },
     "breakdown": {
       "title": "CPM 40k, CTR 1,5%, CVR 2% thì mỗi đơn bao nhiêu",
-      "chart": { "type": "bars", "unit": "k", "items": [["CPA khi CPM 40k", 133.3, "focus"], ["CPA khi CPM 60k", 200, "loss"], ["CPA khi CPM 30k", 100, "keep"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "k",
+        "items": [
+          [
+            "CPA khi CPM 40k",
+            133.3,
+            "focus"
+          ],
+          [
+            "CPA khi CPM 60k",
+            200,
+            "loss"
+          ],
+          [
+            "CPA khi CPM 30k",
+            100,
+            "keep"
+          ]
+        ]
+      },
       "after": "Mỗi 1.000 lượt hiển thị ra 1.000 × 1,5% × 2% = 0,3 đơn. CPM 40k thì CPA = 40k ÷ 0,3 = **133,3k**. Mùa sale CPM lên 60k thì CPA = 60k ÷ 0,3 = 200k, nội dung không đổi một chữ."
     },
     "sections": [
       {
         "title": "Đọc CPM cùng CTR để biết lỗi ở đâu",
-        "chart": { "type": "matrix", "x": ["CTR giữ nguyên", "CTR giảm"], "y": ["CPM tăng", "CPM giữ nguyên"], "cells": [
-          [ { "title": "Chợ đang đắt", "text": "Mùa sale, đối thủ đổ tiền. Nội dung vẫn ổn, cân nhắc giảm ngân sách hoặc đợi.", "tone": "keep" },
-            { "title": "Nội dung đã mỏi", "text": "Khách lướt qua, nền tảng đánh giá quảng cáo kém nên đòi giá cao hơn. Thay creative ngay.", "tone": "loss" } ],
-          [ { "title": "Ổn ở đầu phễu", "text": "Giá và nội dung đều ổn. Nếu CPA vẫn cao thì xem trang bán, giá, tỷ lệ chốt.", "tone": "keep" },
-            { "title": "Hook yếu dần", "text": "Giá chưa tăng nhưng khách bớt bấm. Làm mới 3 giây đầu trước khi CPM bị kéo lên.", "tone": "loss" } ]
-        ] },
+        "chart": {
+          "type": "matrix",
+          "x": [
+            "CTR giữ nguyên",
+            "CTR giảm"
+          ],
+          "y": [
+            "CPM tăng",
+            "CPM giữ nguyên"
+          ],
+          "cells": [
+            [
+              {
+                "title": "Chợ đang đắt",
+                "text": "Mùa sale, đối thủ đổ tiền. Nội dung vẫn ổn, cân nhắc giảm ngân sách hoặc đợi.",
+                "tone": "keep"
+              },
+              {
+                "title": "Nội dung đã mỏi",
+                "text": "Khách lướt qua, nền tảng đánh giá quảng cáo kém nên đòi giá cao hơn. Thay creative ngay.",
+                "tone": "loss"
+              }
+            ],
+            [
+              {
+                "title": "Ổn ở đầu phễu",
+                "text": "Giá và nội dung đều ổn. Nếu CPA vẫn cao thì xem trang bán, giá, tỷ lệ chốt.",
+                "tone": "keep"
+              },
+              {
+                "title": "Hook yếu dần",
+                "text": "Giá chưa tăng nhưng khách bớt bấm. Làm mới 3 giây đầu trước khi CPM bị kéo lên.",
+                "tone": "loss"
+              }
+            ]
+          ]
+        },
         "body": [
           "CPM tăng một mình thường là chuyện của thị trường đấu giá. CPM tăng kèm CTR giảm thường là chuyện của nội dung: quảng cáo nhàm thì nền tảng phân phối kém và tính giá đắt hơn."
         ]
       },
       {
         "title": "Theo dõi CPM theo tuần",
-        "chart": { "type": "line", "xLabel": "Tuần", "unit": "k", "points": [[1, 38], [2, 40], [3, 52], [4, 61]], "threshold": 50 },
+        "chart": {
+          "type": "line",
+          "xLabel": "Tuần",
+          "unit": "k",
+          "points": [
+            [
+              1,
+              38
+            ],
+            [
+              2,
+              40
+            ],
+            [
+              3,
+              52
+            ],
+            [
+              4,
+              61
+            ]
+          ],
+          "threshold": 50
+        },
         "body": [
           "Đặt một ngưỡng CPM cho từng nhóm sản phẩm. Shop trên đặt 50k: hai tuần đầu dưới ngưỡng, tuần 3 và 4 vọt lên 52k, 61k. Từ 40k lên 61k là tăng hơn 50%, phải kiểm tra ngay xem do mùa vụ hay do creative đã chạy quá lâu."
         ]

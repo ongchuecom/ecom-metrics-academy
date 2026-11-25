@@ -6,17 +6,34 @@
   "code": "Product Hit Rate",
   "vi_name": "Tỷ lệ thành công sản phẩm mới (Product Hit Rate)",
   "definition": "Trong số sản phẩm mới tung ra, bao nhiêu phần trăm đạt mốc thắng (có lãi, tăng trưởng, đáng scale). Biết con số này mới đặt được ngân sách test sản phẩm cho cả năm.",
-  "aliases": ["hit rate sản phẩm", "tỷ lệ sản phẩm thắng", "tỷ lệ win sản phẩm mới"],
-  "related": ["vn_team_creative_win_rate", "vn_prod_hero_sku", "vn_fin_payback_period", "vn_fin_cash_runway"],
+  "aliases": [
+    "hit rate sản phẩm",
+    "tỷ lệ sản phẩm thắng",
+    "tỷ lệ win sản phẩm mới"
+  ],
+  "related": [
+    "vn_team_creative_win_rate",
+    "vn_prod_hero_sku",
+    "vn_fin_payback_period",
+    "vn_fin_cash_runway"
+  ],
   "playbook_refs": [],
   "formula": {
     "readable": "Product Hit Rate = Số sản phẩm mới đạt mốc thắng ÷ Tổng số sản phẩm mới tung ra × 100%"
   },
-  "basis": { "type": "custom", "note": "Chỉ số theo sách Ecom Truyền Kỳ (mục R&D và giữ vị thế sản phẩm; mục Tung sản phẩm): tỷ lệ thành công khi xây sản phẩm, chấp nhận tỷ lệ fail và giảm chi phí mỗi lần test." },
+  "basis": {
+    "type": "custom",
+    "note": "Chỉ số theo sách Ecom Truyền Kỳ (mục R&D và giữ vị thế sản phẩm; mục Tung sản phẩm): tỷ lệ thành công khi xây sản phẩm, chấp nhận tỷ lệ fail và giảm chi phí mỗi lần test."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1769-1770, mục R&D và giữ vị thế sản phẩm (tỉ lệ thành công 50%, thua 4 lỗ 1 tỷ); dòng 1828, mục Tung sản phẩm" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1769-1770, mục R&D và giữ vị thế sản phẩm (tỉ lệ thành công 50%, thua 4 lỗ 1 tỷ); dòng 1828, mục Tung sản phẩm"
+    }
+  ],
   "lesson": {
     "subtitle": "Tung 10 sản phẩm thì mấy cái thắng, và cần để dành bao nhiêu tiền thua?",
     "intro": [
@@ -29,9 +46,14 @@
       "expr": {
         "label": "Product Hit Rate",
         "eq": [
-          { "label": "Sản phẩm đạt mốc thắng", "dir": "up" },
+          {
+            "label": "Sản phẩm đạt mốc thắng",
+            "dir": "up"
+          },
           "÷",
-          { "label": "Sản phẩm mới tung ra" }
+          {
+            "label": "Sản phẩm mới tung ra"
+          }
         ]
       }
     },
@@ -42,8 +64,32 @@
         "xLabel": "Sản phẩm thứ",
         "unit": "tr",
         "lossBelowZero": true,
-        "points": [[1, -250], [2, -500], [3, -750], [4, -1000], [5, 0]],
-        "now": { "x": 5, "label": "Gỡ xong sau 1 tháng" }
+        "points": [
+          [
+            1,
+            -250
+          ],
+          [
+            2,
+            -500
+          ],
+          [
+            3,
+            -750
+          ],
+          [
+            4,
+            -1000
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "now": {
+          "x": 5,
+          "label": "Gỡ xong sau 1 tháng"
+        }
       },
       "after": "Bốn sản phẩm đầu mỗi cái lỗ 250tr: 250tr × 4 = 1.000tr, tức 1 tỷ. Sản phẩm thứ 5 thắng, lãi 1 tỷ trong tháng đầu là về 0. Hit rate ở đây là 1 ÷ 5 = 20%. Shop chỉ đi tới được sản phẩm thứ 5 nếu đã **để dành sẵn tiền thua** cho 4 cái trước."
     },
@@ -54,9 +100,21 @@
           "type": "bars",
           "unit": "sản phẩm",
           "items": [
-            ["Hit rate 50%", 4, "keep"],
-            ["Hit rate 25%", 8, "focus"],
-            ["Hit rate 10%", 20, "loss"]
+            [
+              "Hit rate 50%",
+              4,
+              "keep"
+            ],
+            [
+              "Hit rate 25%",
+              8,
+              "focus"
+            ],
+            [
+              "Hit rate 10%",
+              20,
+              "loss"
+            ]
           ]
         },
         "body": [

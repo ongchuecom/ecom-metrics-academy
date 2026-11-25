@@ -6,17 +6,35 @@
   "code": "Sell-through",
   "vi_name": "Tỷ lệ bán hết hàng nhập (Sell-through Rate)",
   "definition": "Phần trăm số hàng của một lô đã bán được trong một khoảng thời gian. Nhìn con số này để biết lô hàng đã kéo tiền vốn về chưa, hay tiền vẫn đang nằm trong kho.",
-  "aliases": ["sell-through rate", "tỷ lệ bán hết lô", "tỷ lệ bán qua"],
-  "related": ["vn_ops_dio", "vn_ops_dead_stock", "vn_fin_gmroi", "vn_fin_cash_runway", "vn_ops_reorder_point"],
+  "aliases": [
+    "sell-through rate",
+    "tỷ lệ bán hết lô",
+    "tỷ lệ bán qua"
+  ],
+  "related": [
+    "vn_ops_dio",
+    "vn_ops_dead_stock",
+    "vn_fin_gmroi",
+    "vn_fin_cash_runway",
+    "vn_ops_reorder_point"
+  ],
   "playbook_refs": [],
   "formula": {
     "readable": "Sell-through = Số lượng đã bán trong kỳ ÷ (Tồn đầu kỳ + Số lượng nhập trong kỳ) × 100%"
   },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Sell-through Rate)." },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Sell-through Rate)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 2559, mục Dòng tiền âm (không bán hết 50% lượng hàng thì cạn tiền mặt); dòng 1659, mục Nhịp (hàng hoá chất đống sau sóng KOC, Livestream)" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 2559, mục Dòng tiền âm (không bán hết 50% lượng hàng thì cạn tiền mặt); dòng 1659, mục Nhịp (hàng hoá chất đống sau sóng KOC, Livestream)"
+    }
+  ],
   "lesson": {
     "subtitle": "Lô hàng nhập về đã bán được bao nhiêu, tiền vốn đã quay về chưa?",
     "intro": [
@@ -29,9 +47,15 @@
       "expr": {
         "label": "Sell-through",
         "eq": [
-          { "label": "Số lượng đã bán", "dir": "up" },
+          {
+            "label": "Số lượng đã bán",
+            "dir": "up"
+          },
           "÷",
-          { "label": "Tồn đầu kỳ + Lô nhập", "dir": "down" }
+          {
+            "label": "Tồn đầu kỳ + Lô nhập",
+            "dir": "down"
+          }
         ]
       }
     },
@@ -41,9 +65,40 @@
         "type": "line",
         "xLabel": "Ngày",
         "unit": "%",
-        "points": [[0, 0], [15, 15], [30, 35], [45, 50], [60, 62], [90, 80]],
-        "threshold": { "x": 45, "label": "Về đủ vốn hàng" },
-        "now": { "x": 30, "label": "Hôm nay 35%" }
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            30,
+            35
+          ],
+          [
+            45,
+            50
+          ],
+          [
+            60,
+            62
+          ],
+          [
+            90,
+            80
+          ]
+        ],
+        "threshold": {
+          "x": 45,
+          "label": "Về đủ vốn hàng"
+        },
+        "now": {
+          "x": 30,
+          "label": "Hôm nay 35%"
+        }
       },
       "after": "Giá vốn 60k, cả lô tốn 2.000 × 60k = 120tr. Bán 150k, trừ phí sàn, ship, ads còn về túi khoảng 120k mỗi sản phẩm. Phải bán 120tr ÷ 120k = 1.000 sản phẩm, tức 1.000 ÷ 2.000 = **50%** lô, mới thu lại đủ tiền hàng. Hôm nay mới 35%: lô này vẫn đang ăn tiền của shop."
     },
@@ -53,10 +108,21 @@
         "chart": {
           "type": "compare",
           "unit": "%",
-          "labels": ["Sau 30 ngày", "Sau 60 ngày"],
+          "labels": [
+            "Sau 30 ngày",
+            "Sau 60 ngày"
+          ],
           "items": [
-            ["Mã áo thun basic", 45, 78],
-            ["Mã áo in theo trend", 30, 38]
+            [
+              "Mã áo thun basic",
+              45,
+              78
+            ],
+            [
+              "Mã áo in theo trend",
+              30,
+              38
+            ]
           ]
         },
         "body": [

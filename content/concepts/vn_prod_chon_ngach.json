@@ -6,14 +6,31 @@
   "code": "Chọn ngách hẹp",
   "vi_name": "Tiêu chí chọn ngách hẹp (Niche Selection)",
   "definition": "Năm tiêu chí để chấm một ngách hẹp trước khi vào: đủ hẹp để tay to chưa vào nhưng đủ hấp dẫn về sau, margin ban đầu tốt, thuận theo chính sách chung, hợp năng lực lõi, và huy động được nguồn lực rẻ.",
-  "aliases": ["chọn ngách", "niche selection", "khe cửa hẹp"],
-  "related": ["vn_prod_hero_sku", "vn_fin_cm1", "vn_fin_net_profit", "vn_str_zero_to_one"],
+  "aliases": [
+    "chọn ngách",
+    "niche selection",
+    "khe cửa hẹp"
+  ],
+  "related": [
+    "vn_prod_hero_sku",
+    "vn_fin_cm1",
+    "vn_fin_net_profit",
+    "vn_str_zero_to_one"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khung theo sách Ecom Truyền Kỳ (mục khe cửa hẹp cho SME, Seller; mục Bài học chung: Chọn ngách; mục Ecom đi lên nhờ khai phá nhu cầu mới): năm đặc tính của cửa hẹp." },
+  "basis": {
+    "type": "custom",
+    "note": "Khung theo sách Ecom Truyền Kỳ (mục khe cửa hẹp cho SME, Seller; mục Bài học chung: Chọn ngách; mục Ecom đi lên nhờ khai phá nhu cầu mới): năm đặc tính của cửa hẹp."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 3149-3168, mục khe cửa hẹp; dòng 3925-3927, mục Bài học chung: Chọn ngách; dòng 2680-2684, mục Ecom đi lên nhờ khai phá các nhu cầu và trải nghiệm mới" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 3149-3168, mục khe cửa hẹp; dòng 3925-3927, mục Bài học chung: Chọn ngách; dòng 2680-2684, mục Ecom đi lên nhờ khai phá các nhu cầu và trải nghiệm mới"
+    }
+  ],
   "lesson": {
     "subtitle": "Ngách này có đáng để mình dồn mấy năm vào không?",
     "intro": [
@@ -25,11 +42,26 @@
       "chart": {
         "type": "steps",
         "items": [
-          ["Đủ hẹp, đủ hấp dẫn", "Ông lớn chưa vào ngay, nhưng tương lai đủ hấp dẫn để khi họ quan tâm sẽ hợp tác hoặc mua lại."],
-          ["Margin ban đầu tốt", "Bắt buộc margin tốt mới làm, vì năm đầu có quá nhiều biến số. Margin có thể giảm dần khi cạnh tranh tăng."],
-          ["Thuận chính sách chung", "Đi cùng hướng chính sách của Nhà nước, không đặt cược vào vùng mập mờ."],
-          ["Hợp năng lực lõi", "Trả lời được mình giỏi nhất cái gì và dồn trọn vào đó."],
-          ["Huy động được nguồn lực rẻ", "Nhân sự, hạ tầng, đối tác, vốn: có đường lấy được với giá tốt."]
+          [
+            "Đủ hẹp, đủ hấp dẫn",
+            "Ông lớn chưa vào ngay, nhưng tương lai đủ hấp dẫn để khi họ quan tâm sẽ hợp tác hoặc mua lại."
+          ],
+          [
+            "Margin ban đầu tốt",
+            "Bắt buộc margin tốt mới làm, vì năm đầu có quá nhiều biến số. Margin có thể giảm dần khi cạnh tranh tăng."
+          ],
+          [
+            "Thuận chính sách chung",
+            "Đi cùng hướng chính sách của Nhà nước, không đặt cược vào vùng mập mờ."
+          ],
+          [
+            "Hợp năng lực lõi",
+            "Trả lời được mình giỏi nhất cái gì và dồn trọn vào đó."
+          ],
+          [
+            "Huy động được nguồn lực rẻ",
+            "Nhân sự, hạ tầng, đối tác, vốn: có đường lấy được với giá tốt."
+          ]
         ]
       },
       "after": "Ngách nảy sinh liên tục, chỉ cần nhìn, hiểu và vào nhanh. Tiêu chí 2 và 4 là hai cái không được thiếu: margin mỏng thì một cú sốc năm đầu là gục, ngoài năng lực lõi thì không làm tốt hơn ai được."
@@ -39,16 +71,38 @@
         "title": "Ngách nằm ở ô nào",
         "chart": {
           "type": "matrix",
-          "x": ["Tay to chưa vào", "Tay to đã vào"],
-          "y": ["Margin tốt", "Margin mỏng"],
+          "x": [
+            "Tay to chưa vào",
+            "Tay to đã vào"
+          ],
+          "y": [
+            "Margin tốt",
+            "Margin mỏng"
+          ],
           "cells": [
             [
-              { "title": "Cửa hẹp đáng vào", "text": "Vào nhanh, xây dịch vụ đi kèm và rào cản cộng đồng, con người.", "tone": "good" },
-              { "title": "Cạnh tranh bằng khác biệt", "text": "Chỉ vào khi có điểm làm tốt hơn rõ ràng, không đua giá.", "tone": "mid" }
+              {
+                "title": "Cửa hẹp đáng vào",
+                "text": "Vào nhanh, xây dịch vụ đi kèm và rào cản cộng đồng, con người.",
+                "tone": "good"
+              },
+              {
+                "title": "Cạnh tranh bằng khác biệt",
+                "text": "Chỉ vào khi có điểm làm tốt hơn rõ ràng, không đua giá.",
+                "tone": "mid"
+              }
             ],
             [
-              { "title": "Cân nhắc", "text": "Chưa ai vào có khi vì không có tiền. Tính kỹ trước khi vào.", "tone": "mid" },
-              { "title": "Tránh", "text": "Tay to có lợi thế dòng tiền và quy mô, seller nhỏ khó sống.", "tone": "bad" }
+              {
+                "title": "Cân nhắc",
+                "text": "Chưa ai vào có khi vì không có tiền. Tính kỹ trước khi vào.",
+                "tone": "mid"
+              },
+              {
+                "title": "Tránh",
+                "text": "Tay to có lợi thế dòng tiền và quy mô, seller nhỏ khó sống.",
+                "tone": "bad"
+              }
             ]
           ]
         },

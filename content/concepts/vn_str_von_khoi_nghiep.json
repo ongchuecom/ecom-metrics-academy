@@ -6,14 +6,32 @@
   "code": "Vốn khởi nghiệp tối thiểu",
   "vi_name": "Ngân sách vốn khởi nghiệp Ecom tối thiểu (Startup Capital Budget)",
   "definition": "Bảng dự toán số tiền tối thiểu cần có trước khi ra làm Ecom riêng, chia theo từng khoản: hàng có chứng từ, giấy tờ pháp lý, content, vận hành, ads và tiền dự phòng. Tác giả ước tính khoảng 500tr cho 4 đến 6 tháng đầu.",
-  "aliases": ["vốn khởi nghiệp Ecom", "dự toán vốn khởi nghiệp", "startup capital budget"],
-  "related": ["vn_fin_cash_runway", "vn_str_zero_to_one", "vn_fin_breakeven_rev", "vn_fin_opex_ratio", "vn_fin_vat_input_ratio"],
+  "aliases": [
+    "vốn khởi nghiệp Ecom",
+    "dự toán vốn khởi nghiệp",
+    "startup capital budget"
+  ],
+  "related": [
+    "vn_fin_cash_runway",
+    "vn_str_zero_to_one",
+    "vn_fin_breakeven_rev",
+    "vn_fin_opex_ratio",
+    "vn_fin_vat_input_ratio"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khung theo sách Ecom Truyền Kỳ (mục vốn khởi nghiệp Ecom gấp 10 lần trước): ước tính 500tr chia sáu khoản, kèm phương án khi chỉ có 50-100tr." },
+  "basis": {
+    "type": "custom",
+    "note": "Khung theo sách Ecom Truyền Kỳ (mục vốn khởi nghiệp Ecom gấp 10 lần trước): ước tính 500tr chia sáu khoản, kèm phương án khi chỉ có 50-100tr."
+  },
   "risk": "high",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 3083-3099, mục vốn để khởi nghiệp Ecom đã gấp 10 lần cách đây vài năm" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 3083-3099, mục vốn để khởi nghiệp Ecom đã gấp 10 lần cách đây vài năm"
+    }
+  ],
   "lesson": {
     "subtitle": "Cần bao nhiêu tiền thì mới nên nghỉ việc ra làm Ecom riêng?",
     "intro": [
@@ -26,12 +44,32 @@
         "type": "bars",
         "unit": "tr",
         "items": [
-          ["Hàng có hóa đơn, chứng từ, kiểm định", 100],
-          ["Giấy phép, thuế, kế toán, hóa đơn điện tử, chữ ký số", 50],
-          ["Content, video, branding, kênh", 100],
-          ["Văn phòng, kho, thiết bị, nhân sự (4 tháng)", 100],
-          ["Ads, KOC, booking tới khi đủ số liệu", 100, "focus"],
-          ["Dự phòng", 50, "keep"]
+          [
+            "Hàng có hóa đơn, chứng từ, kiểm định",
+            100
+          ],
+          [
+            "Giấy phép, thuế, kế toán, hóa đơn điện tử, chữ ký số",
+            50
+          ],
+          [
+            "Content, video, branding, kênh",
+            100
+          ],
+          [
+            "Văn phòng, kho, thiết bị, nhân sự (4 tháng)",
+            100
+          ],
+          [
+            "Ads, KOC, booking tới khi đủ số liệu",
+            100,
+            "focus"
+          ],
+          [
+            "Dự phòng",
+            50,
+            "keep"
+          ]
         ]
       },
       "after": "Cộng lại: 100tr + 50tr + 100tr + 100tr + 100tr + 50tr = **500tr**. Khoản vận hành 100tr cho 4 tháng tức 100tr ÷ 4 = 25tr/tháng, và đó là khi CEO không nhận lương. Nếu 6 tháng vẫn chưa lãi thì phải dự trù thêm 300tr đến 500tr nữa để gồng."
@@ -42,11 +80,26 @@
         "chart": {
           "type": "steps",
           "items": [
-            ["Liệt kê đủ sáu khoản", "Hàng, pháp lý, content, vận hành, ads, dự phòng. Thiếu khoản nào là khoản đó sẽ đội lên sau."],
-            ["Tính chi phí cố định mỗi tháng", "Văn phòng, kho, nhân sự, phần mềm. Nhân với số tháng dự kiến chưa có lãi."],
-            ["Đặt mốc số liệu cho ads", "Bao nhiêu tiền ads thì đủ dữ liệu để biết sản phẩm có bán được không."],
-            ["Cộng thêm tiền gồng", "Dự trù thêm nếu sau 6 tháng chưa lãi; không có thì phải biết vay ở đâu."],
-            ["So với tiền đang có", "Thiếu thì chưa ra làm riêng, chọn đường đi nhẹ vốn hơn."]
+            [
+              "Liệt kê đủ sáu khoản",
+              "Hàng, pháp lý, content, vận hành, ads, dự phòng. Thiếu khoản nào là khoản đó sẽ đội lên sau."
+            ],
+            [
+              "Tính chi phí cố định mỗi tháng",
+              "Văn phòng, kho, nhân sự, phần mềm. Nhân với số tháng dự kiến chưa có lãi."
+            ],
+            [
+              "Đặt mốc số liệu cho ads",
+              "Bao nhiêu tiền ads thì đủ dữ liệu để biết sản phẩm có bán được không."
+            ],
+            [
+              "Cộng thêm tiền gồng",
+              "Dự trù thêm nếu sau 6 tháng chưa lãi; không có thì phải biết vay ở đâu."
+            ],
+            [
+              "So với tiền đang có",
+              "Thiếu thì chưa ra làm riêng, chọn đường đi nhẹ vốn hơn."
+            ]
           ]
         },
         "body": [

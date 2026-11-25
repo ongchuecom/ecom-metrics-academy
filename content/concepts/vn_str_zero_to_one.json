@@ -6,14 +6,30 @@
   "code": "Từ 0 lên 1",
   "vi_name": "Từ 0 lên 1 (ngưỡng One khi khởi nghiệp)",
   "definition": "Ngưỡng khởi nghiệp qua giai đoạn bấp bênh: việc kinh doanh tạo ra thu nhập ổn định gấp đôi mức lương nếu đi làm thuê. Phần chênh đó là đệm cho những sự cố không đoán trước.",
-  "aliases": ["ngưỡng One", "0 lên 1", "zero to one"],
-  "related": ["vn_fin_net_profit", "vn_fin_cash_runway", "vn_fin_breakeven_rev"],
+  "aliases": [
+    "ngưỡng One",
+    "0 lên 1",
+    "zero to one"
+  ],
+  "related": [
+    "vn_fin_net_profit",
+    "vn_fin_cash_runway",
+    "vn_fin_breakeven_rev"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Khởi nghiệp tinh gọn): One là thu nhập gấp đôi đi làm thuê. Không trùng với khái niệm Zero to One của Peter Thiel (tạo ra thứ hoàn toàn mới)." },
+  "basis": {
+    "type": "custom",
+    "note": "Khái niệm theo sách Ecom Truyền Kỳ (mục Khởi nghiệp tinh gọn): One là thu nhập gấp đôi đi làm thuê. Không trùng với khái niệm Zero to One của Peter Thiel (tạo ra thứ hoàn toàn mới)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-19-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "mục Khởi nghiệp tinh gọn, phần Tăng trưởng từ 0 lên 1: có lãi và bền vững" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "mục Khởi nghiệp tinh gọn, phần Tăng trưởng từ 0 lên 1: có lãi và bền vững"
+    }
+  ],
   "lesson": {
     "subtitle": "Khởi nghiệp bao giờ mới gọi là qua được giai đoạn bấp bênh?",
     "intro": [
@@ -22,25 +38,78 @@
     ],
     "breakdown": {
       "title": "Lương đi làm 20tr thì shop phải bán bao nhiêu",
-      "chart": { "type": "bars", "unit": "tr", "items": [["Lương nếu đi làm thuê", 20], ["Ngưỡng One (gấp đôi)", 40, "focus"], ["Doanh thu cần, Net margin 8%", 500, "keep"]] },
+      "chart": {
+        "type": "bars",
+        "unit": "tr",
+        "items": [
+          [
+            "Lương nếu đi làm thuê",
+            20
+          ],
+          [
+            "Ngưỡng One (gấp đôi)",
+            40,
+            "focus"
+          ],
+          [
+            "Doanh thu cần, Net margin 8%",
+            500,
+            "keep"
+          ]
+        ]
+      },
       "after": "Cần 40tr lãi ròng mỗi tháng. Shop có Net margin (lãi ròng trên doanh thu) 8% thì doanh thu phải đạt 40tr ÷ 8% = **500tr/tháng**. Net margin chỉ 5% thì cần 40tr ÷ 5% = 800tr, xa hơn nhiều."
     },
     "sections": [
       {
         "title": "Bốn thứ đưa mình lên One",
-        "chart": { "type": "steps", "items": [
-          ["Tri thức sâu một mảng", "Hiểu thật kỹ một lĩnh vực, một sản phẩm hoặc một phân khúc khách."],
-          ["Quan hệ", "Có các đầu mối chất lượng: xưởng, kho, đối tác; làm việc có uy tín và có quy tắc."],
-          ["Vốn", "Có sẵn dòng vốn, và biết chỗ vay nhanh khi cần: gia đình, bạn bè, ngân hàng."],
-          ["Sức khỏe và tinh thần", "Đủ vững để đánh đường dài, vì 1–3 năm là chuyện bình thường."]
-        ] },
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Tri thức sâu một mảng",
+              "Hiểu thật kỹ một lĩnh vực, một sản phẩm hoặc một phân khúc khách."
+            ],
+            [
+              "Quan hệ",
+              "Có các đầu mối chất lượng: xưởng, kho, đối tác; làm việc có uy tín và có quy tắc."
+            ],
+            [
+              "Vốn",
+              "Có sẵn dòng vốn, và biết chỗ vay nhanh khi cần: gia đình, bạn bè, ngân hàng."
+            ],
+            [
+              "Sức khỏe và tinh thần",
+              "Đủ vững để đánh đường dài, vì 1–3 năm là chuyện bình thường."
+            ]
+          ]
+        },
         "body": [
           "Năm đầu tiên nên coi là năm xây đội, miễn không lỗ là được. Đừng bị cuốn theo các kèo thắng nhanh hay kênh làm ăn lãi cao, những thứ đó không dành cho số đông."
         ]
       },
       {
         "title": "Tới One rồi thì đo gì tiếp",
-        "chart": { "type": "compare", "unit": "tr", "labels": ["Năm 1", "Năm 3"], "items": [["Lãi ròng mỗi tháng", 15, 45], ["Lương đi làm tương đương", 20, 22]] },
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Năm 1",
+            "Năm 3"
+          ],
+          "items": [
+            [
+              "Lãi ròng mỗi tháng",
+              15,
+              45
+            ],
+            [
+              "Lương đi làm tương đương",
+              20,
+              22
+            ]
+          ]
+        },
         "body": [
           "Năm 1 lãi ròng 15tr, còn thấp hơn lương đi làm 20tr. Năm 3 lãi ròng 45tr, gấp hơn 2 lần mức lương 22tr, là đã qua One. Từ đây mới tính tới mở rộng, vì có đệm để chịu rủi ro."
         ]

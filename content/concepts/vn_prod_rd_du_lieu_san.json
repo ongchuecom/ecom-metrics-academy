@@ -6,14 +6,30 @@
   "code": "R&D từ dữ liệu sàn",
   "vi_name": "Quy trình R&D sản phẩm dựa trên dữ liệu sàn",
   "definition": "Quy trình sáu bước để ra sản phẩm mới: đọc dữ liệu bán chạy trên sàn, lắng nghe mạng xã hội, tìm khoảng trống thị trường, chọn một hướng, định lượng xem bán được bao nhiêu, rồi làm thử và bán thử trước khi bán thật.",
-  "aliases": ["quy trình R&D sản phẩm", "R&D sản phẩm Ecom"],
-  "related": ["vn_prod_hero_sku", "vn_prod_landed_cost", "vn_prod_defect_rate", "vn_prod_lead_time"],
+  "aliases": [
+    "quy trình R&D sản phẩm",
+    "R&D sản phẩm Ecom"
+  ],
+  "related": [
+    "vn_prod_hero_sku",
+    "vn_prod_landed_cost",
+    "vn_prod_defect_rate",
+    "vn_prod_lead_time"
+  ],
   "playbook_refs": [],
-  "basis": { "type": "custom", "note": "Khung theo sách Ecom Truyền Kỳ (mục R&D và giữ vị thế sản phẩm; mục Rèn giũa kỹ năng R&D sản phẩm): quy trình chung từ dữ liệu sàn, social listening, khoảng trống thị trường tới bán thử." },
+  "basis": {
+    "type": "custom",
+    "note": "Khung theo sách Ecom Truyền Kỳ (mục R&D và giữ vị thế sản phẩm; mục Rèn giũa kỹ năng R&D sản phẩm): quy trình chung từ dữ liệu sàn, social listening, khoảng trống thị trường tới bán thử."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 1750-1758, mục Sản phẩm bây giờ cạnh tranh và copy khắp nơi thì làm sao để R&D; dòng 2282-2284, mục Rèn giũa kỹ năng R&D sản phẩm" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1750-1758, mục Sản phẩm bây giờ cạnh tranh và copy khắp nơi thì làm sao để R&D; dòng 2282-2284, mục Rèn giũa kỹ năng R&D sản phẩm"
+    }
+  ],
   "lesson": {
     "subtitle": "Tìm sản phẩm mới thế nào để không nhập về rồi bán y chang người khác?",
     "intro": [
@@ -25,12 +41,30 @@
       "chart": {
         "type": "steps",
         "items": [
-          ["Đọc dữ liệu sàn", "Dùng tool phân tích sàn tìm sản phẩm bán chạy và doanh số trong ngành quan tâm. Mổ xẻ brand top đầu: làm tốt gì, chưa tốt gì, khách khen chê từ khóa nào."],
-          ["Lắng nghe mạng xã hội", "Dùng social listening để thấy trend và nhu cầu mới phát sinh."],
-          ["Tìm khoảng trống", "Ghép dữ liệu thị trường với quan sát để thấy ngách hàng chưa ai làm tốt."],
-          ["Chọn một hướng", "Chọn ra một hướng tiềm năng, không ôm cùng lúc nhiều hướng."],
-          ["Lập phương án và định lượng", "Mình làm tốt hơn ở điểm nào, và bán được bao nhiêu mỗi tháng."],
-          ["Làm thử, bán thử", "Mô tả sản phẩm, thiết kế bao bì, sản xuất thử, bán thử, xin giấy phép, đặt tên. Số liệu tích cực mới bán thật."]
+          [
+            "Đọc dữ liệu sàn",
+            "Dùng tool phân tích sàn tìm sản phẩm bán chạy và doanh số trong ngành quan tâm. Mổ xẻ brand top đầu: làm tốt gì, chưa tốt gì, khách khen chê từ khóa nào."
+          ],
+          [
+            "Lắng nghe mạng xã hội",
+            "Dùng social listening để thấy trend và nhu cầu mới phát sinh."
+          ],
+          [
+            "Tìm khoảng trống",
+            "Ghép dữ liệu thị trường với quan sát để thấy ngách hàng chưa ai làm tốt."
+          ],
+          [
+            "Chọn một hướng",
+            "Chọn ra một hướng tiềm năng, không ôm cùng lúc nhiều hướng."
+          ],
+          [
+            "Lập phương án và định lượng",
+            "Mình làm tốt hơn ở điểm nào, và bán được bao nhiêu mỗi tháng."
+          ],
+          [
+            "Làm thử, bán thử",
+            "Mô tả sản phẩm, thiết kế bao bì, sản xuất thử, bán thử, xin giấy phép, đặt tên. Số liệu tích cực mới bán thật."
+          ]
         ]
       },
       "after": "Bước 5 là bước hay bị bỏ qua nhất. Không định lượng được thì không biết nên đặt lô bao nhiêu, và không biết khi nào gọi là bán thử thành công."
@@ -41,10 +75,22 @@
         "chart": {
           "type": "funnel",
           "items": [
-            ["Sản phẩm bán chạy trong ngành", 50],
-            ["Có điểm brand top làm chưa tốt", 12],
-            ["Mình làm tốt hơn được", 4],
-            ["Đủ số để làm thử", 1]
+            [
+              "Sản phẩm bán chạy trong ngành",
+              50
+            ],
+            [
+              "Có điểm brand top làm chưa tốt",
+              12
+            ],
+            [
+              "Mình làm tốt hơn được",
+              4
+            ],
+            [
+              "Đủ số để làm thử",
+              1
+            ]
           ]
         },
         "body": [

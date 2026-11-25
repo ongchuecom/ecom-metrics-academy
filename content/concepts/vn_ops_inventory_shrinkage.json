@@ -6,15 +6,36 @@
   "code": "Hao hụt tồn kho",
   "vi_name": "Tỷ lệ hao hụt tồn kho (Inventory Shrinkage)",
   "definition": "Phần hàng có trên sổ sách nhưng không còn trong kho khi kiểm kê: mất, hỏng, nhập thiếu, xuất không ghi. Tính bằng % trên lượng hoặc giá trị tồn theo sổ, để biết kho đang rò rỉ bao nhiêu tiền.",
-  "aliases": ["shrinkage", "thất thoát kho", "lệch kiểm kê", "hao hụt kho"],
-  "related": ["vn_ops_picking_error", "vn_ops_dio", "vn_ops_dead_stock", "vn_ops_warehouse_cost_per_order", "vn_fin_gmroi"],
+  "aliases": [
+    "shrinkage",
+    "thất thoát kho",
+    "lệch kiểm kê",
+    "hao hụt kho"
+  ],
+  "related": [
+    "vn_ops_picking_error",
+    "vn_ops_dio",
+    "vn_ops_dead_stock",
+    "vn_ops_warehouse_cost_per_order",
+    "vn_fin_gmroi"
+  ],
   "playbook_refs": [],
-  "formula": { "readable": "(Tồn theo sổ − Tồn kiểm kê thực tế) ÷ Tồn theo sổ × 100%" },
-  "basis": { "type": "standard", "note": "Khái niệm chuẩn (Inventory Shrinkage)." },
+  "formula": {
+    "readable": "(Tồn theo sổ − Tồn kiểm kê thực tế) ÷ Tồn theo sổ × 100%"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Inventory Shrinkage)."
+  },
   "risk": "normal",
-  "review": "draft",
+  "review": "approved",
   "batch": "2026-11-24-a",
-  "sources": [{ "title": "Sách Ecom Truyền Kỳ", "note": "dòng 2203, mục hệ thống quy trình mô tả cặn kẽ; dòng 2452-2456, mục Kế toán, Dòng tiền, Kho vận" }],
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 2203, mục hệ thống quy trình mô tả cặn kẽ; dòng 2452-2456, mục Kế toán, Dòng tiền, Kho vận"
+    }
+  ],
   "lesson": {
     "subtitle": "Sổ ghi còn 12.000 cái, đếm thật chỉ còn 11.760, phần kia đi đâu?",
     "intro": [
@@ -27,25 +48,74 @@
       "expr": {
         "label": "Hao hụt",
         "eq": [
-          { "label": "Xuất không ghi sổ", "dir": "down" },
+          {
+            "label": "Xuất không ghi sổ",
+            "dir": "down"
+          },
           "+",
-          { "label": "Nhập sai số lượng", "dir": "down" },
+          {
+            "label": "Nhập sai số lượng",
+            "dir": "down"
+          },
           "+",
-          { "label": "Thất lạc, mất", "dir": "down" },
+          {
+            "label": "Thất lạc, mất",
+            "dir": "down"
+          },
           "+",
-          { "id": "vn_ops_picking_error", "label": "Hỏng, nhầm trong kho", "dir": "down" }
+          {
+            "id": "vn_ops_picking_error",
+            "label": "Hỏng, nhầm trong kho",
+            "dir": "down"
+          }
         ]
       }
     },
     "breakdown": {
       "title": "Bóc 240 sản phẩm bị hụt",
-      "chart": { "type": "bars", "unit": "cái", "items": [["Xuất không ghi sổ (quà tặng, mẫu KOC, đổi hàng)", 90, "focus"], ["Nhập thiếu so với phiếu", 60], ["Thất lạc, mất", 50], ["Hỏng khi lưu kho", 40]] },
+      "chart": {
+        "type": "bars",
+        "unit": "cái",
+        "items": [
+          [
+            "Xuất không ghi sổ (quà tặng, mẫu KOC, đổi hàng)",
+            90,
+            "focus"
+          ],
+          [
+            "Nhập thiếu so với phiếu",
+            60
+          ],
+          [
+            "Thất lạc, mất",
+            50
+          ],
+          [
+            "Hỏng khi lưu kho",
+            40
+          ]
+        ]
+      },
       "after": "Cộng lại 90 + 60 + 50 + 40 = 240. Hơn một phần ba (90 cái) không phải bị trộm, mà là hàng lấy ra gửi KOC, tặng khách, đổi size mà không ai ghi phiếu. Giá vốn 50k thì 240 cái là 240 × 50k = **12tr**, trên kho trị giá 12.000 × 50k = 600tr."
     },
     "sections": [
       {
         "title": "Siết quy trình thì hụt giảm bao nhiêu",
-        "chart": { "type": "compare", "unit": "tr", "labels": ["Trước", "Sau khi siết"], "items": [["Hàng hụt mỗi tháng", 12, 3]] },
+        "chart": {
+          "type": "compare",
+          "unit": "tr",
+          "labels": [
+            "Trước",
+            "Sau khi siết"
+          ],
+          "items": [
+            [
+              "Hàng hụt mỗi tháng",
+              12,
+              3
+            ]
+          ]
+        },
         "body": [
           "Shop giả định áp ba việc: mọi hàng ra khỏi kho đều phải có phiếu, kể cả mẫu KOC; nhập hàng đếm đối chiếu phiếu trước khi ký nhận; kiểm kê xoay vòng mỗi tuần một nhóm SKU (mã hàng). Hao hụt từ 2% xuống 0,5%, tức 600tr × 0,5% = 3tr mỗi tháng.",
           "Tiết kiệm 12tr − 3tr = 9tr mỗi tháng, chưa tính tiền không phải nhập bù, không bán âm kho, không hủy đơn vì tưởng còn hàng."
