@@ -1,0 +1,166 @@
+{
+  "id": "vn_prod_time_to_market",
+  "type": "metric",
+  "domain": "01_product_rd",
+  "topic": "chon-san-pham",
+  "code": "Time to Market",
+  "vi_name": "Thời gian ra thị trường (Time to Market)",
+  "definition": "Số ngày từ lúc chốt ý tưởng sản phẩm đến khi sản phẩm lên kệ và bán được đơn đầu tiên. Nó gồm cả làm mẫu, bao bì, giấy tờ, hàng về và làm nội dung, chứ không riêng thời gian xưởng giao hàng.",
+  "aliases": [
+    "time to market",
+    "TTM",
+    "tốc độ ra sản phẩm"
+  ],
+  "related": [
+    "vn_prod_lead_time",
+    "vn_prod_hit_rate",
+    "vn_prod_rd_du_lieu_san",
+    "vn_prod_new_product_share",
+    "vn_prod_defect_rate"
+  ],
+  "playbook_refs": [],
+  "formula": {
+    "readable": "Time to Market = Ngày bán đơn đầu tiên − Ngày chốt ý tưởng = Làm mẫu + Bao bì, giấy tờ + Lead time hàng về + Làm nội dung, lên sàn (phần chạy song song chỉ tính một lần)"
+  },
+  "basis": {
+    "type": "standard",
+    "note": "Khái niệm chuẩn (Time to Market), đo cho từng sản phẩm mới."
+  },
+  "risk": "normal",
+  "review": "draft",
+  "batch": "2026-11-25-b",
+  "sources": [
+    {
+      "title": "Sách Ecom Truyền Kỳ",
+      "note": "dòng 1756, 1824, 1828, 3150: các bước mô tả sản phẩm, bao bì, sản xuất thử, bán thử, xin giấy phép; test sản phẩm khi đối thủ còn ngắm nghía; ra sản phẩm nhanh nhất có thể; tốc độ tung sản phẩm"
+    }
+  ],
+  "lesson": {
+    "subtitle": "Từ ý tưởng đến đơn đầu tiên mất bao nhiêu ngày, và mất ở khâu nào?",
+    "intro": [
+      "**Time to Market là số ngày từ lúc chốt ý tưởng đến khi sản phẩm bán được đơn đầu tiên.** Giả sử làm mẫu 15 ngày, bao bì và giấy tờ 20 ngày, hàng về 30 ngày, làm ảnh video và lên sàn 10 ngày: 15 + 20 + 30 + 10 = 75 ngày.",
+      "Lead time chỉ là khúc xưởng sản xuất và giao hàng. Time to Market là cả quãng đường. Shop test sản phẩm liên tục, ra hàng khi đối thủ còn đang ngắm nghía, là nhờ rút ngắn cả quãng này, chứ không chỉ ép xưởng giao nhanh."
+    ],
+    "tree": {
+      "title": "Time to Market gồm những khúc nào",
+      "note": "Lead time thường chỉ là một phần. Các khúc nội bộ như duyệt mẫu, bao bì, nội dung mới là chỗ dễ rút nhất.",
+      "expr": {
+        "label": "Time to Market",
+        "eq": [
+          {
+            "label": "Làm mẫu",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Bao bì, giấy tờ",
+            "dir": "down"
+          },
+          "+",
+          {
+            "id": "vn_prod_lead_time",
+            "label": "Lead time hàng về",
+            "dir": "down"
+          },
+          "+",
+          {
+            "label": "Nội dung, lên sàn",
+            "dir": "down"
+          }
+        ]
+      }
+    },
+    "breakdown": {
+      "title": "75 ngày đi đâu",
+      "chart": {
+        "type": "bars",
+        "unit": "ngày",
+        "items": [
+          [
+            "Làm mẫu, chỉnh mẫu",
+            15,
+            "keep"
+          ],
+          [
+            "Bao bì, giấy tờ",
+            20,
+            "focus"
+          ],
+          [
+            "Sản xuất, hàng về",
+            30,
+            "keep"
+          ],
+          [
+            "Ảnh, video, lên sàn",
+            10,
+            "focus"
+          ]
+        ]
+      },
+      "after": "Phần xưởng chỉ có 30 ngày, tức 30 ÷ 75 = 40%. Còn 75 − 30 = **45 ngày** là việc của chính mình. Bao bì, giấy tờ và nội dung hoàn toàn có thể làm song song trong lúc xưởng sản xuất."
+    },
+    "sections": [
+      {
+        "title": "Nhanh hơn 30 ngày đáng bao nhiêu đơn",
+        "chart": {
+          "type": "compare",
+          "unit": "ngày",
+          "labels": [
+            "Ra hàng sau 75 ngày",
+            "Ra hàng sau 45 ngày"
+          ],
+          "items": [
+            [
+              "Ngày chờ ra hàng",
+              75,
+              45
+            ],
+            [
+              "Ngày còn bán khi sản phẩm đang nóng",
+              45,
+              75
+            ]
+          ]
+        },
+        "body": [
+          "Giả sử một sản phẩm theo trend bán tốt trong 120 ngày tính từ lúc mình thấy nó. Ra hàng sau 75 ngày thì còn 120 − 75 = 45 ngày bán. Ra hàng sau 45 ngày thì còn 120 − 45 = 75 ngày.",
+          "Mỗi ngày bán 40 đơn: 45 × 40 = 1.800 đơn so với 75 × 40 = 3.000 đơn. Chưa kể người vào trước thường có giá tốt hơn và đánh giá sớm hơn người vào sau."
+        ]
+      },
+      {
+        "title": "Rút ngắn mà không làm ẩu",
+        "chart": {
+          "type": "steps",
+          "items": [
+            [
+              "Ghi ngày từng khúc",
+              "Mỗi sản phẩm mới có một dòng: ngày chốt ý tưởng, duyệt mẫu, đặt xưởng, hàng về, đơn đầu tiên."
+            ],
+            [
+              "Chạy song song",
+              "Chụp ảnh, quay video từ mẫu đã duyệt, làm bao bì trong lúc xưởng sản xuất."
+            ],
+            [
+              "Chuẩn bị sẵn phần lặp lại",
+              "Mẫu bao bì, mẫu trang bán, bộ giấy tờ cho cùng nhóm hàng làm một lần dùng nhiều lần."
+            ],
+            [
+              "Bán thử lô nhỏ",
+              "Ra một lô nhỏ để có đơn sớm, số liệu tốt mới đặt lô lớn."
+            ]
+          ]
+        },
+        "body": [
+          "Giữ nguyên khâu kiểm mẫu và giấy tờ bắt buộc. Rút ngắn bằng cách bỏ kiểm mẫu thì ra hàng nhanh hơn vài ngày nhưng lỗi cả lô thì mất hết."
+        ]
+      }
+    ],
+    "mistakes": [
+      "Chỉ đo lead time của xưởng, không biết phần lớn số ngày nằm ở khâu nội bộ.",
+      "Làm tuần tự: đợi hàng về mới đi chụp ảnh, viết nội dung, làm trang bán.",
+      "Đua tốc độ bằng cách bỏ kiểm mẫu, để rồi lỗi hàng loạt và phải làm lại từ đầu."
+    ],
+    "remember": "Time to Market là cả quãng từ ý tưởng đến đơn đầu tiên; phần dễ rút nhất thường nằm trong nhà mình, không phải ở xưởng."
+  }
+}
