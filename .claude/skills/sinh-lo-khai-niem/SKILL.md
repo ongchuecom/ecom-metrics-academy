@@ -83,6 +83,7 @@ Ghi chú các trường:
 - Giữ nguyên thuật ngữ quen dùng (ROAS, CPA, MVP, KOC…), không Việt hóa gượng.
 - Không chèn "Ông chú Ecom", "A1demy" vào bài.
 - Không bịa số liệu thị trường, không bịa trích dẫn. Số tham khảo chỉ đưa khi nguồn có.
+- **Sách và bài viết là nguồn ví dụ, không phải chân lý.** Định nghĩa và công thức theo chuẩn chung của ngành; sách gọi khác hoặc tính sai thì viết theo cách đúng, không chép theo. Trong bài không viết kiểu "Sách nói rõ…", "Sách viết thẳng…" để làm căn cứ; ví dụ lấy từ sách thì kể như một ví dụ ("Ví dụ một shop…"). Mốc tham khảo (ROAS 4–6x, bỏ giỏ 65–75%…) chỉ là mốc tham khảo, tùy ngành và mô hình, không đưa thành chuẩn phải đạt. Nguồn gốc ghi ở `sources`, không ghi trong lời bài.
 - Thuật ngữ (`term`) được ngắn: 1 đoạn intro, 1 biểu đồ hoặc 1 mục, phần nhớ một câu.
 
 **Sinh song song cho lô lớn:** chia đề cử thành nhóm 8–12 bài theo chủ đề. Mỗi nhóm giao một agent, kèm:

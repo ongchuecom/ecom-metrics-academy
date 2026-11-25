@@ -103,6 +103,7 @@ Khẩu vị bắt buộc:
 - Mọi con số trong ví dụ phải cộng trừ khớp nhau; tự kiểm lại phép tính trước khi lưu.
 - Tên thương hiệu "Ông chú Ecom" không chèn vào bài.
 - Không bịa số liệu thị trường. Số tham khảo chỉ đưa khi bài viết có, và ghi rõ lấy từ bài viết.
+- Bài viết là nguồn ví dụ, không phải chân lý: định nghĩa và công thức theo chuẩn chung; bài viết gọi sai hoặc tính sai thì viết theo cách đúng. Mốc trong bài viết chỉ là mốc tham khảo, tùy ngành.
 
 ## Bước 5. Nạp, kiểm, đẩy
 
