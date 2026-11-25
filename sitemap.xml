@@ -80,7 +80,9 @@
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/ho-kinh-doanh-hay-cong-ty/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/interest-coverage/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/operating-margin/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/phi-thanh-toan-ty-gia/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/loi-nhuan-va-tien-that/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/tang-truong-doanh-thu/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/roe/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/lai-man-hinh/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/s-m-doanh-thu/</loc></url>
@@ -126,6 +128,7 @@
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/churn-rate/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/cohort-retention/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/complaint-rate/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/cost-to-serve/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ltv-cac/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/nps/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/purchase-frequency/</loc></url>
@@ -148,9 +151,12 @@
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/ban-dung-gia/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/phuong-trinh-doanh-thu/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/store-cvr/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/tang-truong-kep/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/thi-phan-trong-ngach/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/mrr/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/doanh-so-ngach/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/so-don-moi-ngay-can-dat/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/boi-so-dinh-gia/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/von-khoi-nghiep-toi-thieu/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/khai-niem/tu-0-len-1/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chi-so/ai-chat-drop-off/</loc></url>
@@ -189,6 +195,7 @@
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chu-de/quy-trinh-quan-tri/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chu-de/khoi-nghiep-tinh-gon/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chu-de/mo-hinh-kinh-doanh/</loc></url>
+  <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/chu-de/goi-von-ma/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/playbook/01-phi-san-hoan-hang-lai-that/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/playbook/02-dong-tien-ket-von/</loc></url>
   <url><loc>https://ongchuecom.github.io/ecom-metrics-academy/playbook/03-thue-hoa-don-dau-vao-chi-phi-co-dinh/</loc></url>
